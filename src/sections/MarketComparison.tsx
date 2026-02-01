@@ -95,6 +95,54 @@ function GradientBar({
   const leftLabel = isLowerBetter ? 'High (Worse)' : 'Low (Worse)';
   const rightLabel = isLowerBetter ? 'Low (Better)' : 'High (Better)';
 
+  const Marker = ({
+    pos,
+    shape,
+    colorClass,
+    labelText,
+    valueText,
+    zClass,
+  }: {
+    pos: number;
+    shape: 'circle' | 'square' | 'diamond' | 'triangle';
+    colorClass: string;
+    labelText: string;
+    valueText: string;
+    zClass?: string;
+  }) => {
+    const base = 'absolute top-1/2 -translate-y-1/2 -translate-x-1/2';
+
+    const node =
+      shape === 'circle' ? (
+        <div className={`w-4 h-4 rounded-full border-2 border-white shadow-lg ${colorClass}`} />
+      ) : shape === 'square' ? (
+        <div className={`w-4 h-4 border-2 border-white shadow-lg ${colorClass}`} />
+      ) : shape === 'diamond' ? (
+        <div className={`w-4 h-4 border-2 border-white shadow-lg rotate-45 ${colorClass}`} />
+      ) : (
+        <div className="relative w-4 h-4">
+          <div
+            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[60%] w-0 h-0 border-l-[7px] border-r-[7px] border-b-[12px] border-l-transparent border-r-transparent ${colorClass}`}
+          />
+        </div>
+      );
+
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className={`${base} ${zClass ?? ''}`} style={{ left: `${pos}%` }}>
+            {node}
+          </div>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="bg-slate-900 border border-slate-700">
+          <p className="text-xs text-slate-300">
+            <span className="font-semibold text-white">{labelText}</span>: {valueText}
+          </p>
+        </TooltipContent>
+      </Tooltip>
+    );
+  };
+
 
   return (
     <TooltipProvider>
@@ -123,7 +171,7 @@ function GradientBar({
         </div>
 
         {/* Gradient Bar Container */}
-        <div className="relative mt-6 mb-28">
+        <div className="relative mt-6 mb-12">
           {/* Scale Labels */}
           <div className="flex justify-between text-xs text-slate-500 mb-2">
             <span>{leftLabel}</span>
@@ -132,85 +180,50 @@ function GradientBar({
 
           {/* Gradient Bar */}
           <div className={`h-3 rounded-full ${gradientClass} relative overflow-visible`}>
-            {/* Company Marker */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="absolute top-1/2 -translate-y-1/2 z-30"
-              style={{ left: `${companyPos}%` }}
-            >
-              <div className="relative">
-                <div className="w-5 h-5 bg-sky-500 rounded-full border-2 border-white shadow-lg -translate-x-1/2" />
-                <div className="absolute top-7 left-1/2 -translate-x-1/2 whitespace-nowrap">
-                  <div className="bg-sky-500 text-white text-xs px-2 py-1 rounded font-medium shadow-lg">
-                    You: {formatFn(companyValue)}
-                  </div>
-                  <div className="w-0 h-0 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-sky-500 absolute -top-1 left-1/2 -translate-x-1/2 rotate-180" />
-                </div>
-              </div>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
+              <Marker
+                pos={companyPos}
+                shape="circle"
+                colorClass="bg-sky-500"
+                labelText="You"
+                valueText={formatFn(companyValue)}
+                zClass="z-30"
+              />
             </motion.div>
-
-            {/* Market Marker - Shortest Line */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="absolute top-1/2 transform -translate-y-1/2 z-10"
-              style={{ left: `${marketPos}%` }}
-            >
-              <div className="relative flex flex-col items-center">
-                {/* Line downwards */}
-                <div className="w-0.5 h-8 bg-purple-400/50 translate-y-2" />
-                {/* Label */}
-                <div className="absolute top-10 whitespace-nowrap text-center">
-                  <div className="text-[10px] text-purple-400 font-medium leading-none mb-0.5">Market</div>
-                  <div className="text-[10px] text-purple-300 leading-none">{formatFn(marketStats.median)}</div>
-                </div>
-              </div>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
+              <Marker
+                pos={marketPos}
+                shape="triangle"
+                colorClass="border-b-purple-400"
+                labelText="Market (median)"
+                valueText={formatFn(marketStats.median)}
+                zClass="z-20"
+              />
             </motion.div>
-
-            {/* Sector Marker - Medium Line */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="absolute top-1/2 transform -translate-y-1/2 z-20"
-              style={{ left: `${sectorPos}%` }}
-            >
-              <div className="relative flex flex-col items-center">
-                {/* Line downwards - longer */}
-                <div className="w-0.5 h-16 bg-teal-400/50 translate-y-6" />
-                {/* Label */}
-                <div className="absolute top-[4.5rem] whitespace-nowrap text-center">
-                  <div className="text-[10px] text-teal-400 font-medium leading-none mb-0.5">Sector</div>
-                  <div className="text-[10px] text-teal-300 leading-none">{formatFn(sectorStats.median)}</div>
-                </div>
-              </div>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+              <Marker
+                pos={sectorPos}
+                shape="square"
+                colorClass="bg-teal-500"
+                labelText="Sector (median)"
+                valueText={formatFn(sectorStats.median)}
+                zClass="z-20"
+              />
             </motion.div>
-
-            {/* Peer Marker - Longest Line */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="absolute top-1/2 transform -translate-y-1/2 z-20"
-              style={{ left: `${peerPos}%` }}
-            >
-              <div className="relative flex flex-col items-center">
-                {/* Line downwards - longest */}
-                <div className="w-0.5 h-24 bg-amber-400/50 translate-y-10" />
-                {/* Label */}
-                <div className="absolute top-[6.5rem] whitespace-nowrap text-center">
-                  <div className="text-[10px] text-amber-400 font-medium leading-none mb-0.5">Peers</div>
-                  <div className="text-[10px] text-amber-300 leading-none">{formatFn(peerStats.median)}</div>
-                </div>
-              </div>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
+              <Marker
+                pos={peerPos}
+                shape="diamond"
+                colorClass="bg-amber-500"
+                labelText="Peers (median)"
+                valueText={formatFn(peerStats.median)}
+                zClass="z-20"
+              />
             </motion.div>
           </div>
 
           {/* Range Labels */}
-          <div className="flex justify-between text-[10px] text-slate-600 mt-8">
+          <div className="flex justify-between text-[10px] text-slate-600 mt-6">
             <span>{isLowerBetter ? 'Max' : 'Min'}: {formatFn(isLowerBetter ? rangeMax : rangeMin)}</span>
             <span>{isLowerBetter ? 'Min' : 'Max'}: {formatFn(isLowerBetter ? rangeMin : rangeMax)}</span>
           </div>
@@ -271,20 +284,22 @@ export function MarketComparison() {
       {/* Legend */}
       <motion.div variants={itemVariants} className="flex flex-wrap gap-4 text-xs">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-sky-500" />
-          <span className="text-slate-400">Your Company</span>
+          <div className="w-3 h-3 rounded-full bg-sky-500 border border-white/60" />
+          <span className="text-slate-400">You</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-0.5 bg-amber-400" />
-          <span className="text-slate-400">Peer Median</span>
+          <div className="w-3 h-3 bg-amber-500 border border-white/60 rotate-45" />
+          <span className="text-slate-400">Peers (median)</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-0.5 bg-teal-400" />
-          <span className="text-slate-400">Sector Median</span>
+          <div className="w-3 h-3 bg-teal-500 border border-white/60" />
+          <span className="text-slate-400">Sector (median)</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-0.5 bg-purple-400" />
-          <span className="text-slate-400">Market Median</span>
+          <div className="relative w-3 h-3">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[65%] w-0 h-0 border-l-[5px] border-r-[5px] border-b-[9px] border-l-transparent border-r-transparent border-b-purple-400" />
+          </div>
+          <span className="text-slate-400">Market (median)</span>
         </div>
         <div className="ml-auto text-slate-600 text-[10px] italic">
           Scale shows 5th-95th percentile of market values to exclude outliers

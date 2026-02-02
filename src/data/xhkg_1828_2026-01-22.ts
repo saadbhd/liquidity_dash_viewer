@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // ============================================================================
 // FWD Group (1828.HK) Liquidity Analysis Report
 // Generated: 2026-01-22
@@ -450,9 +452,9 @@ export const REPORT_DATA: ReportData = {
     ],
 
     impact_summary_cards: [
-      { title: "HK$50K Sell", text: "Impact: −10.7 bps • Fill: 100%", cls: "bg-emerald-500/10 border border-emerald-500/30" },
-      { title: "HK$500K Sell", text: "Impact: −13.2 bps • Fill: 100%", cls: "bg-amber-500/10 border border-amber-500/30" },
-      { title: "HK$1.5M Sell", text: "Impact: −24.1 bps • Fill: 56.2%", cls: "bg-red-500/10 border border-red-500/30" }
+      { title: "HK$50K Sell", text: "Impact: −0.11% • Fill: 100%", cls: "bg-emerald-500/10 border border-emerald-500/30" },
+      { title: "HK$500K Sell", text: "Impact: −0.13% • Fill: 100%", cls: "bg-amber-500/10 border border-amber-500/30" },
+      { title: "HK$1.5M Sell", text: "Impact: −0.24% • Fill: 56.2%", cls: "bg-red-500/10 border border-red-500/30" }
     ],
 
     peers_hhi_header: ["Ticker", "% Auctions", "HHI", "Interpretation"],

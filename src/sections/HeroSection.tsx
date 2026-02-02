@@ -22,16 +22,37 @@ const itemVariants = {
 };
 
 export function HeroSection() {
-  const { meta, labels, content } = useReport();
+  const { meta, labels, content, theme, series } = useReport();
   const metrics = content.exec_metrics;
 
   // Map metrics to user-friendly titles
   const titleMap: Record<string, string> = {
     'Liquidity Score (PCA)': labels.metric_liquidity_score,
+    'Liquidity Score': labels.metric_liquidity_score,
     'Trading Cost (Spread)': labels.metric_spread,
     'Capacity (ADV)': labels.metric_adv,
+    'Average Traded Volume': labels.metric_adv,
     'Price Moves: Company vs Market': labels.metric_drivers
   };
+
+  const healthText = theme.badges.header_health.text; // e.g. "Liquidity Health: ABOVE AVG"
+  const healthLabel = healthText.includes(':') ? healthText.split(':').slice(1).join(':').trim() : healthText;
+  const healthColor =
+    /ABOVE|GOOD|EXCELLENT/i.test(healthLabel)
+      ? 'text-emerald-300'
+      : /BELOW|POOR/i.test(healthLabel)
+        ? 'text-red-300'
+        : 'text-amber-300';
+
+  const liquidityMetric =
+    metrics.find((m) => (titleMap[m.title] ?? m.title) === labels.metric_liquidity_score) ?? metrics[0];
+  const rankMatch = liquidityMetric?.subtext?.match(/Rank\s+(\d+)\s*\/\s*(\d+)/i);
+  const universeRank = rankMatch ? `#${rankMatch[1]}/${rankMatch[2]}` : `—/${meta.universe_total}`;
+
+  const dailyTradesTile = content.liq_tiles.find((t) => t.title.toLowerCase().includes('daily trades'));
+  const dailyTrades =
+    dailyTradesTile?.value ??
+    (Number.isFinite(series.market_comparison.company.trades) ? `${Math.round(series.market_comparison.company.trades)}` : '—');
 
   const getTrendIcon = (value: string) => {
     if (value.includes('ABOVE') || value.includes('TIGHT') || value.includes('EXCELLENT')) return <TrendingUp className="w-4 h-4" />;
@@ -66,7 +87,7 @@ export function HeroSection() {
             <div className="h-px flex-1 bg-gradient-to-r from-slate-700 to-transparent" />
           </div>
           <h2 className="text-2xl lg:text-3xl font-bold text-white">
-            Liquidity Health: <span className="gradient-text">Above Average</span>
+            Liquidity Health: <span className={healthColor}>{healthLabel}</span>
           </h2>
           <p className="text-slate-400 max-w-2xl">
             {labels.exec_subtitle} for {meta.company} ({meta.ticker}).
@@ -173,9 +194,9 @@ export function HeroSection() {
         >
           {[
             { label: 'Market Cap', value: meta.market_cap_display, icon: DollarSign },
-            { label: 'Universe Rank', value: `#462/${meta.universe_total}`, icon: BarChart3 },
+            { label: 'Universe Rank', value: universeRank, icon: BarChart3 },
             { label: 'Peer Count', value: meta.peers_count, icon: PieChart },
-            { label: 'Daily Trades', value: '~1,386', icon: Activity },
+            { label: 'Daily Trades', value: dailyTrades, icon: Activity },
           ].map((stat) => (
             <div key={stat.label} className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800/50">
               <stat.icon className="w-4 h-4 text-slate-500" />

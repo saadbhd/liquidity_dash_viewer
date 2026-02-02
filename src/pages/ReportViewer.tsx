@@ -171,6 +171,17 @@ export function ReportViewer() {
         );
     }
 
+    const headerHealth = reportData.theme.badges.header_health;
+    const headerHealthTextColor = headerHealth.textColor ?? 'text-slate-300';
+    const headerHealthBg = headerHealth.bg ?? 'bg-slate-700/40';
+    const headerHealthBorder = headerHealthTextColor.includes('red')
+        ? 'border-red-500/30'
+        : headerHealthTextColor.includes('emerald')
+            ? 'border-emerald-500/30'
+            : headerHealthTextColor.includes('amber')
+                ? 'border-amber-500/30'
+                : 'border-slate-700/40';
+
     return (
         <ReportProvider report={reportData}>
             <div className="min-h-screen bg-[#0a0c10]">
@@ -283,8 +294,8 @@ export function ReportViewer() {
                         <div className="flex items-center gap-4">
                             <span className="text-xs text-slate-500">Market: {reportData.meta.market}</span>
                             <span className="text-xs text-slate-500">Sector: {reportData.meta.sector}</span>
-                            <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-                                <span className="text-xs font-medium text-emerald-400">{reportData.theme.badges.header_health.text}</span>
+                            <div className={`px-3 py-1.5 ${headerHealthBg} border ${headerHealthBorder} rounded-full`}>
+                                <span className={`text-xs font-medium ${headerHealthTextColor}`}>{reportData.theme.badges.header_health.text}</span>
                             </div>
                         </div>
                     </header>

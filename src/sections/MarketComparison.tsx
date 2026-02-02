@@ -42,6 +42,8 @@ interface GradientBarProps {
   insight: string;
   formatFn?: (val: number) => string;
   glossaryKey?: keyof typeof GLOSSARY;
+  sectorMarkerMode?: 'median' | 'range';
+  rangeMode?: 'market_p5p95' | 'sector_minmax';
 }
 
 function GradientBar({
@@ -52,15 +54,20 @@ function GradientBar({
   peerStats,
   insight,
   formatFn = (v) => v.toFixed(2),
-  glossaryKey
+  glossaryKey,
+  sectorMarkerMode = 'median',
+  rangeMode = 'market_p5p95',
 }: GradientBarProps) {
   const direction = marketStats.direction;
   const isLowerBetter = direction === 'lower_is_better';
 
-  // Use p5/p95 from marketStats for better range (avoids outlier compression)
-  // Fallback to sector range if p5/p95 not available
-  const rangeMin = marketStats.p5 ?? sectorStats.min;
-  const rangeMax = marketStats.p95 ?? sectorStats.max;
+  // Range controls the scale endpoints for marker placement + min/max labels.
+  // Default: use market p5/p95 to avoid outlier compression.
+  // ADV override: use sector min/max for a more sector-relevant scale.
+  const rangeMin =
+    rangeMode === 'sector_minmax' ? sectorStats.min : (marketStats.p5 ?? sectorStats.min);
+  const rangeMax =
+    rangeMode === 'sector_minmax' ? sectorStats.max : (marketStats.p95 ?? sectorStats.max);
 
   // Calculate position on the gradient (0% = left/bad, 100% = right/good)
   // For lower_is_better: INVERT so lower values appear on RIGHT (green)
@@ -81,7 +88,9 @@ function GradientBar({
   };
 
   const companyPos = calcPosition(companyValue);
-  const sectorPos = calcPosition(sectorStats.median);
+  const sectorMedianPos = calcPosition(sectorStats.median);
+  const sectorMinPos = calcPosition(sectorStats.min);
+  const sectorMaxPos = calcPosition(sectorStats.max);
   const peerPos = calcPosition(peerStats.median);
   const marketPos = calcPosition(marketStats.median);
 
@@ -143,6 +152,8 @@ function GradientBar({
     );
   };
 
+  const sectorRangeLeft = Math.min(sectorMinPos, sectorMaxPos);
+  const sectorRangeWidth = Math.max(0, Math.abs(sectorMaxPos - sectorMinPos));
 
   return (
     <TooltipProvider>
@@ -180,6 +191,20 @@ function GradientBar({
 
           {/* Gradient Bar */}
           <div className={`h-3 rounded-full ${gradientClass} relative overflow-visible`}>
+            {/* Sector min-max range (optional) */}
+            {sectorMarkerMode === 'range' && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.55 }}
+                className="absolute inset-0 pointer-events-none"
+              >
+                <div
+                  className="absolute top-0 h-full rounded-full bg-teal-500/25 border border-teal-400/35"
+                  style={{ left: `${sectorRangeLeft}%`, width: `${sectorRangeWidth}%` }}
+                />
+              </motion.div>
+            )}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
               <Marker
                 pos={companyPos}
@@ -200,16 +225,41 @@ function GradientBar({
                 zClass="z-20"
               />
             </motion.div>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
-              <Marker
-                pos={sectorPos}
-                shape="square"
-                colorClass="bg-teal-500"
-                labelText="Sector (median)"
-                valueText={formatFn(sectorStats.median)}
-                zClass="z-20"
-              />
-            </motion.div>
+            {sectorMarkerMode === 'median' ? (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+                <Marker
+                  pos={sectorMedianPos}
+                  shape="square"
+                  colorClass="bg-teal-500"
+                  labelText="Sector (median)"
+                  valueText={formatFn(sectorStats.median)}
+                  zClass="z-20"
+                />
+              </motion.div>
+            ) : (
+              <>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.62 }}>
+                  <Marker
+                    pos={sectorMinPos}
+                    shape="square"
+                    colorClass="bg-teal-600"
+                    labelText="Sector (min)"
+                    valueText={formatFn(sectorStats.min)}
+                    zClass="z-20"
+                  />
+                </motion.div>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.66 }}>
+                  <Marker
+                    pos={sectorMaxPos}
+                    shape="square"
+                    colorClass="bg-teal-400"
+                    labelText="Sector (max)"
+                    valueText={formatFn(sectorStats.max)}
+                    zClass="z-20"
+                  />
+                </motion.div>
+              </>
+            )}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
               <Marker
                 pos={peerPos}
@@ -302,7 +352,7 @@ export function MarketComparison() {
           <span className="text-slate-400">Market (median)</span>
         </div>
         <div className="ml-auto text-slate-600 text-[10px] italic">
-          Scale shows 5th-95th percentile of market values to exclude outliers
+          Scale shows 5th-95th percentile of market values to exclude outliers (ADV uses sector min/max)
         </div>
       </motion.div>
 
@@ -318,6 +368,8 @@ export function MarketComparison() {
             insight={marketInsights.adv.insight}
             formatFn={formatVolume}
             glossaryKey="adv"
+            sectorMarkerMode="median"
+            rangeMode="sector_minmax"
           />
         </motion.div>
 

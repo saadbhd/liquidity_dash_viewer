@@ -29,6 +29,12 @@ export function PerformancePanel() {
   const { labels, insights, series } = useReport();
   const { returns } = series;
   const { performance: perfInsights } = insights;
+  const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+  const axisTick = isDark ? '#94a3b8' : '#334155';
+  const axisLine = isDark ? '#334155' : '#cbd5e1';
+  const refZero = isDark ? '#475569' : '#cbd5e1';
+  const cursorFill = isDark ? 'rgba(51, 65, 85, 0.3)' : 'rgba(148, 163, 184, 0.22)';
+  const marketFill = isDark ? '#64748b' : '#334155'; // improved contrast in light mode
 
   // Prepare chart data
   const chartData = returns.map((r) => ({
@@ -43,7 +49,7 @@ export function PerformancePanel() {
     if (active && payload && payload.length) {
       return (
         <div className="chart-tooltip">
-          <p className="font-semibold text-white mb-2">{label}</p>
+          <p className="font-semibold text-foreground mb-2">{label}</p>
           {payload.map((entry, index) => (
             <p key={index} className="text-sm" style={{ color: entry.color }}>
               {entry.name}: {entry.value.toFixed(2)}%
@@ -70,12 +76,12 @@ export function PerformancePanel() {
             <TrendingUp className="w-5 h-5 text-emerald-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">{labels.perf_title}</h2>
-            <p className="text-sm text-slate-500">{labels.perf_subtitle}</p>
+            <h2 className="text-xl font-bold text-foreground">{labels.perf_title}</h2>
+            <p className="text-sm text-muted-foreground">{labels.perf_subtitle}</p>
           </div>
         </div>
-        <div className="px-3 py-1.5 bg-slate-800 rounded-full">
-          <span className="text-xs text-slate-400">Context</span>
+        <div className="px-3 py-1.5 bg-muted rounded-full border border-border/60">
+          <span className="text-xs text-muted-foreground">Context</span>
         </div>
       </motion.div>
 
@@ -115,24 +121,24 @@ export function PerformancePanel() {
             <BarChart data={chartData} margin={{ top: 20, right: 20, left: 0, bottom: 20 }}>
               <XAxis
                 dataKey="horizon"
-                tick={{ fill: '#64748b', fontSize: 12 }}
-                axisLine={{ stroke: '#334155' }}
+                tick={{ fill: axisTick, fontSize: 12 }}
+                axisLine={{ stroke: axisLine }}
                 tickLine={false}
               />
               <YAxis
-                tick={{ fill: '#64748b', fontSize: 11 }}
+                tick={{ fill: axisTick, fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(v) => `${v}%`}
               />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(51, 65, 85, 0.3)' }} />
+              <Tooltip content={<CustomTooltip />} cursor={{ fill: cursorFill }} />
               <Legend 
                 wrapperStyle={{ paddingTop: '20px' }}
                 iconType="circle"
               />
-              <ReferenceLine y={0} stroke="#475569" />
+              <ReferenceLine y={0} stroke={refZero} />
               <Bar dataKey="Stock" fill="#0ea5e9" radius={[4, 4, 0, 0]} maxBarSize={20} />
-              <Bar dataKey="Market" fill="#64748b" radius={[4, 4, 0, 0]} maxBarSize={20} />
+              <Bar dataKey="Market" fill={marketFill} radius={[4, 4, 0, 0]} maxBarSize={20} />
               <Bar dataKey="Sector" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={20} />
               <Bar dataKey="Peers" fill="#f59e0b" radius={[4, 4, 0, 0]} maxBarSize={20} />
             </BarChart>
@@ -146,8 +152,8 @@ export function PerformancePanel() {
           <div className="flex items-start gap-3">
             <TrendingDown className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
             <div>
-              <h4 className="text-sm font-semibold text-white mb-2">3-Month Performance Concern</h4>
-              <p className="text-sm text-slate-400 leading-relaxed">{perfInsights.three_month.insight}</p>
+              <h4 className="text-sm font-semibold text-foreground mb-2">3-Month Performance Concern</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">{perfInsights.three_month.insight}</p>
             </div>
           </div>
         </motion.div>
@@ -156,8 +162,8 @@ export function PerformancePanel() {
           <div className="flex items-start gap-3">
             <Lightbulb className="w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0" />
             <div>
-              <h4 className="text-sm font-semibold text-white mb-2">Key Takeaway</h4>
-              <p className="text-sm text-slate-400 leading-relaxed">{perfInsights.conclusion}</p>
+              <h4 className="text-sm font-semibold text-foreground mb-2">Key Takeaway</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">{perfInsights.conclusion}</p>
             </div>
           </div>
         </motion.div>

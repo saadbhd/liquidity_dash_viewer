@@ -140,7 +140,7 @@ export function ReportViewer() {
     // Loading State
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#0a0c10] flex items-center justify-center">
+            <div className="min-h-screen bg-background flex items-center justify-center">
                 <div className="text-center">
                     <Loader2 className="w-12 h-12 text-sky-500 animate-spin mx-auto mb-4" />
                     <p className="text-slate-400">Loading report...</p>
@@ -152,12 +152,12 @@ export function ReportViewer() {
     // Error State
     if (error || !reportData) {
         return (
-            <div className="min-h-screen bg-[#0a0c10] flex items-center justify-center">
+            <div className="min-h-screen bg-background flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <X className="w-8 h-8 text-red-500" />
                     </div>
-                    <h2 className="text-xl font-semibold text-white mb-2">Report Not Found</h2>
+                    <h2 className="text-xl font-semibold text-foreground mb-2">Report Not Found</h2>
                     <p className="text-slate-400 mb-6">{error || 'The requested report could not be loaded'}</p>
                     <Link
                         to="/"
@@ -184,7 +184,7 @@ export function ReportViewer() {
 
     return (
         <ReportProvider report={reportData}>
-            <div className="min-h-screen bg-[#0a0c10]">
+            <div className="min-h-screen bg-background">
                 {/* Background gradient overlay */}
                 <div className="fixed inset-0 bg-gradient-radial pointer-events-none" />
 
@@ -192,20 +192,20 @@ export function ReportViewer() {
                 <div className="lg:hidden fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800/50">
                     <div className="flex items-center justify-between px-4 py-3">
                         <div className="flex items-center gap-3">
-                            <Link to="/" className="p-2 text-slate-400 hover:text-white">
+                            <Link to="/" className="p-2 text-slate-400 hover:text-foreground">
                                 <ArrowLeft className="w-5 h-5" />
                             </Link>
                             <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-blue-600 rounded-lg flex items-center justify-center">
                                 <span className="text-white font-bold text-sm">{reportData.meta.ticker}</span>
                             </div>
                             <div>
-                                <h1 className="text-sm font-semibold text-white">{reportData.meta.company}</h1>
+                                <h1 className="text-sm font-semibold text-foreground">{reportData.meta.company}</h1>
                                 <p className="text-xs text-slate-500">Liquidity Report</p>
                             </div>
                         </div>
                         <button
                             onClick={() => setSidebarOpen(!sidebarOpen)}
-                            className="p-2 text-slate-400 hover:text-white"
+                            className="p-2 text-slate-400 hover:text-foreground"
                         >
                             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                         </button>
@@ -224,7 +224,7 @@ export function ReportViewer() {
                         >
                             {/* Logo */}
                             <div className="p-6 border-b border-slate-800/50">
-                                <Link to="/" className="flex items-center gap-2 text-slate-400 hover:text-white text-sm mb-4 transition-colors">
+                                <Link to="/" className="flex items-center gap-2 text-slate-400 hover:text-foreground text-sm mb-4 transition-colors">
                                     <ArrowLeft className="w-4 h-4" />
                                     <span>All Reports</span>
                                 </Link>
@@ -233,7 +233,7 @@ export function ReportViewer() {
                                         <span className="text-white font-bold">{reportData.meta.ticker}</span>
                                     </div>
                                     <div>
-                                        <h1 className="font-semibold text-white">{reportData.meta.company}</h1>
+                                        <h1 className="font-semibold text-foreground">{reportData.meta.company}</h1>
                                         <p className="text-xs text-slate-500">{reportData.meta.asof_date}</p>
                                     </div>
                                 </div>

@@ -7,6 +7,33 @@
 
 @layer base {
   :root {
+    /* Light theme (default) */
+    /* Soft slate canvas (not pure white) */
+    --background: 220 25% 97%;
+    --foreground: 222 47% 11%;
+    /* Slightly tinted cards for depth */
+    --card: 220 25% 99%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 20% 95%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 220 20% 95%;
+    --muted-foreground: 215 18% 38%;
+    --accent: 220 20% 95%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 16% 88%;
+    --input: 220 16% 88%;
+    --ring: 217 91% 60%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark theme */
     --background: 220 20% 4%;
     --foreground: 210 40% 98%;
     --card: 220 18% 6%;
@@ -26,7 +53,6 @@
     --border: 220 15% 15%;
     --input: 220 15% 15%;
     --ring: 217 91% 60%;
-    --radius: 0.5rem;
   }
 }
 
@@ -66,18 +92,34 @@
 
 /* Glass effect */
 .glass {
-  background: rgba(15, 23, 42, 0.7);
+  background: hsl(var(--card) / 0.7);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(51, 65, 85, 0.4);
+  border: 1px solid hsl(var(--border) / 0.6);
 }
 
 .glass-panel {
-  background: linear-gradient(145deg, rgba(23, 28, 40, 0.9) 0%, rgba(15, 20, 30, 0.95) 100%);
-  border: 1px solid rgba(51, 65, 85, 0.3);
+  background: linear-gradient(145deg, hsl(var(--card) / 0.92) 0%, hsl(var(--card) / 0.85) 100%);
+  border: 1px solid hsl(var(--border) / 0.7);
+  backdrop-filter: blur(16px);
   box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.3),
-    0 2px 4px -1px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    0 4px 6px -1px rgba(0, 0, 0, 0.12),
+    0 2px 4px -1px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Radial background glow (used by pages as overlay) */
+.bg-gradient-radial {
+  background:
+    radial-gradient(1100px circle at 15% 0%, rgba(56, 189, 248, 0.22), transparent 55%),
+    radial-gradient(900px circle at 85% 10%, rgba(168, 85, 247, 0.14), transparent 55%),
+    radial-gradient(900px circle at 50% 90%, rgba(16, 185, 129, 0.10), transparent 60%);
+}
+
+.dark .bg-gradient-radial {
+  background:
+    radial-gradient(1200px circle at 15% 0%, rgba(56, 189, 248, 0.18), transparent 55%),
+    radial-gradient(1000px circle at 85% 10%, rgba(168, 85, 247, 0.12), transparent 60%),
+    radial-gradient(1000px circle at 50% 90%, rgba(16, 185, 129, 0.08), transparent 65%);
 }
 
 /* Glow effects */
@@ -133,40 +175,42 @@
 
 /* Chart tooltip */
 .chart-tooltip {
-  @apply bg-slate-900/95 border border-slate-700 rounded-lg p-3 shadow-2xl;
+  @apply rounded-lg p-3 shadow-2xl;
+  background: hsl(var(--popover) / 0.95);
+  border: 1px solid hsl(var(--border) / 0.8);
 }
 
 /* Recharts tooltip text color fix */
 .recharts-tooltip-wrapper .recharts-default-tooltip {
-  color: #f1f5f9 !important;
+  color: hsl(var(--foreground)) !important;
 }
 
 .recharts-tooltip-wrapper .recharts-tooltip-label {
-  color: #f1f5f9 !important;
+  color: hsl(var(--foreground)) !important;
 }
 
 .recharts-tooltip-wrapper .recharts-tooltip-item {
-  color: #f1f5f9 !important;
+  color: hsl(var(--foreground)) !important;
 }
 
 /* Data grid */
 .data-grid {
   display: grid;
   gap: 1px;
-  background: rgba(51, 65, 85, 0.3);
+  background: hsl(var(--border) / 0.8);
 }
 
 .data-grid > * {
-  background: rgba(15, 23, 42, 0.8);
+  background: hsl(var(--card) / 0.85);
 }
 
 /* Navigation item */
 .nav-item {
-  @apply flex items-center gap-3 px-4 py-3 text-sm text-slate-400 rounded-lg transition-all duration-200;
+  @apply flex items-center gap-3 px-4 py-3 text-sm text-muted-foreground rounded-lg transition-all duration-200;
 }
 
 .nav-item:hover {
-  @apply text-slate-200 bg-slate-800/50;
+  @apply text-foreground bg-accent/60;
 }
 
 .nav-item.active {
@@ -176,7 +220,7 @@
 /* Big number display */
 .big-number {
   @apply text-5xl lg:text-6xl font-bold tracking-tighter;
-  background: linear-gradient(180deg, #f8fafc 0%, #94a3b8 100%);
+  background: linear-gradient(180deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -227,15 +271,15 @@
 }
 
 .data-table th {
-  @apply px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 bg-slate-900/80;
+  @apply px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground bg-card border-b border-border;
 }
 
 .data-table td {
-  @apply px-4 py-3 text-slate-300 border-t border-slate-800/50;
+  @apply px-4 py-3 text-foreground/80 border-t border-border;
 }
 
 .data-table tr:hover td {
-  @apply bg-slate-800/30;
+  @apply bg-accent/40;
 }
 
 /* Animation classes */

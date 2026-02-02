@@ -40,9 +40,14 @@ export function ShortSellingAndLending() {
   if (meta.market !== 'XSES' || !short?.data_available) return null;
 
   const shortInsights = insights.short_selling;
+  const sbl = short.sbl_pool;
+  const showSbl = !!sbl?.valid;
 
   const ratioToPct = (v: number) => (v <= 1 ? v * 100 : v);
   const fmtPct = (v: number, digits = 2) => `${ratioToPct(v).toFixed(digits)}%`;
+  const fmtNum = (n: number) => new Intl.NumberFormat('en-US').format(n);
+  const fmtSgd = (n: number, digits = 1) =>
+    `S$${new Intl.NumberFormat('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(n)}`;
 
   const p3 = short.periods?.['3M']?.stats;
   const p6 = short.periods?.['6M']?.stats;
@@ -137,6 +142,19 @@ export function ShortSellingAndLending() {
           </div>
           <div className="space-y-3 text-sm text-slate-400 leading-relaxed">
             <p>{shortInsights?.overall ?? 'Short selling context is available for this report.'}</p>
+            {showSbl ? (
+              <div className="bg-slate-900/40 border border-slate-800 rounded-lg p-3">
+                <div className="flex items-center gap-2 mb-1 text-xs font-semibold text-slate-300">
+                  <Info className="w-3 h-3 text-amber-400" />
+                  SBL lending pool risk (if borrowed shares were sold)
+                </div>
+                <p className="text-xs text-slate-500">
+                  Pool size is {fmtNum(sbl!.lending_pool)} shares ({fmtSgd(sbl!.lending_pool_value, 1)}), which is{' '}
+                  {sbl!.pool_as_pct_adv.toFixed(1)}% of 20D ADV (~{sbl!.days_to_liquidate.toFixed(2)} days). Hypothetical full-pool sale
+                  impact: ~{(sbl!.estimated_impact_pct * 100).toFixed(2)}%. {sbl!.impact_interpretation ?? ''}
+                </p>
+              </div>
+            ) : null}
             <div className="bg-slate-900/40 border border-slate-800 rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1 text-xs font-semibold text-slate-300">
                 <Info className="w-3 h-3 text-sky-400" />
@@ -196,6 +214,59 @@ export function ShortSellingAndLending() {
           )}
         </motion.div>
       </div>
+
+      {/* SBL Lending Pool block (only when available) */}
+      {showSbl ? (
+        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-amber-500/50">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h3 className="text-sm font-semibold text-white">SBL Lending Pool (Borrow Availability)</h3>
+              <p className="text-xs text-slate-500">
+                This indicates how much stock is available for lending/borrowing and the potential liquidity overhang in a stress scenario.
+              </p>
+            </div>
+            <span className="text-xs px-2 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              {sbl!.liquidity_risk ?? 'SBL data available'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
+              <p className="text-xs text-slate-500 mb-2">Pool Size</p>
+              <p className="text-2xl font-bold text-white">{fmtNum(sbl!.lending_pool)}</p>
+              <p className="text-xs text-slate-500 mt-1">shares</p>
+            </div>
+
+            <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
+              <p className="text-xs text-slate-500 mb-2">Pool Value</p>
+              <p className="text-2xl font-bold text-white">{fmtSgd(sbl!.lending_pool_value, 1)}</p>
+              <p className="text-xs text-slate-500 mt-1">at latest price {sbl!.latest_price.toFixed(3)}</p>
+            </div>
+
+            <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
+              <p className="text-xs text-slate-500 mb-2">Lending / Borrowing Rate</p>
+              <p className="text-2xl font-bold text-white">
+                {sbl!.lending_rate_pct.toFixed(2)}% / {sbl!.borrowing_rate_pct.toFixed(2)}%
+              </p>
+              <p className="text-xs text-slate-500 mt-1">annualized</p>
+            </div>
+
+            <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
+              <p className="text-xs text-slate-500 mb-2">Pool vs ADV</p>
+              <p className="text-2xl font-bold text-white">{sbl!.pool_as_pct_adv.toFixed(1)}%</p>
+              <p className="text-xs text-slate-500 mt-1">{sbl!.days_to_liquidate.toFixed(2)} days to liquidate</p>
+            </div>
+          </div>
+
+          <div className="mt-4 bg-slate-900/40 border border-slate-800 rounded-lg p-3">
+            <p className="text-xs text-slate-500">
+              <span className="text-amber-400 font-semibold">Hypothetical impact:</span>{' '}
+              ~{(sbl!.estimated_impact_pct * 100).toFixed(2)}% if the entire pool was sold.{' '}
+              {sbl!.impact_interpretation ?? ''}
+            </p>
+          </div>
+        </motion.div>
+      ) : null}
 
       {/* Peaks table */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">

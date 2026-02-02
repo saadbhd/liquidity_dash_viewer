@@ -316,6 +316,22 @@ export interface ShortSelling {
     n_days_short_data: number;
     window_days: number;
   };
+  // Optional: Securities Borrowing & Lending (SBL) lending pool context (XSES).
+  // Present only when the pipeline finds an SBL pool mapping for the ticker.
+  sbl_pool?: {
+    valid: boolean;
+    lending_pool: number; // shares available
+    lending_pool_value: number; // SGD notional (latest_price * lending_pool)
+    latest_price: number;
+    lending_rate_pct: number;
+    borrowing_rate_pct: number;
+    pool_as_pct_adv: number; // % of 20D ADV
+    days_to_liquidate: number;
+    estimated_impact_pct: number; // e.g. 0.05 = 5%
+    liquidity_risk?: string;
+    impact_interpretation?: string;
+    timestamp?: string;
+  };
   periods: Record<
     string,
     {

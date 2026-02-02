@@ -55,9 +55,9 @@ export function LiquidityScore() {
       const data = payload[0].payload;
       return (
         <div className="chart-tooltip">
-          <p className="font-semibold text-white">{data.ticker}</p>
+          <p className="font-semibold text-foreground">{data.ticker}</p>
           <p className="text-sm text-sky-400">Score: {data.score.toFixed(1)}</p>
-          <p className="text-sm text-slate-400">ADV: {formatMoney(data.adv)}</p>
+          <p className="text-sm text-muted-foreground">ADV: {formatMoney(data.adv)}</p>
         </div>
       );
     }
@@ -79,8 +79,8 @@ export function LiquidityScore() {
             <Droplets className="w-5 h-5 text-sky-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">{labels.liq_title}</h2>
-            <p className="text-sm text-slate-500">{labels.liq_subtitle}</p>
+            <h2 className="text-xl font-bold text-foreground">{labels.liq_title}</h2>
+            <p className="text-sm text-muted-foreground">{labels.liq_subtitle}</p>
           </div>
         </div>
         <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
@@ -99,7 +99,7 @@ export function LiquidityScore() {
             >
               <div>
                 <p className="text-xs text-slate-500 mb-1">{tile.title}</p>
-                <p className="text-2xl font-bold text-white">{tile.value}</p>
+                <p className="text-2xl font-bold text-foreground">{tile.value}</p>
                 <p className="text-xs text-slate-500 mt-1">{tile.sub}</p>
               </div>
               <div className={`px-2 py-1 rounded-full text-xs font-medium ${tile.interp.cls}`}>
@@ -120,18 +120,18 @@ export function LiquidityScore() {
         {/* Chart Panel */}
         <motion.div variants={itemVariants} className="lg:col-span-2 glass-panel rounded-xl p-5">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
               <Users className="w-4 h-4 text-slate-500" />
               Peer Comparison
             </h3>
             <div className="flex items-center gap-4 text-xs">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded bg-sky-500" />
-                <span className="text-slate-400">{meta.ticker}</span>
+                <span className="text-muted-foreground">{meta.ticker}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded bg-slate-600" />
-                <span className="text-slate-400">Peers</span>
+                <span className="text-muted-foreground">Peers</span>
               </div>
             </div>
           </div>
@@ -177,7 +177,7 @@ export function LiquidityScore() {
 
       {/* Detailed Insights */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-        <h4 className="text-sm font-semibold text-white mb-4">Detailed Analysis</h4>
+        <h4 className="text-sm font-semibold text-foreground mb-4">Detailed Analysis</h4>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Strengths */}
           <div>
@@ -187,7 +187,7 @@ export function LiquidityScore() {
             </div>
             <ul className="space-y-2">
               {liquidityInsights.strengths.map((strength, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-sm text-slate-400">
+                <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 flex-shrink-0" />
                   {strength}
                 </li>
@@ -203,7 +203,7 @@ export function LiquidityScore() {
             </div>
             <ul className="space-y-2">
               {liquidityInsights.concerns.map((concern, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-sm text-slate-400">
+                <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 flex-shrink-0" />
                   {concern}
                 </li>
@@ -214,7 +214,7 @@ export function LiquidityScore() {
 
         {/* Peer Context */}
         <div className="mt-4 pt-4 border-t border-slate-800">
-          <p className="text-sm text-slate-400 leading-relaxed">{liquidityInsights.peer_context}</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">{liquidityInsights.peer_context}</p>
         </div>
       </motion.div>
     </motion.div>

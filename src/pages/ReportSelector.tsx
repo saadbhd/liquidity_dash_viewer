@@ -6,23 +6,27 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FileText, Calendar, Building2, TrendingUp, ArrowRight } from 'lucide-react';
 import { REPORTS_INDEX } from '@/data/reportsIndex';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export function ReportSelector() {
     return (
-        <div className="min-h-screen bg-[#0a0c10]">
+        <div className="min-h-screen bg-background">
             {/* Background gradient */}
             <div className="fixed inset-0 bg-gradient-radial pointer-events-none" />
 
             {/* Header */}
             <header className="relative z-10 border-b border-slate-800/50">
                 <div className="max-w-7xl mx-auto px-6 py-6">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between gap-4">
                         <div className="w-12 h-12 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-sky-500/20">
                             <FileText className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold text-white">Liquidity Reports</h1>
+                            <h1 className="text-2xl font-bold text-foreground">Liquidity Reports</h1>
                             <p className="text-sm text-slate-500">Select a report to view detailed analysis</p>
+                        </div>
+                        <div className="ml-auto">
+                            <ThemeToggle />
                         </div>
                     </div>
                 </div>
@@ -54,7 +58,7 @@ export function ReportSelector() {
                                     </div>
 
                                     {/* Company Info */}
-                                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-sky-400 transition-colors">
+                                    <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-sky-400 transition-colors">
                                         {report.company}
                                     </h3>
 

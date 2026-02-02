@@ -39,10 +39,10 @@ export function HeroSection() {
   const healthLabel = healthText.includes(':') ? healthText.split(':').slice(1).join(':').trim() : healthText;
   const healthColor =
     /ABOVE|GOOD|EXCELLENT/i.test(healthLabel)
-      ? 'text-emerald-300'
+      ? 'text-emerald-600 dark:text-emerald-300'
       : /BELOW|POOR/i.test(healthLabel)
-        ? 'text-red-300'
-        : 'text-amber-300';
+        ? 'text-red-600 dark:text-red-300'
+        : 'text-amber-600 dark:text-amber-300';
 
   const liquidityMetric =
     metrics.find((m) => (titleMap[m.title] ?? m.title) === labels.metric_liquidity_score) ?? metrics[0];
@@ -61,9 +61,9 @@ export function HeroSection() {
   };
 
   const getTrendColor = (cls: string) => {
-    if (cls.includes('good')) return 'text-emerald-400';
-    if (cls.includes('bad')) return 'text-red-400';
-    return 'text-amber-400';
+    if (cls.includes('good')) return 'text-emerald-600 dark:text-emerald-400';
+    if (cls.includes('bad')) return 'text-red-600 dark:text-red-400';
+    return 'text-amber-600 dark:text-amber-400';
   };
 
   const getBgColor = (cls: string) => {
@@ -86,10 +86,10 @@ export function HeroSection() {
             <span className="section-title">Executive Summary</span>
             <div className="h-px flex-1 bg-gradient-to-r from-slate-700 to-transparent" />
           </div>
-          <h2 className="text-2xl lg:text-3xl font-bold text-white">
+          <h2 className="text-2xl lg:text-3xl font-bold text-foreground">
             Liquidity Health: <span className={healthColor}>{healthLabel}</span>
           </h2>
-          <p className="text-slate-400 max-w-2xl">
+          <p className="text-muted-foreground max-w-2xl">
             {labels.exec_subtitle} for {meta.company} ({meta.ticker}).
             Data as of {meta.asof_date}.
           </p>
@@ -145,7 +145,7 @@ export function HeroSection() {
 
                 {/* Progress bar */}
                 <div className="mt-4">
-                  <div className="h-1 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="h-1 bg-muted rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${Math.min(metric.bar_pct, 100)}%` }}
@@ -172,14 +172,14 @@ export function HeroSection() {
               <Activity className="w-5 h-5 text-sky-400" />
             </div>
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-white mb-3">{labels.exec_takeaways_title}</h3>
+                    <h3 className="text-sm font-semibold text-foreground mb-3">{labels.exec_takeaways_title}</h3>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {content.exec_takeaways.map((takeaway, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <span className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center text-xs font-medium text-slate-400 flex-shrink-0">
+                          <span className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground flex-shrink-0">
                       {idx + 1}
                     </span>
-                    <p className="text-sm text-slate-400 leading-relaxed">{takeaway}</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{takeaway}</p>
                   </div>
                 ))}
               </div>
@@ -198,11 +198,11 @@ export function HeroSection() {
             { label: 'Peer Count', value: meta.peers_count, icon: PieChart },
             { label: 'Daily Trades', value: dailyTrades, icon: Activity },
           ].map((stat) => (
-            <div key={stat.label} className="flex items-center gap-3 p-3 rounded-lg bg-slate-900/50 border border-slate-800/50">
-              <stat.icon className="w-4 h-4 text-slate-500" />
+            <div key={stat.label} className="flex items-center gap-3 p-3 rounded-lg bg-card/60 border border-border/60">
+              <stat.icon className="w-4 h-4 text-muted-foreground" />
               <div>
-                <p className="text-xs text-slate-500">{stat.label}</p>
-                <p className="text-sm font-semibold text-slate-300">{stat.value}</p>
+                <p className="text-xs text-muted-foreground">{stat.label}</p>
+                <p className="text-sm font-semibold text-foreground">{stat.value}</p>
               </div>
             </div>
           ))}

@@ -33,7 +33,7 @@ export function Header() {
             
             {/* Company Info */}
             <div>
-              <h1 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
+              <h1 className="text-2xl lg:text-3xl font-bold text-foreground tracking-tight">
                 {meta.company}
               </h1>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-400 mt-1">

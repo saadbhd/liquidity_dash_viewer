@@ -51,7 +51,7 @@ export function TraderComposition() {
   type ViewMode = 'trades' | 'shares';
   const modes: { id: ViewMode; label: string; available: boolean }[] = [
     { id: 'trades', label: 'Trades', available: true },
-    { id: 'shares', label: 'Shares', available: !!hasQty },
+    { id: 'shares', label: 'Volume', available: !!hasQty },
   ];
   const availableModes = modes.filter((m) => m.available);
   const defaultMode: ViewMode = availableModes[0]?.id ?? 'trades';
@@ -189,7 +189,7 @@ export function TraderComposition() {
                 {hasQty ? (
                   <>
                     Compare <span className="font-semibold text-foreground">trade count</span> vs{' '}
-                    <span className="font-semibold text-foreground">shares</span>.
+                    <span className="font-semibold text-foreground">Volume</span>.
                   </>
                 ) : (
                   <>Trade-count split by trader type.</>
@@ -211,7 +211,7 @@ export function TraderComposition() {
             <div className="mb-4 rounded-lg border border-border/60 bg-card/50 p-3">
               <p className="text-xs text-muted-foreground">
                 <span className="font-semibold text-foreground">Reality check:</span> retail can be ~{compTrades.retail.toFixed(1)}% of trades
-                but only ~{compShares!.retail.toFixed(1)}% of shares. Institutions often look small by trade count, yet dominate volume.
+                but only ~{compShares!.retail.toFixed(1)}% of volume. Institutions often look small by trade count, yet dominate volume.
               </p>
             </div>
           ) : null}
@@ -246,7 +246,7 @@ export function TraderComposition() {
               {hasQty ? (
                 <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted-foreground">
                   <span className="rounded-full bg-muted px-2 py-0.5">Trades: {compTrades.retail.toFixed(1)}%</span>
-                  <span className="rounded-full bg-muted px-2 py-0.5">Shares: {compShares!.retail.toFixed(1)}%</span>
+                  <span className="rounded-full bg-muted px-2 py-0.5">Volume: {compShares!.retail.toFixed(1)}%</span>
                 </div>
               ) : null}
             </div>
@@ -280,7 +280,7 @@ export function TraderComposition() {
               {hasQty ? (
                 <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted-foreground">
                   <span className="rounded-full bg-muted px-2 py-0.5">Trades: {compTrades.mixed.toFixed(1)}%</span>
-                  <span className="rounded-full bg-muted px-2 py-0.5">Shares: {compShares!.mixed.toFixed(1)}%</span>
+                  <span className="rounded-full bg-muted px-2 py-0.5">Volume: {compShares!.mixed.toFixed(1)}%</span>
                 </div>
               ) : null}
             </div>
@@ -314,7 +314,7 @@ export function TraderComposition() {
               {hasQty ? (
                 <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted-foreground">
                   <span className="rounded-full bg-muted px-2 py-0.5">Trades: {compTrades.instit.toFixed(1)}%</span>
-                  <span className="rounded-full bg-muted px-2 py-0.5">Shares: {compShares!.instit.toFixed(1)}%</span>
+                  <span className="rounded-full bg-muted px-2 py-0.5">Volume: {compShares!.instit.toFixed(1)}%</span>
                 </div>
               ) : null}
             </div>
@@ -341,7 +341,7 @@ export function TraderComposition() {
             </div>
             <div className="hidden md:block">
               <p className="text-xs text-muted-foreground">Mode</p>
-              <p className="text-lg font-bold text-foreground">{mode === 'shares' ? 'Shares %' : 'Trades %'}</p>
+              <p className="text-lg font-bold text-foreground">{mode === 'shares' ? 'Volume %' : 'Trades %'}</p>
             </div>
           </div>
         </motion.div>
@@ -352,7 +352,7 @@ export function TraderComposition() {
             <h3 className="text-sm font-semibold text-foreground">Composition Over Time</h3>
             {hasQty ? (
               <div className="text-xs text-muted-foreground">
-                Tip: switch to <span className="font-semibold text-foreground">Shares</span> to see who actually moves volume.
+                Tip: switch to <span className="font-semibold text-foreground">Volume</span> to see who actually moves volume.
               </div>
             ) : null}
           </div>

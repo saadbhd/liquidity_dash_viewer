@@ -168,7 +168,7 @@ export const REPORT_DATA: ReportData = {
     impact_summary_subtitle:
       "Impact is measured from mid-price to simulated VWAP using the latest order book snapshot (single-day). Real results vary by day and by urgency.",
     exec_check_insight:
-      "Liquidity is solid for an SGX REIT, but spread is relatively wide versus peers. Modeled impact remains contained for S$100K–S$1M sells (~0.66–0.71%), rising to ~1.56% for S$2.5M.",
+      "Liquidity is adequate for an SGX REIT (ADV below peers); spread is relatively wide versus peers. Modeled impact remains contained for S$100K–S$1M sells (~0.66–0.71%), rising to ~1.56% for S$2.5M.",
 
     trader_composition_title: "Who's Trading Your Stock?",
     trader_composition_subtitle: "Breakdown of retail, mixed, and institutional trading",
@@ -246,8 +246,8 @@ export const REPORT_DATA: ReportData = {
         bar_pct: 80.8,
         color_value: "text-emerald-300",
         color_bar: "text-emerald-300",
-        subtext: "Rank 108/558 • Peer median: 81.9",
-        interpretation: { text: "ABOVE AVERAGE", cls: "interpretation-good", icon: "✓" }
+        subtext: "Rank 108/558 • Peer median: 81.9 (slightly below)",
+        interpretation: { text: "SLIGHTLY BELOW PEERS", cls: "interpretation-neutral", icon: "■" }
       },
       {
         title: "Trading Cost (Spread)",
@@ -276,7 +276,7 @@ export const REPORT_DATA: ReportData = {
         color_value: "text-amber-300",
         color_bar: "text-amber-300",
         subtext: "Peer median: 729.4K SGD • -8.7% vs peers",
-        interpretation: { text: "SOLID", cls: "interpretation-neutral", icon: "■" }
+        interpretation: { text: "BELOW PEERS", cls: "interpretation-neutral", icon: "■" }
       },
       {
         title: "What Drives Price Changes",
@@ -295,7 +295,7 @@ export const REPORT_DATA: ReportData = {
     ],
 
     exec_takeaways: [
-      "Liquidity score is strong (80.8/100; rank 108/558), but slightly below peer median — the biggest gap is spread (TS0U ~1.3% vs peers ~0.6%).",
+      "Liquidity score is respectable (80.8/100; rank 108/558) but slightly below peer median — the biggest gaps are spread (TS0U ~1.3% vs peers ~0.6%) and ADV (−8.7% vs peers).",
       "Execution impact is manageable for staged tickets: ~0.66% (S$100K), ~0.71% (S$1M), ~1.56% (S$2.5M), based on the latest order book snapshot.",
       "Short participation is very high (~31% average short ratio) and the SBL lending pool is large (~15.2 days of ADV). Treat this as a potential liquidity overhang in stress scenarios."
     ],
@@ -315,10 +315,11 @@ export const REPORT_DATA: ReportData = {
               ]
             },
             {
-              title: "Institutional-friendly execution guidance (reduce urgency trading)",
+              title: "Increase average traded volume through targeted outreach",
               bullets: [
-                "Promote limit-order usage and staged execution during peak liquidity windows (12:00, 17:00).",
-                "Use intraday OFI/L2 imbalance as an execution timing signal for desks."
+                "ADV is below peer median (−8.7%); targeted outreach to institutional and active traders can help grow daily flow.",
+                "Consider investor education, roadshows, or analyst coverage to improve visibility and trading interest.",
+                "Use peak liquidity windows (12:00, 17:00) and limit-order messaging to support staged execution once flow improves."
               ]
             }
           ]
@@ -355,7 +356,7 @@ export const REPORT_DATA: ReportData = {
               ]
             },
             {
-              title: "Establish a monthly liquidity dashboard",
+              title: "Establish monthly liquidity monitoring",
               bullets: [
                 "Track spread, ADV, trades/day, concentration (HHI), OFI/imbalance, short ratio, and SBL pool vs ADV.",
                 "Use peer benchmarking to keep the focus on what investors actually feel (friction and scalability)."
@@ -406,14 +407,15 @@ export const REPORT_DATA: ReportData = {
   insights: {
     liquidity: {
       overall:
-        "TS0U has solid liquidity for an SGX REIT, scoring 80.8/100 (rank 108/558). Activity is healthy (ADV ~S$666K/day; ~278 trades/day). The main weakness versus peers is spread: ~1.36% versus peer median ~0.61%.",
+        "TS0U has adequate liquidity for an SGX REIT, scoring 80.8/100 (rank 108/558) but slightly below peer median. Activity is healthy (~278 trades/day), but ADV is below peers (~S$666K vs peer median ~S$729K) and spread is the main weakness (~1.36% vs peer median ~0.61%).",
       strengths: [
         "Healthy trade count supports continuous price discovery",
-        "ADV is meaningful (S$666K/day), and a S$50K clip is only ~7–8% of ADV (generally manageable)",
+        "A S$50K clip is ~7–8% of ADV (manageable in size), though ADV itself is below peer median (−8.7%)",
         "Volatility is below the overall market median (~2.2%), reducing execution risk versus typical SGX stocks"
       ],
       concerns: [
         "Spread is high versus peers (~1.36% vs ~0.61%), increasing visible friction for investors",
+        "ADV is below peer median (−8.7%); peers AJBU and K71U have higher ADV and tighter spreads",
         "Turnover/velocity is low (~0.11%), implying shares change hands infrequently for a name of this size",
         "Short activity is structurally high (~31% average) — relevant for execution conditions and investor perception"
       ],
@@ -423,10 +425,10 @@ export const REPORT_DATA: ReportData = {
 
     market_comparison: {
       adv: {
-        insight: "ADV is ~S$665.6K/day — above sector median (~S$560K) but slightly below peer median (~S$729K).",
+        insight: "ADV is ~S$665.6K/day — above sector median (~S$560K) but below peer median (~S$729K, −8.7%). So versus direct comparables, traded volume is a relative weakness, not a strength.",
         vs_market: "Market median ADV is ~S$47.3K — TS0U sits in a more liquid tier than typical SGX stocks.",
         vs_sector: "Sector median ADV is ~S$560.4K — TS0U is above the sector typical.",
-        vs_peers: "Peer median ADV is ~S$729.4K — TS0U is modestly lower (−8.7%)."
+        vs_peers: "Peer median ADV is ~S$729.4K — TS0U is modestly lower (−8.7%); treat ADV as below peers."
       },
       spread: {
         insight: "Spread is ~1.36% — in-line with sector median (~1.4%) but worse than peer median (~0.6%).",
@@ -527,7 +529,7 @@ export const REPORT_DATA: ReportData = {
       level:
         "3M avg short ratio is ~30.7% (max ~73.6%). This is high versus most SGX equities and most peers.",
       correlation:
-        "Short% vs daily return correlation is weak to modest (+0.16) and unusual in sign. Treat it as context, not a prediction tool.",
+        "Short% vs daily return correlation is weak to modest (+0.16) and unusual in sign (shorts during up days?). Treat it as context, not a prediction tool.",
       trend:
         "Shorts have been covering slightly (−19% MoM), but recent 14-day activity is near historical (avg ~28.4%). The larger governance KPI is the SBL lending pool size versus ADV (~15.2 days), which represents a potential liquidity overhang.",
       peaks:
@@ -542,7 +544,7 @@ export const REPORT_DATA: ReportData = {
       kyle:
         "Kyle’s Lambda is ~0.58 bps per S$10K traded (from this snapshot), suggesting incremental impact is not extreme.",
       peer_context:
-        "TS0U’s 50K clip is ~7–8% of ADV (good), while several peers exceed 100% of ADV for the same clip (very difficult). This is a meaningful advantage, but spreads still need improvement."
+        "TS0U’s 50K clip is ~7–8% of ADV (manageable), while several peers exceed 100% of ADV for the same clip. That scalability is a plus, but ADV is still below peer median (−8.7%) and spreads need improvement."
     },
 
     intraday: {
@@ -1192,7 +1194,7 @@ export const REPORT_DATA: ReportData = {
       data_available: true,
       security_name: "OUEREIT",
       mapping: { ticker_to_security: "OUEREIT", confidence: "high" },
-      coverage: { n_days_short_data: 100, window_days: 182 },
+      coverage: { n_days_short_data: 88, window_days: 182 },
       sbl_pool: {
         valid: true,
         lending_pool: 29003024,
@@ -1214,11 +1216,11 @@ export const REPORT_DATA: ReportData = {
       },
       correlation: { valid: true, correlation: 0.1593109920610938, interpretation: "Positive - unusual (shorts during up days?)" },
       peaks: [
-        { date: "2024-12-26", short_ratio: 0.8454106280193237, return_pct: 0.0 },
-        { date: "2025-06-06", short_ratio: 0.8324655037750586, return_pct: 1.81818181818183 },
-        { date: "2024-08-29", short_ratio: 0.7454384932313125, return_pct: 0.0 },
         { date: "2026-01-02", short_ratio: 0.7360521098838856, return_pct: 0.0 },
-        { date: "2025-02-17", short_ratio: 0.7280059918188627, return_pct: -1.7857142857142905 }
+        { date: "2025-09-26", short_ratio: 0.6667966718668746, return_pct: 0.0 },
+        { date: "2025-11-26", short_ratio: 0.6591005216410546, return_pct: 0.0 },
+        { date: "2025-12-29", short_ratio: 0.6590625354670299, return_pct: 0.0 },
+        { date: "2025-11-10", short_ratio: 0.6124026137220407, return_pct: 0.0 }
       ],
       short_interest_change: {
         valid: true,
@@ -1255,12 +1257,95 @@ export const REPORT_DATA: ReportData = {
       short_series: {
         valid: true,
         rows: [
-          { date: "2026-01-30", short_ratio: 0.31901447151492945, short_vol: 1044900, total_vol: 3275400, return: -0.013157894736842146 },
-          { date: "2026-01-29", short_ratio: 0.5079037800687285, short_vol: 886800, total_vol: 1746000, return: 0.01333333333333342 },
-          { date: "2026-01-28", short_ratio: 0.34687528593649924, short_vol: 1516400, total_vol: 4371600, return: -0.013157894736842146 },
-          { date: "2026-01-27", short_ratio: 0.3297940864795229, short_vol: 1587200, total_vol: 4812700, return: 0.041095890410958846 },
-          { date: "2026-01-26", short_ratio: 0.4979323507581381, short_vol: 469600, total_vol: 943100, return: -0.013513513513513487 }
-        ]
+          { date: "2026-01-30", short_ratio: 0.31901447151492945, short_vol: 1044900, total_vol: 3275400, close: 0.375, return: -0.013157894736842146 },
+          { date: "2026-01-29", short_ratio: 0.5079037800687285, short_vol: 886800, total_vol: 1746000, close: 0.38, return: 0.01333333333333342 },
+          { date: "2026-01-28", short_ratio: 0.34687528593649924, short_vol: 1516400, total_vol: 4371600, close: 0.375, return: -0.013157894736842146 },
+          { date: "2026-01-27", short_ratio: 0.3297940864795229, short_vol: 1587200, total_vol: 4812700, close: 0.38, return: 0.041095890410958846 },
+          { date: "2026-01-26", short_ratio: 0.4979323507581381, short_vol: 469600, total_vol: 943100, close: 0.365, return: -0.013513513513513487 },
+          { date: "2026-01-23", short_ratio: 0.0, short_vol: 0, total_vol: 807600, close: 0.37, return: 0.013698630136986356 },
+          { date: "2026-01-22", short_ratio: 0.02107598447032723, short_vol: 22800, total_vol: 1081800, close: 0.365, return: -0.013513513513513487 },
+          { date: "2026-01-21", short_ratio: 0.12400942385949883, short_vol: 115800, total_vol: 933800, close: 0.37, return: 0.013698630136986356 },
+          { date: "2026-01-20", short_ratio: 0.2861741509737647, short_vol: 177800, total_vol: 621300, close: 0.365, return: 0.01388888888888884 },
+          { date: "2026-01-19", short_ratio: 0.3676636923463617, short_vol: 585100, total_vol: 1591400, close: 0.36, return: -0.013698630136986356 },
+          { date: "2026-01-16", short_ratio: 0.2905763639473234, short_vol: 849500, total_vol: 2923500, close: 0.365, return: -0.013513513513513487 },
+          { date: "2026-01-15", short_ratio: 0.3792095955712748, short_vol: 246600, total_vol: 650300, close: 0.37, return: 0.0 },
+          { date: "2026-01-14", short_ratio: 0.26446621970087675, short_vol: 256400, total_vol: 969500, close: 0.37, return: 0.0277777777777779 },
+          { date: "2026-01-13", short_ratio: 0.23938939621098543, short_vol: 878200, total_vol: 3668500, close: 0.36, return: -0.013698630136986356 },
+          { date: "2026-01-12", short_ratio: 0.31548033847685414, short_vol: 316900, total_vol: 1004500, close: 0.365, return: 0.0 },
+          { date: "2026-01-09", short_ratio: 0.46390916463909165, short_vol: 514800, total_vol: 1109700, close: 0.365, return: 0.0 },
+          { date: "2026-01-08", short_ratio: 0.24734709627628787, short_vol: 512800, total_vol: 2073200, close: 0.365, return: 0.01388888888888884 },
+          { date: "2026-01-07", short_ratio: 0.4564420637158162, short_vol: 323800, total_vol: 709400, close: 0.36, return: 0.0 },
+          { date: "2026-01-06", short_ratio: 0.3013554568824492, short_vol: 257900, total_vol: 855800, close: 0.36, return: 0.014084507042253502 },
+          { date: "2026-01-05", short_ratio: 0.09126453338820867, short_vol: 177400, total_vol: 1943800, close: 0.355, return: -0.01388888888888895 },
+          { date: "2026-01-02", short_ratio: 0.7360521098838856, short_vol: 779700, total_vol: 1059300, close: 0.36, return: 0.0 },
+          { date: "2025-12-31", short_ratio: 0.46612200435729845, short_vol: 1283700, total_vol: 2754000, close: 0.36, return: 0.014084507042253502 },
+          { date: "2025-12-30", short_ratio: 0.12823005871134213, short_vol: 342900, total_vol: 2674100, close: 0.355, return: 0.0 },
+          { date: "2025-12-29", short_ratio: 0.6590625354670299, short_vol: 580700, total_vol: 881100, close: 0.355, return: 0.0 },
+          { date: "2025-12-26", short_ratio: 0.5267241379310345, short_vol: 183300, total_vol: 348000, close: 0.355, return: 0.0 },
+          { date: "2025-12-24", short_ratio: 0.49421965317919075, short_vol: 51300, total_vol: 103800, close: 0.355, return: 0.014285714285714235 },
+          { date: "2025-12-23", short_ratio: 0.050116831842720165, short_vol: 62200, total_vol: 1241100, close: 0.35, return: -0.014084507042253502 },
+          { date: "2025-12-22", short_ratio: 0.20224336026729398, short_vol: 593200, total_vol: 2933100, close: 0.355, return: 0.0 },
+          { date: "2025-12-19", short_ratio: 0.3335316241940436, short_vol: 1738100, total_vol: 5211200, close: 0.355, return: 0.02898550724637694 },
+          { date: "2025-12-18", short_ratio: 0.25371877631209655, short_vol: 994400, total_vol: 3919300, close: 0.345, return: -0.028169014084507116 },
+          { date: "2025-12-17", short_ratio: 0.35767511177347244, short_vol: 552000, total_vol: 1543300, close: 0.355, return: 0.0 },
+          { date: "2025-12-16", short_ratio: 0.5860560843838436, short_vol: 683400, total_vol: 1166100, close: 0.355, return: 0.0 },
+          { date: "2025-12-15", short_ratio: 0.41675208068549874, short_vol: 1016500, total_vol: 2439100, close: 0.355, return: 0.014285714285714235 },
+          { date: "2025-12-12", short_ratio: 0.42113865431762465, short_vol: 773000, total_vol: 1835500, close: 0.35, return: 0.0 },
+          { date: "2025-12-11", short_ratio: 0.48980238824896966, short_vol: 463500, total_vol: 946300, close: 0.35, return: 0.01449275362318847 },
+          { date: "2025-12-10", short_ratio: 0.3286527810281613, short_vol: 421300, total_vol: 1281900, close: 0.345, return: -0.014285714285714346 },
+          { date: "2025-12-09", short_ratio: 0.4522068778770647, short_vol: 334000, total_vol: 738600, close: 0.35, return: 0.0 },
+          { date: "2025-12-08", short_ratio: 0.45830279935512236, short_vol: 1250800, total_vol: 2729200, close: 0.35, return: 0.0 },
+          { date: "2025-12-05", short_ratio: 0.5527992408838281, short_vol: 407800, total_vol: 737700, close: 0.35, return: 0.0 },
+          { date: "2025-12-04", short_ratio: 0.3454217591664997, short_vol: 172400, total_vol: 499100, close: 0.35, return: 0.0 },
+          { date: "2025-12-03", short_ratio: 0.5060627674750356, short_vol: 283800, total_vol: 560800, close: 0.35, return: 0.01449275362318847 },
+          { date: "2025-12-02", short_ratio: 0.05688518903919528, short_vol: 16400, total_vol: 288300, close: 0.345, return: -0.014285714285714346 },
+          { date: "2025-12-01", short_ratio: 0.4238977072310406, short_vol: 480700, total_vol: 1134000, close: 0.35, return: 0.0 },
+          { date: "2025-11-28", short_ratio: 0.34027980180705336, short_vol: 233500, total_vol: 686200, close: 0.35, return: 0.01449275362318847 },
+          { date: "2025-11-27", short_ratio: 0.24883875248838752, short_vol: 37500, total_vol: 150700, close: 0.345, return: 0.0 },
+          { date: "2025-11-26", short_ratio: 0.6591005216410546, short_vol: 467500, total_vol: 709300, close: 0.345, return: 0.0 },
+          { date: "2025-11-25", short_ratio: 0.15344590614569018, short_vol: 156300, total_vol: 1018600, close: 0.345, return: 0.0 },
+          { date: "2025-11-24", short_ratio: 0.1363005459424447, short_vol: 147300, total_vol: 1080700, close: 0.345, return: -0.014285714285714346 },
+          { date: "2025-11-21", short_ratio: 0.36473111988688994, short_vol: 1496200, total_vol: 4102200, close: 0.35, return: 0.0 },
+          { date: "2025-11-20", short_ratio: 0.14191506198892112, short_vol: 53800, total_vol: 379100, close: 0.35, return: 0.0 },
+          { date: "2025-11-19", short_ratio: 0.30319110792398707, short_vol: 422800, total_vol: 1394500, close: 0.35, return: 0.01449275362318847 },
+          { date: "2025-11-18", short_ratio: 0.4806873802936795, short_vol: 903500, total_vol: 1879600, close: 0.345, return: -0.014285714285714346 },
+          { date: "2025-11-17", short_ratio: 0.35280703209221326, short_vol: 850900, total_vol: 2411800, close: 0.35, return: 0.01449275362318847 },
+          { date: "2025-11-14", short_ratio: 0.023303423643174493, short_vol: 53500, total_vol: 2295800, close: 0.345, return: 0.014705882352941124 },
+          { date: "2025-11-13", short_ratio: 0.021740300274444384, short_vol: 40400, total_vol: 1858300, close: 0.34, return: -0.014492753623188248 },
+          { date: "2025-11-12", short_ratio: 0.12695993593883192, short_vol: 491500, total_vol: 3871300, close: 0.345, return: 0.014705882352941124 },
+          { date: "2025-11-11", short_ratio: 0.34462166172106823, short_vol: 929100, total_vol: 2696000, close: 0.34, return: 0.0 },
+          { date: "2025-11-10", short_ratio: 0.6124026137220407, short_vol: 1949400, total_vol: 3183200, close: 0.34, return: 0.0 },
+          { date: "2025-11-07", short_ratio: 0.38798394711992445, short_vol: 986100, total_vol: 2541600, close: 0.34, return: 0.014925373134328401 },
+          { date: "2025-11-06", short_ratio: 0.05240701233651795, short_vol: 169500, total_vol: 3234300, close: 0.335, return: 0.0 },
+          { date: "2025-11-05", short_ratio: 0.14783223955391975, short_vol: 2277400, total_vol: 15405300, close: 0.335, return: -0.02898550724637672 },
+          { date: "2025-11-04", short_ratio: 0.1954512504530627, short_vol: 215700, total_vol: 1103600, close: 0.345, return: 0.0 },
+          { date: "2025-11-03", short_ratio: 0.22301064368981247, short_vol: 44000, total_vol: 197300, close: 0.345, return: 0.0 },
+          { date: "2025-10-31", short_ratio: 0.029749085991886613, short_vol: 59400, total_vol: 1996700, close: 0.345, return: -0.014285714285714346 },
+          { date: "2025-10-30", short_ratio: 0.20021824984410724, short_vol: 770600, total_vol: 3848800, close: 0.35, return: 0.0 },
+          { date: "2025-10-29", short_ratio: 0.13030847559149447, short_vol: 870200, total_vol: 6678000, close: 0.35, return: 0.01449275362318847 },
+          { date: "2025-10-28", short_ratio: 0.1120603015075377, short_vol: 223000, total_vol: 1990000, close: 0.345, return: 0.0 },
+          { date: "2025-10-27", short_ratio: 0.0066486598794930395, short_vol: 9600, total_vol: 1443900, close: 0.345, return: 0.0 },
+          { date: "2025-10-24", short_ratio: 0.00957375449722544, short_vol: 15700, total_vol: 1639900, close: 0.345, return: 0.0 },
+          { date: "2025-10-23", short_ratio: 0.181719750969954, short_vol: 604200, total_vol: 3324900, close: 0.345, return: 0.0 },
+          { date: "2025-10-22", short_ratio: 0.5464879702890361, short_vol: 1692200, total_vol: 3096500, close: 0.345, return: -0.014285714285714346 },
+          { date: "2025-10-21", short_ratio: 0.11152842474940858, short_vol: 457300, total_vol: 4100300, close: 0.35, return: 0.01449275362318847 },
+          { date: "2025-10-17", short_ratio: 0.4959635990019081, short_vol: 2365300, total_vol: 4769100, close: 0.345, return: -0.014285714285714346 },
+          { date: "2025-10-16", short_ratio: 0.5380189921674637, short_vol: 2328600, total_vol: 4328100, close: 0.35, return: 0.01449275362318847 },
+          { date: "2025-10-15", short_ratio: 0.12100721277691912, short_vol: 187900, total_vol: 1552800, close: 0.345, return: 0.014705882352941124 },
+          { date: "2025-10-14", short_ratio: 0.07529997736019924, short_vol: 166300, total_vol: 2208500, close: 0.34, return: -0.014492753623188248 },
+          { date: "2025-10-13", short_ratio: 0.294279690794097, short_vol: 1046900, total_vol: 3557500, close: 0.345, return: -0.014285714285714346 },
+          { date: "2025-10-10", short_ratio: 0.5112571108084288, short_vol: 638100, total_vol: 1248100, close: 0.35, return: 0.0 },
+          { date: "2025-10-09", short_ratio: 0.09771035522472439, short_vol: 103700, total_vol: 1061300, close: 0.35, return: 0.01449275362318847 },
+          { date: "2025-10-08", short_ratio: 0.4229575366277626, short_vol: 1362600, total_vol: 3221600, close: 0.345, return: -0.014285714285714346 },
+          { date: "2025-10-07", short_ratio: 0.27670250896057347, short_vol: 308800, total_vol: 1116000, close: 0.35, return: 0.0 },
+          { date: "2025-10-06", short_ratio: 0.0397189254038305, short_vol: 92700, total_vol: 2333900, close: 0.35, return: 0.02941176470588225 },
+          { date: "2025-10-03", short_ratio: 0.4232824832761123, short_vol: 1195900, total_vol: 2825300, close: 0.34, return: 0.0 },
+          { date: "2025-10-02", short_ratio: 0.5457734651987312, short_vol: 1462400, total_vol: 2679500, close: 0.34, return: 0.0 },
+          { date: "2025-10-01", short_ratio: 0.31667471430870753, short_vol: 787000, total_vol: 2485200, close: 0.34, return: 0.0 },
+          { date: "2025-09-30", short_ratio: 0.4183288409703504, short_vol: 310400, total_vol: 742000, close: 0.34, return: 0.014925373134328401 },
+          { date: "2025-09-29", short_ratio: 0.37387442200048676, short_vol: 614500, total_vol: 1643600, close: 0.335, return: -0.014705882352941235 },
+          { date: "2025-09-26", short_ratio: 0.6667966718668746, short_vol: 1025800, total_vol: 1538400, close: 0.34, return: 0 }
+        ],
       },
       peer_comparison: [
         { ticker: "TS0U", avg_short_ratio: 0.307228720886851, max_short_ratio: 0.7360521098838856, is_target: true },
@@ -1354,7 +1439,7 @@ export const REPORT_DATA: ReportData = {
         { index: "STI", status: "ineligible", notes: "Rank #72 - outside top 30", gaps: ["Need rank ≤30 (currently #72)"] },
         { index: "FTSE All-Share", status: "eligible", notes: "Top 93.7% - qualifies", gaps: [] },
         { index: "iEdge Next 50", status: "eligible", notes: "Rank #72 - within 31-80 range", gaps: [] },
-        { index: "FTSE Small Cap", status: "eligible", notes: "Small Cap band (86-98%)", gaps: [] }
+        { index: "FTSE Small/Mid Cap", status: "eligible", notes: "Small/Mid Cap band (86-98%)", gaps: [] }
       ],
       insight:
         "💡 Key insight: TS0U is eligible for FTSE All-Share and iEdge Next 50. STI is constrained mainly by market-cap rank (#72 vs required ≤30).",

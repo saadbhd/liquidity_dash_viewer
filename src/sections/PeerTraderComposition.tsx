@@ -53,7 +53,7 @@ export function PeerTraderComposition() {
   type ViewMode = 'trades' | 'shares';
   const modes: { id: ViewMode; label: string; available: boolean }[] = [
     { id: 'trades', label: 'Trades', available: true },
-    { id: 'shares', label: 'Shares', available: !!hasQty },
+    { id: 'shares', label: 'Volume', available: !!hasQty },
   ];
   const availableModes = modes.filter((m) => m.available);
   const defaultMode: ViewMode = availableModes[0]?.id ?? 'trades';
@@ -86,7 +86,7 @@ export function PeerTraderComposition() {
     };
   });
 
-  const labelForMode = (mode: ViewMode) => (mode === 'shares' ? 'by shares' : 'by trades');
+  const labelForMode = (mode: ViewMode) => (mode === 'shares' ? 'Volume' : 'by trades');
   const typeIcon = (p: any) => {
     const v = pctFor(p, mode);
     // Same legend as your console output: 🏠 retail-heavy (>70% retail) | 🏦 institutional (>20% institutional) | ⚖️ mixed otherwise

@@ -16,30 +16,36 @@ import {
 } from 'recharts';
 
 export function ExecutionCheck() {
-  const { labels, content, theme, series } = useReport();
+  const { labels, content, theme, series, meta } = useReport();
   const { order_book, peer_capacity } = series;
 
-  // Prepare order book data
-  const bidCumulative = order_book.bids
-    .sort((a, b) => b.price - a.price)
-    .reduce((acc: number[], bid, index) => {
-      const prev = index > 0 ? acc[index - 1] : 0;
-      acc.push(prev + bid.value);
-      return acc;
-    }, []);
+  const currencySymbol = meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'S$' : '';
+  const currencyLabel = meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'SGD' : '';
 
-  const askCumulative = order_book.asks
-    .sort((a, b) => a.price - b.price)
-    .reduce((acc: number[], ask, index) => {
-      const prev = index > 0 ? acc[index - 1] : 0;
-      acc.push(prev + ask.value);
-      return acc;
-    }, []);
+  // Prepare order book data: bids and asks each have their own prices (from report/book_snapshot).
+  // Build merged price axis (all unique bid + ask prices, sorted) and cumulative depth with carry-forward.
+  const sortedBids = [...order_book.bids].sort((a, b) => b.price - a.price);
+  const sortedAsks = [...order_book.asks].sort((a, b) => a.price - b.price);
+  const bidCumulative = sortedBids.reduce((acc: number[], bid, index) => {
+    const prev = index > 0 ? acc[index - 1] : 0;
+    acc.push(prev + bid.value);
+    return acc;
+  }, []);
+  const askCumulative = sortedAsks.reduce((acc: number[], ask, index) => {
+    const prev = index > 0 ? acc[index - 1] : 0;
+    acc.push(prev + ask.value);
+    return acc;
+  }, []);
 
-  const orderBookData = Array.from({ length: 10 }, (_, i) => ({
-    level: `L${i + 1}`,
-    bids: bidCumulative[i] || 0,
-    asks: askCumulative[i] || 0,
+  const bidPriceToCum = new Map(sortedBids.map((b, i) => [b.price, bidCumulative[i]]));
+  const askPriceToCum = new Map(sortedAsks.map((a, i) => [a.price, askCumulative[i]]));
+  const allPrices = [...new Set([...sortedBids.map((b) => b.price), ...sortedAsks.map((a) => a.price)])].sort((a, b) => a - b);
+
+  // Only plot depth at prices where that side has a level; use null elsewhere so no line is drawn.
+  const orderBookData = allPrices.map((price) => ({
+    price,
+    bids: bidPriceToCum.has(price) ? bidPriceToCum.get(price)! : null,
+    asks: askPriceToCum.has(price) ? askPriceToCum.get(price)! : null,
   }));
 
   // Peer capacity data
@@ -49,23 +55,24 @@ export function ExecutionCheck() {
   ];
 
   const formatMoney = (value: number) => {
-    if (value >= 1e6) return `HK$${(value / 1e6).toFixed(1)}M`;
-    if (value >= 1e3) return `HK$${(value / 1e3).toFixed(0)}K`;
-    return `HK$${value.toFixed(0)}`;
+    if (value >= 1e6) return `${currencySymbol}${(value / 1e6).toFixed(1)}M`;
+    if (value >= 1e3) return `${currencySymbol}${(value / 1e3).toFixed(0)}K`;
+    return `${currencySymbol}${value.toFixed(0)}`;
   };
 
   const OrderBookTooltip = ({ active, payload, label }: { active?: boolean; payload?: any[]; label?: string }) => {
     if (active && payload && payload.length) {
-      const levelIndex = parseInt(label?.replace('L', '') || '1') - 1;
-      const bid = order_book.bids.sort((a, b) => b.price - a.price)[levelIndex];
-      const ask = order_book.asks.sort((a, b) => a.price - b.price)[levelIndex];
-      
+      const price = payload[0]?.payload?.price ?? (typeof label === 'number' ? label : 0);
+      const bidLevel = sortedBids.find((b) => b.price === price);
+      const askLevel = sortedAsks.find((a) => a.price === price);
+      const priceLabel = typeof price === 'number' ? price.toFixed(3) : String(price);
       return (
         <div className="bg-slate-900/95 border border-slate-700 rounded-lg p-3 shadow-xl">
-          <p className="font-semibold text-slate-200 mb-2">{label}</p>
+          <p className="font-semibold text-slate-200 mb-2">Price: {priceLabel}</p>
           {payload.map((entry, index) => {
+            if (entry.value == null) return null;
             const isBid = entry.name === 'Bid cum value';
-            const level = isBid ? bid : ask;
+            const level = isBid ? bidLevel : askLevel;
             return (
               <div key={index} className="text-sm" style={{ color: entry.color }}>
                 <p>{entry.name}: {formatMoney(entry.value)}</p>
@@ -129,18 +136,19 @@ export function ExecutionCheck() {
             <LineChart data={orderBookData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(148, 163, 184, 0.1)" vertical={false} />
               <XAxis
-                dataKey="level"
-                tick={{ fill: '#94a3b8', fontSize: 11 }}
+                dataKey="price"
+                tick={{ fill: '#94a3b8', fontSize: 10 }}
                 axisLine={{ stroke: 'rgba(148, 163, 184, 0.2)' }}
                 tickLine={false}
-                label={{ value: 'Book level from top-of-book', position: 'insideBottom', fill: '#64748b', fontSize: 11, dy: 10 }}
+                tickFormatter={(v) => Number(v).toFixed(3)}
+                label={{ value: 'Price', position: 'insideBottom', fill: '#64748b', fontSize: 11, dy: 10 }}
               />
               <YAxis
                 tick={{ fill: '#94a3b8', fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(v) => formatMoney(v)}
-                label={{ value: 'Cumulative depth (HK$)', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11 }}
+                label={{ value: currencyLabel ? `Cumulative depth (${currencyLabel})` : 'Cumulative depth', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11 }}
               />
               <Tooltip content={<OrderBookTooltip />} />
               <Legend iconType="line" wrapperStyle={{ paddingTop: '10px' }} />
@@ -153,6 +161,7 @@ export function ExecutionCheck() {
                 fill="rgba(52, 211, 153, 0.1)"
                 dot={{ r: 3, fill: '#34d399' }}
                 activeDot={{ r: 5 }}
+                connectNulls={false}
               />
               <Line
                 type="monotone"
@@ -163,6 +172,7 @@ export function ExecutionCheck() {
                 fill="rgba(248, 113, 113, 0.1)"
                 dot={{ r: 3, fill: '#f87171' }}
                 activeDot={{ r: 5 }}
+                connectNulls={false}
               />
             </LineChart>
           </ResponsiveContainer>

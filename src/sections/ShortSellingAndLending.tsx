@@ -63,15 +63,30 @@ export function ShortSellingAndLending() {
 
   const badgeText = p3?.interpretation ?? theme.badges.short.text;
 
-  const seriesRows = short.short_series?.valid
-    ? short.short_series.rows
-        .slice()
-        .sort((a, b) => a.date.localeCompare(b.date))
-        .map((r) => ({
-          date: r.date,
-          shortPct: ratioToPct(r.short_ratio),
-        }))
+  const rawRows = short.short_series?.valid
+    ? short.short_series.rows.slice().sort((a, b) => a.date.localeCompare(b.date))
     : [];
+  const hasPrice = rawRows.some((r: { close?: number }) => r.close != null);
+  const seriesRows = rawRows.map((r: { date: string; short_ratio: number; close?: number }) => ({
+    date: r.date,
+    shortPct: ratioToPct(r.short_ratio),
+    ...(r.close != null ? { price: r.close } : {}),
+  }));
+
+  const priceRange = hasPrice
+    ? (() => {
+        const prices = seriesRows.map((r: { price?: number }) => r.price).filter((p): p is number => p != null);
+        const minP = Math.min(...prices);
+        const maxP = Math.max(...prices);
+        return [minP, maxP] as [number, number];
+      })()
+    : null;
+
+  const formatAxisDate = (dateStr: string) => {
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const date = new Date(y, m - 1, d);
+    return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+  };
 
   const peaks = (short.peaks ?? []).slice(0, 5);
 
@@ -165,40 +180,56 @@ export function ShortSellingAndLending() {
           </div>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
+        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 min-h-[380px] flex flex-col">
           <div className="flex items-center gap-2 mb-3">
             <Activity className="w-4 h-4 text-slate-500" />
             <h3 className="text-sm font-semibold text-foreground">Short% over time</h3>
           </div>
           {seriesRows.length > 0 ? (
-            <div className="h-52">
+            <div className="h-72 min-h-[280px] flex-1 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={seriesRows} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
+                <LineChart data={seriesRows} margin={{ top: 10, right: hasPrice ? 50 : 20, left: 0, bottom: 30 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
                   <XAxis
                     dataKey="date"
                     tick={{ fill: '#64748b', fontSize: 10 }}
                     axisLine={{ stroke: '#334155' }}
                     tickLine={false}
-                    hide
+                    tickFormatter={formatAxisDate}
+                    interval={seriesRows.length <= 20 ? 0 : undefined}
                   />
                   <YAxis
+                    yAxisId="left"
                     tick={{ fill: '#64748b', fontSize: 11 }}
                     axisLine={false}
                     tickLine={false}
                     domain={[0, 'dataMax']}
                     tickFormatter={(v) => `${Number(v).toFixed(0)}%`}
                   />
+                  {hasPrice && priceRange ? (
+                    <YAxis
+                      yAxisId="right"
+                      orientation="right"
+                      tick={{ fill: '#94a3b8', fontSize: 10 }}
+                      axisLine={false}
+                      tickLine={false}
+                      domain={[priceRange[0], priceRange[1]]}
+                      tickFormatter={(v) => Number(v).toFixed(3)}
+                    />
+                  ) : null}
                   <Tooltip
                     contentStyle={{
                       backgroundColor: 'rgba(15, 23, 42, 0.95)',
                       border: '1px solid rgba(71, 85, 105, 0.5)',
                       borderRadius: '8px',
                     }}
-                    formatter={(v: number) => [`${Number(v).toFixed(2)}%`, 'Short%']}
+                    formatter={(v: number, name: string) =>
+                      name === 'price' ? [Number(v).toFixed(3), 'Price'] : [`${Number(v).toFixed(2)}%`, 'Short%']
+                    }
                     labelFormatter={(label) => `Date: ${label}`}
                   />
                   <Line
+                    yAxisId="left"
                     type="monotone"
                     dataKey="shortPct"
                     stroke="#34d399"
@@ -206,6 +237,17 @@ export function ShortSellingAndLending() {
                     dot={false}
                     activeDot={{ r: 4 }}
                   />
+                  {hasPrice ? (
+                    <Line
+                      yAxisId="right"
+                      type="monotone"
+                      dataKey="price"
+                      stroke="#f59e0b"
+                      strokeWidth={1.5}
+                      dot={false}
+                      activeDot={{ r: 3 }}
+                    />
+                  ) : null}
                 </LineChart>
               </ResponsiveContainer>
             </div>

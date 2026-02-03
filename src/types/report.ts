@@ -381,6 +381,7 @@ export interface ShortSelling {
       short_vol: number;
       total_vol: number;
       return: number;
+      close?: number;
     }[];
   };
   peer_comparison?: {

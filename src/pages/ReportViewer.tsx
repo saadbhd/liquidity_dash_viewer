@@ -54,10 +54,10 @@ function buildNavItems(report: ReportData) {
         { id: 'comparison', label: 'Market Comparison', icon: BarChart2 },
         { id: 'performance', label: 'Performance', icon: TrendingUp },
         { id: 'drivers', label: 'What Drives Price', icon: PieChart },
-        { id: 'execution', label: 'Trading Costs', icon: Target },
         { id: 'traders', label: 'Trader Types', icon: Users },
         { id: 'peer-traders', label: 'Peer Traders', icon: Users },
         { id: 'price-moving', label: 'Price-Moving Trades', icon: Activity },
+        { id: 'execution', label: 'Trading Costs', icon: Target },
         { id: 'intraday', label: 'Trading Times', icon: Clock },
         { id: 'ofi', label: 'Order Flow', icon: Scale },
         ...(showShort ? [{ id: 'short', label: 'Short Selling', icon: TrendingDown }] : []),
@@ -322,10 +322,6 @@ export function ReportViewer() {
                             <DriversAnalysis />
                         </section>
 
-                        <section id="execution">
-                            <ExecutionPanel />
-                        </section>
-
                         <section id="traders">
                             <TraderComposition />
                         </section>
@@ -336,6 +332,10 @@ export function ReportViewer() {
 
                         <section id="price-moving">
                             <PriceMovingTrades />
+                        </section>
+
+                        <section id="execution">
+                            <ExecutionPanel />
                         </section>
 
                         <section id="intraday">

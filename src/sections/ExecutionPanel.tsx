@@ -29,30 +29,35 @@ const itemVariants = {
 };
 
 export function ExecutionPanel() {
-  const { labels, content, series } = useReport();
+  const { labels, content, series, meta } = useReport();
   const { order_book, peer_capacity } = series;
 
-  // Order book data
-  const bidCumulative = order_book.bids
-    .sort((a, b) => b.price - a.price)
-    .reduce((acc: number[], bid, index) => {
-      const prev = index > 0 ? acc[index - 1] : 0;
-      acc.push(prev + bid.value);
-      return acc;
-    }, []);
+  const currencySymbol = meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'S$' : '';
 
-  const askCumulative = order_book.asks
-    .sort((a, b) => a.price - b.price)
-    .reduce((acc: number[], ask, index) => {
-      const prev = index > 0 ? acc[index - 1] : 0;
-      acc.push(prev + ask.value);
-      return acc;
-    }, []);
+  // Order book data: bids and asks each have their own prices (from report/book_snapshot).
+  // Build merged price axis (all unique bid + ask prices, sorted) and cumulative depth with carry-forward.
+  const sortedBids = [...order_book.bids].sort((a, b) => b.price - a.price);
+  const sortedAsks = [...order_book.asks].sort((a, b) => a.price - b.price);
+  const bidCumulative = sortedBids.reduce((acc: number[], bid, index) => {
+    const prev = index > 0 ? acc[index - 1] : 0;
+    acc.push(prev + bid.value);
+    return acc;
+  }, []);
+  const askCumulative = sortedAsks.reduce((acc: number[], ask, index) => {
+    const prev = index > 0 ? acc[index - 1] : 0;
+    acc.push(prev + ask.value);
+    return acc;
+  }, []);
 
-  const orderBookData = Array.from({ length: 10 }, (_, i) => ({
-    level: `L${i + 1}`,
-    bids: bidCumulative[i] || 0,
-    asks: askCumulative[i] || 0,
+  const bidPriceToCum = new Map(sortedBids.map((b, i) => [b.price, bidCumulative[i]]));
+  const askPriceToCum = new Map(sortedAsks.map((a, i) => [a.price, askCumulative[i]]));
+  const allPrices = [...new Set([...sortedBids.map((b) => b.price), ...sortedAsks.map((a) => a.price)])].sort((a, b) => a - b);
+
+  // Only plot depth at prices where that side has a level; use null elsewhere so no line is drawn.
+  const orderBookData = allPrices.map((price) => ({
+    price,
+    bids: bidPriceToCum.has(price) ? bidPriceToCum.get(price)! : null,
+    asks: askPriceToCum.has(price) ? askPriceToCum.get(price)! : null,
   }));
 
   // Capacity data
@@ -62,9 +67,9 @@ export function ExecutionPanel() {
   ];
 
   const formatMoney = (value: number) => {
-    if (value >= 1e6) return `HK$${(value / 1e6).toFixed(1)}M`;
-    if (value >= 1e3) return `HK$${(value / 1e3).toFixed(0)}K`;
-    return `HK$${value.toFixed(0)}`;
+    if (value >= 1e6) return `${currencySymbol}${(value / 1e6).toFixed(1)}M`;
+    if (value >= 1e3) return `${currencySymbol}${(value / 1e3).toFixed(0)}K`;
+    return `${currencySymbol}${value.toFixed(0)}`;
   };
 
   return (
@@ -115,10 +120,11 @@ export function ExecutionPanel() {
               <LineChart data={orderBookData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
                 <XAxis
-                  dataKey="level"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  dataKey="price"
+                  tick={{ fill: '#64748b', fontSize: 10 }}
                   axisLine={{ stroke: '#334155' }}
                   tickLine={false}
+                  tickFormatter={(v) => Number(v).toFixed(3)}
                 />
                 <YAxis
                   tick={{ fill: '#64748b', fontSize: 11 }}
@@ -128,7 +134,7 @@ export function ExecutionPanel() {
                 />
                 <Tooltip
                   contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)', borderRadius: '8px' }}
-                  formatter={(value: number) => [formatMoney(value), '']}
+                  formatter={(value: unknown) => (value != null && typeof value === 'number' ? [formatMoney(value), ''] : ['—', ''])}
                 />
                 <Legend iconType="line" wrapperStyle={{ paddingTop: '10px' }} />
                 <Line
@@ -138,6 +144,7 @@ export function ExecutionPanel() {
                   stroke="#10b981"
                   strokeWidth={2}
                   dot={{ r: 3, fill: '#10b981' }}
+                  connectNulls={false}
                 />
                 <Line
                   type="monotone"
@@ -146,6 +153,7 @@ export function ExecutionPanel() {
                   stroke="#f87171"
                   strokeWidth={2}
                   dot={{ r: 3, fill: '#f87171' }}
+                  connectNulls={false}
                 />
               </LineChart>
             </ResponsiveContainer>

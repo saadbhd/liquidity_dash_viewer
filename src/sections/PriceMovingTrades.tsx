@@ -25,8 +25,9 @@ const itemVariants = {
 };
 
 export function PriceMovingTrades() {
-  const { labels, insights, series } = useReport();
+  const { labels, insights, series, meta } = useReport();
   const { price_moving_trades } = series;
+  const currencySymbol = meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'S$' : '';
   const { price_moving: priceInsights } = insights;
 
   const chartData = [
@@ -101,7 +102,7 @@ export function PriceMovingTrades() {
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-2">
-            Avg size: HK${(price_moving_trades.positive_movers.avg_size / 1000).toFixed(1)}K
+            Avg size: {currencySymbol}{(price_moving_trades.positive_movers.avg_size / 1000).toFixed(1)}K
           </p>
         </div>
 
@@ -116,7 +117,7 @@ export function PriceMovingTrades() {
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-2">
-            Avg size: HK${(price_moving_trades.negative_movers.avg_size / 1000).toFixed(1)}K
+            Avg size: {currencySymbol}{(price_moving_trades.negative_movers.avg_size / 1000).toFixed(1)}K
           </p>
         </div>
       </motion.div>
@@ -139,11 +140,11 @@ export function PriceMovingTrades() {
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(v) => `${v}K`}
-                label={{ value: 'Avg Trade Size (HK$K)', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11 }}
+                label={{ value: `Avg Trade Size (${currencySymbol}K)`, angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11 }}
               />
               <Tooltip
                 contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)', borderRadius: '8px' }}
-                formatter={(value: number) => [`HK$${value.toFixed(1)}K`, 'Avg Size']}
+                formatter={(value: number) => [`${currencySymbol}${value.toFixed(1)}K`, 'Avg Size']}
               />
               <Bar dataKey="avgSize" radius={[4, 4, 0, 0]} maxBarSize={60} fill="#0ea5e9" />
             </BarChart>

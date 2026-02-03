@@ -47,8 +47,8 @@ export function ActionPlan() {
           <AlertTriangle className="w-5 h-5 text-amber-400" />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-white">{labels.action_plan_title}</h2>
-          <p className="text-sm text-slate-400">{labels.action_plan_subtitle}</p>
+          <h2 className="text-xl font-bold text-foreground">{labels.action_plan_title}</h2>
+          <p className="text-sm text-muted-foreground">{labels.action_plan_subtitle}</p>
         </div>
       </div>
 

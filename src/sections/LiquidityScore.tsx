@@ -107,14 +107,6 @@ export function LiquidityScore() {
               </div>
             </div>
           ))}
-
-          {/* Insight Box */}
-          <div className="glass-panel rounded-xl p-4 bg-gradient-to-br from-sky-500/5 to-transparent border-sky-500/20">
-            <div className="flex items-start gap-3">
-              <Zap className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-              <p className="text-sm text-slate-400 leading-relaxed">{content.liq_insight}</p>
-            </div>
-          </div>
         </motion.div>
 
         {/* Chart Panel */}
@@ -174,6 +166,17 @@ export function LiquidityScore() {
           </div>
         </motion.div>
       </div>
+
+      {/* Full-width insight (to avoid empty space under chart) */}
+      <motion.div
+        variants={itemVariants}
+        className="glass-panel rounded-xl p-5 bg-gradient-to-br from-sky-500/5 to-transparent border border-sky-500/20"
+      >
+        <div className="flex items-start gap-3">
+          <Zap className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+          <p className="text-sm text-muted-foreground leading-relaxed">{content.liq_insight}</p>
+        </div>
+      </motion.div>
 
       {/* Detailed Insights */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">

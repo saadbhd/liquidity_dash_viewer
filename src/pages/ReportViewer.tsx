@@ -278,13 +278,13 @@ export function ReportViewer() {
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800/50"
+                                className="p-2 text-slate-400 hover:text-foreground rounded-lg hover:bg-slate-800/50"
                             >
                                 <Menu className="w-5 h-5" />
                             </button>
                             <div className="h-6 w-px bg-slate-800" />
                             <nav className="flex items-center gap-2 text-sm text-slate-500">
-                                <Link to="/" className="hover:text-white transition-colors">Reports</Link>
+                                <Link to="/" className="hover:text-foreground transition-colors">Reports</Link>
                                 <ArrowRight className="w-3 h-3" />
                                 <span className="text-slate-300">Liquidity Analysis</span>
                                 <ArrowRight className="w-3 h-3" />

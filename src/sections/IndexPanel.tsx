@@ -49,8 +49,8 @@ export function IndexPanel() {
             <Flag className="w-5 h-5 text-sky-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">{labels.index_title}</h2>
-            <p className="text-sm text-slate-500">{labels.index_subtitle}</p>
+            <h2 className="text-xl font-bold text-foreground">{labels.index_title}</h2>
+            <p className="text-sm text-muted-foreground">{labels.index_subtitle}</p>
           </div>
         </div>
         <div className={`px-3 py-1.5 ${theme.badges.index_status.bg} border ${theme.badges.index_status.bg.replace('/20', '/30')} rounded-full`}>
@@ -66,7 +66,7 @@ export function IndexPanel() {
               {iconMap[tile.title]}
               <span className="text-xs">{tile.title}</span>
             </div>
-            <p className="text-2xl font-bold text-white">{tile.value}</p>
+            <p className="text-2xl font-bold text-foreground">{tile.value}</p>
             <p className="text-xs text-slate-500 mt-1">{tile.sub}</p>
           </div>
         ))}
@@ -139,7 +139,7 @@ export function IndexPanel() {
         <div className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <Lightbulb className="w-4 h-4 text-amber-400" />
-            <h4 className="text-sm font-semibold text-white">{index_block.levers_title}</h4>
+            <h4 className="text-sm font-semibold text-foreground">{index_block.levers_title}</h4>
           </div>
           <ul className="space-y-2">
             {index_block.levers.map((lever, index) => (

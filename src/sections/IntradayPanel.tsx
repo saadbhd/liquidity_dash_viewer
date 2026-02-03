@@ -87,8 +87,8 @@ export function IntradayPanel() {
             <Clock className="w-5 h-5 text-amber-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">{labels.intraday_title}</h2>
-            <p className="text-sm text-slate-500">{labels.intraday_subtitle}</p>
+            <h2 className="text-xl font-bold text-foreground">{labels.intraday_title}</h2>
+            <p className="text-sm text-muted-foreground">{labels.intraday_subtitle}</p>
           </div>
         </div>
         <div className="px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full">
@@ -103,7 +103,7 @@ export function IntradayPanel() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4 text-slate-500" />
-              <h3 className="text-sm font-semibold text-white">{labels.session_dist_title}</h3>
+              <h3 className="text-sm font-semibold text-foreground">{labels.session_dist_title}</h3>
             </div>
             <div className="relative">
               <button
@@ -169,7 +169,7 @@ export function IntradayPanel() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <Info className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-white">{labels.hhi_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground">{labels.hhi_title}</h3>
           </div>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
@@ -215,7 +215,7 @@ export function IntradayPanel() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <BarChart3 className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-white">{labels.intraday_intensity_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground">{labels.intraday_intensity_title}</h3>
           </div>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
@@ -258,7 +258,7 @@ export function IntradayPanel() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <Info className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-white">{labels.peers_hhi_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground">{labels.peers_hhi_title}</h3>
           </div>
           <div className="overflow-auto max-h-56 rounded-lg border border-slate-800">
             <Table>

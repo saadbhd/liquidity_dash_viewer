@@ -95,8 +95,8 @@ export function ShortSellingAndLending() {
             <TrendingDown className="w-5 h-5 text-emerald-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">{SectionTitle}</h2>
-            <p className="text-sm text-slate-500">{SectionSubtitle}</p>
+            <h2 className="text-xl font-bold text-foreground">{SectionTitle}</h2>
+            <p className="text-sm text-muted-foreground">{SectionSubtitle}</p>
           </div>
         </div>
         <span className={`status-badge ${theme.badges.short.bg} ${theme.badges.short.textColor} border border-current/30`}>
@@ -107,29 +107,29 @@ export function ShortSellingAndLending() {
       {/* Tiles */}
       <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-2">Avg Short% (3M)</p>
-          <p className="text-3xl font-bold text-white">{fmtPct(avg3m, 2)}</p>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-muted-foreground mb-2">Avg Short% (3M)</p>
+          <p className="text-3xl font-bold text-foreground">{fmtPct(avg3m, 2)}</p>
+          <p className="text-xs text-muted-foreground mt-1">
             Max: {p3?.valid ? fmtPct(p3.max_short_ratio, 1) : '—'}
           </p>
         </div>
 
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-2">Short% → Return corr</p>
-          <p className="text-3xl font-bold text-white">{corr.toFixed(3)}</p>
-          <p className="text-xs text-slate-500 mt-1">{corrLabel}</p>
+          <p className="text-xs text-muted-foreground mb-2">Short% → Return corr</p>
+          <p className="text-3xl font-bold text-foreground">{corr.toFixed(3)}</p>
+          <p className="text-xs text-muted-foreground mt-1">{corrLabel}</p>
         </div>
 
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-2">Max Short% (6M)</p>
-          <p className="text-3xl font-bold text-white">{fmtPct(max6m, 1)}</p>
-          <p className="text-xs text-slate-500 mt-1">{p6?.interpretation ?? '—'}</p>
+          <p className="text-xs text-muted-foreground mb-2">Max Short% (6M)</p>
+          <p className="text-3xl font-bold text-foreground">{fmtPct(max6m, 1)}</p>
+          <p className="text-xs text-muted-foreground mt-1">{p6?.interpretation ?? '—'}</p>
         </div>
 
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-2">Coverage</p>
-          <p className="text-3xl font-bold text-white">{coverageDays ?? '—'}</p>
-          <p className="text-xs text-slate-500 mt-1">days of short data</p>
+          <p className="text-xs text-muted-foreground mb-2">Coverage</p>
+          <p className="text-3xl font-bold text-foreground">{coverageDays ?? '—'}</p>
+          <p className="text-xs text-muted-foreground mt-1">days of short data</p>
         </div>
       </motion.div>
 
@@ -138,9 +138,9 @@ export function ShortSellingAndLending() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-3">
             <ShieldAlert className="w-4 h-4 text-emerald-400" />
-            <h3 className="text-sm font-semibold text-white">Executive take</h3>
+            <h3 className="text-sm font-semibold text-foreground">Executive take</h3>
           </div>
-          <div className="space-y-3 text-sm text-slate-400 leading-relaxed">
+          <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
             <p>{shortInsights?.overall ?? 'Short selling context is available for this report.'}</p>
             {showSbl ? (
               <div className="bg-slate-900/40 border border-slate-800 rounded-lg p-3">
@@ -168,7 +168,7 @@ export function ShortSellingAndLending() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-3">
             <Activity className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-white">Short% over time</h3>
+            <h3 className="text-sm font-semibold text-foreground">Short% over time</h3>
           </div>
           {seriesRows.length > 0 ? (
             <div className="h-52">
@@ -220,8 +220,8 @@ export function ShortSellingAndLending() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-amber-500/50">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h3 className="text-sm font-semibold text-white">SBL Lending Pool (Borrow Availability)</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="text-sm font-semibold text-foreground">SBL Lending Pool (Borrow Availability)</h3>
+              <p className="text-xs text-muted-foreground">
                 This indicates how much stock is available for lending/borrowing and the potential liquidity overhang in a stress scenario.
               </p>
             </div>
@@ -233,19 +233,19 @@ export function ShortSellingAndLending() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
               <p className="text-xs text-slate-500 mb-2">Pool Size</p>
-              <p className="text-2xl font-bold text-white">{fmtNum(sbl!.lending_pool)}</p>
+              <p className="text-2xl font-bold text-foreground">{fmtNum(sbl!.lending_pool)}</p>
               <p className="text-xs text-slate-500 mt-1">shares</p>
             </div>
 
             <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
               <p className="text-xs text-slate-500 mb-2">Pool Value</p>
-              <p className="text-2xl font-bold text-white">{fmtSgd(sbl!.lending_pool_value, 1)}</p>
+              <p className="text-2xl font-bold text-foreground">{fmtSgd(sbl!.lending_pool_value, 1)}</p>
               <p className="text-xs text-slate-500 mt-1">at latest price {sbl!.latest_price.toFixed(3)}</p>
             </div>
 
             <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
               <p className="text-xs text-slate-500 mb-2">Lending / Borrowing Rate</p>
-              <p className="text-2xl font-bold text-white">
+              <p className="text-2xl font-bold text-foreground">
                 {sbl!.lending_rate_pct.toFixed(2)}% / {sbl!.borrowing_rate_pct.toFixed(2)}%
               </p>
               <p className="text-xs text-slate-500 mt-1">annualized</p>
@@ -253,7 +253,7 @@ export function ShortSellingAndLending() {
 
             <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
               <p className="text-xs text-slate-500 mb-2">Pool vs ADV</p>
-              <p className="text-2xl font-bold text-white">{sbl!.pool_as_pct_adv.toFixed(1)}%</p>
+              <p className="text-2xl font-bold text-foreground">{sbl!.pool_as_pct_adv.toFixed(1)}%</p>
               <p className="text-xs text-slate-500 mt-1">{sbl!.days_to_liquidate.toFixed(2)} days to liquidate</p>
             </div>
           </div>
@@ -270,7 +270,7 @@ export function ShortSellingAndLending() {
 
       {/* Peaks table */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-        <h3 className="text-sm font-semibold text-white mb-3">Largest short-ratio days</h3>
+        <h3 className="text-sm font-semibold text-foreground mb-3">Largest short-ratio days</h3>
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>

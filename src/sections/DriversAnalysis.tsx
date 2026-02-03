@@ -105,8 +105,8 @@ export function DriversAnalysis() {
               <Brain className="w-5 h-5 text-purple-400" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">{labels.drivers_title}</h2>
-              <p className="text-sm text-slate-500">{labels.drivers_subtitle}</p>
+              <h2 className="text-xl font-bold text-foreground">{labels.drivers_title}</h2>
+              <p className="text-sm text-muted-foreground">{labels.drivers_subtitle}</p>
             </div>
           </div>
           <div className="px-3 py-1.5 bg-purple-500/10 border border-purple-500/20 rounded-full">
@@ -130,7 +130,7 @@ export function DriversAnalysis() {
           <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <PieIcon className="w-4 h-4 text-slate-500" />
-              <h3 className="text-sm font-semibold text-white">{labels.drivers_pie_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground">{labels.drivers_pie_title}</h3>
             </div>
             <div className="flex justify-center">
               <div className="h-64 w-full max-w-md">
@@ -172,7 +172,7 @@ export function DriversAnalysis() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-slate-500" />
-                <h3 className="text-sm font-semibold text-white">{labels.rolling_title}</h3>
+                <h3 className="text-sm font-semibold text-foreground">{labels.rolling_title}</h3>
               </div>
             </div>
             <div className="h-64">
@@ -214,7 +214,7 @@ export function DriversAnalysis() {
                 <TrendingUp className="w-5 h-5 text-amber-400" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
                   {labels.regime_title}
                   <UITooltip>
                     <TooltipTrigger asChild>
@@ -272,7 +272,7 @@ export function DriversAnalysis() {
 
           {/* Transition Matrix */}
           <div className="overflow-x-auto">
-            <h4 className="text-sm font-semibold text-white mb-3">{labels.transition_title}</h4>
+            <h4 className="text-sm font-semibold text-foreground mb-3">{labels.transition_title}</h4>
             <Table>
               <TableHeader>
                 <TableRow className="border-slate-800 hover:bg-transparent">

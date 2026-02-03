@@ -49,11 +49,11 @@ export function ExecutiveSummary() {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-700/50">
           <div>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
               <span className="text-sky-400">◆</span>
               {labels.exec_title}
             </h2>
-            <p className="text-sm text-slate-400 mt-1">{labels.exec_subtitle}</p>
+            <p className="text-sm text-muted-foreground mt-1">{labels.exec_subtitle}</p>
           </div>
         </div>
 

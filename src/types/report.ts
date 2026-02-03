@@ -227,6 +227,13 @@ export interface TraderCompositionMix {
   retail_pct: number;
   mixed_pct: number;
   instit_pct: number;
+  // Optional (v3): composition by total shares and notional (fractions 0-1).
+  retail_qty_pct?: number;
+  mixed_qty_pct?: number;
+  instit_qty_pct?: number;
+  retail_notional_pct?: number;
+  mixed_notional_pct?: number;
+  instit_notional_pct?: number;
 }
 
 // Legacy (v1) shape kept for backward compatibility with older report files.
@@ -271,6 +278,11 @@ export interface TraderCompositionV2 {
       mixed_pct: number;
       instit_pct: number;
       avg_trade_size: number;
+      // Optional (v3): monthly composition by total shares (fractions 0-1).
+      retail_qty_pct?: number;
+      mixed_qty_pct?: number;
+      instit_qty_pct?: number;
+      total_quantity?: number;
     }[];
   };
   peer_comparison: {
@@ -280,6 +292,13 @@ export interface TraderCompositionV2 {
     retail_pct: number;
     mixed_pct: number;
     instit_pct: number;
+    // Optional (v3): peer composition by total shares and notional (fractions 0-1).
+    retail_qty_pct?: number;
+    mixed_qty_pct?: number;
+    instit_qty_pct?: number;
+    retail_notional_pct?: number;
+    mixed_notional_pct?: number;
+    instit_notional_pct?: number;
     avg_trade_size: number;
     thresholds: TraderCompositionThresholds;
   }[];

@@ -57,8 +57,8 @@ export function OFIPanel() {
             <Scale className="w-5 h-5 text-indigo-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">{labels.ofi_title}</h2>
-            <p className="text-sm text-slate-500">{labels.ofi_subtitle}</p>
+            <h2 className="text-xl font-bold text-foreground">{labels.ofi_title}</h2>
+            <p className="text-sm text-muted-foreground">{labels.ofi_subtitle}</p>
           </div>
         </div>
         <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
@@ -75,7 +75,7 @@ export function OFIPanel() {
           return (
             <div key={tile.title} className="glass-panel rounded-xl p-5">
               <p className="text-xs text-slate-500 mb-2">{tile.title}</p>
-              <p className="text-2xl font-bold text-white mb-2">{value.value}</p>
+              <p className="text-2xl font-bold text-foreground mb-2">{value.value}</p>
               <p className="text-xs text-slate-500 mb-3">{tile.note}</p>
               <span className={`text-xs px-2 py-1 rounded-full ${interpretation.cls}`}>
                 {index === 0 && <TrendingUp className="w-3 h-3 inline mr-1" />}
@@ -94,7 +94,7 @@ export function OFIPanel() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <Info className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-white">{labels.ofi_table_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground">{labels.ofi_table_title}</h3>
           </div>
           <p className="text-xs text-slate-500 mb-4">{labels.ofi_table_note}</p>
           <div className="overflow-x-auto">
@@ -136,7 +136,7 @@ export function OFIPanel() {
           <div className="glass-panel rounded-xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <Scale className="w-4 h-4 text-slate-500" />
-              <h3 className="text-sm font-semibold text-white">{labels.ofi_pie_title}</h3>
+              <h3 className="text-sm font-semibold text-foreground">{labels.ofi_pie_title}</h3>
             </div>
             <div className="h-48">
               <ResponsiveContainer width="100%" height="100%">
@@ -175,11 +175,11 @@ export function OFIPanel() {
             <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-800">
               <div>
                 <p className="text-xs text-slate-500">{labels.ofi_pie_stats[0]}</p>
-                <p className="text-2xl font-bold text-white">{ofi_block.pie.net_buy_days.toFixed(1)}%</p>
+                <p className="text-2xl font-bold text-foreground">{ofi_block.pie.net_buy_days.toFixed(1)}%</p>
               </div>
               <div>
                 <p className="text-xs text-slate-500">{labels.ofi_pie_stats[1]}</p>
-                <p className="text-2xl font-bold text-white">{ofi_block.pie.net_sell_days.toFixed(1)}%</p>
+                <p className="text-2xl font-bold text-foreground">{ofi_block.pie.net_sell_days.toFixed(1)}%</p>
               </div>
             </div>
           </div>
@@ -188,7 +188,7 @@ export function OFIPanel() {
           <div className="glass-panel rounded-xl p-4 border-l-2 border-indigo-500/50">
             <div className="flex items-center gap-2 mb-2">
               <Info className="w-4 h-4 text-indigo-400" />
-              <h4 className="text-sm font-semibold text-white">{labels.l2_compact_title}</h4>
+              <h4 className="text-sm font-semibold text-foreground">{labels.l2_compact_title}</h4>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">{ofi_block.l2_compact_text}</p>
           </div>

@@ -58,11 +58,11 @@ export function LiquidityHealth() {
       {/* Section Header */}
       <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-700/50">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
+          <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
             <Droplets className="w-5 h-5 text-sky-400" />
             {labels.liq_title}
           </h3>
-          <p className="text-sm text-slate-400 mt-1">{labels.liq_subtitle}</p>
+          <p className="text-sm text-muted-foreground mt-1">{labels.liq_subtitle}</p>
         </div>
         <span className={`status-badge ${theme.badges.liq_section.bg} ${theme.badges.liq_section.textColor} border border-current/30`}>
           {theme.badges.liq_section.text}
@@ -82,7 +82,7 @@ export function LiquidityHealth() {
             <div className="flex justify-between items-center mb-3">
               <span className="text-xs text-slate-400 font-medium">{tile.title}</span>
             </div>
-            <div className="text-3xl font-bold text-white mb-2">{tile.value}</div>
+            <div className="text-3xl font-bold text-foreground mb-2">{tile.value}</div>
             <p className="text-xs text-slate-500 leading-relaxed mb-2">{tile.sub}</p>
             <div className={tile.interp.cls}>
               {tile.interp.icon === '✓' ? <CheckCircle className="w-3 h-3" /> : <Info className="w-3 h-3" />}

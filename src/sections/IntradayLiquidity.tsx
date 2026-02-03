@@ -87,11 +87,11 @@ export function IntradayLiquidity() {
       {/* Section Header */}
       <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-700/50">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
+          <h3 className="text-lg font-bold text-foreground flex items-center gap-2">
             <Clock className="w-5 h-5 text-amber-400" />
             {labels.intraday_title}
           </h3>
-          <p className="text-sm text-slate-400 mt-1">{labels.intraday_subtitle}</p>
+          <p className="text-sm text-muted-foreground mt-1">{labels.intraday_subtitle}</p>
         </div>
         <span className={`status-badge ${theme.badges.intraday.bg} ${theme.badges.intraday.textColor} border border-current/30`}>
           {theme.badges.intraday.text}

@@ -82,8 +82,8 @@ export function ExecutionPanel() {
             <Target className="w-5 h-5 text-rose-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">{labels.exec_check_title}</h2>
-            <p className="text-sm text-slate-500">{labels.exec_check_subtitle}</p>
+            <h2 className="text-xl font-bold text-foreground">{labels.exec_check_title}</h2>
+            <p className="text-sm text-muted-foreground">{labels.exec_check_subtitle}</p>
           </div>
         </div>
         <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
@@ -108,7 +108,7 @@ export function ExecutionPanel() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <Activity className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-white">{labels.order_book_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground">{labels.order_book_title}</h3>
           </div>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
@@ -157,7 +157,7 @@ export function ExecutionPanel() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <DollarSign className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-white">{labels.peer_capacity_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground">{labels.peer_capacity_title}</h3>
           </div>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
@@ -196,7 +196,7 @@ export function ExecutionPanel() {
 
       {/* Impact Cards */}
       <motion.div variants={itemVariants}>
-        <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
           <AlertTriangle className="w-4 h-4 text-slate-500" />
           {labels.impact_summary_title}
         </h3>
@@ -211,23 +211,23 @@ export function ExecutionPanel() {
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-white">{card.title}</span>
+                <span className="text-sm font-medium text-foreground">{card.title}</span>
                 {index === 0 && <TrendingUp className="w-4 h-4 text-emerald-400" />}
                 {index === 1 && <Minus className="w-4 h-4 text-amber-400" />}
                 {index === 2 && <TrendingDown className="w-4 h-4 text-red-400" />}
               </div>
-              <p className="text-xs text-slate-400">{card.text}</p>
+              <p className="text-xs text-muted-foreground">{card.text}</p>
             </div>
           ))}
         </div>
-        <p className="text-xs text-slate-500 mt-3 italic">
+        <p className="text-xs text-muted-foreground mt-3 italic">
           Note: These estimates are based on the top 10 levels of the order book.
         </p>
       </motion.div>
 
       {/* Insight */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-4 border-l-2 border-rose-500/50">
-        <p className="text-sm text-slate-400 leading-relaxed">
+        <p className="text-sm text-muted-foreground leading-relaxed">
           <span className="text-rose-400 font-semibold">Key insight:</span>{' '}
           {labels.exec_check_insight.replace('💡 Key insight: ', '')}
         </p>

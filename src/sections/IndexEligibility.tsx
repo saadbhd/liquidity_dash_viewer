@@ -35,8 +35,8 @@ export function IndexEligibility() {
             <Flag className="w-5 h-5 text-sky-400" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">{labels.index_title}</h3>
-            <p className="text-sm text-slate-400 mt-1">{labels.index_subtitle}</p>
+            <h3 className="text-lg font-bold text-foreground">{labels.index_title}</h3>
+            <p className="text-sm text-muted-foreground mt-1">{labels.index_subtitle}</p>
           </div>
         </div>
         <span className={`status-badge ${theme.badges.index_status.bg} ${theme.badges.index_status.textColor} border border-current/30`}>
@@ -58,7 +58,7 @@ export function IndexEligibility() {
               {iconMap[tile.title]}
               <span className="text-xs font-medium">{tile.title}</span>
             </div>
-            <div className="text-2xl font-bold text-white">{tile.value}</div>
+            <div className="text-2xl font-bold text-foreground">{tile.value}</div>
             <div className="text-xs text-slate-500 mt-1">{tile.sub}</div>
           </motion.div>
         ))}

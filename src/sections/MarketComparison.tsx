@@ -145,7 +145,7 @@ function GradientBar({
         </TooltipTrigger>
         <TooltipContent side="top" className="bg-slate-900 border border-slate-700">
           <p className="text-xs text-slate-300">
-            <span className="font-semibold text-white">{labelText}</span>: {valueText}
+            <span className="font-semibold text-slate-100">{labelText}</span>: {valueText}
           </p>
         </TooltipContent>
       </Tooltip>
@@ -155,12 +155,21 @@ function GradientBar({
   const sectorRangeLeft = Math.min(sectorMinPos, sectorMaxPos);
   const sectorRangeWidth = Math.max(0, Math.abs(sectorMaxPos - sectorMinPos));
 
+  const rangeLabelLeft =
+    rangeMode === 'sector_minmax'
+      ? (isLowerBetter ? 'Sector max' : 'Sector min')
+      : (isLowerBetter ? 'Market p95' : 'Market p5');
+  const rangeLabelRight =
+    rangeMode === 'sector_minmax'
+      ? (isLowerBetter ? 'Sector min' : 'Sector max')
+      : (isLowerBetter ? 'Market p5' : 'Market p95');
+
   return (
     <TooltipProvider>
       <div className="glass-panel rounded-xl p-5">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <h4 className="text-sm font-semibold text-white">{label}</h4>
+            <h4 className="text-sm font-semibold text-foreground">{label}</h4>
             {glossaryKey && (
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -274,8 +283,8 @@ function GradientBar({
 
           {/* Range Labels */}
           <div className="flex justify-between text-[10px] text-slate-600 mt-6">
-            <span>{isLowerBetter ? 'Max' : 'Min'}: {formatFn(isLowerBetter ? rangeMax : rangeMin)}</span>
-            <span>{isLowerBetter ? 'Min' : 'Max'}: {formatFn(isLowerBetter ? rangeMin : rangeMax)}</span>
+            <span>{rangeLabelLeft}: {formatFn(isLowerBetter ? rangeMax : rangeMin)}</span>
+            <span>{rangeLabelRight}: {formatFn(isLowerBetter ? rangeMin : rangeMax)}</span>
           </div>
         </div>
 
@@ -322,11 +331,11 @@ export function MarketComparison() {
             <BarChart3 className="w-5 h-5 text-indigo-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">{labels.market_comparison_title}</h2>
-            <p className="text-sm text-slate-500">{labels.market_comparison_subtitle}</p>
+            <h2 className="text-xl font-bold text-foreground">{labels.market_comparison_title}</h2>
+            <p className="text-sm text-muted-foreground">{labels.market_comparison_subtitle}</p>
           </div>
         </div>
-        <div className="text-xs text-slate-500">
+        <div className="text-xs text-muted-foreground">
           {data.sector_name} Sector ({data.sector_count} companies) • Market ({data.market_count} stocks)
         </div>
       </motion.div>
@@ -335,23 +344,23 @@ export function MarketComparison() {
       <motion.div variants={itemVariants} className="flex flex-wrap gap-4 text-xs">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-sky-500 border border-white/60" />
-          <span className="text-slate-400">You</span>
+          <span className="text-muted-foreground">You</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-amber-500 border border-white/60 rotate-45" />
-          <span className="text-slate-400">Peers (median)</span>
+          <span className="text-muted-foreground">Peers (median)</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-teal-500 border border-white/60" />
-          <span className="text-slate-400">Sector (median)</span>
+          <span className="text-muted-foreground">Sector (median)</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="relative w-3 h-3">
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[65%] w-0 h-0 border-l-[5px] border-r-[5px] border-b-[9px] border-l-transparent border-r-transparent border-b-purple-400" />
           </div>
-          <span className="text-slate-400">Market (median)</span>
+          <span className="text-muted-foreground">Market (median)</span>
         </div>
-        <div className="ml-auto text-slate-600 text-[10px] italic">
+        <div className="ml-auto text-muted-foreground text-[10px] italic">
           Scale shows 5th-95th percentile of market values to exclude outliers (ADV uses sector min/max)
         </div>
       </motion.div>

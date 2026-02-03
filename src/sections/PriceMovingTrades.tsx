@@ -64,8 +64,8 @@ export function PriceMovingTrades() {
             <Activity className="w-5 h-5 text-orange-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">{labels.price_moving_title}</h2>
-            <p className="text-sm text-slate-500">{labels.price_moving_subtitle}</p>
+            <h2 className="text-xl font-bold text-foreground">{labels.price_moving_title}</h2>
+            <p className="text-sm text-muted-foreground">{labels.price_moving_subtitle}</p>
           </div>
         </div>
       </motion.div>
@@ -78,7 +78,7 @@ export function PriceMovingTrades() {
             <span className="text-xs text-slate-500 uppercase tracking-wider">Price-Moving Trades</span>
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-bold text-white">
+            <span className="text-3xl font-bold text-foreground">
               {price_moving_trades.price_moving_trades.toLocaleString()}
             </span>
             <span className="text-sm text-slate-500">
@@ -123,7 +123,7 @@ export function PriceMovingTrades() {
 
       {/* Chart */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-        <h3 className="text-sm font-semibold text-white mb-4">Trade Size Comparison</h3>
+        <h3 className="text-sm font-semibold text-foreground mb-4">Trade Size Comparison</h3>
         <div className="h-56">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
@@ -153,7 +153,7 @@ export function PriceMovingTrades() {
 
       {/* Key Insight */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-orange-500/50">
-        <h4 className="text-sm font-semibold text-white mb-3">Key Finding</h4>
+        <h4 className="text-sm font-semibold text-foreground mb-3">Key Finding</h4>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
             <p className="text-sm text-slate-400 leading-relaxed">{priceInsights.overall}</p>

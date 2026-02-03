@@ -362,7 +362,7 @@ export const REPORT_DATA: ReportData = {
             {
               title: "Treat index inclusion as an outcome (not a lever)",
               bullets: [
-                "CRPU is eligible for FTSE All-Share and FTSE Small Cap; STI / iEdge Next 50 require a large rank improvement.",
+                "CRPU is eligible for FTSE All-Share and FTSE Small Cap; STI require a large rank improvement.",
                 "Focus on stable turnover and predictable execution quality; index progress will follow."
               ]
             },
@@ -596,7 +596,7 @@ export const REPORT_DATA: ReportData = {
 
     index: {
       overall:
-        "CRPU is eligible for FTSE All-Share and FTSE Small Cap. It is not eligible for STI or iEdge Next 50 primarily due to market-cap rank (#115).",
+        "CRPU is eligible for FTSE All-Share and FTSE Small Cap and more others. It is not eligible for STI  primarily due to market-cap rank (#115).",
       hsci: "N/A for Singapore market (HSCI is Hong Kong-specific).",
       hsi_gap: "N/A (HSI is Hong Kong-specific).",
       tech_gap: "N/A (Hang Seng TECH is Hong Kong-specific).",
@@ -1418,10 +1418,10 @@ export const REPORT_DATA: ReportData = {
         { index: "STI", status: "ineligible", notes: "Rank #115 - outside top 30", gaps: ["Need rank ≤30 (currently #115)"] },
         { index: "FTSE All-Share", status: "eligible", notes: "Top 96.7% - qualifies", gaps: [] },
         { index: "FTSE Small Cap", status: "eligible", notes: "Small Cap band (86-98%)", gaps: [] },
-        { index: "iEdge Next 50", status: "ineligible", notes: "Rank #115 - below top 80", gaps: ["Need rank ≤80 (currently #115)"] }
+        { index: "FTSE ST Real Estate Investment Trusts Index", status: "eligible",  gaps: [] }
       ],
       insight:
-        "💡 Key insight: CRPU is already eligible for FTSE All-Share and FTSE Small Cap. The main gap is STI / iEdge Next 50, which are constrained by market-cap rank (#115).",
+        "💡 Key insight: CRPU is already eligible for FTSE All-Share and FTSE Small Cap. The main gap is STI, which are constrained by market-cap rank (#115).",
       levers_title: "How to Improve Index Eligibility",
       levers: [
         "Improve relative market-cap rank over time (business performance + investor demand)",

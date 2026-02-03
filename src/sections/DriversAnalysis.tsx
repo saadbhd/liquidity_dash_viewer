@@ -83,11 +83,10 @@ export function DriversAnalysis() {
     }));
   })();
 
-  // Regime data
+  // Regime data (may be empty if model could not be fitted)
   const regime = drivers.regime;
-  const currentRegime = regime.regimes[regime.current_regime];
-
-
+  const hasValidRegime = Array.isArray(regime?.regimes) && regime.regimes.length > 0;
+  const currentRegime = hasValidRegime ? regime.regimes[regime.current_regime] : null;
 
   return (
     <TooltipProvider>
@@ -206,7 +205,8 @@ export function DriversAnalysis() {
           </motion.div>
         </div>
 
-        {/* Regime Switching Section - moved after Rolling View */}
+        {/* Regime Switching Section - only when regime data is available */}
+        {hasValidRegime && currentRegime ? (
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-amber-500/50">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
@@ -309,6 +309,20 @@ export function DriversAnalysis() {
 
           <p className="text-xs text-slate-500 mt-3">{labels.transition_note_template}</p>
         </motion.div>
+        ) : (
+        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-amber-500/50">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
+              <TrendingUp className="w-5 h-5 text-amber-400" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-foreground">{labels.regime_title}</h3>
+              <p className="text-sm text-slate-500">{labels.regime_subtitle}</p>
+            </div>
+          </div>
+          <p className="text-sm text-slate-400">Regime analysis is not available for this report (model could not be fitted or data insufficient).</p>
+        </motion.div>
+        )}
       </motion.div>
     </TooltipProvider>
   );

@@ -308,13 +308,25 @@ export interface TraderCompositionV2 {
 
 export type TraderComposition = TraderCompositionLegacy | TraderCompositionV2;
 
+export interface PriceMovingMoverGroup {
+  count: number;
+  avg_size: number;
+  median_size: number;
+  retail_count?: number;
+  mixed_count?: number;
+  institutional_count?: number;
+  retail_pct?: number;
+  mixed_pct?: number;
+  instit_pct?: number;
+}
+
 export interface PriceMovingTrades {
   total_trades: number;
   price_moving_trades: number;
   pct_price_moving: number;
-  all_movers: { count: number; avg_size: number; median_size: number };
-  positive_movers: { count: number; avg_size: number; median_size: number };
-  negative_movers: { count: number; avg_size: number; median_size: number };
+  all_movers: PriceMovingMoverGroup;
+  positive_movers: PriceMovingMoverGroup;
+  negative_movers: PriceMovingMoverGroup;
 }
 
 export interface ShortSellingPeriodStats {
@@ -533,6 +545,8 @@ export interface PriceMovingInsights {
   overall: string;
   interpretation: string;
   asymmetry: string;
+  /** Optional: insight that retail dominates price-moving trades (when by-trader breakdown is present). */
+  by_trader_type?: string;
 }
 
 export interface ShortSellingInsights {

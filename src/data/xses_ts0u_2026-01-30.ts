@@ -516,11 +516,13 @@ export const REPORT_DATA: ReportData = {
 
     price_moving: {
       overall:
-        "About 16.8% of trades moved the price (7,429 of 44,100). This indicates moderate microstructure sensitivity.",
+        "About 22.2% of trades moved the price (7,408 of 33,311). Retail traders drive the vast majority of price-moving trades in both directions.",
       interpretation:
         "A meaningful share of trades move the price, so execution outcomes depend on how you trade (limit discipline and avoiding urgency).",
       asymmetry:
-        "Positive and negative movers are similar in size; the key point is sensitivity exists despite good headline liquidity."
+        "Sell trades that move prices are ~1.1x larger on average than buy trades that move prices; the main takeaway is that retail activity dominates price impact.",
+      by_trader_type:
+        "Retail traders are the ones moving the price most: ~96.9% of positive price movers and ~95.7% of negative price movers are retail. Mixed and institutional together account for only ~3–4% of price-moving trades, so microstructure sensitivity is largely driven by retail flow."
     },
 
     short_selling: {
@@ -1182,12 +1184,42 @@ export const REPORT_DATA: ReportData = {
     },
 
     price_moving_trades: {
-      total_trades: 44100,
-      price_moving_trades: 7429,
-      pct_price_moving: 16.84580498866213,
-      all_movers: { count: 7429, avg_size: 1972.0160856104455, median_size: 157.5 },
-      positive_movers: { count: 3723, avg_size: 1996.104082728982, median_size: 170.0 },
-      negative_movers: { count: 3706, avg_size: 1947.8175930922828, median_size: 144.0 }
+      total_trades: 33311,
+      price_moving_trades: 7408,
+      pct_price_moving: 22.238900063042237,
+      all_movers: {
+        count: 7408,
+        avg_size: 2522.319856911447,
+        median_size: 172.5,
+        retail_count: 7134,
+        mixed_count: 220,
+        institutional_count: 54,
+        retail_pct: 96.3012958963283,
+        mixed_pct: 2.9697624190064795,
+        instit_pct: 0.7289416846652268
+      },
+      positive_movers: {
+        count: 3712,
+        avg_size: 2390.7064924568967,
+        median_size: 175.0,
+        retail_count: 3597,
+        mixed_count: 91,
+        institutional_count: 24,
+        retail_pct: 96.90193965517241,
+        mixed_pct: 2.4515086206896552,
+        instit_pct: 0.646551724137931
+      },
+      negative_movers: {
+        count: 3696,
+        avg_size: 2654.502976190476,
+        median_size: 167.5,
+        retail_count: 3537,
+        mixed_count: 129,
+        institutional_count: 30,
+        retail_pct: 95.69805194805194,
+        mixed_pct: 3.49025974025974,
+        instit_pct: 0.8116883116883116
+      }
     },
 
     short_selling: {

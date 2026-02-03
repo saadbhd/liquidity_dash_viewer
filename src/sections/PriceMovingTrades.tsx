@@ -10,6 +10,14 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -49,6 +57,9 @@ export function PriceMovingTrades() {
   ];
 
   const sizeRatio = price_moving_trades.negative_movers.avg_size / price_moving_trades.positive_movers.avg_size;
+  const hasTraderBreakdown =
+    typeof price_moving_trades.positive_movers.retail_count === 'number' &&
+    typeof price_moving_trades.negative_movers.retail_count === 'number';
 
   return (
     <motion.div
@@ -152,12 +163,83 @@ export function PriceMovingTrades() {
         </div>
       </motion.div>
 
+      {/* By trader type (when breakdown available) */}
+      {hasTraderBreakdown && (
+        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
+          <h3 className="text-sm font-semibold text-foreground mb-3">
+            By trader type :
+          </h3>
+          <Table>
+            <TableHeader>
+              <TableRow className="border-slate-700 hover:bg-transparent">
+                <TableHead className="text-slate-400 font-medium">Direction</TableHead>
+                <TableHead className="text-slate-400 font-medium text-right">Retail</TableHead>
+                <TableHead className="text-slate-400 font-medium text-right">Mixed</TableHead>
+                <TableHead className="text-slate-400 font-medium text-right">Institutional</TableHead>
+                <TableHead className="text-slate-400 font-medium text-right">R%</TableHead>
+                <TableHead className="text-slate-400 font-medium text-right">M%</TableHead>
+                <TableHead className="text-slate-400 font-medium text-right">I%</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow className="border-slate-700">
+                <TableCell className="font-medium text-emerald-400">Positive (↑)</TableCell>
+                <TableCell className="text-right text-slate-300">
+                  {price_moving_trades.positive_movers.retail_count!.toLocaleString()}
+                </TableCell>
+                <TableCell className="text-right text-slate-300">
+                  {price_moving_trades.positive_movers.mixed_count!.toLocaleString()}
+                </TableCell>
+                <TableCell className="text-right text-slate-300">
+                  {price_moving_trades.positive_movers.institutional_count!.toLocaleString()}
+                </TableCell>
+                <TableCell className="text-right text-slate-400">
+                  {price_moving_trades.positive_movers.retail_pct!.toFixed(1)}%
+                </TableCell>
+                <TableCell className="text-right text-slate-400">
+                  {price_moving_trades.positive_movers.mixed_pct!.toFixed(1)}%
+                </TableCell>
+                <TableCell className="text-right text-slate-400">
+                  {price_moving_trades.positive_movers.instit_pct!.toFixed(1)}%
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-slate-700">
+                <TableCell className="font-medium text-red-400">Negative (↓)</TableCell>
+                <TableCell className="text-right text-slate-300">
+                  {price_moving_trades.negative_movers.retail_count!.toLocaleString()}
+                </TableCell>
+                <TableCell className="text-right text-slate-300">
+                  {price_moving_trades.negative_movers.mixed_count!.toLocaleString()}
+                </TableCell>
+                <TableCell className="text-right text-slate-300">
+                  {price_moving_trades.negative_movers.institutional_count!.toLocaleString()}
+                </TableCell>
+                <TableCell className="text-right text-slate-400">
+                  {price_moving_trades.negative_movers.retail_pct!.toFixed(1)}%
+                </TableCell>
+                <TableCell className="text-right text-slate-400">
+                  {price_moving_trades.negative_movers.mixed_pct!.toFixed(1)}%
+                </TableCell>
+                <TableCell className="text-right text-slate-400">
+                  {price_moving_trades.negative_movers.instit_pct!.toFixed(1)}%
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </motion.div>
+      )}
+
       {/* Key Insight */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-orange-500/50">
         <h4 className="text-sm font-semibold text-foreground mb-3">Key Finding</h4>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
             <p className="text-sm text-slate-400 leading-relaxed">{priceInsights.overall}</p>
+            {priceInsights.by_trader_type && (
+              <p className="text-sm text-orange-400/90 leading-relaxed mt-3">
+                {priceInsights.by_trader_type}
+              </p>
+            )}
           </div>
           <div>
             <p className="text-sm text-slate-400 leading-relaxed">{priceInsights.interpretation}</p>

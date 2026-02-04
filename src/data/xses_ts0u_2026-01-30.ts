@@ -25,14 +25,14 @@ export const PEER_METHODOLOGY = {
     "Select a small set (typically 6–10) for practical comparison"
   ],
   peers: [
-    { ticker: "K71U", name: "Keppel Reit", marketCap: "S$3.7B" },
-    { ticker: "AJBU", name: "Keppel DC Reit", marketCap: "S$4.6B" },
-    { ticker: "P40U", name: "StarhillGbl Reit", marketCap: "S$1.35B" },
-    { ticker: "TQ5", name: "Frasers Property", marketCap: "S$4.63B" },
-    { ticker: "H13", name: "Ho Bee Land", marketCap: "S$1.53B" },
-    { ticker: "W05", name: "Wing Tai", marketCap: "S$1.24B" },
-    { ticker: "Q5T", name: "Far East HTrust", marketCap: "S$1.23B" },
-    { ticker: "U06", name: "SingaporeLandGrp", marketCap: "S$4.94B" }
+    { ticker: "K71U", name: "Keppel Reit", marketCap: "S$3.7B", sector: "REIT - Office", industry: "Real Estate" },
+    { ticker: "AJBU", name: "Keppel DC Reit", marketCap: "S$4.6B", sector: "REIT - Industrial", industry: "Real Estate" },
+    { ticker: "P40U", name: "StarhillGbl Reit", marketCap: "S$1.35B", sector: "REIT - Retail", industry: "Real Estate" },
+    { ticker: "TQ5", name: "Frasers Property", marketCap: "S$4.63B", sector: "Real Estate Development", industry: "Real Estate" },
+    { ticker: "H13", name: "Ho Bee Land", marketCap: "S$1.53B", sector: "Real Estate Development", industry: "Real Estate" },
+    { ticker: "W05", name: "Wing Tai", marketCap: "S$1.24B", sector: "Real Estate Development", industry: "Real Estate" },
+    { ticker: "Q5T", name: "Far East HTrust", marketCap: "S$1.23B", sector: "REIT - Diversified", industry: "Real Estate" },
+    { ticker: "U06", name: "SingaporeLandGrp", marketCap: "S$4.94B", sector: "Real Estate Development", industry: "Real Estate" }
   ]
 };
 
@@ -166,9 +166,9 @@ export const REPORT_DATA: ReportData = {
       "Lower is better. For TS0U, a S$50K clip is ~7.5% of ADV — generally manageable. Several peers are far less scalable (50K is >100% of ADV).",
     impact_summary_title: "Estimated Price Impact (Sell Orders)",
     impact_summary_subtitle:
-      "Impact is measured from mid-price to simulated VWAP using the latest order book snapshot (single-day). Real results vary by day and by urgency.",
+      "Price impact from mid to VWAP using latest order book snapshot (single-day). Real results vary by day and by urgency.",
     exec_check_insight:
-      "Liquidity is adequate for an SGX REIT (ADV below peers); spread is relatively wide versus peers. Modeled impact remains contained for S$100K–S$1M sells (~0.66–0.71%), rising to ~1.56% for S$2.5M.",
+      "Liquidity is adequate for an SGX REIT (ADV below peers); spread is relatively wide versus peers. Depth is present; price impact remains contained for S$100K–S$1M sells (~0.66–0.71%), rising to ~1.56% for S$2.5M.",
 
     trader_composition_title: "Who's Trading Your Stock?",
     trader_composition_subtitle: "Breakdown of retail, mixed, and institutional trading",
@@ -381,13 +381,13 @@ export const REPORT_DATA: ReportData = {
     exec_check_tiles: [
       { title: "Mid Price", value: "0.3775", note: "SGD (snapshot)", color: "text-white" },
       { title: "Spread", value: "1.33%", note: "Immediate trading cost", color: "text-amber-300" },
-      { title: "Kyle's Lambda", value: "0.58 bps", note: "per S$10K traded", color: "text-white" }
+      { title: "Depth", value: "Present", note: "Multiple levels; staging helps for larger clips", color: "text-amber-300" }
     ],
 
     impact_summary_cards: [
-      { title: "S$100K Sell", text: "Impact: −0.66% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
-      { title: "S$1.0M Sell", text: "Impact: −0.71% • Fill: 100% • Mid→VWAP", cls: "bg-amber-500/10 border border-amber-500/30" },
-      { title: "S$2.5M Sell", text: "Impact: −1.56% • Fill: 100% • Mid→VWAP", cls: "bg-red-500/10 border border-red-500/30" }
+      { title: "S$100K Sell", text: "Price impact: −0.66% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
+      { title: "S$1.0M Sell", text: "Price impact: −0.71% • Fill: 100% • Mid→VWAP", cls: "bg-amber-500/10 border border-amber-500/30" },
+      { title: "S$2.5M Sell", text: "Price impact: −1.56% • Fill: 100% • Mid→VWAP", cls: "bg-red-500/10 border border-red-500/30" }
     ],
 
     peers_hhi_header: ["Ticker", "% Auctions", "HHI", "Interpretation"],
@@ -540,11 +540,9 @@ export const REPORT_DATA: ReportData = {
 
     execution: {
       overall:
-        "Execution impact is manageable for staged tickets, but crossing cost is non-trivial due to spread. Modeled impact is ~0.66% for S$100K sells, ~0.71% for S$1M, and ~1.56% for S$2.5M (single-day snapshot).",
+        "Execution impact is manageable for staged tickets, but crossing cost is non-trivial due to spread. Depth is present; price impact is ~0.66% for S$100K sells, ~0.71% for S$1M, and ~1.56% for S$2.5M (single-day snapshot).",
       concern:
         "The main execution risk is spread (immediate cost) and one-sided flow days (timing risk), not lack of trades.",
-      kyle:
-        "Kyle’s Lambda is ~0.58 bps per S$10K traded (from this snapshot), suggesting incremental impact is not extreme.",
       peer_context:
         "TS0U’s 50K clip is ~7–8% of ADV (manageable), while several peers exceed 100% of ADV for the same clip. That scalability is a plus, but ADV is still below peer median (−8.7%) and spreads need improvement."
     },

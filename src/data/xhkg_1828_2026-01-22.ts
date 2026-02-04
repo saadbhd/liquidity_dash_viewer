@@ -24,14 +24,14 @@ export const PEER_METHODOLOGY = {
     "If many remain, choose closest by ADV (20-day Average Daily Volume)"
   ],
   peers: [
-    { ticker: "1508", name: "CHINA RE", marketCap: "11.1B HKD" },
-    { ticker: "376", name: "YUNFENG FIN", marketCap: "14.0B HKD" },
-    { ticker: "2378", name: "PRU", marketCap: "313.2B HKD" },
-    { ticker: "6963", name: "SUNSHINE INS", marketCap: "14.3B HKD" },
-    { ticker: "82318", name: "PING AN-R", marketCap: "443.1B HKD" },
-    { ticker: "945", name: "MANULIFE-S", marketCap: "485.4B HKD" },
-    { ticker: "6060", name: "ZA ONLINE", marketCap: "27.5B HKD" },
-    { ticker: "966", name: "CHINA TAIPING", marketCap: "82.7B HKD" }
+    { ticker: "1508", name: "CHINA RE", marketCap: "11.1B HKD", sector: "Reinsurance", industry: "Financial Services" },
+    { ticker: "376", name: "YUNFENG FIN", marketCap: "14.0B HKD", sector: "Asset Management", industry: "Financial Services" },
+    { ticker: "2378", name: "PRU", marketCap: "313.2B HKD", sector: "Life Insurance", industry: "Financial Services" },
+    { ticker: "6963", name: "SUNSHINE INS", marketCap: "14.3B HKD", sector: "Property & Casualty Insurance", industry: "Financial Services" },
+    { ticker: "82318", name: "PING AN-R", marketCap: "443.1B HKD", sector: "Life Insurance", industry: "Financial Services" },
+    { ticker: "945", name: "MANULIFE-S", marketCap: "485.4B HKD", sector: "Life Insurance", industry: "Financial Services" },
+    { ticker: "6060", name: "ZA ONLINE", marketCap: "27.5B HKD", sector: "Property & Casualty Insurance", industry: "Financial Services" },
+    { ticker: "966", name: "CHINA TAIPING", marketCap: "82.7B HKD", sector: "Multi-line Insurance", industry: "Financial Services" }
   ]
 };
 
@@ -219,7 +219,7 @@ export const REPORT_DATA: ReportData = {
     peer_capacity_title: "How Much Can You Trade? (50K as % of Daily Volume)",
     peer_capacity_note: "Lower is better. Shows what percentage of a typical day's trading a 50K order represents.",
     impact_summary_title: "Estimated Price Impact (Sell Orders)",
-    impact_summary_subtitle: "Based on current order book snapshot. Actual results depend on timing and market conditions.",
+    impact_summary_subtitle: "Price impact from current order book snapshot. Actual results depend on timing and market conditions.",
     exec_check_insight: "Liquidity is strong with an average daily volume of ~HK$22.4M and tight spreads (~0.21%). Small orders execute easily; larger orders may face partial fills (e.g., ~HK$1.5M sells only fill 56% in the current snapshot).",
 
     // TRADER COMPOSITION - NEW SECTION
@@ -448,13 +448,13 @@ export const REPORT_DATA: ReportData = {
     exec_check_tiles: [
       { title: "Mid Price", value: "37.54", note: "HKD (snapshot)", color: "text-white" },
       { title: "Spread", value: "0.21%", note: "Immediate trading cost", color: "text-emerald-300" },
-      { title: "Kyle's Lambda", value: "0.06 bps", note: "per HK$50K traded", color: "text-white" }
+      { title: "Depth", value: "Strong", note: "Multiple levels of size on both sides", color: "text-emerald-300" }
     ],
 
     impact_summary_cards: [
-      { title: "HK$50K Sell", text: "Impact: −0.11% • Fill: 100%", cls: "bg-emerald-500/10 border border-emerald-500/30" },
-      { title: "HK$500K Sell", text: "Impact: −0.13% • Fill: 100%", cls: "bg-amber-500/10 border border-amber-500/30" },
-      { title: "HK$1.5M Sell", text: "Impact: −0.24% • Fill: 56.2%", cls: "bg-red-500/10 border border-red-500/30" }
+      { title: "HK$50K Sell", text: "Price impact: −0.11% • Fill: 100%", cls: "bg-emerald-500/10 border border-emerald-500/30" },
+      { title: "HK$500K Sell", text: "Price impact: −0.13% • Fill: 100%", cls: "bg-amber-500/10 border border-amber-500/30" },
+      { title: "HK$1.5M Sell", text: "Price impact: −0.24% • Fill: 56.2%", cls: "bg-red-500/10 border border-red-500/30" }
     ],
 
     peers_hhi_header: ["Ticker", "% Auctions", "HHI", "Interpretation"],
@@ -576,9 +576,8 @@ export const REPORT_DATA: ReportData = {
 
     // EXECUTION INSIGHTS
     execution: {
-      overall: "Execution costs are very reasonable for small to medium trades. A HK$50K order has only 10.7 bps impact and fills 100%. Even HK$500K orders fill completely with 13.2 bps impact.",
-      concern: "The challenge is at HK$1.5M where impact jumps to 24.1 bps and only 56% fills in the snapshot. This indicates depth constraints for large trades.",
-      kyle: "Kyle's Lambda of 0.06 bps per HK$50K means each additional HK$50K traded moves the price by 0.06 bps. This is quite low, indicating good liquidity.",
+      overall: "Execution costs are very reasonable for small to medium trades. Depth is strong; a HK$50K order has only 10.7 bps price impact and fills 100%. Even HK$500K orders fill completely with 13.2 bps impact.",
+      concern: "The challenge is at HK$1.5M where price impact jumps to 24.1 bps and only 56% fills in the snapshot. This indicates depth constraints for large trades.",
       peer_context: "Your 50K order is only 0.2% of daily volume — among the best in your peer group. Only 966 and 6060 have better ratios."
     },
 

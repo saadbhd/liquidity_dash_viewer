@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Brain, PieChart as PieIcon, TrendingUp, HelpCircle } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { useChartTheme } from '@/hooks/useChartTheme';
 import { GLOSSARY } from '@/data/glossary';
 import {
   PieChart,
@@ -45,11 +46,12 @@ const itemVariants = {
 
 export function DriversAnalysis() {
   const { labels, series } = useReport();
+  const chartTheme = useChartTheme();
   const { drivers } = series;
 
-  // Pie data
+  // Pie data (use theme bar colors for consistency)
   const pieData = [
-    { name: 'Market', value: drivers.share_market, color: '#64748b' },
+    { name: 'Market', value: drivers.share_market, color: chartTheme.barSecondary },
     { name: 'Sector', value: drivers.share_sector, color: '#10b981' },
     { name: 'Company-Specific', value: drivers.share_idio, color: '#8b5cf6' },
   ];
@@ -117,8 +119,8 @@ export function DriversAnalysis() {
         <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {labels.drivers_strip.map((item) => (
             <div key={item.title} className="glass-panel rounded-xl p-4">
-              <p className="text-xs text-slate-500 uppercase tracking-wider mb-2">{item.title}</p>
-              <p className="text-sm text-slate-300 leading-relaxed">{item.text}</p>
+              <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-2">{item.title}</p>
+              <p className="text-sm text-foreground font-medium leading-relaxed">{item.text}</p>
             </div>
           ))}
         </motion.div>
@@ -170,33 +172,31 @@ export function DriversAnalysis() {
           <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-slate-500" />
+                <TrendingUp className="w-4 h-4 text-muted-foreground" />
                 <h3 className="text-sm font-semibold text-foreground">{labels.rolling_title}</h3>
               </div>
             </div>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={rollingData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                   <XAxis
                     dataKey="period"
-                    tick={{ fill: '#64748b', fontSize: 11 }}
-                    axisLine={{ stroke: '#334155' }}
+                    tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                    axisLine={{ stroke: chartTheme.axisLineStroke }}
                     tickLine={false}
                     orientation="top"
                   />
                   <YAxis
-                    tick={{ fill: '#64748b', fontSize: 11 }}
+                    tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                     axisLine={false}
                     tickLine={false}
                     domain={[0, 100]}
                     tickFormatter={(v) => `${v}%`}
                   />
-                  <Tooltip
-                    contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)', borderRadius: '8px' }}
-                  />
+                  <Tooltip contentStyle={chartTheme.tooltipContentStyle} />
                   <Legend iconType="square" wrapperStyle={{ paddingTop: '10px' }} />
-                  <Bar dataKey="Market" stackId="a" fill="#64748b" radius={[0, 0, 0, 0]} />
+                  <Bar dataKey="Market" stackId="a" fill={chartTheme.barSecondary} radius={[0, 0, 0, 0]} />
                   <Bar dataKey="Sector" stackId="a" fill="#10b981" radius={[0, 0, 0, 0]} />
                   <Bar dataKey="Company-Specific" stackId="a" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
                 </BarChart>
@@ -211,63 +211,74 @@ export function DriversAnalysis() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-amber-400" />
+                <TrendingUp className="w-5 h-5 text-amber-600 dark:text-amber-400" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
                   {labels.regime_title}
                   <UITooltip>
                     <TooltipTrigger asChild>
-                      <button className="text-slate-600 hover:text-slate-400">
+                      <button className="text-muted-foreground hover:text-foreground">
                         <HelpCircle className="w-4 h-4" />
                       </button>
                     </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border border-slate-700">
-                      <p className="font-semibold text-sky-400 text-sm">{GLOSSARY.regime.term}</p>
-                      <p className="text-xs text-slate-300 mt-1">{GLOSSARY.regime.plainLanguage}</p>
+                    <TooltipContent side="top" className="max-w-xs bg-popover border border-border">
+                      <p className="font-semibold text-sky-600 dark:text-sky-400 text-sm">{GLOSSARY.regime.term}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{GLOSSARY.regime.plainLanguage}</p>
                     </TooltipContent>
                   </UITooltip>
                 </h3>
-                <p className="text-sm text-slate-500">{labels.regime_subtitle}</p>
+                <p className="text-sm text-muted-foreground">{labels.regime_subtitle}</p>
               </div>
             </div>
             <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-              <span className="text-xs font-medium text-emerald-400">
+              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
                 Current: {currentRegime.label}
               </span>
             </div>
           </div>
 
-          {/* Regime Characteristics */}
+          {/* Regime Characteristics - support decimal (0-1), percent (×100 for display), or already-in-pct (mean_ret_pct/volatility_pct) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {regime.regimes.map((r) => (
+            {regime.regimes.map((r) => {
+              const pctTimeDisplay = r.pct_time <= 1.5 ? r.pct_time * 100 : r.pct_time;
+              const meanRetDisplay = r.mean_ret_pct !== undefined
+                ? r.mean_ret_pct
+                : (Math.abs(r.mean_ret) < 2 ? r.mean_ret * 100 : r.mean_ret);
+              const volDisplay = r.volatility_pct !== undefined
+                ? r.volatility_pct
+                : (r.volatility < 2 ? r.volatility * 100 : r.volatility);
+              const meanRetStr = meanRetDisplay >= 0 ? '+' : '';
+              const returnDecimals = (r.mean_ret_pct !== undefined || r.volatility_pct !== undefined) ? 3 : 2;
+              const volDecimals = (r.mean_ret_pct !== undefined || r.volatility_pct !== undefined) ? 4 : 2;
+              return (
               <div
                 key={r.id}
                 className={`p-4 rounded-lg border ${r.id === regime.current_regime
                   ? 'bg-emerald-500/10 border-emerald-500/30'
-                  : 'bg-slate-800/50 border-slate-700/50'
+                  : 'bg-muted/50 border-border'
                   }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`text-sm font-medium ${r.id === regime.current_regime ? 'text-emerald-400' : 'text-slate-400'}`}>
+                  <span className={`text-sm font-medium ${r.id === regime.current_regime ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}>
                     {r.label}
                   </span>
-                  <span className="text-xs text-slate-500">{r.pct_time.toFixed(1)}% of time</span>
+                  <span className="text-xs text-muted-foreground">{pctTimeDisplay.toFixed(1)}% of time</span>
                 </div>
                 <div className="space-y-1 text-xs">
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Avg Daily Return:</span>
-                    <span className={r.mean_ret >= 0 ? 'text-emerald-400' : 'text-red-400'}>
-                      {r.mean_ret >= 0 ? '+' : ''}{r.mean_ret.toFixed(2)}%
+                    <span className="text-muted-foreground">Avg Daily Return:</span>
+                    <span className={meanRetDisplay >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}>
+                      {meanRetStr}{meanRetDisplay.toFixed(returnDecimals)}%
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Volatility:</span>
-                    <span className="text-slate-300">{r.volatility.toFixed(2)}%</span>
+                    <span className="text-muted-foreground">Volatility:</span>
+                    <span className="text-foreground/80">{volDisplay.toFixed(volDecimals)}%</span>
                   </div>
                 </div>
               </div>
-            ))}
+            );})}
           </div>
 
           {/* Transition Matrix */}
@@ -275,9 +286,9 @@ export function DriversAnalysis() {
             <h4 className="text-sm font-semibold text-foreground mb-3">{labels.transition_title}</h4>
             <Table>
               <TableHeader>
-                <TableRow className="border-slate-800 hover:bg-transparent">
+                <TableRow className="border-border hover:bg-transparent">
                   {labels.transition_cols.map((col) => (
-                    <TableHead key={col} className="text-slate-500 text-xs">
+                    <TableHead key={col} className="text-muted-foreground text-xs">
                       {col}
                     </TableHead>
                   ))}
@@ -285,39 +296,41 @@ export function DriversAnalysis() {
               </TableHeader>
               <TableBody>
                 {regime.regimes.map((fromRegime, fromIdx) => (
-                  <TableRow key={fromRegime.id} className="border-slate-800">
-                    <TableCell className="text-slate-300 font-medium text-sm">
+                  <TableRow key={fromRegime.id} className="border-border">
+                    <TableCell className="text-foreground/80 font-medium text-sm">
                       {fromRegime.label}
                       {fromIdx === regime.current_regime && (
-                        <span className="ml-2 text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-300 rounded-full">
+                        <span className="ml-2 text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 rounded-full">
                           NOW
                         </span>
                       )}
                     </TableCell>
-                    {regime.transitions[fromIdx].map((prob, toIdx) => (
-                      <TableCell key={toIdx} className="text-slate-400 text-sm">
-                        <span className={fromIdx === toIdx ? 'text-emerald-400 font-medium' : ''}>
-                          {prob.toFixed(1)}%
+                    {regime.transitions[fromIdx].map((prob, toIdx) => {
+                      const probPct = prob <= 1 ? prob * 100 : prob;
+                      return (
+                      <TableCell key={toIdx} className="text-muted-foreground text-sm">
+                        <span className={fromIdx === toIdx ? 'text-emerald-600 dark:text-emerald-400 font-medium' : ''}>
+                          {probPct.toFixed(1)}%
                         </span>
                       </TableCell>
-                    ))}
+                    );})}
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
 
-          <p className="text-xs text-slate-500 mt-3">{labels.transition_note_template}</p>
+          <p className="text-xs text-muted-foreground mt-3">{labels.transition_note_template}</p>
         </motion.div>
         ) : (
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-amber-500/50">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-amber-400" />
+              <TrendingUp className="w-5 h-5 text-amber-600 dark:text-amber-400" />
             </div>
             <div>
               <h3 className="text-lg font-semibold text-foreground">{labels.regime_title}</h3>
-              <p className="text-sm text-slate-500">{labels.regime_subtitle}</p>
+              <p className="text-sm text-muted-foreground">{labels.regime_subtitle}</p>
             </div>
           </div>
           <p className="text-sm text-slate-400">Regime analysis is not available for this report (model could not be fitted or data insufficient).</p>

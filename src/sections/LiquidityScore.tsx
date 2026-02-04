@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Droplets, Users, Zap, TrendingUp, AlertTriangle } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { useChartTheme } from '@/hooks/useChartTheme';
 import {
   BarChart,
   Bar,
@@ -27,6 +28,7 @@ const itemVariants = {
 
 export function LiquidityScore() {
   const { labels, content, insights, series, meta, theme } = useReport();
+  const chartTheme = useChartTheme();
   const { peers_liquidity } = series;
   const { liquidity: liquidityInsights } = insights;
 
@@ -56,7 +58,7 @@ export function LiquidityScore() {
       return (
         <div className="chart-tooltip">
           <p className="font-semibold text-foreground">{data.ticker}</p>
-          <p className="text-sm text-sky-400">Score: {data.score.toFixed(1)}</p>
+          <p className="text-sm text-sky-600 dark:text-sky-400">Score: {data.score.toFixed(1)}</p>
           <p className="text-sm text-muted-foreground">ADV: {formatMoney(data.adv)}</p>
         </div>
       );
@@ -76,7 +78,7 @@ export function LiquidityScore() {
       <motion.div variants={itemVariants} className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
-            <Droplets className="w-5 h-5 text-sky-400" />
+            <Droplets className="w-5 h-5 text-sky-600 dark:text-sky-400" />
           </div>
           <div>
             <h2 className="text-xl font-bold text-foreground">{labels.liq_title}</h2>
@@ -84,7 +86,7 @@ export function LiquidityScore() {
           </div>
         </div>
         <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-          <span className="text-xs font-medium text-emerald-400">{theme.badges.liq_section.text}</span>
+          <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">{theme.badges.liq_section.text}</span>
         </div>
       </motion.div>
 
@@ -133,12 +135,12 @@ export function LiquidityScore() {
               <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
                 <XAxis
                   dataKey="ticker"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#334155' }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                  axisLine={{ stroke: chartTheme.axisLineStroke }}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
                   domain={[0, 100]}
@@ -173,7 +175,7 @@ export function LiquidityScore() {
         className="glass-panel rounded-xl p-5 bg-gradient-to-br from-sky-500/5 to-transparent border border-sky-500/20"
       >
         <div className="flex items-start gap-3">
-          <Zap className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+          <Zap className="w-4 h-4 text-sky-600 dark:text-sky-400 mt-0.5 flex-shrink-0" />
           <p className="text-sm text-muted-foreground leading-relaxed">{content.liq_insight}</p>
         </div>
       </motion.div>
@@ -185,8 +187,8 @@ export function LiquidityScore() {
           {/* Strengths */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <TrendingUp className="w-4 h-4 text-emerald-400" />
-              <h5 className="text-sm font-medium text-emerald-400">Strengths</h5>
+              <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <h5 className="text-sm font-medium text-emerald-600 dark:text-emerald-400">Strengths</h5>
             </div>
             <ul className="space-y-2">
               {liquidityInsights.strengths.map((strength, idx) => (
@@ -201,8 +203,8 @@ export function LiquidityScore() {
           {/* Concerns */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <AlertTriangle className="w-4 h-4 text-amber-400" />
-              <h5 className="text-sm font-medium text-amber-400">Areas for Improvement</h5>
+              <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <h5 className="text-sm font-medium text-amber-600 dark:text-amber-400">Areas for Improvement</h5>
             </div>
             <ul className="space-y-2">
               {liquidityInsights.concerns.map((concern, idx) => (

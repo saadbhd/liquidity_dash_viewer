@@ -25,14 +25,14 @@ export const PEER_METHODOLOGY = {
     "Select a small set (typically 6–10) for practical comparison"
   ],
   peers: [
-    { ticker: "D5IU", name: "Lippo Malls Tr", marketCap: "S$69.3M" },
-    { ticker: "ODBU", name: "UtdHampshReitUSD", marketCap: "S$315.5M" },
-    { ticker: "BMGU", name: "BHG Retail Reit", marketCap: "S$252.0M" },
-    { ticker: "OXMU", name: "Prime US ReitUSD", marketCap: "S$260.3M" },
-    { ticker: "CTO", name: "Hong Lai Huat", marketCap: "S$45.1M" },
-    { ticker: "41O", name: "LHN", marketCap: "S$297.0M" },
-    { ticker: "W8W", name: "Coliwoo Hldgs", marketCap: "S$293.3M" },
-    { ticker: "H30", name: "Hong Fok", marketCap: "S$522.1M" }
+    { ticker: "D5IU", name: "Lippo Malls Tr", marketCap: "S$69.3M", sector: "REIT - Retail", industry: "Real Estate" },
+    { ticker: "ODBU", name: "UtdHampshReitUSD", marketCap: "S$315.5M", sector: "REIT - Diversified", industry: "Real Estate" },
+    { ticker: "BMGU", name: "BHG Retail Reit", marketCap: "S$252.0M", sector: "REIT - Retail", industry: "Real Estate" },
+    { ticker: "OXMU", name: "Prime US ReitUSD", marketCap: "S$260.3M", sector: "REIT - Office", industry: "Real Estate" },
+    { ticker: "CTO", name: "Hong Lai Huat", marketCap: "S$45.1M", sector: "Real Estate Development", industry: "Real Estate" },
+    { ticker: "41O", name: "LHN", marketCap: "S$297.0M", sector: "Real Estate Services", industry: "Real Estate" },
+    { ticker: "W8W", name: "Coliwoo Hldgs", marketCap: "S$293.3M", sector: "Real Estate Services", industry: "Real Estate" },
+    { ticker: "H30", name: "Hong Fok", marketCap: "S$522.1M", sector: "Real Estate Development", industry: "Real Estate" }
   ]
 };
 
@@ -178,9 +178,9 @@ export const REPORT_DATA: ReportData = {
       "Lower is better. For CRPU, a S$50K clip is ~6% of ADV — comparatively easy for this peer set.",
     impact_summary_title: "Estimated Price Impact (Sell Orders)",
     impact_summary_subtitle:
-      "Impact is measured from mid-price to simulated VWAP using the latest order book snapshot (single-day). Real results vary by day and by urgency.",
+      "Price impact from mid to VWAP using latest order book snapshot (single-day). Real results vary by day and by urgency.",
     exec_check_insight:
-      "CRPU combines strong activity (ADV ~S$837K; ~282 trades/day) with low volatility (~0.6%) and a manageable spread (~0.7%). For institutional-sized tickets, the key variable is staging and timing — not basic liquidity.",
+      "CRPU combines strong activity (ADV ~S$837K; ~282 trades/day) with low volatility (~0.6%) and a manageable spread (~0.7%). Depth is meaningful; for institutional-sized tickets, the key variable is staging and timing — not basic liquidity.",
 
     trader_composition_title: "Who's Trading Your Stock?",
     trader_composition_subtitle: "Breakdown of retail, mixed, and institutional trading",
@@ -407,13 +407,13 @@ export const REPORT_DATA: ReportData = {
     exec_check_tiles: [
       { title: "Mid Price", value: "0.6875", note: "SGD (snapshot)", color: "text-white" },
       { title: "Spread", value: "0.73%", note: "Immediate trading cost", color: "text-emerald-300" },
-      { title: "Kyle's Lambda", value: "0.19 bps", note: "per S$10K traded", color: "text-white" }
+      { title: "Depth", value: "Strong", note: "Meaningful size at multiple levels", color: "text-emerald-300" }
     ],
 
     impact_summary_cards: [
-      { title: "S$100K Sell", text: "Impact: −0.36% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
-      { title: "S$1.0M Sell", text: "Impact: −0.70% • Fill: 100% • Mid→VWAP", cls: "bg-amber-500/10 border border-amber-500/30" },
-      { title: "S$2.5M Sell", text: "Impact: −1.84% • Fill: 100% • Mid→VWAP", cls: "bg-red-500/10 border border-red-500/30" }
+      { title: "S$100K Sell", text: "Price impact: −0.36% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
+      { title: "S$1.0M Sell", text: "Price impact: −0.70% • Fill: 100% • Mid→VWAP", cls: "bg-amber-500/10 border border-amber-500/30" },
+      { title: "S$2.5M Sell", text: "Price impact: −1.84% • Fill: 100% • Mid→VWAP", cls: "bg-red-500/10 border border-red-500/30" }
     ],
 
     peers_hhi_header: ["Ticker", "% Auctions", "HHI", "Interpretation"],
@@ -563,11 +563,9 @@ export const REPORT_DATA: ReportData = {
 
     execution: {
       overall:
-        "Execution conditions are generally good: spread ~0.73%, low volatility, and meaningful displayed depth around 0.68–0.70. For staged sells, modeled impact is ~0.36% for S$100K, ~0.70% for S$1M, and ~1.84% for S$2.5M.",
+        "Execution conditions are generally good: spread ~0.73%, low volatility, and meaningful displayed depth around 0.68–0.70. Depth is strong; price impact is ~0.36% for S$100K, ~0.70% for S$1M, and ~1.84% for S$2.5M.",
       concern:
         "The key risk is not crossing cost; it is concentration of flow. One-sided order flow can create short windows of poor execution even in a generally liquid name.",
-      kyle:
-        "Kyle’s Lambda is ~0.19 bps per S$10K traded (based on this sample), indicating low incremental impact for typical clips.",
       peer_context:
         "CRPU’s 50K ticket is only ~6% of ADV, far better than most peers where 50K can be >50% of ADV. This is a material advantage for institutions."
     },

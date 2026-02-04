@@ -25,14 +25,14 @@ export const PEER_METHODOLOGY = {
     "Select a small set (typically 6–10) for practical comparison"
   ],
   peers: [
-    { ticker: "5EV", name: "Hosen", marketCap: "S$21.4M" },
-    { ticker: "AAJ", name: "SunMoonFood", marketCap: "S$22.6M" },
-    { ticker: "BAC", name: "Camsing Hc", marketCap: "S$3.9M" },
-    { ticker: "K03", name: "Khong Guan", marketCap: "S$24.4M" },
-    { ticker: "5EG", name: "Zhongxin Fruit", marketCap: "S$38.0M" },
-    { ticker: "Y03", name: "Yeo Hiap Seng", marketCap: "S$379.4M" },
-    { ticker: "MV4", name: "Mewah Intl", marketCap: "S$465.2M" },
-    { ticker: "TSH", name: "TSH Resources", marketCap: "S$552.7M" }
+    { ticker: "5EV", name: "Hosen", marketCap: "S$21.4M", sector: "Food Distribution", industry: "Consumer Staples" },
+    { ticker: "AAJ", name: "SunMoonFood", marketCap: "S$22.6M", sector: "Packaged Foods", industry: "Consumer Staples" },
+    { ticker: "BAC", name: "Camsing Hc", marketCap: "S$3.9M", sector: "Household Products", industry: "Consumer Staples" },
+    { ticker: "K03", name: "Khong Guan", marketCap: "S$24.4M", sector: "Packaged Foods", industry: "Consumer Staples" },
+    { ticker: "5EG", name: "Zhongxin Fruit", marketCap: "S$38.0M", sector: "Agricultural Products", industry: "Consumer Staples" },
+    { ticker: "Y03", name: "Yeo Hiap Seng", marketCap: "S$379.4M", sector: "Beverages", industry: "Consumer Staples" },
+    { ticker: "MV4", name: "Mewah Intl", marketCap: "S$465.2M", sector: "Agricultural Products", industry: "Consumer Staples" },
+    { ticker: "TSH", name: "TSH Resources", marketCap: "S$552.7M", sector: "Agricultural Products", industry: "Consumer Staples" }
   ]
 };
 
@@ -178,7 +178,7 @@ export const REPORT_DATA: ReportData = {
       "Lower is better. For Oceanus, a S$50K clip is ~319% of ADV — difficult to execute without multi-day staging.",
     impact_summary_title: "Estimated Price Impact (Sell Orders)",
     impact_summary_subtitle:
-      "Impact is measured from mid-price to simulated VWAP using the latest order book snapshot (single-day). Results can vary materially day to day.",
+      "Price impact from mid to VWAP using latest order book snapshot (single-day). Results can vary materially day to day.",
     exec_check_insight:
       "Oceanus combines very wide spreads with high volatility. Even moderate orders can create outsized slippage, which limits institutional participation.",
 
@@ -407,13 +407,13 @@ export const REPORT_DATA: ReportData = {
     exec_check_tiles: [
       { title: "Mid Price", value: "0.0035", note: "SGD (snapshot)", color: "text-white" },
       { title: "Spread", value: "28.6%", note: "Immediate trading cost", color: "text-red-300" },
-      { title: "Kyle's Lambda", value: "5.32 bps", note: "per S$10K traded (abs)", color: "text-white" }
+      { title: "Depth", value: "Present", note: "Depth exists; crossing spread is costly — stage orders", color: "text-amber-300" }
     ],
 
     impact_summary_cards: [
-      { title: "S$25K Sell", text: "Impact: −14.3% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
-      { title: "S$500K Sell", text: "Impact: −22.5% • Fill: 100% • Mid→VWAP", cls: "bg-amber-500/10 border border-amber-500/30" },
-      { title: "S$650K Sell", text: "Impact: −33.9% • Fill: 93.1% • Mid→VWAP", cls: "bg-red-500/10 border border-red-500/30" }
+      { title: "S$25K Sell", text: "Price impact: −14.3% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
+      { title: "S$500K Sell", text: "Price impact: −22.5% • Fill: 100% • Mid→VWAP", cls: "bg-amber-500/10 border border-amber-500/30" },
+      { title: "S$650K Sell", text: "Price impact: −33.9% • Fill: 93.1% • Mid→VWAP", cls: "bg-red-500/10 border border-red-500/30" }
     ],
 
     peers_hhi_header: ["Ticker", "% Auctions", "HHI", "Interpretation"],
@@ -562,11 +562,9 @@ export const REPORT_DATA: ReportData = {
 
     execution: {
       overall:
-        "Execution conditions are challenging: spread is ~28.6% and a S$50K trade is ~319% of ADV. This limits institutional participation and increases investor friction.",
+        "Execution conditions are challenging: spread is ~28.6% and a S$50K trade is ~319% of ADV. Depth is present but crossing the spread is costly. This limits institutional participation and increases investor friction.",
       concern:
         "Even moderate clip sizes can represent multiple days of natural notional volume; crossing the spread can dominate total cost.",
-      kyle:
-        "Kyle’s Lambda is ~5.32 bps per S$10K traded (absolute). In thin names, realized impact can still be much higher day-to-day.",
       peer_context:
         "Peer capacity metrics show that many similar small caps also struggle with large clips, but Oceanus is constrained by unusually wide spread and high volatility."
     },

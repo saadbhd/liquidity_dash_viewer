@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Target, TrendingDown, TrendingUp, Minus, AlertTriangle, DollarSign, Activity } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { useChartTheme } from '@/hooks/useChartTheme';
 import {
   LineChart,
   Line,
@@ -30,6 +31,7 @@ const itemVariants = {
 
 export function ExecutionPanel() {
   const { labels, content, series, meta } = useReport();
+  const chartTheme = useChartTheme();
   const { order_book, peer_capacity } = series;
 
   const currencySymbol = meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'S$' : '';
@@ -92,7 +94,7 @@ export function ExecutionPanel() {
           </div>
         </div>
         <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-          <span className="text-xs font-medium text-emerald-400">Low Crossing Cost</span>
+          <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">Low Crossing Cost</span>
         </div>
       </motion.div>
 
@@ -100,9 +102,9 @@ export function ExecutionPanel() {
       <motion.div variants={itemVariants} className="grid grid-cols-3 gap-4">
         {content.exec_check_tiles.map((tile) => (
           <div key={tile.title} className="glass-panel rounded-xl p-4 text-center">
-            <p className="text-xs text-slate-500 mb-1">{tile.title}</p>
+            <p className="text-xs text-muted-foreground mb-1">{tile.title}</p>
             <p className={`text-2xl font-bold ${tile.color}`}>{tile.value}</p>
-            <p className="text-xs text-slate-500 mt-1">{tile.note}</p>
+            <p className="text-xs text-muted-foreground mt-1">{tile.note}</p>
           </div>
         ))}
       </motion.div>
@@ -112,28 +114,28 @@ export function ExecutionPanel() {
         {/* Order Book Depth */}
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <Activity className="w-4 h-4 text-slate-500" />
+            <Activity className="w-4 h-4 text-muted-foreground" />
             <h3 className="text-sm font-semibold text-foreground">{labels.order_book_title}</h3>
           </div>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={orderBookData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                 <XAxis
                   dataKey="price"
-                  tick={{ fill: '#64748b', fontSize: 10 }}
-                  axisLine={{ stroke: '#334155' }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
+                  axisLine={{ stroke: chartTheme.axisLineStroke }}
                   tickLine={false}
                   tickFormatter={(v) => Number(v).toFixed(3)}
                 />
                 <YAxis
-                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={(v) => formatMoney(v)}
                 />
                 <Tooltip
-                  contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)', borderRadius: '8px' }}
+                  contentStyle={chartTheme.tooltipContentStyle}
                   formatter={(value: unknown) => (value != null && typeof value === 'number' ? [formatMoney(value), ''] : ['—', ''])}
                 />
                 <Legend iconType="line" wrapperStyle={{ paddingTop: '10px' }} />
@@ -158,54 +160,54 @@ export function ExecutionPanel() {
               </LineChart>
             </ResponsiveContainer>
           </div>
-          <p className="text-xs text-slate-500 mt-2">{labels.order_book_note}</p>
+          <p className="text-xs text-muted-foreground mt-2">{labels.order_book_note}</p>
         </motion.div>
 
         {/* Peer Capacity */}
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <DollarSign className="w-4 h-4 text-slate-500" />
+            <DollarSign className="w-4 h-4 text-muted-foreground" />
             <h3 className="text-sm font-semibold text-foreground">{labels.peer_capacity_title}</h3>
           </div>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={capacityData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                 <XAxis
                   dataKey="ticker"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#334155' }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                  axisLine={{ stroke: chartTheme.axisLineStroke }}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={(v) => `${v}%`}
                 />
                 <Tooltip
-                  contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)', borderRadius: '8px' }}
+                  contentStyle={chartTheme.tooltipContentStyle}
                   formatter={(value: number) => [`${value}%`, '50k as %ADV']}
                 />
                 <Bar dataKey="pct" radius={[4, 4, 0, 0]} maxBarSize={30}>
                   {capacityData.map((entry, cidx) => (
                     <Cell
                       key={`cell-${cidx}`}
-                      fill={entry.isTarget ? '#0ea5e9' : '#475569'}
+                      fill={entry.isTarget ? chartTheme.barPrimary : chartTheme.barSecondary}
                     />
                   ))}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <p className="text-xs text-slate-500 mt-2">{labels.peer_capacity_note}</p>
+          <p className="text-xs text-muted-foreground mt-2">{labels.peer_capacity_note}</p>
         </motion.div>
       </div>
 
       {/* Impact Cards */}
       <motion.div variants={itemVariants}>
         <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
-          <AlertTriangle className="w-4 h-4 text-slate-500" />
+          <AlertTriangle className="w-4 h-4 text-muted-foreground" />
           {labels.impact_summary_title}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -220,9 +222,9 @@ export function ExecutionPanel() {
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-foreground">{card.title}</span>
-                {index === 0 && <TrendingUp className="w-4 h-4 text-emerald-400" />}
-                {index === 1 && <Minus className="w-4 h-4 text-amber-400" />}
-                {index === 2 && <TrendingDown className="w-4 h-4 text-red-400" />}
+                {index === 0 && <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
+                {index === 1 && <Minus className="w-4 h-4 text-amber-600 dark:text-amber-400" />}
+                {index === 2 && <TrendingDown className="w-4 h-4 text-red-600 dark:text-red-400" />}
               </div>
               <p className="text-xs text-muted-foreground">{card.text}</p>
             </div>

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Lightbulb } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { useChartTheme } from '@/hooks/useChartTheme';
 import {
   BarChart,
   Bar,
@@ -29,12 +30,12 @@ export function PerformancePanel() {
   const { labels, insights, series } = useReport();
   const { returns } = series;
   const { performance: perfInsights } = insights;
-  const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
-  const axisTick = isDark ? '#94a3b8' : '#334155';
-  const axisLine = isDark ? '#334155' : '#cbd5e1';
-  const refZero = isDark ? '#475569' : '#cbd5e1';
-  const cursorFill = isDark ? 'rgba(51, 65, 85, 0.3)' : 'rgba(148, 163, 184, 0.22)';
-  const marketFill = isDark ? '#64748b' : '#334155'; // improved contrast in light mode
+  const chartTheme = useChartTheme();
+  const axisTick = chartTheme.tickFill;
+  const axisLine = chartTheme.axisLineStroke;
+  const refZero = chartTheme.isDark ? '#475569' : '#cbd5e1';
+  const cursorFill = chartTheme.isDark ? 'rgba(51, 65, 85, 0.3)' : 'rgba(148, 163, 184, 0.22)';
+  const marketFill = chartTheme.barSecondary;
 
   // Prepare chart data
   const chartData = returns.map((r) => ({
@@ -73,7 +74,7 @@ export function PerformancePanel() {
       <motion.div variants={itemVariants} className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-emerald-400" />
+            <TrendingUp className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
           </div>
           <div>
             <h2 className="text-xl font-bold text-foreground">{labels.perf_title}</h2>
@@ -99,13 +100,13 @@ export function PerformancePanel() {
             <div key={period.label} className="glass-panel rounded-xl p-4">
               <p className="text-xs text-slate-500 mb-2">{period.label}</p>
               <div className="flex items-baseline gap-2">
-                <span className={`text-2xl font-bold ${isPositive ? 'text-emerald-400' : 'text-red-400'}`}>
+                <span className={`text-2xl font-bold ${isPositive ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
                   {period.value.toFixed(1)}%
                 </span>
               </div>
               <div className="flex items-center gap-1 mt-2 text-xs">
                 <span className="text-slate-500">vs Market:</span>
-                <span className={vsMarket >= 0 ? 'text-emerald-400' : 'text-red-400'}>
+                <span className={vsMarket >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}>
                   {vsMarket >= 0 ? '+' : ''}{vsMarket.toFixed(1)}%
                 </span>
               </div>
@@ -114,60 +115,64 @@ export function PerformancePanel() {
         })}
       </motion.div>
 
-      {/* Main Chart */}
-      <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-        <div className="h-72">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} margin={{ top: 20, right: 20, left: 0, bottom: 20 }}>
-              <XAxis
-                dataKey="horizon"
-                tick={{ fill: axisTick, fontSize: 12 }}
-                axisLine={{ stroke: axisLine }}
-                tickLine={false}
-              />
-              <YAxis
-                tick={{ fill: axisTick, fontSize: 11 }}
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(v) => `${v}%`}
-              />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: cursorFill }} />
-              <Legend 
-                wrapperStyle={{ paddingTop: '20px' }}
-                iconType="circle"
-              />
-              <ReferenceLine y={0} stroke={refZero} />
-              <Bar dataKey="Stock" fill="#0ea5e9" radius={[4, 4, 0, 0]} maxBarSize={20} />
-              <Bar dataKey="Market" fill={marketFill} radius={[4, 4, 0, 0]} maxBarSize={20} />
-              <Bar dataKey="Sector" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={20} />
-              <Bar dataKey="Peers" fill="#f59e0b" radius={[4, 4, 0, 0]} maxBarSize={20} />
-            </BarChart>
-          </ResponsiveContainer>
+      {/* Chart + Insights side by side: chart half width, insights next to it */}
+      <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        {/* Chart - half width, compact height, thicker bars */}
+        <div className="glass-panel rounded-xl p-5">
+          <div className="h-64 min-h-[240px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chartData}
+                margin={{ top: 16, right: 16, left: 0, bottom: 16 }}
+                barCategoryGap="12%"
+                barGap={4}
+              >
+                <XAxis
+                  dataKey="horizon"
+                  tick={{ fill: axisTick, fontSize: 12 }}
+                  axisLine={{ stroke: axisLine }}
+                  tickLine={false}
+                />
+                <YAxis
+                  tick={{ fill: axisTick, fontSize: 11 }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(v) => `${v}%`}
+                />
+                <Tooltip content={<CustomTooltip />} cursor={{ fill: cursorFill }} />
+                <Legend wrapperStyle={{ paddingTop: '12px' }} iconType="circle" iconSize={8} />
+                <ReferenceLine y={0} stroke={refZero} />
+                <Bar dataKey="Stock" fill="#0ea5e9" radius={[4, 4, 0, 0]} maxBarSize={32} />
+                <Bar dataKey="Market" fill={marketFill} radius={[4, 4, 0, 0]} maxBarSize={32} />
+                <Bar dataKey="Sector" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={32} />
+                <Bar dataKey="Peers" fill="#f59e0b" radius={[4, 4, 0, 0]} maxBarSize={32} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Insights and key takeaway - next to chart */}
+        <div className="space-y-4">
+          <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-sky-500/50">
+            <div className="flex items-start gap-3">
+              <Lightbulb className="w-5 h-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <h4 className="text-sm font-semibold text-foreground mb-2">Key Takeaway</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{perfInsights.conclusion}</p>
+              </div>
+            </div>
+          </motion.div>
+          <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-red-500/50">
+            <div className="flex items-start gap-3">
+              <TrendingDown className="w-5 h-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
+              <div>
+                <h4 className="text-sm font-semibold text-foreground mb-2">3-Month Performance</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed">{perfInsights.three_month.insight}</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </motion.div>
-
-      {/* Period Insights */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-red-500/50">
-          <div className="flex items-start gap-3">
-            <TrendingDown className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
-            <div>
-              <h4 className="text-sm font-semibold text-foreground mb-2">3-Month Performance Concern</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">{perfInsights.three_month.insight}</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-amber-500/50">
-          <div className="flex items-start gap-3">
-            <Lightbulb className="w-5 h-5 text-amber-400 mt-0.5 flex-shrink-0" />
-            <div>
-              <h4 className="text-sm font-semibold text-foreground mb-2">Key Takeaway</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed">{perfInsights.conclusion}</p>
-            </div>
-          </div>
-        </motion.div>
-      </div>
     </motion.div>
   );
 }

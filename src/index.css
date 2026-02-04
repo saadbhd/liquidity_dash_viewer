@@ -135,6 +135,20 @@
   box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
 }
 
+/* Semantic status colors – readable on both light and dark backgrounds */
+.text-status-positive {
+  @apply text-emerald-600 dark:text-emerald-400;
+}
+.text-status-negative {
+  @apply text-red-600 dark:text-red-400;
+}
+.text-status-neutral {
+  @apply text-amber-600 dark:text-amber-400;
+}
+.text-status-info {
+  @apply text-sky-600 dark:text-sky-400;
+}
+
 /* Status indicators */
 .status-dot {
   @apply w-2 h-2 rounded-full;
@@ -180,7 +194,7 @@
   border: 1px solid hsl(var(--border) / 0.8);
 }
 
-/* Recharts tooltip text color fix */
+/* Recharts tooltip text color – use foreground so it adapts to light/dark */
 .recharts-tooltip-wrapper .recharts-default-tooltip {
   color: hsl(var(--foreground)) !important;
 }
@@ -191,6 +205,18 @@
 
 .recharts-tooltip-wrapper .recharts-tooltip-item {
   color: hsl(var(--foreground)) !important;
+}
+
+/* Light mode: ensure chart area background is clear so axis/grid contrast works (components pass theme colors via hook) */
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) .recharts-cartesian-grid-horizontal line,
+  :root:not(.dark) .recharts-cartesian-grid-vertical line {
+    stroke: #cbd5e1;
+  }
+  :root:not(.dark) .recharts-xAxis .recharts-text,
+  :root:not(.dark) .recharts-yAxis .recharts-text {
+    fill: #475569;
+  }
 }
 
 /* Data grid */

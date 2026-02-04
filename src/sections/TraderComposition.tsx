@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Users, HelpCircle } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { useChartTheme } from '@/hooks/useChartTheme';
 import * as React from 'react';
 import {
   BarChart,
@@ -35,6 +36,7 @@ const itemVariants = {
 
 export function TraderComposition() {
   const { labels, insights, series } = useReport();
+  const chartTheme = useChartTheme();
   const { trader_composition } = series;
   const { trader_composition: traderInsights } = insights;
 
@@ -221,7 +223,7 @@ export function TraderComposition() {
             <div className="rounded-lg border border-border/50 bg-card/30 p-4">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-sky-400 font-medium">Retail</span>
+                  <span className="text-sky-600 dark:text-sky-400 font-medium">Retail</span>
                   <UITooltip>
                     <TooltipTrigger asChild>
                       <button className="text-slate-600 hover:text-slate-400">
@@ -233,7 +235,7 @@ export function TraderComposition() {
                     </TooltipContent>
                   </UITooltip>
                 </div>
-                <span className="text-xl font-bold text-sky-400">{compCurrent.retail.toFixed(1)}%</span>
+                <span className="text-xl font-bold text-sky-600 dark:text-sky-400">{compCurrent.retail.toFixed(1)}%</span>
               </div>
               <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                 <motion.div
@@ -289,7 +291,7 @@ export function TraderComposition() {
             <div className="rounded-lg border border-border/50 bg-card/30 p-4">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-emerald-400 font-medium">Institutional</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-medium">Institutional</span>
                   <UITooltip>
                     <TooltipTrigger asChild>
                       <button className="text-slate-600 hover:text-slate-400">
@@ -301,7 +303,7 @@ export function TraderComposition() {
                     </TooltipContent>
                   </UITooltip>
                 </div>
-                <span className="text-xl font-bold text-emerald-400">{compCurrent.instit.toFixed(1)}%</span>
+                <span className="text-xl font-bold text-emerald-600 dark:text-emerald-400">{compCurrent.instit.toFixed(1)}%</span>
               </div>
               <div className="h-2.5 bg-muted rounded-full overflow-hidden">
                 <motion.div
@@ -362,31 +364,25 @@ export function TraderComposition() {
                 data={mode === 'shares' && timeSeriesDataByQty ? timeSeriesDataByQty : timeSeriesData}
                 margin={{ top: 10, right: 20, left: 0, bottom: 20 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                 <XAxis
                   dataKey="month"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#334155' }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                  axisLine={{ stroke: chartTheme.axisLineStroke }}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
                   domain={[0, 100]}
                   allowDecimals={false}
                   tickFormatter={(v) => `${Math.round(Number(v))}%`}
                 />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                    border: '1px solid rgba(71, 85, 105, 0.5)',
-                    borderRadius: '8px',
-                  }}
-                />
+                <Tooltip contentStyle={chartTheme.tooltipContentStyle} />
                 <Legend iconType="square" wrapperStyle={{ paddingTop: '10px' }} />
-                <Bar dataKey="Retail" stackId="a" fill="#0ea5e9" radius={[0, 0, 0, 0]} />
-                <Bar dataKey="Mixed" stackId="a" fill="#64748b" radius={[0, 0, 0, 0]} />
+                <Bar dataKey="Retail" stackId="a" fill={chartTheme.barPrimary} radius={[0, 0, 0, 0]} />
+                <Bar dataKey="Mixed" stackId="a" fill={chartTheme.barSecondary} radius={[0, 0, 0, 0]} />
                 <Bar dataKey="Institutional" stackId="a" fill="#10b981" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>

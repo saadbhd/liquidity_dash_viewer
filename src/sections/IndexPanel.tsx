@@ -59,7 +59,7 @@ export function IndexPanel() {
       </motion.div>
 
       {/* Index Tiles */}
-      <motion.div variants={itemVariants} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {index_block.tiles.map((tile) => (
           <div key={tile.title} className="glass-panel rounded-xl p-4">
             <div className="flex items-center gap-2 text-slate-500 mb-2">

@@ -1,20 +1,9 @@
-import { TrendingUp, TrendingDown, Minus, Building2, Calendar, Users, BarChart3 } from 'lucide-react';
+import { Building2, Calendar, Users, BarChart3 } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
 import { motion } from 'framer-motion';
 
 export function Header() {
-  const { meta, theme } = useReport();
-  const { badges } = theme;
-
-  const healthText = badges.header_health.text ?? '';
-  const healthLabel = healthText.includes(':') ? healthText.split(':').slice(1).join(':').trim() : healthText;
-  const isGood = /ABOVE|GOOD|EXCELLENT/i.test(healthLabel);
-  const isBad = /BELOW|POOR/i.test(healthLabel);
-
-  const healthBorder = isGood ? 'border-emerald-500/30' : isBad ? 'border-red-500/30' : 'border-amber-500/30';
-  const trendText = isGood ? 'Higher than peer median' : isBad ? 'Lower than peer median' : 'Around peer median';
-  const trendIcon = isGood ? TrendingUp : isBad ? TrendingDown : Minus;
-  const trendColor = isGood ? 'text-emerald-500' : isBad ? 'text-red-500' : 'text-amber-500';
+  const { meta } = useReport();
 
   return (
     <motion.header
@@ -67,28 +56,6 @@ export function Header() {
             </div>
           </div>
         </div>
-
-        {/* Health Badge */}
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.4 }}
-          className="flex flex-col items-end gap-2"
-        >
-          <div
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-full ${badges.header_health.bg} ${badges.header_health.textColor} border ${healthBorder}`}
-          >
-            <span className={`pulse-dot ${badges.header_health.dot}`} style={{ color: 'inherit' }} />
-            <span className="text-sm font-semibold">{badges.header_health.text}</span>
-          </div>
-          <div className="flex items-center gap-2 text-xs text-slate-500">
-            {(() => {
-              const Icon = trendIcon;
-              return <Icon className={`w-3.5 h-3.5 ${trendColor}`} />;
-            })()}
-            <span>{trendText}</span>
-          </div>
-        </motion.div>
       </div>
     </motion.header>
   );

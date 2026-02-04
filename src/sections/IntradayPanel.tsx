@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, BarChart3, Info, ChevronDown } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { useChartTheme } from '@/hooks/useChartTheme';
 import {
   BarChart,
   Bar,
@@ -38,6 +39,7 @@ const itemVariants = {
 
 export function IntradayPanel() {
   const { labels, series } = useReport();
+  const chartTheme = useChartTheme();
   const { intraday } = series;
   const [selectedPeriod, setSelectedPeriod] = useState('6M');
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -84,7 +86,7 @@ export function IntradayPanel() {
       <motion.div variants={itemVariants} className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-            <Clock className="w-5 h-5 text-amber-400" />
+            <Clock className="w-5 h-5 text-amber-600 dark:text-amber-600 dark:text-amber-400" />
           </div>
           <div>
             <h2 className="text-xl font-bold text-foreground">{labels.intraday_title}</h2>
@@ -92,7 +94,7 @@ export function IntradayPanel() {
           </div>
         </div>
         <div className="px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full">
-          <span className="text-xs font-medium text-amber-400">Moderate Concentration</span>
+          <span className="text-xs font-medium text-amber-600 dark:text-amber-400">Moderate Concentration</span>
         </div>
       </motion.div>
 
@@ -108,7 +110,7 @@ export function IntradayPanel() {
             <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 rounded-lg text-sm text-slate-300 hover:bg-slate-700 transition-colors"
+                className="flex items-center gap-2 px-3 py-1.5 bg-slate-800 rounded-lg text-sm text-foreground/80 hover:bg-slate-700 transition-colors"
               >
                 {selectedPeriod}
                 <ChevronDown className="w-4 h-4" />
@@ -123,7 +125,7 @@ export function IntradayPanel() {
                         setDropdownOpen(false);
                       }}
                       className={`block w-full px-4 py-2 text-sm text-left hover:bg-slate-700 ${
-                        selectedPeriod === period ? 'text-sky-400' : 'text-slate-300'
+                        selectedPeriod === period ? 'text-sky-600 dark:text-sky-400' : 'text-foreground/80'
                       }`}
                     >
                       {period}
@@ -136,22 +138,22 @@ export function IntradayPanel() {
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={sessionChartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: '#64748b', fontSize: 10 }}
-                  axisLine={{ stroke: '#334155' }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
+                  axisLine={{ stroke: chartTheme.axisLineStroke }}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fill: '#64748b', fontSize: 10 }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
                   axisLine={false}
                   tickLine={false}
                   domain={[0, 100]}
                   tickFormatter={(v) => `${v}%`}
                 />
                 <Tooltip
-                  contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)', borderRadius: '8px' }}
+                  contentStyle={chartTheme.tooltipContentStyle}
                   formatter={(value: number) => [`${value.toFixed(1)}%`, 'Share']}
                 />
                 <Bar dataKey="value" radius={[4, 4, 0, 0]} maxBarSize={50}>
@@ -174,22 +176,22 @@ export function IntradayPanel() {
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={hhiData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                 <XAxis
                   dataKey="period"
-                  tick={{ fill: '#64748b', fontSize: 11 }}
-                  axisLine={{ stroke: '#334155' }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                  axisLine={{ stroke: chartTheme.axisLineStroke }}
                   tickLine={false}
                 />
                 <YAxis
-                  tick={{ fill: '#64748b', fontSize: 11 }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
                   domain={[0, 1]}
                   tickFormatter={(v) => v.toFixed(1)}
                 />
                 <Tooltip
-                  contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)', borderRadius: '8px' }}
+                  contentStyle={chartTheme.tooltipContentStyle}
                   formatter={(value: number) => [value.toFixed(3), 'HHI']}
                 />
                 <Line
@@ -220,24 +222,24 @@ export function IntradayPanel() {
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={intensityData} margin={{ top: 10, right: 20, left: 0, bottom: 30 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                 <XAxis
                   dataKey="time"
-                  tick={{ fill: '#64748b', fontSize: 9 }}
-                  axisLine={{ stroke: '#334155' }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 9 }}
+                  axisLine={{ stroke: chartTheme.axisLineStroke }}
                   tickLine={false}
                   angle={-45}
                   textAnchor="end"
                   interval={0}
                 />
                 <YAxis
-                  tick={{ fill: '#64748b', fontSize: 10 }}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
                   axisLine={false}
                   tickLine={false}
                   tickFormatter={(v) => `${v.toFixed(0)}%`}
                 />
                 <Tooltip
-                  contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)', borderRadius: '8px' }}
+                  contentStyle={chartTheme.tooltipContentStyle}
                   formatter={(value: number) => [`${value.toFixed(1)}%`, 'Volume']}
                 />
                 <Bar dataKey="value" radius={[2, 2, 0, 0]} maxBarSize={16}>
@@ -274,7 +276,7 @@ export function IntradayPanel() {
               <TableBody>
                 {intraday.peers_hhi_rows.map((row) => (
                   <TableRow key={row.ticker} className="border-slate-800">
-                    <TableCell className="text-slate-300 font-medium text-sm">
+                    <TableCell className="text-foreground/80 font-medium text-sm">
                       {row.ticker}
                       {row.interp.you && (
                         <span className="ml-2 text-xs px-2 py-0.5 bg-sky-500/20 text-sky-300 rounded-full">
@@ -305,7 +307,7 @@ export function IntradayPanel() {
       {/* Insight */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-4 border-l-2 border-amber-500/50">
         <p className="text-sm text-slate-400 leading-relaxed">
-          <span className="text-amber-400 font-semibold">Key insight:</span>{' '}
+          <span className="text-amber-600 dark:text-amber-400 font-semibold">Key insight:</span>{' '}
           {labels.intraday_insight.replace('Key insight: ', '')}
         </p>
       </motion.div>

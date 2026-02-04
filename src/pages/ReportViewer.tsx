@@ -69,7 +69,7 @@ function buildNavItems(report: ReportData) {
 export function ReportViewer() {
     const { id } = useParams<{ id: string }>();
     const [reportData, setReportData] = useState<ReportData | null>(null);
-    const [peerMethodology, setPeerMethodology] = useState<{ title: string; steps: string[]; peers: { ticker: string; name: string; marketCap: string }[] } | undefined>(undefined);
+    const [peerMethodology, setPeerMethodology] = useState<{ title: string; steps: string[]; peers: { ticker: string; name: string; marketCap: string; sector?: string; industry?: string }[] } | undefined>(undefined);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [activeSection, setActiveSection] = useState('hero');
@@ -170,17 +170,6 @@ export function ReportViewer() {
             </div>
         );
     }
-
-    const headerHealth = reportData.theme.badges.header_health;
-    const headerHealthTextColor = headerHealth.textColor ?? 'text-slate-300';
-    const headerHealthBg = headerHealth.bg ?? 'bg-slate-700/40';
-    const headerHealthBorder = headerHealthTextColor.includes('red')
-        ? 'border-red-500/30'
-        : headerHealthTextColor.includes('emerald')
-            ? 'border-emerald-500/30'
-            : headerHealthTextColor.includes('amber')
-                ? 'border-amber-500/30'
-                : 'border-slate-700/40';
 
     return (
         <ReportProvider report={reportData}>
@@ -294,9 +283,6 @@ export function ReportViewer() {
                         <div className="flex items-center gap-4">
                             <span className="text-xs text-slate-500">Market: {reportData.meta.market}</span>
                             <span className="text-xs text-slate-500">Sector: {reportData.meta.sector}</span>
-                            <div className={`px-3 py-1.5 ${headerHealthBg} border ${headerHealthBorder} rounded-full`}>
-                                <span className={`text-xs font-medium ${headerHealthTextColor}`}>{reportData.theme.badges.header_health.text}</span>
-                            </div>
                         </div>
                     </header>
 

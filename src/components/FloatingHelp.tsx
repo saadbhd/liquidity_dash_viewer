@@ -11,14 +11,14 @@ const DEFAULT_PEER_METHODOLOGY = {
     "Filter on the same Industry and Sector",
     "If many remain, choose closest by ADV (Average Daily Volume)"
   ],
-  peers: [] as { ticker: string; name: string; marketCap: string }[]
+  peers: [] as { ticker: string; name: string; marketCap: string; sector?: string; industry?: string }[]
 };
 
 interface FloatingHelpProps {
   peerMethodology?: {
     title: string;
     steps: string[];
-    peers: { ticker: string; name: string; marketCap: string }[];
+    peers: { ticker: string; name: string; marketCap: string; sector?: string; industry?: string }[];
   };
 }
 
@@ -128,6 +128,8 @@ export function FloatingHelp({ peerMethodology = DEFAULT_PEER_METHODOLOGY }: Flo
                             <tr className="bg-slate-800/50">
                               <th className="text-slate-400 text-xs font-medium px-4 py-3 text-left">Ticker</th>
                               <th className="text-slate-400 text-xs font-medium px-4 py-3 text-left">Company</th>
+                              <th className="text-slate-400 text-xs font-medium px-4 py-3 text-left">Sector</th>
+                              <th className="text-slate-400 text-xs font-medium px-4 py-3 text-left">Industry</th>
                               <th className="text-slate-400 text-xs font-medium px-4 py-3 text-right">Market Cap</th>
                             </tr>
                           </thead>
@@ -136,6 +138,8 @@ export function FloatingHelp({ peerMethodology = DEFAULT_PEER_METHODOLOGY }: Flo
                               <tr key={peer.ticker} className="border-t border-slate-800 hover:bg-slate-800/30">
                                 <td className="text-slate-300 font-medium px-4 py-3">{peer.ticker}</td>
                                 <td className="text-slate-400 px-4 py-3">{peer.name}</td>
+                                <td className="text-slate-400 px-4 py-3">{peer.sector ?? '—'}</td>
+                                <td className="text-slate-400 px-4 py-3">{peer.industry ?? '—'}</td>
                                 <td className="text-slate-400 px-4 py-3 text-right">{peer.marketCap}</td>
                               </tr>
                             ))}

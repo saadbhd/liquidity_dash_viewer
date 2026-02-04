@@ -16,14 +16,14 @@ export const PEER_METHODOLOGY = {
     "Select a small set (typically 6–10) for practical comparison"
   ],
   peers: [
-    { ticker: "S61", name: "SBS Transit", marketCap: "S$1.0B" },
-    { ticker: "S59", name: "SIA Engineering", marketCap: "S$3.8B" },
-    { ticker: "NS8U", name: "HPH Trust USD", marketCap: "S$1.8B" },
-    { ticker: "P7VU", name: "HPH Trust SGD", marketCap: "S$2.3B" },
-    { ticker: "558", name: "UMS", marketCap: "S$1.2B" },
-    { ticker: "YF8", name: "YZJ Fin Hldg", marketCap: "S$1.2B" },
-    { ticker: "V03", name: "Venture", marketCap: "S$4.8B" },
-    { ticker: "BUOU", name: "Frasers L&C Tr", marketCap: "S$3.9B" }
+    { ticker: "S61", name: "SBS Transit", marketCap: "S$1.0B", sector: "Railroads", industry: "Industrials" },
+    { ticker: "S58", name: "SATS", marketCap: "S$5.8B", sector: "Airports & Air Services", industry: "Industrials" },
+    { ticker: "C07", name: "Jardine C&C", marketCap: "S$13.6B", sector: "Conglomerates", industry: "Industrials" },
+    { ticker: "5LY", name: "MarcoPolo Marine", marketCap: "S$579M", sector: "Marine Shipping", industry: "Industrials" },
+    { ticker: "E3B", name: "Wee Hur", marketCap: "S$837M", sector: "Engineering & Construction", industry: "Industrials" },
+    { ticker: "1MZ", name: "NamCheong", marketCap: "S$430M", sector: "Aerospace & Defense", industry: "Industrials" },
+    { ticker: "C6L", name: "SIA", marketCap: "S$20.1B", sector: "Airlines", industry: "Industrials" },
+    { ticker: "J36", name: "JMH USD", marketCap: "S$22.0B", sector: "Conglomerates", industry: "Industrials" }
   ]
 };
 
@@ -42,17 +42,17 @@ export const REPORT_DATA: ReportData = {
     page_title_template: "Liquidity Analysis Report — {market}/{ticker} — {asof}"
   },
 
-  theme: {
+    theme: {
     badges: {
       header_health: { text: "Liquidity Health: ABOVE AVG", bg: "bg-emerald-500/20", textColor: "text-emerald-300", dot: "bg-emerald-500" },
-      liq_section: { text: "Liquidity score: 95.9% — ABOVE AVG", bg: "bg-emerald-500/20", textColor: "text-emerald-300" },
+      liq_section: { text: "Liquidity score: 95.0 — ABOVE AVG", bg: "bg-emerald-500/20", textColor: "text-emerald-300" },
       perf: { text: "Context", bg: "bg-slate-700/40", textColor: "text-slate-300" },
-      drivers: { text: "Sector-driven", bg: "bg-purple-500/20", textColor: "text-purple-300" },
+      drivers: { text: "Company-driven", bg: "bg-purple-500/20", textColor: "text-purple-300" },
       exec_check: { text: "LOW crossing cost", bg: "bg-emerald-500/20", textColor: "text-emerald-300" },
       intraday: { text: "MODERATE concentration", bg: "bg-amber-500/20", textColor: "text-amber-400" },
       ofi: { text: "Moderate imbalance", bg: "bg-amber-500/20", textColor: "text-amber-400" },
       short: { text: "High short interest", bg: "bg-red-500/20", textColor: "text-red-300" },
-      index_status: { text: "Eligible: FTSE All-Share, iEdge Next 50", bg: "bg-emerald-500/20", textColor: "text-emerald-300" }
+      index_status: { text: "Eligible: FTSE All-Share, FTSE Large/mid Cap", bg: "bg-emerald-500/20", textColor: "text-emerald-300" }
     },
     borders: { action_plan: "border-amber-500", index: "border-sky-500" },
     colors: { interpretation_good: "interpretation-good", interpretation_neutral: "interpretation-neutral", interpretation_bad: "interpretation-bad" }
@@ -67,7 +67,7 @@ export const REPORT_DATA: ReportData = {
     exec_takeaways_title: "Key Takeaways:",
     metric_liquidity_score: "Liquidity Score",
     metric_spread: "Trading Cost (Spread)",
-    metric_adv: "Average Traded Volume",
+    metric_adv: "Median Traded Volume",
     metric_drivers: "What Drives Price Changes",
     action_plan_title: "Action Plan (Prioritized)",
     action_plan_subtitle: "Practical actions to reduce trading friction and protect liquidity",
@@ -78,44 +78,44 @@ export const REPORT_DATA: ReportData = {
     market_comparison_subtitle: "Your metrics versus peers, sector, and the overall market",
     perf_title: "Stock Performance",
     perf_subtitle: "Returns compared to market, sector, and peer group",
-    perf_insight: "C52 has mixed returns (1M/3M/6M) with strong liquidity (rank 24/558). Sector drives ~48% of moves; high short interest and SBL pool warrant monitoring for execution risk.",
+    perf_insight: "Returns are mixed; liquidity is strong (top-30 rank). Most price moves are company-specific. Monitor short interest and the lending pool for execution risk.",
     drivers_title: "What Moves Your Stock Price?",
-    drivers_subtitle: "Is the stock driven by market/sector moves, or mostly company-specific factors?",
+    drivers_subtitle: "How much comes from the sector and market versus company-specific news?",
     drivers_strip: [
-      { title: "Key Insight", text: "About 48% of recent price moves come from the sector; 38% idiosyncratic and ~14% market." },
-      { title: "Market Link", text: "Market correlation is moderate (~0.46). Sector correlation is strong (~0.79)." },
-      { title: "Sector Link", text: "Sector volatility Granger-causes stock volatility (p=0.038); sector is a key driver." }
+      { title: "Key Insight", text: "About 75% of recent price moves come from company-specific factors; 20% from the broad market and 5% from the sector." },
+      { title: "Market Link", text: "Your stock moves somewhat with the market (moderate correlation). Sector correlation is moderate; the stock is largely company-driven." },
+      { title: "Sector Link", text: "Sector and stock move together at the same time (contemporaneous); company-specific news is the main driver of moves." }
     ],
     drivers_pie_title: "What Drives Price Changes (Last 3 Months)",
-    drivers_pie_note: "High sector share means the stock moves with Railroads/Industrials.",
+    drivers_pie_note: "High company share means the stock moves mainly on its own news and fundamentals.",
     lead_lag_title: "Do Other Markets Move First?",
-    lead_lag_note: "Lead-lag suggests contemporaneous relationship with both market and sector.",
+    lead_lag_note: "Stock leads the market by 4 days at best correlation; sector is contemporaneous.",
     rolling_title: "How This Has Changed Over Time",
     rolling_latest_label: "Latest: {period}",
-    rolling_note: "Sector share has been stable in the 37–57% range across rolling windows.",
-    drivers_bottom_line: "Bottom line: C52 is sector-driven with meaningful idiosyncratic component — sector conditions and company news both matter.",
+    rolling_note: "Company-specific share has dominated (about 74–87%) across recent windows; market share varies (7–26%).",
+    drivers_bottom_line: "Takeaway: Your stock is company-driven. Own results and news matter most; market and sector play a smaller role.",
     drivers_wtd_title: "What This Means for Trading",
     drivers_wtd_list: [
-      "Use limit orders; spread is tight (0.7%) versus market median.",
-      "Execution impact is low for typical clip sizes; 50K is ~0% of ADV.",
-      "Monitor sector volatility; it predicts stock volatility (Granger)."
+      "Trading cost is low (0.7% spread)—limit orders are appropriate.",
+      "Price impact is small for typical sizes; a S$50K trade is about 1% of daily volume.",
+      "Earnings and company news are the main catalysts; market and sector are secondary."
     ],
     regime_title: "Market Volatility Patterns",
     regime_subtitle: "Different volatility states help explain timing risk for trades",
-    regime_badge_text: "Regime analysis unavailable",
+    regime_badge_text: "Low Vol (77.8% of time)",
     regime_pie_title: "Time Spent in Each Market Condition",
     transition_title: "How Likely is the Market to Change State?",
     transition_cols: ["From \\ To", "Low Vol", "High Vol"],
-    transition_note_template: "Rows sum to 100%. Regime model could not be fitted (statsmodels not available).",
+    transition_note_template: "Rows sum to 100%. Current regime: Low Vol.",
     exec_check_title: "Trading Costs & Market Depth",
     exec_check_subtitle: "Order book depth and estimated price impact for different trade sizes",
     order_book_title: "Order Book Depth (Available Liquidity)",
-    order_book_note: "Spread is ~0.68%. Depth is strong; crossing cost is low for 100K–2.5M sells (~−0.34%).",
+    order_book_note: "Spread is about 0.68%. There is solid depth on both sides; selling 100K–2.5M moves the price by about 0.34%.",
     peer_capacity_title: "How Much Can You Trade? (50K as % of Daily Volume)",
-    peer_capacity_note: "C52 has the best scalability in the peer set (50K ≈ 0% of ADV).",
+    peer_capacity_note: "Your stock has the best capacity in the peer set: a S$50K trade is about 1% of typical daily volume (J36 and C6L next at 3–4%).",
     impact_summary_title: "Estimated Price Impact (Sell Orders)",
-    impact_summary_subtitle: "Impact from mid to VWAP using latest order book (single-day).",
-    exec_check_insight: "Liquidity is strong. Modeled impact is low (~−0.34%) for 100K–2.5M sells. Kyle's Lambda ~0.0004% per S$10K.",
+    impact_summary_subtitle: "Price impact from mid to VWAP using latest order book (single-day).",
+    exec_check_insight: "Trading conditions are strong: deep order book and low price impact (about 0.34%) for sells of 100K–2.5M SGD.",
     trader_composition_title: "Who's Trading Your Stock?",
     trader_composition_subtitle: "Breakdown of retail, mixed, and institutional trading",
     trader_retail_threshold: "Retail: Trades under S$13,500",
@@ -129,24 +129,24 @@ export const REPORT_DATA: ReportData = {
     intraday_subtitle: "Understanding when liquidity is available throughout the day",
     session_dist_title: "Trading by Session",
     session_period_label: "Period:",
-    session_dist_note: "Continuous trading dominates (~82–83%); auctions ~15–17%. Peak at 12:00 (28.3%), then 09:00 and 17:00.",
+    session_dist_note: "Most volume is in continuous trading (~82–83%); auctions account for ~15–17%. Peak at 12:00 (28%), then 09:00 and 17:00.",
     hhi_title: "Trading Concentration (HHI)",
-    hhi_note_template: "HHI measures how spread out trading is. Your value: {value} (moderate concentration).",
+    hhi_note_template: "This index shows how spread out trading is through the day. Your value: {value} (moderate concentration).",
     intraday_intensity_title: "Trading Activity by Time of Day",
     intraday_intensity_note: "Liquidity clusters at 12:00 and open/close. Larger clips should target these windows.",
     peers_hhi_title: "Peer Comparison: Trading Concentration",
     peers_hhi_cols: ["Ticker", "% Auctions", "HHI", "Interpretation"],
     peers_hhi_note: "Lower HHI means more even trading throughout the day.",
-    intraday_insight: "Trading is moderately concentrated (HHI ~0.21). Best depth around midday and close.",
+    intraday_insight: "Trading is moderately concentrated through the day. Best depth is around midday and at the close.",
     ofi_title: "Order Flow Balance",
-    ofi_subtitle: "Is trading one-sided? Does imbalance explain daily returns?",
+    ofi_subtitle: "Is buying or selling dominant? Does that explain same-day price moves?",
     ofi_tiles: [
       { title: "Order Flow Imbalance (3-Month Avg |OFI|)", note: "How one-sided is trading?" },
       { title: "OFI vs Daily Prices", note: "Correlation with same-day returns" },
       { title: "Short-Term Order Book Signal", note: "L2 predictiveness test" }
     ],
     ofi_table_title: "Order Flow Summary",
-    ofi_table_note: "OFI measures buyer-initiated minus seller-initiated volume. 3M avg |OFI| ~28% (moderate).",
+    ofi_table_note: "Order flow imbalance is the difference between buy- and sell-initiated volume. Over 3 months the average absolute imbalance is about 28% (moderately one-sided). L2 order-book OFI significantly predicts mid-price at 3-min lag.",
     ofi_table_cols: ["Period", "Avg OFI", "Avg |OFI|", "Interpretation"],
     ofi_corr_note_template: "Correlation between order flow and same-day returns: {corr}.",
     ofi_pie_title: "Trading Days Breakdown (3 Months)",
@@ -156,23 +156,23 @@ export const REPORT_DATA: ReportData = {
     ofi_unusual_cols: ["Date", "Direction", "Return"],
     ofi_unusual_note: "Large imbalances can coincide with bigger moves.",
     index_title: "Index Eligibility",
-    index_subtitle: "Which indices could include C52, and what's needed to qualify",
+    index_subtitle: "Which indices you qualify for and what would be needed for others",
     short_title: "Short Selling & Lending",
-    short_subtitle: "Short participation and lending context for execution risk",
+    short_subtitle: "How much trading is short selling and what the lending pool means for risk",
     footer: "Liquidity Analysis Report • Generated by Deltablock"
   },
 
   content: {
     exec_metrics: [
-      { title: "Liquidity Score", tooltip: { title: "What this means", body: "Composite score (0-100) from volume, trades, spread, impact, volatility. Higher is better." }, value: "95.9", suffix: "/100", bar_pct: 95.9, color_value: "text-emerald-300", color_bar: "text-emerald-300", subtext: "Rank 24/558 • Above peer median", interpretation: { text: "ABOVE PEERS", cls: "interpretation-good", icon: "✓" } },
-      { title: "Trading Cost (Spread)", tooltip: { title: "Why this matters", body: "Spread is immediate cost to trade. Tighter is better." }, value: "0.68", suffix: "%", bar_pct: 95, color_value: "text-emerald-300", color_bar: "text-emerald-300", subtext: "Below peer median (~0.9%)", interpretation: { text: "STRONG", cls: "interpretation-good", icon: "✓" } },
-      { title: "Average Traded Volume", tooltip: { title: "What this means", body: "Average daily trading value (20D). Higher = more liquidity." }, value: "10.8M", suffix: "SGD", bar_pct: 85, color_value: "text-emerald-300", color_bar: "text-emerald-300", subtext: "Peer median: 6.2M • +73% vs peers", interpretation: { text: "ABOVE PEERS", cls: "interpretation-good", icon: "✓" } },
-      { title: "What Drives Price Changes", tooltip: { title: "What this means", body: "Share of moves from market/sector vs company-specific." }, value: "48.0", suffix: "% sector", bar_pct: 48, color_value: "text-white", color_bar: "text-purple-400", subtext: "Market: 13.8% • Idio: 38.1%", interpretation: { text: "Sector-driven", cls: "interpretation-neutral", icon: "◆" } }
+      { title: "Liquidity Score", tooltip: { title: "What this means", body: "Composite score (0-100) from median volume, trades, spread, impact. Higher is better." }, value: "95.0", suffix: "/100", bar_pct: 95, color_value: "text-emerald-300", color_bar: "text-emerald-300", subtext: "Rank 29/558 • Above peer median", interpretation: { text: "ABOVE PEERS", cls: "interpretation-good", icon: "✓" } },
+      { title: "Trading Cost (Spread)", tooltip: { title: "Why this matters", body: "Median spread is immediate cost to trade. Tighter is better." }, value: "0.68", suffix: "%", bar_pct: 75, color_value: "text-amber-400", color_bar: "text-amber-400", subtext: "Above peer median (~0.31%)", interpretation: { text: "MODERATE", cls: "interpretation-neutral", icon: "■" } },
+      { title: "Median Traded Volume", tooltip: { title: "What this means", body: "Median daily trading value (20D). Higher = more liquidity." }, value: "9.5M", suffix: "SGD", bar_pct: 85, color_value: "text-emerald-300", color_bar: "text-emerald-300", subtext: "Peer median: 5.3M • +79% vs peers", interpretation: { text: "ABOVE PEERS", cls: "interpretation-good", icon: "✓" } },
+      { title: "What Drives Price Changes", tooltip: { title: "What this means", body: "Share of moves from market/sector vs company-specific." }, value: "75.2", suffix: "% company", bar_pct: 75, color_value: "text-white", color_bar: "text-purple-400", subtext: "Market: 20.2% • Sector: 4.5%", interpretation: { text: "Company-driven", cls: "interpretation-neutral", icon: "◆" } }
     ],
     exec_takeaways: [
-      "Liquidity score is strong (95.9/100; rank 24/558) with ADV +73% vs peer median and tight spread (0.68%).",
-      "Execution impact is low: ~−0.34% for 100K–2.5M sells. 50K clip is ~0% of ADV (best in peer set).",
-      "Short interest is high (~42.5% avg); SBL pool is 21.5M shares (~333% of ADV, ~3.3 days). Monitor for stress scenarios."
+      "Your stock trades well: top-30 liquidity in the market, ~9.5M SGD median daily volume (well above peers), and low trading cost (0.68% spread).",
+      "Selling size is not a bottleneck: even S$2.5M moves the price by only ~0.34%. A S$50K trade is about 1% of typical daily volume—best in your peer set.",
+      "Watch short interest: averaging ~42% of volume with a large lending pool. In stress, covering could add selling pressure; track this alongside price."
     ],
     action_plan: {
       borderClass: "border-amber-500",
@@ -181,210 +181,212 @@ export const REPORT_DATA: ReportData = {
           priority: "HIGH PRIORITY (0–3 months)",
           badge: { bg: "bg-amber-500/20", text: "text-amber-400", textColor: "text-amber-400", dot: "bg-amber-500" },
           items: [
-            { title: "Monitor short interest and SBL pool as execution risk", bullets: ["Short ratio ~42.5% (high vs peers). SBL pool ~3.3 days of ADV.", "Track lending pool vs ADV monthly; use as stress indicator."] },
-            { title: "Maintain liquidity and spread discipline", bullets: ["Spread and ADV are strengths; keep two-way depth and visibility."] }
+            { title: "Track short selling and lending pool", bullets: ["Short volume is high versus peers (~42% of trading). Lending pool is about 3 days of typical volume.", "Review short interest and pool size monthly; spikes can signal stress or one-sided selling risk."] },
+            { title: "Protect current liquidity strengths", bullets: ["Your spread and daily volume are competitive advantages. Keep investor visibility and two-way trading interest."] }
           ]
         },
         {
           priority: "MEDIUM (3–9 months)",
           badge: { bg: "bg-sky-500/20", text: "text-sky-300", textColor: "text-sky-300", dot: "bg-sky-500" },
           items: [
-            { title: "Leverage sector-driven profile for investor communication", bullets: ["~48% sector-driven; messaging aligned with Railroads/Industrials helps."] },
-            { title: "Track OFI and unusual imbalance days", bullets: ["3M |OFI| ~28%; use large imbalance days as timing/risk flags."] }
+            { title: "Lead with company narrative in investor messaging", bullets: ["About 75% of price moves are company-specific. Emphasise results, guidance, and fundamentals."] },
+            { title: "Use order-flow signals for timing", bullets: ["Trading is moderately one-sided (~28% imbalance on average). Use days with very large imbalance as context for volatility or positioning."] }
           ]
         },
         {
           priority: "LONGER-TERM (9–24 months)",
           badge: { bg: "bg-emerald-500/20", text: "text-emerald-300", textColor: "text-emerald-300", dot: "bg-emerald-500" },
           items: [
-            { title: "Build on index eligibility (FTSE All-Share, iEdge Next 50)", bullets: ["STI would require rank ≤30 (currently #58)."] },
-            { title: "Establish monthly liquidity monitoring", bullets: ["Track spread, ADV, HHI, OFI, short ratio, SBL pool vs ADV."] }
+            { title: "Defend index inclusion and aim for STI", bullets: ["You qualify for FTSE All-Share and FTSE Large/mid Cap. STI requires a market-cap rank in the top 30 (you are #58)."] },
+            { title: "Run a simple monthly liquidity dashboard", bullets: ["Monitor: spread, daily volume, trading concentration, order-flow balance, short ratio, and lending pool vs daily volume."] }
           ]
         }
       ]
     },
     liq_tiles: [
-      { title: "Daily Trades", value: "2.9K", sub: "Strong activity", interp: { text: "STRONG", cls: "interpretation-good", icon: "✓" } },
-      { title: "Turnover (Volume/Free Float)", value: "0.34%", sub: "Above peer median", interp: { text: "MODERATE", cls: "interpretation-neutral", icon: "■" } },
-      { title: "Daily Volatility", value: "0.66%", sub: "Below peer median (~1.5%)", interp: { text: "LOW", cls: "interpretation-good", icon: "✓" } }
+      { title: "Median Daily Trades", value: "2.6K", sub: "Strong activity", interp: { text: "STRONG", cls: "interpretation-good", icon: "✓" } },
+      { title: "Median Turnover (Vol/Free Float)", value: "0.30%", sub: "Above peer median", interp: { text: "MODERATE", cls: "interpretation-neutral", icon: "■" } },
+      { title: "Daily Volatility", value: "0.68%", sub: "In line with peer median (~0.71%)", interp: { text: "STRONG", cls: "interpretation-good", icon: "✓" } }
     ],
-    liq_insight: "C52 has strong liquidity versus peers (rank 24/558), with higher ADV and tighter spread. Main watchpoint is high short interest and SBL pool size.",
+    liq_insight: "Trading conditions are strong versus peers: top-tier liquidity score, higher daily volume, and tighter spread. The main risk to monitor is elevated short interest and the size of the lending pool.",
     perf_badge: "Context",
     exec_check_tiles: [
       { title: "Mid Price", value: "1.4750", note: "SGD (snapshot)", color: "text-white" },
       { title: "Spread", value: "0.68%", note: "Immediate trading cost", color: "text-emerald-300" },
-      { title: "Kyle's Lambda", value: "0.0004%", note: "per S$10K traded", color: "text-white" }
+      { title: "Depth", value: "Strong", note: "Multiple levels of size on both sides", color: "text-emerald-300" }
     ],
     impact_summary_cards: [
-      { title: "S$100K Sell", text: "Impact: −0.34% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
-      { title: "S$1.0M Sell", text: "Impact: −0.34% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
-      { title: "S$2.5M Sell", text: "Impact: −0.34% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" }
+      { title: "S$100K Sell", text: "Price impact: −0.34% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
+      { title: "S$1.0M Sell", text: "Price impact: −0.34% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" },
+      { title: "S$2.5M Sell", text: "Price impact: −0.34% • Fill: 100% • Mid→VWAP", cls: "bg-emerald-500/10 border border-emerald-500/30" }
     ],
     peers_hhi_header: ["Ticker", "% Auctions", "HHI", "Interpretation"],
     ofi_tiles_interpretations: [
       { cls: "bg-amber-500/20 text-amber-400", text: "Moderate" },
       { cls: "bg-emerald-500/20 text-emerald-300", text: "Moderate positive" },
-      { cls: "bg-slate-500/20 text-slate-400", text: "N/A (statsmodels not installed)" }
+      { cls: "bg-emerald-500/20 text-emerald-300", text: "Significant (3-min)" }
     ],
     footer: "Liquidity Analysis Report • Generated by Deltablock"
   },
 
   insights: {
     liquidity: {
-      overall: "C52 has strong liquidity (score 95.9, rank 24/558). ADV is 10.8M SGD (+73% vs peer median), spread 0.68% (tighter than peers), and trade count 2.9K/day.",
-      strengths: ["High ADV and tight spread support execution", "50K clip is ~0% of ADV (best in peer set)", "Low volatility (0.66%) vs peer median 1.5%"],
-      concerns: ["High short interest (~42.5%) and large SBL pool (~3.3 days ADV) are execution/stress risks"],
-      peer_context: "C52 leads peers on ADV and spread. V03 and 558 are also liquid; S61 and P7VU are far less scalable."
+      overall: "Your stock ranks in the top 30 for liquidity in the market. Typical daily volume is 9.5M SGD—about 79% above the peer median (5.3M)—and the spread is tight at 0.68%, so trading cost is low.",
+      strengths: ["Daily volume and spread support large orders without moving the price much.", "A S$50K trade is only about 1% of typical daily volume—the best in your peer set (J36, C6L, S58 next).", "Turnover relative to float is above the peer median."],
+      concerns: ["Short selling is high versus peers, and the lending pool is large. In a stress scenario, covering could add selling pressure."],
+      peer_context: "You lead peers on volume and spread. J36 and C6L have higher ADV; S58, 5LY, C07 have similar or lower capacity. S61 has much less capacity for size."
     },
     market_comparison: {
-      adv: { insight: "ADV 10.8M SGD — well above sector and peer medians.", vs_market: "Market median ADV ~47K; C52 is in a much more liquid tier.", vs_sector: "Sector median ~5.5M; C52 is above.", vs_peers: "Peer median ~6.2M; C52 is +73% above." },
-      spread: { insight: "Spread 0.68% — better than peer median (~0.9%).", vs_market: "Market median ~2.5%; C52 is much tighter.", vs_sector: "Sector median ~0.5%; C52 is slightly wider.", vs_peers: "Peer median ~0.9%; C52 is tighter." },
-      volatility: { insight: "Volatility 0.66% — below peer and market medians.", vs_market: "Market median ~2.2%; C52 is calmer.", vs_sector: "Sector median ~0.6%; in line.", vs_peers: "Peer median ~1.5%; C52 is lower." },
-      trades: { insight: "~2.9K trades/day — above peer median (~1.7K).", vs_market: "Market median ~19; C52 is far more active.", vs_sector: "Sector median ~1.5K; C52 is higher.", vs_peers: "Peer median ~1.7K; C52 is higher." }
+      adv: { insight: "Typical daily trading value is 9.5M SGD—well above your sector and peer group.", vs_market: "The market median is much lower (~18K); you sit in a more liquid tier.", vs_sector: "Sector median is ~4.9M; you are above it.", vs_peers: "Peer median is 5.3M; you are about 79% higher." },
+      spread: { insight: "Trading cost (spread) is 0.68%—wider than the peer median (~0.31%).", vs_market: "Market median spread is ~2.2%; yours is much tighter.", vs_sector: "Sector median ~0.51%; you are slightly wider.", vs_peers: "Peer median ~0.31%; you are wider (peers like J36, C07, C6L have tighter spreads)." },
+      volatility: { insight: "Daily price swings are 0.68%—in line with peer median (~0.71%), so the stock is relatively stable.", vs_market: "Market median volatility is ~0.6%; you are in line.", vs_sector: "Sector median ~0.5%; you are slightly higher.", vs_peers: "Peer median ~0.71%; your volatility is about 5% lower." },
+      trades: { insight: "You have about 2.6K trades per day—above the peer median (~1.6K).", vs_market: "Market median is ~10; you are far more active.", vs_sector: "Sector median ~1.3K; you are higher.", vs_peers: "Peer median ~1.6K; you are about 69% higher." }
     },
     performance: {
-      overall: "C52 has mixed returns (1M −0.68%, 3M +0.68%, 6M −3.29%). Liquidity is strong; main focus is short interest and SBL pool.",
-      ytd: { stock: "−0.68%", market: "+6.3%", sector: "+0.75%", peers: "+1.9%", insight: "YTD C52 is down slightly; market and peers are up." },
-      three_month: { stock: "+0.68%", market: "+16.7%", sector: "+1.7%", peers: "+1.8%", insight: "3M C52 is flat; market and sector/peers are positive." },
-      six_month: { stock: "−3.29%", market: "+54.3%", sector: "+0.05%", peers: "+5.2%", insight: "6M C52 is down; market and peers are up." },
-      conclusion: "Liquidity supports execution; protecting spread and monitoring short/SBL context is key."
+      overall: "Returns are mixed: slightly down over 1M and 6M, flat over 3M. Liquidity is strong; the main item to watch is short interest and the lending pool.",
+      ytd: { stock: "−0.68%", market: "+5.6%", sector: "+0.75%", peers: "+0.85%", insight: "Year to date you are slightly down; the market and peers are up." },
+      three_month: { stock: "+0.68%", market: "+10.8%", sector: "+1.7%", peers: "+2.8%", insight: "Over 3 months you are flat; market, sector, and peers are positive." },
+      six_month: { stock: "−3.29%", market: "+16.9%", sector: "+0.05%", peers: "+8.6%", insight: "Over 6 months you are down; the market and peers are up." },
+      conclusion: "Trading conditions support execution. Keep an eye on spread and volume, and monitor short interest and the lending pool."
     },
     drivers: {
-      overall: "C52 is sector-driven: ~48% sector, ~38% idiosyncratic, ~14% market. R² 64.8%.",
-      interpretation: "Sector (Railroads) and company-specific factors both matter. Sector volatility Granger-causes stock volatility.",
-      rolling_change: "Rolling windows show sector share in 37–57% range; latest window 48% sector, 38% idio.",
-      beta: "β_market ≈ 0.26, β_sector ≈ 1.09. Fama-French suggests large-cap style (β_SMB negative)."
+      overall: "About three-quarters of recent price moves come from company-specific factors, 20% from the broad market, and 5% from the sector. The model explains 18% of moves.",
+      interpretation: "Company news and fundamentals drive most moves; market and sector play a smaller role. The stock leads the market by about 4 days at best correlation.",
+      rolling_change: "Over rolling windows, company-specific share has dominated (74–87%); market share varies (7–26%), sector is low or zero in most windows.",
+      beta: "Sensitivity to the market is moderate (~0.30); sensitivity to the sector is high (~2.62). The stock is largely company-driven."
     },
     regime: {
-      overall: "Regime-switching model could not be fitted (statsmodels not available).",
-      current: "N/A",
-      transitions: "N/A",
-      trading_implications: "Use sector volatility and OFI as timing/risk signals instead."
+      overall: "We see two environments: high volatility (22% of the time) and low volatility (78%). You are currently in the low-volatility regime.",
+      current: "Low Vol",
+      transitions: "Once in low vol, the market tends to stay there (about 77% of the time). Transitions to high vol are possible (about 23%).",
+      trading_implications: "In the current low-vol regime, use company news and order flow for context; regime can switch to high vol."
     },
     trader_composition: {
-      overall: "96.2% of trades are retail (by count); by notional, institutional is 54.8%, retail 26.5%, mixed 18.7%.",
-      retail_heavy: "By trade count, retail dominates; by volume, institutional share is meaningful.",
-      institutional_gap: "Institutional notional share (55%) supports block liquidity; retail drives trade count.",
-      peer_comparison: "C52 is among the most retail-heavy by count (96.2%); by notional, institutional share is in line with BUOU, NS8U."
+      overall: "By number of trades, 96% are retail. By value traded, institutions account for about 55%, retail 26%, and mixed sizes 19%.",
+      retail_heavy: "Retail drives trade count; institutions drive a majority of volume.",
+      institutional_gap: "Institutional share of volume (55%) supports block trading; retail provides most of the order flow count.",
+      peer_comparison: "You are the most retail-heavy by trade count among peers (C52, E3B, S61, 1MZ, C6L, 5LY, S58, C07, J36); by value, institutional share is similar to E3B and C6L."
     },
     price_moving: {
-      overall: "33.9% of trades moved the price (63,729 of 187,965). Retail dominates both directions (~94–96%).",
-      interpretation: "Meaningful share of trades move the price; limit discipline and timing matter.",
-      asymmetry: "Positive movers avg ~1.2x larger than negative movers.",
-      by_trader_type: "Retail drives most price-moving trades (positive and negative)."
+      overall: "About one in three trades moved the price. Retail orders dominate in both directions (roughly 94–96% of price-moving trades).",
+      interpretation: "A meaningful share of trades move the price, so execution quality and timing matter for large orders.",
+      asymmetry: "Trades that pushed the price up were on average about 1.2x larger than those that pushed it down.",
+      by_trader_type: "Most price-moving activity is retail, in both directions."
     },
     short_selling: {
-      overall: "Short participation is high (~42.5% average 3M). SBL pool 21.5M shares (~333% of ADV, ~3.3 days to liquidate).",
-      level: "3M avg short ratio ~42.5% (max ~69.4%). High vs peers.",
-      correlation: "Short% vs return correlation −0.16 (moderate negative — shorts somewhat predict drops).",
-      trend: "Shorts slightly building (+9% MoM). Recent 14-day avg 49.7%.",
-      peaks: "Peak shorting episodes (e.g. 69.4%) can be used as stress flags."
+      overall: "Short selling is high: about 42% of volume on average over 3 months. The lending pool is 21.5M shares—about 3.3 days of typical volume—so covering could add pressure in stress.",
+      level: "3-month average short share of volume is ~42% (peak ~69%). This is high versus peers.",
+      correlation: "When short activity is high, returns tend to be slightly lower (moderate negative relationship).",
+      trend: "Short interest has ticked up recently (+9% month-on-month). The last 14 days averaged about 50%.",
+      peaks: "Spikes in short volume (e.g. 69%) can serve as a simple stress or sentiment indicator."
     },
     execution: {
-      overall: "Execution impact is low. Modeled impact ~−0.34% for 100K–2.5M sells. 50K is ~0% of ADV.",
-      concern: "Main risk is short/SBL overhang in stress, not day-to-day crossing cost.",
-      kyle: "Kyle's Lambda ~0.0004% per S$10K traded.",
-      peer_context: "C52 has best scalability in peer set (50K ≈ 0% ADV); S61 and P7VU are 300–600% of ADV for 50K."
+      overall: "Trading cost from price impact is low. Order book depth is strong; selling 100K–2.5M moves the price by about 0.34%. A S$50K trade is about 1% of typical daily volume.",
+      concern: "The main execution risk is not day-to-day cost but the possibility of extra selling pressure if short positions are closed in a stress event.",
+      peer_context: "You have the best capacity in the peer set for size (50K ≈ 1% of daily volume). J36 and C6L are next (3–4%); S61 would need a much larger share of daily volume for the same size."
     },
     intraday: {
-      overall: "Trading moderately concentrated (HHI ~0.21). Continuous ~82–83%; auctions ~15–17%. Peak at 12:00 (28.3%).",
-      hhi_interpretation: "HHI 0.15–0.25 = moderate concentration.",
-      best_times: "Best windows: 12:00, 09:00, 17:00.",
-      peer_ranking: "C52 is in the moderate band; V03 and S59 have lower HHI (more spread)."
+      overall: "Trading is moderately concentrated in time: most volume is in continuous trading (~82–83%), with about 15–17% in auctions. The busiest time is noon (28%), then open and close.",
+      hhi_interpretation: "The concentration index (HHI) is in the moderate range—liquidity is neither perfectly even nor highly concentrated.",
+      best_times: "The best windows for size are around 12:00, 09:00, and 17:00.",
+      peer_ranking: "Your concentration is in the middle of the peer pack; S58, C07, and C6L have more evenly spread trading (lower HHI)."
     },
     ofi: {
-      overall: "3M avg |OFI| ~28.1% (moderate). OFI–price correlation +0.42. Net buy days 47.1%, net sell 42.6%, balanced 10.3%.",
-      daily_vs_intraday: "Daily OFI correlates with returns; L2 Granger test not run (statsmodels not available).",
-      l2_signal: "L2 OFI analysis not available (statsmodels not installed).",
-      day_breakdown: "Roughly balanced between net buying and net selling days over 3M."
+      overall: "Order flow is moderately one-sided (about 28% average imbalance over 3 months). Imbalance and same-day returns move together (positive correlation). L2 order-book imbalance significantly predicts mid-price changes at 3-minute lag (buy pressure → price down).",
+      daily_vs_intraday: "Daily order flow lines up with returns. Intraday L2 OFI Granger-causes mid-price at 3-min lag (p≈0.0000).",
+      l2_signal: "Over 2,739 L2 snapshots (last 7 days), OFI% significantly predicts mid-price (p≈0.0000). Lead time: 3 min. Direction: negative (buy pressure → price down)—contrarian microstructure; avoid urgency during extreme imbalances.",
+      day_breakdown: "Over 3 months, net buying and net selling days are roughly balanced."
     },
     index: {
-      overall: "C52 is eligible for FTSE All-Share and iEdge Next 50 (rank #58). STI requires rank ≤30.",
+      overall: "You are eligible for FTSE All-Share and FTSE Large/mid Cap. The STI index would require a rank in the top 30.",
       hsci: "N/A (Singapore).",
       hsi_gap: "N/A.",
       tech_gap: "N/A.",
-      recommendation: "Maintain FTSE All-Share and iEdge Next 50 eligibility. STI is a long-term outcome of rank improvement."
+      recommendation: "Keep meeting the bar for FTSE All-Share and FTSE Large/mid Cap. STI inclusion is a longer-term goal if your market-cap rank improves to the top 30."
     }
   },
 
   series: {
     peers_liquidity: {
-      labels: ["C52", "S61", "S59", "NS8U", "P7VU", "558", "YF8", "V03", "BUOU"],
-      scores: [95.878, 72.76, 90.68, 84.05, 58.24, 93.19, 94.09, 94.98, 94.80],
+      labels: ["C52", "S61", "S58", "C07", "5LY", "E3B", "1MZ", "C6L", "J36"],
+      scores: [94.98, 71.33, 93.37, 89.25, 94.27, 93.19, 92.47, 97.13, 94.62],
       is_target: [true, false, false, false, false, false, false, false, false],
-      adv: [10767807, 272535, 2687901, 1658648, 163362, 10721789, 9946703, 11811840, 9733348],
+      adv: [9499175, 234019, 10309989, 4894405, 5708984, 3414622, 4798067, 22866476, 32385704],
       total: 558
     },
     market_comparison: {
       sector_name: "Railroads",
       sector_count: 2,
       market_count: 558,
-      company: { volatility: 0.00658, adv: 10767807.45, spread_pct: 0.00680, turnover_ratio: 0.00342, amihud: 5.06e-10, trades: 2862.4 },
+      company: { volatility: 0.00676, adv: 9499174.5, spread_pct: 0.00680, turnover_ratio: 0.00300, amihud: 3.97e-10, trades: 2628.5 },
       market: {
-        volatility: { direction: "lower_is_better", mean: 0.0368, median: 0.0218, min: 0, max: 0.574, p5: 0.00383, p95: 0.111, count: 558 },
-        adv: { direction: "higher_is_better", mean: 2838953, median: 47331, min: 0, max: 248734466, p5: 116, p95: 11233078, count: 558 },
-        spread_pct: { direction: "lower_is_better", mean: 0.0896, median: 0.0249, min: 0.00028, max: 1.30, p5: 0.00331, p95: 0.453, count: 554 },
-        turnover_ratio: { direction: "higher_is_better", mean: 0.00647, median: 0.000955, min: 0, max: 1.26, p5: 8.68e-06, p95: 0.0184, count: 537 },
-        amihud: { direction: "lower_is_better", mean: 0.00304, median: 1.01e-06, min: 0, max: 0.593, p5: 3.46e-10, p95: 0.00124, count: 548 },
-        trades: { direction: "higher_is_better", mean: 406.9, median: 18.55, min: 0, max: 9968, p5: 0.24, p95: 2210, count: 558 }
+        volatility: { direction: "lower_is_better", mean: 0.0110, median: 0.00613, min: 0, max: 0.5, p5: 0, p95: 0.0333, count: 558 },
+        adv: { direction: "higher_is_better", mean: 2515365, median: 17956.5, min: 0, max: 243209838, p5: 0, p95: 10103622, count: 558 },
+        spread_pct: { direction: "lower_is_better", mean: 0.0883, median: 0.02243, min: 0.00027, max: 1.30, p5: 0.00321, p95: 0.474, count: 554 },
+        turnover_ratio: { direction: "higher_is_better", mean: 0.00367, median: 0.000374, min: 0, max: 0.705, p5: 0, p95: 0.0107, count: 537 },
+        amihud: { direction: "lower_is_better", mean: 6.89e-05, median: 7.62e-08, min: 0, max: 0.0185, p5: 0, p95: 8.46e-05, count: 548 },
+        trades: { direction: "higher_is_better", mean: 367.5, median: 9.5, min: 0, max: 9583.5, p5: 0, p95: 2122.6, count: 558 }
       },
       sector: {
-        volatility: { direction: "lower_is_better", mean: 0.00588, median: 0.00588, min: 0.00517, max: 0.00658, p5: 0.00524, p95: 0.00651, count: 2 },
-        adv: { direction: "higher_is_better", mean: 5520171, median: 5520171, min: 272535, max: 10767807, p5: 797298, p95: 10243044, count: 2 },
-        spread_pct: { direction: "lower_is_better", mean: 0.00523, median: 0.00523, min: 0.00365, max: 0.00680, p5: 0.00381, p95: 0.00664, count: 2 },
-        turnover_ratio: { direction: "higher_is_better", mean: 0.00224, median: 0.00224, min: 0.00107, max: 0.00342, p5: 0.00119, p95: 0.00330, count: 2 },
-        amihud: { direction: "lower_is_better", mean: 1.04e-08, median: 1.04e-08, min: 5.06e-10, max: 2.03e-08, p5: 1.50e-09, p95: 1.93e-08, count: 2 },
-        trades: { direction: "higher_is_better", mean: 1470.6, median: 1470.6, min: 78.8, max: 2862.4, p5: 218, p95: 2723, count: 2 }
+        volatility: { direction: "lower_is_better", mean: 0.00491, median: 0.00491, min: 0.00306, max: 0.00676, p5: 0.00324, p95: 0.00657, count: 2 },
+        adv: { direction: "higher_is_better", mean: 4866596.5, median: 4866596.5, min: 234019, max: 9499175, p5: 697276, p95: 9035917, count: 2 },
+        spread_pct: { direction: "lower_is_better", mean: 0.00511, median: 0.00511, min: 0.00342, max: 0.00680, p5: 0.00359, p95: 0.00663, count: 2 },
+        turnover_ratio: { direction: "higher_is_better", mean: 0.00196, median: 0.00196, min: 0.00091, max: 0.00300, p5: 0.00102, p95: 0.00290, count: 2 },
+        amihud: { direction: "lower_is_better", mean: 6.78e-09, median: 6.78e-09, min: 3.97e-10, max: 1.32e-08, p5: 1.04e-09, p95: 1.25e-08, count: 2 },
+        trades: { direction: "higher_is_better", mean: 1345.25, median: 1345.25, min: 62, max: 2628.5, p5: 190.3, p95: 2500.2, count: 2 }
       },
       peers: {
-        adv: { direction: "higher_is_better", mean: 5874516, median: 6210624, min: 163362, max: 11811840, p5: 201572, p95: 11430322, count: 8 },
-        trades: { direction: "higher_is_better", mean: 1349.85, median: 1715.3, min: 21.5, max: 2324.4, p5: 41.6, p95: 2298, count: 8 },
-        volatility: { direction: "lower_is_better", mean: 0.0183, median: 0.0151, min: 0.00517, max: 0.0448, p5: 0.00657, p95: 0.0382, count: 8 },
-        spread_pct: { direction: "lower_is_better", mean: 0.0104, median: 0.00868, min: 0.00093, max: 0.0239, p5: 0.00166, p95: 0.0228, count: 8 },
-        amihud: { direction: "lower_is_better", mean: 5.57e-08, median: 3.13e-09, min: 4.79e-10, max: 3.92e-07, p5: 5.90e-10, p95: 2.63e-07, count: 8 },
-        turnover_ratio: { direction: "higher_is_better", mean: 0.00421, median: 0.00287, min: 9.93e-05, max: 0.0116, p5: 0.00042, p95: 0.0102, count: 8 }
+        adv: { direction: "higher_is_better", mean: 10576533, median: 5301694.5, min: 234019, max: 32385704, p5: 1347230, p95: 29053974, count: 8 },
+        trades: { direction: "higher_is_better", mean: 1500.6, median: 1550.75, min: 62, max: 3875.5, p5: 288.3, p95: 3132.3, count: 8 },
+        volatility: { direction: "lower_is_better", mean: 0.00751, median: 0.00708, min: 0.00306, max: 0.0130, p5: 0.00307, p95: 0.0124, count: 8 },
+        spread_pct: { direction: "lower_is_better", mean: 0.00420, median: 0.00306, min: 0.00138, max: 0.00957, p5: 0.00139, p95: 0.00876, count: 8 },
+        amihud: { direction: "lower_is_better", mean: 3.12e-09, median: 1.76e-09, min: 8.40e-11, max: 1.32e-08, p5: 1.31e-10, p95: 9.97e-09, count: 8 },
+        turnover_ratio: { direction: "higher_is_better", mean: 0.00593, median: 0.00246, min: 0.00091, max: 0.0162, p5: 0.00113, p95: 0.0150, count: 8 }
       }
     },
     returns: [
-      { horizon: "1M", stock: -0.6757, market: 6.302, sector: 0.754, peers: 1.895 },
-      { horizon: "3M", stock: 0.6849, market: 16.677, sector: 1.657, peers: 1.759 },
-      { horizon: "6M", stock: -3.289, market: 54.264, sector: 0.054, peers: 5.220 },
-      { horizon: "YTD", stock: -0.6757, market: 6.302, sector: 0.754, peers: 1.895 }
+      { horizon: "1M", stock: -0.676, market: 5.57, sector: 0.754, peers: 0.85 },
+      { horizon: "3M", stock: 0.685, market: 10.76, sector: 1.66, peers: 2.83 },
+      { horizon: "6M", stock: -3.29, market: 16.87, sector: 0.05, peers: 8.59 },
+      { horizon: "YTD", stock: -0.676, market: 5.57, sector: 0.754, peers: 0.85 }
     ],
     drivers: {
-      share_market: 13.8,
-      share_sector: 48.0,
-      share_idio: 38.1,
-      beta_market: 0.2585,
-      beta_sector: 1.093,
-      r_squared: 64.8,
+      share_market: 20.23,
+      share_sector: 4.52,
+      share_idio: 75.25,
+      beta_market: 0.3043,
+      beta_sector: 2.6159,
+      r_squared: 18.11,
       lead_lag: {
         lags: [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5],
-        corr_market: [-0.112, -0.104, 0.182, 0.092, -0.232, 0.457, -0.032, -0.060, -0.030, 0.040, 0.024],
-        corr_sector: [0.036, -0.206, 0.047, -0.035, -0.302, 0.790, -0.121, 0.018, -0.127, 0.121, -0.008],
-        best: { market: 0, sector: 0 }
+        corr_market: [-0.0564, -0.3168, 0.2416, -0.1003, -0.0480, 0.3077, 0.0348, 0.1237, -0.1543, 0.0221, -0.0565],
+        corr_sector: [0.1272, -0.1198, 0.2519, 0.0025, -0.2426, 0.3650, -0.0016, 0.0049, 0.0049, 0.0050, 0.0028],
+        best: { market: -4, sector: 0 }
       },
       rolling_windows: {
-        p1: { valid: true, period_label: "2025-01-17 to 2025-03-21", shares: { share_market: 0.0197, share_sector: 0.5644, share_idio: 0.4160 }, regression: { r_squared: 0.638 } },
-        p2: { valid: true, period_label: "2025-03-21 to 2025-05-23", shares: { share_market: 0.0696, share_sector: 0.5232, share_idio: 0.4071 }, regression: { r_squared: 0.600 } },
-        p3: { valid: true, period_label: "2025-05-23 to 2025-07-25", shares: { share_market: 0.0960, share_sector: 0.3774, share_idio: 0.5266 }, regression: { r_squared: 0.503 } },
-        p4: { valid: true, period_label: "2025-07-25 to 2025-09-26", shares: { share_market: 0.0910, share_sector: 0.5103, share_idio: 0.3987 }, regression: { r_squared: 0.789 } },
-        p5: { valid: true, period_label: "2025-09-26 to 2025-11-28", shares: { share_market: 0.0582, share_sector: 0.5737, share_idio: 0.3681 }, regression: { r_squared: 0.693 } },
-        p6: { valid: true, period_label: "2025-11-28 to 2026-01-30", shares: { share_market: 0.1383, share_sector: 0.4804, share_idio: 0.3814 }, regression: { r_squared: 0.648 } }
+        p1: { valid: true, period_label: "2025-01-17 to 2025-03-21", shares: { share_market: 0.1284, share_sector: 0, share_idio: 0.8716 }, regression: { r_squared: 0.0192 } },
+        p2: { valid: true, period_label: "2025-03-21 to 2025-05-23", shares: { share_market: 0.1821, share_sector: 0, share_idio: 0.8179 }, regression: { r_squared: 0.0430 } },
+        p3: { valid: true, period_label: "2025-05-23 to 2025-07-25", shares: { share_market: 0.0696, share_sector: 0.0687, share_idio: 0.8617 }, regression: { r_squared: 0.2601 } },
+        p4: { valid: true, period_label: "2025-07-25 to 2025-09-26", shares: { share_market: 0.1857, share_sector: 0, share_idio: 0.8143 }, regression: { r_squared: 0.0283 } },
+        p5: { valid: true, period_label: "2025-09-26 to 2025-11-28", shares: { share_market: 0.2583, share_sector: 0, share_idio: 0.7417 }, regression: { r_squared: 0.1074 } },
+        p6: { valid: true, period_label: "2025-11-28 to 2026-01-30", shares: { share_market: 0.2023, share_sector: 0.0452, share_idio: 0.7525 }, regression: { r_squared: 0.1811 } }
       },
       rolling: {
         ordered: ["2025-01-17 to 2025-03-21", "2025-03-21 to 2025-05-23", "2025-05-23 to 2025-07-25", "2025-07-25 to 2025-09-26", "2025-09-26 to 2025-11-28", "2025-11-28 to 2026-01-30"],
-        market: [2.0, 7.0, 9.6, 9.1, 5.8, 13.8],
-        sector: [56.4, 52.3, 37.7, 51.0, 57.4, 48.0],
-        idio: [41.6, 40.7, 52.7, 39.9, 36.8, 38.1]
+        market: [12.84, 18.21, 6.96, 18.57, 25.83, 20.23],
+        sector: [0, 0, 6.87, 0, 0, 4.52],
+        idio: [87.16, 81.79, 86.17, 81.43, 74.17, 75.25]
       },
       regime: {
-        n_regimes: 0,
-        labels: [],
-        pct_time: [],
-        current_regime: 0,
-        regimes: [],
-        transitions: []
+        n_regimes: 2,
+        labels: ["High Vol", "Low Vol"],
+        pct_time: [0.2222222222222222, 0.7777777777777778],
+        current_regime: 1,
+        regimes: [
+          { id: 0, label: "High Vol", mean_ret: 0.6849315068493178, volatility: 0.006908023483368888, mean_ret_pct: 0.6849315068493178, volatility_pct: 0.006908023483368888, n_days: 28, pct_time: 0.2222222222222222 },
+          { id: 1, label: "Low Vol", mean_ret: 0, volatility: 0.000001, mean_ret_pct: 0, volatility_pct: 0.000001, n_days: 98, pct_time: 0.7777777777777778 }
+        ],
+        transitions: [[0.7846917676606052, 0.21530823233939475], [0.768539340782348, 0.23146065921765205]]
       }
     },
     order_book: {
@@ -414,16 +416,16 @@ export const REPORT_DATA: ReportData = {
       ]
     },
     peer_capacity: {
-      bx_ticket_pct_adv_50k: 0.5,
+      bx_ticket_pct_adv_50k: 1.0,
       peers: [
-        { ticker: "V03", pct: 8.5 },
-        { ticker: "558", pct: 9.3 },
-        { ticker: "YF8", pct: 10.1 },
-        { ticker: "BUOU", pct: 10.3 },
-        { ticker: "S59", pct: 37.2 },
-        { ticker: "NS8U", pct: 60.3 },
-        { ticker: "S61", pct: 366.9 },
-        { ticker: "P7VU", pct: 612.1 }
+        { ticker: "J36", pct: 3.1 },
+        { ticker: "C6L", pct: 4.4 },
+        { ticker: "S58", pct: 9.7 },
+        { ticker: "5LY", pct: 17.5 },
+        { ticker: "C07", pct: 20.4 },
+        { ticker: "1MZ", pct: 20.8 },
+        { ticker: "E3B", pct: 29.3 },
+        { ticker: "S61", pct: 427.3 }
       ]
     },
     trader_composition: {
@@ -459,14 +461,14 @@ export const REPORT_DATA: ReportData = {
       },
       peer_comparison: [
         { ticker: "C52", currency: "SGD", is_target: true, retail_pct: 0.9616, mixed_pct: 0.0272, instit_pct: 0.0113, retail_qty_pct: 0.2649, mixed_qty_pct: 0.1872, instit_qty_pct: 0.5479, retail_notional_pct: 0.2644, mixed_notional_pct: 0.1872, instit_notional_pct: 0.5484, avg_trade_size: 3951, thresholds: { retail_max: 13500, instit_min: 67500 } },
-        { ticker: "BUOU", currency: "SGD", is_target: false, retail_pct: 0.9629, mixed_pct: 0.0245, instit_pct: 0.0125, retail_qty_pct: 0.2030, mixed_qty_pct: 0.1758, instit_qty_pct: 0.6212, retail_notional_pct: 0.2030, mixed_notional_pct: 0.1756, instit_notional_pct: 0.6214, avg_trade_size: 4144, thresholds: { retail_max: 13500, instit_min: 67500 } },
-        { ticker: "NS8U", currency: "USD", is_target: false, retail_pct: 0.9596, mixed_pct: 0.0291, instit_pct: 0.0113, retail_qty_pct: 0.1263, mixed_qty_pct: 0.2842, instit_qty_pct: 0.5895, retail_notional_pct: 0.1258, mixed_notional_pct: 0.2842, instit_notional_pct: 0.5900, avg_trade_size: 2329, thresholds: { retail_max: 10000, instit_min: 50000 } },
-        { ticker: "S59", currency: "SGD", is_target: false, retail_pct: 0.9365, mixed_pct: 0.0613, instit_pct: 0.0022, retail_qty_pct: 0.4998, mixed_qty_pct: 0.4458, instit_qty_pct: 0.0544, retail_notional_pct: 0.4987, mixed_notional_pct: 0.4465, instit_notional_pct: 0.0548, avg_trade_size: 3442, thresholds: { retail_max: 13500, instit_min: 67500 } },
+        { ticker: "E3B", currency: "SGD", is_target: false, retail_pct: 0.9173, mixed_pct: 0.0703, instit_pct: 0.0124, retail_qty_pct: 0.2575, mixed_qty_pct: 0.4296, instit_qty_pct: 0.3130, retail_notional_pct: 0.2591, mixed_notional_pct: 0.4311, instit_notional_pct: 0.3098, avg_trade_size: 4779, thresholds: { retail_max: 13500, instit_min: 67500 } },
         { ticker: "S61", currency: "SGD", is_target: false, retail_pct: 0.8919, mixed_pct: 0.1047, instit_pct: 0.0034, retail_qty_pct: 0.4160, mixed_qty_pct: 0.5224, instit_qty_pct: 0.0617, retail_notional_pct: 0.4169, mixed_notional_pct: 0.5218, instit_notional_pct: 0.0613, avg_trade_size: 5507, thresholds: { retail_max: 13500, instit_min: 67500 } },
-        { ticker: "YF8", currency: "SGD", is_target: false, retail_pct: 0.8873, mixed_pct: 0.0886, instit_pct: 0.0241, retail_qty_pct: 0.1911, mixed_qty_pct: 0.3964, instit_qty_pct: 0.4125, retail_notional_pct: 0.1905, mixed_notional_pct: 0.3957, instit_notional_pct: 0.4138, avg_trade_size: 6912, thresholds: { retail_max: 13500, instit_min: 67500 } },
-        { ticker: "558", currency: "SGD", is_target: false, retail_pct: 0.8814, mixed_pct: 0.0954, instit_pct: 0.0231, retail_qty_pct: 0.2066, mixed_qty_pct: 0.4065, instit_qty_pct: 0.3869, retail_notional_pct: 0.2061, mixed_notional_pct: 0.4055, instit_notional_pct: 0.3884, avg_trade_size: 7197, thresholds: { retail_max: 13500, instit_min: 67500 } },
-        { ticker: "V03", currency: "SGD", is_target: false, retail_pct: 0.8418, mixed_pct: 0.1434, instit_pct: 0.0149, retail_qty_pct: 0.3457, mixed_qty_pct: 0.4528, instit_qty_pct: 0.2015, retail_notional_pct: 0.3452, mixed_notional_pct: 0.4535, instit_notional_pct: 0.2013, avg_trade_size: 8334, thresholds: { retail_max: 13500, instit_min: 67500 } },
-        { ticker: "P7VU", currency: "SGD", is_target: false, retail_pct: 0.7944, mixed_pct: 0.1916, instit_pct: 0.0140, retail_qty_pct: 0.2138, mixed_qty_pct: 0.4709, instit_qty_pct: 0.3152, retail_notional_pct: 0.2120, mixed_notional_pct: 0.4782, instit_notional_pct: 0.3097, avg_trade_size: 12652, thresholds: { retail_max: 13500, instit_min: 67500 } }
+        { ticker: "1MZ", currency: "SGD", is_target: false, retail_pct: 0.8777, mixed_pct: 0.0935, instit_pct: 0.0287, retail_qty_pct: 0.1676, mixed_qty_pct: 0.3644, instit_qty_pct: 0.4679, retail_notional_pct: 0.1684, mixed_notional_pct: 0.3626, instit_notional_pct: 0.4689, avg_trade_size: 8240, thresholds: { retail_max: 13500, instit_min: 67500 } },
+        { ticker: "C6L", currency: "SGD", is_target: false, retail_pct: 0.8643, mixed_pct: 0.1144, instit_pct: 0.0213, retail_qty_pct: 0.2856, mixed_qty_pct: 0.3961, instit_qty_pct: 0.3182, retail_notional_pct: 0.2856, mixed_notional_pct: 0.3961, instit_notional_pct: 0.3184, avg_trade_size: 8639, thresholds: { retail_max: 13500, instit_min: 67500 } },
+        { ticker: "5LY", currency: "SGD", is_target: false, retail_pct: 0.8472, mixed_pct: 0.1317, instit_pct: 0.0211, retail_qty_pct: 0.1866, mixed_qty_pct: 0.4944, instit_qty_pct: 0.3190, retail_notional_pct: 0.1868, mixed_notional_pct: 0.4945, instit_notional_pct: 0.3187, avg_trade_size: 7445, thresholds: { retail_max: 13500, instit_min: 67500 } },
+        { ticker: "S58", currency: "SGD", is_target: false, retail_pct: 0.8466, mixed_pct: 0.1222, instit_pct: 0.0312, retail_qty_pct: 0.2366, mixed_qty_pct: 0.3858, instit_qty_pct: 0.3776, retail_notional_pct: 0.2363, mixed_notional_pct: 0.3858, instit_notional_pct: 0.3779, avg_trade_size: 9375, thresholds: { retail_max: 13500, instit_min: 67500 } },
+        { ticker: "C07", currency: "SGD", is_target: false, retail_pct: 0.8007, mixed_pct: 0.1830, instit_pct: 0.0163, retail_qty_pct: 0.3697, mixed_qty_pct: 0.4468, instit_qty_pct: 0.1834, retail_notional_pct: 0.3714, mixed_notional_pct: 0.4450, instit_notional_pct: 0.1836, avg_trade_size: 10516, thresholds: { retail_max: 13500, instit_min: 67500 } },
+        { ticker: "J36", currency: "USD", is_target: false, retail_pct: 0.6376, mixed_pct: 0.3067, instit_pct: 0.0557, retail_qty_pct: 0.2859, mixed_qty_pct: 0.4222, instit_qty_pct: 0.2919, retail_notional_pct: 0.2854, mixed_notional_pct: 0.4221, instit_notional_pct: 0.2925, avg_trade_size: 16318, thresholds: { retail_max: 10000, instit_min: 50000 } }
       ],
       currency_thresholds: { USD: { retail_max: 10000, instit_min: 50000 }, SGD: { retail_max: 13500, instit_min: 67500 } },
       classification_legend: { retail_heavy: ">70% retail", institutional: ">20% institutional", mixed: "otherwise" }
@@ -533,13 +535,106 @@ export const REPORT_DATA: ReportData = {
       peer_comparison: [
         { ticker: "C52", avg_short_ratio: 0.4249, max_short_ratio: 0.6936, is_target: true },
         { ticker: "S61", avg_short_ratio: 0.0102, max_short_ratio: 0.3430, is_target: false },
-        { ticker: "P7VU", avg_short_ratio: 0.0204, max_short_ratio: 0.8741, is_target: false },
-        { ticker: "YF8", avg_short_ratio: 0.0756, max_short_ratio: 0.7216, is_target: false },
-        { ticker: "S59", avg_short_ratio: 0.0767, max_short_ratio: 0.5148, is_target: false },
-        { ticker: "558", avg_short_ratio: 0.0872, max_short_ratio: 0.5497, is_target: false },
-        { ticker: "NS8U", avg_short_ratio: 0.1166, max_short_ratio: 0.8452, is_target: false },
-        { ticker: "BUOU", avg_short_ratio: 0.1424, max_short_ratio: 0.7369, is_target: false }
-      ]
+        { ticker: "1MZ", avg_short_ratio: 0.0129, max_short_ratio: 0.2034, is_target: false },
+        { ticker: "E3B", avg_short_ratio: 0.0246, max_short_ratio: 0.3006, is_target: false },
+        { ticker: "5LY", avg_short_ratio: 0.0252, max_short_ratio: 0.2945, is_target: false },
+        { ticker: "C07", avg_short_ratio: 0.0790, max_short_ratio: 0.6862, is_target: false },
+        { ticker: "J36", avg_short_ratio: 0.0839, max_short_ratio: 0.6080, is_target: false },
+        { ticker: "S58", avg_short_ratio: 0.1081, max_short_ratio: 0.5621, is_target: false }
+      ],
+      short_series: {
+        valid: true,
+        rows: [
+          { date: "2026-01-30", short_ratio: 0.2732, short_vol: 2478200, total_vol: 9070400, close: 1.47, return: -0.00676 },
+          { date: "2026-01-29", short_ratio: 0.4952, short_vol: 5735300, total_vol: 11582200, close: 1.48, return: 0.00680 },
+          { date: "2026-01-28", short_ratio: 0.6489, short_vol: 4855000, total_vol: 7482300, close: 1.47, return: -0.00676 },
+          { date: "2026-01-27", short_ratio: 0.6037, short_vol: 5024300, total_vol: 8322400, close: 1.48, return: 0 },
+          { date: "2026-01-26", short_ratio: 0.4896, short_vol: 4824800, total_vol: 9854500, close: 1.48, return: 0.00680 },
+          { date: "2026-01-23", short_ratio: 0.5741, short_vol: 3396300, total_vol: 5915800, close: 1.47, return: 0 },
+          { date: "2026-01-22", short_ratio: 0.5794, short_vol: 8566100, total_vol: 14785100, close: 1.47, return: 0.00685 },
+          { date: "2026-01-21", short_ratio: 0.6035, short_vol: 10657700, total_vol: 17659100, close: 1.46, return: -0.01351 },
+          { date: "2026-01-20", short_ratio: 0.4399, short_vol: 3023100, total_vol: 6871800, close: 1.48, return: 0.00680 },
+          { date: "2026-01-19", short_ratio: 0.4020, short_vol: 2414000, total_vol: 6005500, close: 1.47, return: 0 },
+          { date: "2026-01-16", short_ratio: 0.5293, short_vol: 1107800, total_vol: 2092900, close: 1.47, return: 0 },
+          { date: "2026-01-15", short_ratio: 0.5134, short_vol: 804700, total_vol: 1567400, close: 1.47, return: 0.00685 },
+          { date: "2026-01-14", short_ratio: 0.6091, short_vol: 3192000, total_vol: 5240800, close: 1.46, return: 0 },
+          { date: "2026-01-13", short_ratio: 0.1946, short_vol: 952700, total_vol: 4895400, close: 1.46, return: -0.00680 },
+          { date: "2026-01-12", short_ratio: 0.2343, short_vol: 1125200, total_vol: 4802700, close: 1.47, return: 0.00685 },
+          { date: "2026-01-09", short_ratio: 0.3433, short_vol: 1954300, total_vol: 5692400, close: 1.46, return: 0 },
+          { date: "2026-01-08", short_ratio: 0.1574, short_vol: 1123500, total_vol: 7138500, close: 1.46, return: 0 },
+          { date: "2026-01-07", short_ratio: 0.2400, short_vol: 1275200, total_vol: 5313000, close: 1.46, return: 0 },
+          { date: "2026-01-06", short_ratio: 0.4530, short_vol: 3423400, total_vol: 7556500, close: 1.46, return: -0.01351 },
+          { date: "2026-01-05", short_ratio: 0.3525, short_vol: 1668900, total_vol: 4734600, close: 1.48, return: 0 },
+          { date: "2026-01-02", short_ratio: 0.3934, short_vol: 2490200, total_vol: 6329800, close: 1.48, return: 0 },
+          { date: "2025-12-31", short_ratio: 0.2623, short_vol: 524000, total_vol: 1997400, close: 1.48, return: 0.00680 },
+          { date: "2025-12-30", short_ratio: 0.0571, short_vol: 107200, total_vol: 1878600, close: 1.47, return: 0 },
+          { date: "2025-12-29", short_ratio: 0.6936, short_vol: 3376000, total_vol: 4867100, close: 1.47, return: 0 },
+          { date: "2025-12-26", short_ratio: 0.5120, short_vol: 2789600, total_vol: 5448600, close: 1.47, return: 0 },
+          { date: "2025-12-24", short_ratio: 0.3971, short_vol: 952200, total_vol: 2397800, close: 1.47, return: 0.00685 },
+          { date: "2025-12-23", short_ratio: 0.3370, short_vol: 1101600, total_vol: 3269000, close: 1.46, return: 0.00690 },
+          { date: "2025-12-22", short_ratio: 0.5035, short_vol: 3806400, total_vol: 7560300, close: 1.45, return: 0.00694 },
+          { date: "2025-12-19", short_ratio: 0.2025, short_vol: 2003700, total_vol: 9893904, close: 1.44, return: 0.00699 },
+          { date: "2025-12-18", short_ratio: 0.2714, short_vol: 985900, total_vol: 3632700, close: 1.43, return: 0 },
+          { date: "2025-12-17", short_ratio: 0.3314, short_vol: 996700, total_vol: 3007500, close: 1.43, return: -0.01379 },
+          { date: "2025-12-16", short_ratio: 0.3618, short_vol: 1445600, total_vol: 3995900, close: 1.45, return: 0.00694 },
+          { date: "2025-12-15", short_ratio: 0.4489, short_vol: 3012100, total_vol: 6709800, close: 1.44, return: 0.00699 },
+          { date: "2025-12-12", short_ratio: 0.4407, short_vol: 3259200, total_vol: 7396000, close: 1.43, return: 0 },
+          { date: "2025-12-11", short_ratio: 0.6178, short_vol: 5099500, total_vol: 8253900, close: 1.43, return: 0 },
+          { date: "2025-12-10", short_ratio: 0.4682, short_vol: 2988000, total_vol: 6382300, close: 1.43, return: 0 },
+          { date: "2025-12-09", short_ratio: 0.5007, short_vol: 2227400, total_vol: 4448500, close: 1.43, return: 0.00704 },
+          { date: "2025-12-08", short_ratio: 0.3195, short_vol: 4596300, total_vol: 14388000, close: 1.42, return: -0.01389 },
+          { date: "2025-12-05", short_ratio: 0.3698, short_vol: 809700, total_vol: 2189300, close: 1.44, return: 0 },
+          { date: "2025-12-04", short_ratio: 0.5554, short_vol: 2156200, total_vol: 3882500, close: 1.44, return: 0 },
+          { date: "2025-12-03", short_ratio: 0.6025, short_vol: 1370500, total_vol: 2274800, close: 1.44, return: 0 },
+          { date: "2025-12-02", short_ratio: 0.2717, short_vol: 2242000, total_vol: 8252300, close: 1.44, return: 0 },
+          { date: "2025-12-01", short_ratio: 0.2285, short_vol: 1571300, total_vol: 6877100, close: 1.44, return: 0 },
+          { date: "2025-11-28", short_ratio: 0.4714, short_vol: 5393800, total_vol: 11442000, close: 1.44, return: 0 },
+          { date: "2025-11-27", short_ratio: 0.3194, short_vol: 1211800, total_vol: 3793800, close: 1.44, return: 0 },
+          { date: "2025-11-26", short_ratio: 0.3987, short_vol: 863800, total_vol: 2166700, close: 1.44, return: 0 },
+          { date: "2025-11-25", short_ratio: 0.6201, short_vol: 1271900, total_vol: 2051000, close: 1.44, return: 0 },
+          { date: "2025-11-24", short_ratio: 0.3873, short_vol: 3885600, total_vol: 10032600, close: 1.44, return: 0 },
+          { date: "2025-11-21", short_ratio: 0.5886, short_vol: 11147600, total_vol: 18939500, close: 1.44, return: -0.02041 },
+          { date: "2025-11-20", short_ratio: 0.4832, short_vol: 4278300, total_vol: 8853400, close: 1.47, return: 0.01379 },
+          { date: "2025-11-19", short_ratio: 0.6695, short_vol: 2589200, total_vol: 3867500, close: 1.45, return: 0 },
+          { date: "2025-11-18", short_ratio: 0.5946, short_vol: 5595600, total_vol: 9411300, close: 1.45, return: -0.01361 },
+          { date: "2025-11-17", short_ratio: 0.2394, short_vol: 1601500, total_vol: 6689400, close: 1.47, return: 0.00685 },
+          { date: "2025-11-14", short_ratio: 0.2400, short_vol: 1681400, total_vol: 7005500, close: 1.46, return: -0.00680 },
+          { date: "2025-11-13", short_ratio: 0.3461, short_vol: 4633500, total_vol: 13386600, close: 1.47, return: -0.00676 },
+          { date: "2025-11-12", short_ratio: 0.2092, short_vol: 924200, total_vol: 4418700, close: 1.48, return: 0.00680 },
+          { date: "2025-11-11", short_ratio: 0.4129, short_vol: 5030200, total_vol: 12182800, close: 1.47, return: 0.00685 },
+          { date: "2025-11-10", short_ratio: 0.5829, short_vol: 4729800, total_vol: 8114600, close: 1.46, return: 0 },
+          { date: "2025-11-07", short_ratio: 0.3443, short_vol: 2846400, total_vol: 8266100, close: 1.46, return: 0.00690 },
+          { date: "2025-11-06", short_ratio: 0.6017, short_vol: 10144200, total_vol: 16858000, close: 1.45, return: 0 },
+          { date: "2025-11-05", short_ratio: 0.4144, short_vol: 2044800, total_vol: 4933800, close: 1.45, return: 0 },
+          { date: "2025-11-04", short_ratio: 0.5929, short_vol: 8449900, total_vol: 14252700, close: 1.45, return: -0.02027 },
+          { date: "2025-11-03", short_ratio: 0.4809, short_vol: 5324100, total_vol: 11071300, close: 1.48, return: 0.01370 },
+          { date: "2025-10-31", short_ratio: 0.2300, short_vol: 1284200, total_vol: 5582400, close: 1.46, return: 0 },
+          { date: "2025-10-30", short_ratio: 0.4007, short_vol: 3765400, total_vol: 9397000, close: 1.46, return: 0.00690 },
+          { date: "2025-10-29", short_ratio: 0.5724, short_vol: 14559900, total_vol: 25437900, close: 1.45, return: -0.01361 },
+          { date: "2025-10-28", short_ratio: 0.3865, short_vol: 1191700, total_vol: 3083200, close: 1.47, return: -0.00676 },
+          { date: "2025-10-27", short_ratio: 0.4237, short_vol: 5810800, total_vol: 13713900, close: 1.48, return: -0.00671 },
+          { date: "2025-10-24", short_ratio: 0.3035, short_vol: 5121200, total_vol: 16872500, close: 1.49, return: 0 },
+          { date: "2025-10-23", short_ratio: 0.3699, short_vol: 4502400, total_vol: 12173500, close: 1.49, return: 0.01361 },
+          { date: "2025-10-22", short_ratio: 0.4688, short_vol: 7936300, total_vol: 16928700, close: 1.47, return: 0 },
+          { date: "2025-10-21", short_ratio: 0.4431, short_vol: 4235900, total_vol: 9560100, close: 1.47, return: 0 },
+          { date: "2025-10-17", short_ratio: 0.3283, short_vol: 3321700, total_vol: 10117000, close: 1.47, return: 0 },
+          { date: "2025-10-16", short_ratio: 0.6184, short_vol: 2203800, total_vol: 3563700, close: 1.47, return: -0.00676 },
+          { date: "2025-10-15", short_ratio: 0.6443, short_vol: 4413300, total_vol: 6849800, close: 1.48, return: 0.00680 },
+          { date: "2025-10-14", short_ratio: 0.4675, short_vol: 5324000, total_vol: 11388300, close: 1.47, return: -0.01342 },
+          { date: "2025-10-13", short_ratio: 0.5559, short_vol: 7521900, total_vol: 13530300, close: 1.49, return: 0.00676 },
+          { date: "2025-10-10", short_ratio: 0.3715, short_vol: 3760900, total_vol: 10123800, close: 1.48, return: -0.00671 },
+          { date: "2025-10-09", short_ratio: 0.4410, short_vol: 4661400, total_vol: 10569700, close: 1.49, return: 0.00676 },
+          { date: "2025-10-08", short_ratio: 0.3228, short_vol: 938400, total_vol: 2907200, close: 1.48, return: 0.00680 },
+          { date: "2025-10-07", short_ratio: 0.4828, short_vol: 1718700, total_vol: 3559800, close: 1.47, return: 0 },
+          { date: "2025-10-06", short_ratio: 0.3732, short_vol: 3701700, total_vol: 9919900, close: 1.47, return: 0 },
+          { date: "2025-10-03", short_ratio: 0.5316, short_vol: 4811200, total_vol: 9050500, close: 1.47, return: 0.00685 },
+          { date: "2025-10-02", short_ratio: 0.4610, short_vol: 6549100, total_vol: 14206200, close: 1.46, return: 0.01389 },
+          { date: "2025-10-01", short_ratio: 0.3043, short_vol: 7843300, total_vol: 25773400, close: 1.44, return: -0.00690 },
+          { date: "2025-09-30", short_ratio: 0.3815, short_vol: 4247400, total_vol: 11134400, close: 1.45, return: 0 },
+          { date: "2025-09-29", short_ratio: 0.6057, short_vol: 5221600, total_vol: 8620300, close: 1.45, return: -0.00685 },
+          { date: "2025-09-26", short_ratio: 0.4015, short_vol: 4730100, total_vol: 11780800, close: 1.46, return: 0 }
+        ]
+      }
     },
     intraday: {
       session_periods: ["1M", "3M", "6M"],
@@ -571,12 +666,13 @@ export const REPORT_DATA: ReportData = {
       ],
       peers_hhi_rows: [
         { ticker: "C52", auctions_pct: 15.59, hhi: 0.1957, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400", you: true } },
-        { ticker: "V03", auctions_pct: 18.13, hhi: 0.1264, interp: { text: "Spread", cls: "bg-emerald-500/20 text-emerald-300" } },
-        { ticker: "S59", auctions_pct: 14.98, hhi: 0.1474, interp: { text: "Spread", cls: "bg-emerald-500/20 text-emerald-300" } },
-        { ticker: "558", auctions_pct: 7.73, hhi: 0.1688, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } },
-        { ticker: "BUOU", auctions_pct: 15.76, hhi: 0.1723, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } },
-        { ticker: "YF8", auctions_pct: 7.01, hhi: 0.2030, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } },
-        { ticker: "NS8U", auctions_pct: 25.42, hhi: 0.2257, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } },
+        { ticker: "S58", auctions_pct: 12.07, hhi: 0.1213, interp: { text: "Spread", cls: "bg-emerald-500/20 text-emerald-300" } },
+        { ticker: "C07", auctions_pct: 13.95, hhi: 0.1239, interp: { text: "Spread", cls: "bg-emerald-500/20 text-emerald-300" } },
+        { ticker: "C6L", auctions_pct: 22.63, hhi: 0.1252, interp: { text: "Spread", cls: "bg-emerald-500/20 text-emerald-300" } },
+        { ticker: "1MZ", auctions_pct: 4.18, hhi: 0.1693, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } },
+        { ticker: "E3B", auctions_pct: 5.47, hhi: 0.1717, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } },
+        { ticker: "J36", auctions_pct: 30.12, hhi: 0.1937, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } },
+        { ticker: "5LY", auctions_pct: 4.97, hhi: 0.2352, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } },
         { ticker: "S61", auctions_pct: 5.86, hhi: 0.2300, interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } }
       ]
     },
@@ -584,7 +680,7 @@ export const REPORT_DATA: ReportData = {
       tiles_values: [
         { value: "28.1%", note_suffix: " - 3-month average absolute OFI (moderate one-sidedness)." },
         { value: "0.42", note_suffix: " - Correlation between daily OFI and same-day returns (moderate positive)." },
-        { value: "N/A", note_suffix: " - L2 Granger test not run (statsmodels not installed)." }
+        { value: "Significant (3-min)", note_suffix: " - L2 OFI Granger-causality significant (p≈0.0000) at 3-min lag. Direction: negative (buy pressure → price down)." }
       ],
       table_rows: [
         { period: "1M", avg_ofi: "−1.4%", avg_abs: "27.3%", interp: { text: "Moderate", cls: "bg-amber-500/20 text-amber-400" } },
@@ -593,7 +689,7 @@ export const REPORT_DATA: ReportData = {
       ],
       corr_value: "0.42",
       pie: { net_buy_days: 47.1, net_sell_days: 42.6, balanced_days: 10.3 },
-      l2_compact_text: "Valid L2 snapshots: 2,739. Avg L2 OFI +0.017% (abs 1.21%). Granger test not run (statsmodels not installed).",
+      l2_compact_text: "Over the last 7 days we analyzed 2,739 valid L2 snapshots (top 4 levels). Average L2 OFI was +0.017% of book value (abs: 1.21%). Granger causality: OFI% significantly predicts mid-price changes (p≈0.0000). Lead time: 3 min lag. Direction: negative correlation (buy pressure → price down), suggesting contrarian/mean-reversion microstructure—avoid urgency during extreme imbalances.",
       unusual_header: ["Date", "Direction", "Return"],
       unusual_rows: [
         { date: "2025-01-14", ofi: "−83%", direction: "SELL pressure", return: "+0.0%" },
@@ -608,19 +704,17 @@ export const REPORT_DATA: ReportData = {
       tiles: [
         { title: "Market Cap Rank", value: "#58", sub: "of 562 stocks" },
         { title: "Free Float", value: "98.9%", sub: "Float mcap ~ S$3.2B" },
-        { title: "Avg Daily Turnover", value: "S$15.4M", sub: "Notional value" },
-        { title: "Velocity", value: "0.49%", sub: "Turnover / float" }
+        { title: "Avg Daily Turnover", value: "S$13.0M", sub: "Notional value" }
       ],
       table_header: ["Index", "Status", "Notes", "What's Needed"],
       table_rows: [
         { index: "STI", status: "ineligible", notes: "Rank #58 - outside top 30", gaps: ["Need rank ≤30 (currently #58)"] },
         { index: "FTSE All-Share", status: "eligible", notes: "Top 91.8% - qualifies", gaps: [] },
-        { index: "iEdge Next 50", status: "eligible", notes: "Rank #58 - within 31-80 range", gaps: [] },
-        { index: "FTSE Small Cap", status: "eligible", notes: "Small Cap (86-98%)", gaps: [] }
+        { index: "FTSE Large/mid Cap", status: "eligible", notes: "Top 91.8% - qualifies", gaps: [] }
       ],
-      insight: "C52 is eligible for FTSE All-Share and iEdge Next 50. STI would require rank ≤30.",
+      insight: "You qualify for FTSE All-Share and FTSE Large/mid Cap. STI inclusion would require a market-cap rank in the top 30 (currently #58).",
       levers_title: "How to Improve Index Eligibility",
-      levers: ["Maintain velocity and turnover for current indices", "Improve market-cap rank for STI consideration (need ≤30)"]
+      levers: ["Keep turnover and velocity strong to retain current index membership", "Improve market-cap rank to enter the top 30 for STI consideration"]
     }
   }
 };

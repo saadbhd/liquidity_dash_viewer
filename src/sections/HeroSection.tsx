@@ -22,7 +22,7 @@ const itemVariants = {
 };
 
 export function HeroSection() {
-  const { meta, labels, content, theme, series } = useReport();
+  const { meta, labels, content, series } = useReport();
   const metrics = content.exec_metrics;
 
   // Map metrics to user-friendly titles
@@ -34,15 +34,6 @@ export function HeroSection() {
     'Average Traded Volume': labels.metric_adv,
     'Price Moves: Company vs Market': labels.metric_drivers
   };
-
-  const healthText = theme.badges.header_health.text; // e.g. "Liquidity Health: ABOVE AVG"
-  const healthLabel = healthText.includes(':') ? healthText.split(':').slice(1).join(':').trim() : healthText;
-  const healthColor =
-    /ABOVE|GOOD|EXCELLENT/i.test(healthLabel)
-      ? 'text-emerald-600 dark:text-emerald-300'
-      : /BELOW|POOR/i.test(healthLabel)
-        ? 'text-red-600 dark:text-red-300'
-        : 'text-amber-600 dark:text-amber-300';
 
   const liquidityMetric =
     metrics.find((m) => (titleMap[m.title] ?? m.title) === labels.metric_liquidity_score) ?? metrics[0];
@@ -86,9 +77,6 @@ export function HeroSection() {
             <span className="section-title">Executive Summary</span>
             <div className="h-px flex-1 bg-gradient-to-r from-slate-700 to-transparent" />
           </div>
-          <h2 className="text-2xl lg:text-3xl font-bold text-foreground">
-            Liquidity Health: <span className={healthColor}>{healthLabel}</span>
-          </h2>
           <p className="text-muted-foreground max-w-2xl">
             {labels.exec_subtitle} for {meta.company} ({meta.ticker}).
             Data as of {meta.asof_date}.

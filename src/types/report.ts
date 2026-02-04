@@ -204,6 +204,10 @@ export interface Regime {
     label: string;
     mean_ret: number;
     volatility: number;
+    /** When set, value is already in percent — display as-is with % (no ×100) */
+    mean_ret_pct?: number;
+    /** When set, value is already in percent — display as-is with % (no ×100) */
+    volatility_pct?: number;
     n_days: number;
     pct_time: number;
   }[];
@@ -560,7 +564,7 @@ export interface ShortSellingInsights {
 export interface ExecutionInsights {
   overall: string;
   concern: string;
-  kyle: string;
+  kyle?: string;
   peer_context: string;
 }
 
@@ -769,7 +773,13 @@ export interface Glossary {
 export interface PeerMethodology {
   title: string;
   steps: string[];
-  peers: { ticker: string; name: string; marketCap: string }[];
+  peers: {
+    ticker: string;
+    name: string;
+    marketCap: string;
+    sector?: string;
+    industry?: string;
+  }[];
 }
 
 export interface ReportData {

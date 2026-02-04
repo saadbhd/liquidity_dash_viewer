@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { TrendingDown, Info, Activity, ShieldAlert } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { useChartTheme } from '@/hooks/useChartTheme';
 import {
   LineChart,
   Line,
@@ -34,6 +35,7 @@ const itemVariants = {
 
 export function ShortSellingAndLending() {
   const { labels, theme, insights, series, meta } = useReport();
+  const chartTheme = useChartTheme();
 
   // Only show for Singapore (XSES) reports *with* short selling data.
   const short = series.short_selling;
@@ -107,7 +109,7 @@ export function ShortSellingAndLending() {
       <motion.div variants={itemVariants} className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-            <TrendingDown className="w-5 h-5 text-emerald-400" />
+            <TrendingDown className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
           </div>
           <div>
             <h2 className="text-xl font-bold text-foreground">{SectionTitle}</h2>
@@ -152,7 +154,7 @@ export function ShortSellingAndLending() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-3">
-            <ShieldAlert className="w-4 h-4 text-emerald-400" />
+            <ShieldAlert className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <h3 className="text-sm font-semibold text-foreground">Executive take</h3>
           </div>
           <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
@@ -160,10 +162,10 @@ export function ShortSellingAndLending() {
             {showSbl ? (
               <div className="bg-slate-900/40 border border-slate-800 rounded-lg p-3">
                 <div className="flex items-center gap-2 mb-1 text-xs font-semibold text-slate-300">
-                  <Info className="w-3 h-3 text-amber-400" />
+                  <Info className="w-3 h-3 text-amber-600 dark:text-amber-400" />
                   SBL lending pool risk (if borrowed shares were sold)
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-muted-foreground">
                   Pool size is {fmtNum(sbl!.lending_pool)} shares ({fmtSgd(sbl!.lending_pool_value, 1)}), which is{' '}
                   {sbl!.pool_as_pct_adv.toFixed(1)}% of 20D ADV (~{sbl!.days_to_liquidate.toFixed(2)} days). Hypothetical full-pool sale
                   impact: ~{(sbl!.estimated_impact_pct * 100).toFixed(2)}%. {sbl!.impact_interpretation ?? ''}
@@ -172,35 +174,35 @@ export function ShortSellingAndLending() {
             ) : null}
             <div className="bg-slate-900/40 border border-slate-800 rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1 text-xs font-semibold text-slate-300">
-                <Info className="w-3 h-3 text-sky-400" />
+                <Info className="w-3 h-3 text-sky-600 dark:text-sky-400" />
                 Trend / change
               </div>
-              <p className="text-xs text-slate-500">{shortInsights?.trend ?? trendText}</p>
+              <p className="text-xs text-muted-foreground">{shortInsights?.trend ?? trendText}</p>
             </div>
           </div>
         </motion.div>
 
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 min-h-[380px] flex flex-col">
           <div className="flex items-center gap-2 mb-3">
-            <Activity className="w-4 h-4 text-slate-500" />
+            <Activity className="w-4 h-4 text-muted-foreground" />
             <h3 className="text-sm font-semibold text-foreground">Short% over time</h3>
           </div>
           {seriesRows.length > 0 ? (
             <div className="h-72 min-h-[280px] flex-1 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={seriesRows} margin={{ top: 10, right: hasPrice ? 50 : 20, left: 0, bottom: 30 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                   <XAxis
                     dataKey="date"
-                    tick={{ fill: '#64748b', fontSize: 10 }}
-                    axisLine={{ stroke: '#334155' }}
+                    tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
+                    axisLine={{ stroke: chartTheme.axisLineStroke }}
                     tickLine={false}
                     tickFormatter={formatAxisDate}
                     interval={seriesRows.length <= 20 ? 0 : undefined}
                   />
                   <YAxis
                     yAxisId="left"
-                    tick={{ fill: '#64748b', fontSize: 11 }}
+                    tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                     axisLine={false}
                     tickLine={false}
                     domain={[0, 'dataMax']}
@@ -210,7 +212,7 @@ export function ShortSellingAndLending() {
                     <YAxis
                       yAxisId="right"
                       orientation="right"
-                      tick={{ fill: '#94a3b8', fontSize: 10 }}
+                      tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
                       axisLine={false}
                       tickLine={false}
                       domain={[priceRange[0], priceRange[1]]}
@@ -218,11 +220,7 @@ export function ShortSellingAndLending() {
                     />
                   ) : null}
                   <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                      border: '1px solid rgba(71, 85, 105, 0.5)',
-                      borderRadius: '8px',
-                    }}
+                    contentStyle={chartTheme.tooltipContentStyle}
                     formatter={(v: number, name: string) =>
                       name === 'price' ? [Number(v).toFixed(3), 'Price'] : [`${Number(v).toFixed(2)}%`, 'Short%']
                     }
@@ -252,7 +250,7 @@ export function ShortSellingAndLending() {
               </ResponsiveContainer>
             </div>
           ) : (
-            <p className="text-sm text-slate-500">No short time series available.</p>
+            <p className="text-sm text-muted-foreground">No short time series available.</p>
           )}
         </motion.div>
       </div>
@@ -267,42 +265,42 @@ export function ShortSellingAndLending() {
                 This indicates how much stock is available for lending/borrowing and the potential liquidity overhang in a stress scenario.
               </p>
             </div>
-            <span className="text-xs px-2 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <span className="text-xs px-2 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
               {sbl!.liquidity_risk ?? 'SBL data available'}
             </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
-              <p className="text-xs text-slate-500 mb-2">Pool Size</p>
+            <div className="glass-panel rounded-xl p-4 border border-border">
+              <p className="text-xs text-muted-foreground mb-2">Pool Size</p>
               <p className="text-2xl font-bold text-foreground">{fmtNum(sbl!.lending_pool)}</p>
-              <p className="text-xs text-slate-500 mt-1">shares</p>
+              <p className="text-xs text-muted-foreground mt-1">shares</p>
             </div>
 
-            <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
-              <p className="text-xs text-slate-500 mb-2">Pool Value</p>
+            <div className="glass-panel rounded-xl p-4 border border-border">
+              <p className="text-xs text-muted-foreground mb-2">Pool Value</p>
               <p className="text-2xl font-bold text-foreground">{fmtSgd(sbl!.lending_pool_value, 1)}</p>
-              <p className="text-xs text-slate-500 mt-1">at latest price {sbl!.latest_price.toFixed(3)}</p>
+              <p className="text-xs text-muted-foreground mt-1">at latest price {sbl!.latest_price.toFixed(3)}</p>
             </div>
 
-            <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
-              <p className="text-xs text-slate-500 mb-2">Lending / Borrowing Rate</p>
+            <div className="glass-panel rounded-xl p-4 border border-border">
+              <p className="text-xs text-muted-foreground mb-2">Lending / Borrowing Rate</p>
               <p className="text-2xl font-bold text-foreground">
                 {sbl!.lending_rate_pct.toFixed(2)}% / {sbl!.borrowing_rate_pct.toFixed(2)}%
               </p>
-              <p className="text-xs text-slate-500 mt-1">annualized</p>
+              <p className="text-xs text-muted-foreground mt-1">annualized</p>
             </div>
 
-            <div className="glass-panel rounded-xl p-4 border border-slate-800/60">
-              <p className="text-xs text-slate-500 mb-2">Pool vs ADV</p>
+            <div className="glass-panel rounded-xl p-4 border border-border">
+              <p className="text-xs text-muted-foreground mb-2">Pool vs ADV</p>
               <p className="text-2xl font-bold text-foreground">{sbl!.pool_as_pct_adv.toFixed(1)}%</p>
-              <p className="text-xs text-slate-500 mt-1">{sbl!.days_to_liquidate.toFixed(2)} days to liquidate</p>
+              <p className="text-xs text-muted-foreground mt-1">{sbl!.days_to_liquidate.toFixed(2)} days to liquidate</p>
             </div>
           </div>
 
           <div className="mt-4 bg-slate-900/40 border border-slate-800 rounded-lg p-3">
-            <p className="text-xs text-slate-500">
-              <span className="text-amber-400 font-semibold">Hypothetical impact:</span>{' '}
+            <p className="text-xs text-muted-foreground">
+              <span className="text-amber-600 dark:text-amber-400 font-semibold">Hypothetical impact:</span>{' '}
               ~{(sbl!.estimated_impact_pct * 100).toFixed(2)}% if the entire pool was sold.{' '}
               {sbl!.impact_interpretation ?? ''}
             </p>
@@ -317,9 +315,9 @@ export function ShortSellingAndLending() {
           <Table>
             <TableHeader>
               <TableRow className="border-slate-800 hover:bg-transparent">
-                <TableHead className="text-slate-500 text-xs">Date</TableHead>
-                <TableHead className="text-slate-500 text-xs text-right">Short%</TableHead>
-                <TableHead className="text-slate-500 text-xs text-right">Return</TableHead>
+                <TableHead className="text-muted-foreground text-xs">Date</TableHead>
+                <TableHead className="text-muted-foreground text-xs text-right">Short%</TableHead>
+                <TableHead className="text-muted-foreground text-xs text-right">Return</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -327,14 +325,14 @@ export function ShortSellingAndLending() {
                 <TableRow key={p.date} className="border-slate-800">
                   <TableCell className="text-slate-300 text-sm">{p.date}</TableCell>
                   <TableCell className="text-right text-slate-400 text-sm">{fmtPct(p.short_ratio, 1)}</TableCell>
-                  <TableCell className={`text-right text-sm ${p.return_pct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                  <TableCell className={`text-right text-sm ${p.return_pct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
                     {p.return_pct.toFixed(1)}%
                   </TableCell>
                 </TableRow>
               ))}
               {peaks.length === 0 ? (
                 <TableRow className="border-slate-800">
-                  <TableCell className="text-slate-500 text-sm" colSpan={3}>
+                  <TableCell className="text-muted-foreground text-sm" colSpan={3}>
                     No peak days available.
                   </TableCell>
                 </TableRow>
@@ -342,7 +340,7 @@ export function ShortSellingAndLending() {
             </TableBody>
           </Table>
         </div>
-        <p className="text-xs text-slate-500 mt-3">
+        <p className="text-xs text-muted-foreground mt-3">
           {shortInsights?.peaks ?? 'Peaks are episodic; use as context alongside spread and OFI stress.'}
         </p>
       </motion.div>

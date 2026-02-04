@@ -233,7 +233,7 @@ export const REPORT_DATA: ReportData = {
     liquidity: {
       overall: "Your stock ranks in the top 30 for liquidity in the market. Typical daily volume is 9.5M SGD—about 79% above the peer median (5.3M)—and the spread is tight at 0.68%, so trading cost is low.",
       strengths: ["Daily volume and spread support large orders without moving the price much.", "A S$50K trade is only about 1% of typical daily volume—the best in your peer set (J36, C6L, S58 next).", "Turnover relative to float is above the peer median."],
-      concerns: ["Short selling is high versus peers, and the lending pool is large. In a stress scenario, covering could add selling pressure."],
+      concerns: ["Spread is not as good as peers (yours 0.7% vs peer median 0.3%).", "There is a peer (C6L) that has a better liquidity score than you (C6L 97.1 vs your 95.0)."],
       peer_context: "You lead peers on volume and spread. J36 and C6L have higher ADV; S58, 5LY, C07 have similar or lower capacity. S61 has much less capacity for size."
     },
     market_comparison: {

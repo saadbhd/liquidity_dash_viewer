@@ -48,8 +48,6 @@ export function ShortSellingAndLending() {
   const ratioToPct = (v: number) => (v <= 1 ? v * 100 : v);
   const fmtPct = (v: number | null | undefined, digits = 2) => `${ratioToPct(Number(v ?? 0)).toFixed(digits)}%`;
   const fmtNum = (n: number) => new Intl.NumberFormat('en-US').format(n);
-  const fmtSgd = (n: number, digits = 1) =>
-    `S$${new Intl.NumberFormat('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(n)}`;
 
   const p3 = short.periods?.['3M']?.stats;
   const p6 = short.periods?.['6M']?.stats;

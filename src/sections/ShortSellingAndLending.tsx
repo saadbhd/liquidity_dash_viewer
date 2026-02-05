@@ -46,7 +46,7 @@ export function ShortSellingAndLending() {
   const showSbl = !!sbl?.valid;
 
   const ratioToPct = (v: number) => (v <= 1 ? v * 100 : v);
-  const fmtPct = (v: number, digits = 2) => `${ratioToPct(v).toFixed(digits)}%`;
+  const fmtPct = (v: number | null | undefined, digits = 2) => `${ratioToPct(Number(v ?? 0)).toFixed(digits)}%`;
   const fmtNum = (n: number) => new Intl.NumberFormat('en-US').format(n);
   const fmtSgd = (n: number, digits = 1) =>
     `S$${new Intl.NumberFormat('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(n)}`;
@@ -54,10 +54,10 @@ export function ShortSellingAndLending() {
   const p3 = short.periods?.['3M']?.stats;
   const p6 = short.periods?.['6M']?.stats;
 
-  const avg3m = p3?.valid ? p3.avg_short_ratio : 0;
-  const max6m = p6?.valid ? p6.max_short_ratio : 0;
+  const avg3m = p3?.valid ? (p3.avg_short_ratio ?? 0) : 0;
+  const max6m = p6?.valid ? (p6.max_short_ratio ?? 0) : 0;
 
-  const corr = short.correlation?.valid ? short.correlation.correlation : 0;
+  const corr = short.correlation?.valid ? (short.correlation.correlation ?? 0) : 0;
   const corrLabel = short.correlation?.interpretation ?? '—';
 
   const trendText = short.short_interest_change?.interpretation ?? 'No trend data';
@@ -127,13 +127,13 @@ export function ShortSellingAndLending() {
           <p className="text-xs text-muted-foreground mb-2">Avg Short% (3M)</p>
           <p className="text-3xl font-bold text-foreground">{fmtPct(avg3m, 2)}</p>
           <p className="text-xs text-muted-foreground mt-1">
-            Max: {p3?.valid ? fmtPct(p3.max_short_ratio, 1) : '—'}
+            Max: {p3?.valid ? fmtPct(p3.max_short_ratio ?? 0, 1) : '—'}
           </p>
         </div>
 
         <div className="glass-panel rounded-xl p-4">
           <p className="text-xs text-muted-foreground mb-2">Short% → Return corr</p>
-          <p className="text-3xl font-bold text-foreground">{corr.toFixed(3)}</p>
+          <p className="text-3xl font-bold text-foreground">{(corr ?? 0).toFixed(3)}</p>
           <p className="text-xs text-muted-foreground mt-1">{corrLabel}</p>
         </div>
 
@@ -166,9 +166,9 @@ export function ShortSellingAndLending() {
                   SBL lending pool risk (if borrowed shares were sold)
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Pool size is {fmtNum(sbl!.lending_pool)} shares ({fmtSgd(sbl!.lending_pool_value, 1)}), which is{' '}
-                  {sbl!.pool_as_pct_adv.toFixed(1)}% of 20D ADV (~{sbl!.days_to_liquidate.toFixed(2)} days). Hypothetical full-pool sale
-                  impact: ~{(sbl!.estimated_impact_pct * 100).toFixed(2)}%. {sbl!.impact_interpretation ?? ''}
+                  Pool size is {fmtNum(sbl!.lending_pool ?? 0)} shares ({new Intl.NumberFormat('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(Number(sbl!.lending_pool_value ?? 0))}), which is{' '}
+                  {(sbl!.pool_as_pct_adv ?? 0).toFixed(1)}% of 20D ADV (~{(sbl!.days_to_liquidate ?? 0).toFixed(2)} days). Hypothetical full-pool sale
+                  impact: ~{((sbl!.estimated_impact_pct ?? 0) * 100).toFixed(2)}%. {sbl!.impact_interpretation ?? ''}
                 </p>
               </div>
             ) : null}
@@ -279,29 +279,31 @@ export function ShortSellingAndLending() {
 
             <div className="glass-panel rounded-xl p-4 border border-border">
               <p className="text-xs text-muted-foreground mb-2">Pool Value</p>
-              <p className="text-2xl font-bold text-foreground">{fmtSgd(sbl!.lending_pool_value, 1)}</p>
-              <p className="text-xs text-muted-foreground mt-1">at latest price {sbl!.latest_price.toFixed(3)}</p>
+              <p className="text-2xl font-bold text-foreground">
+                {new Intl.NumberFormat('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(Number(sbl!.lending_pool_value ?? 0))}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">at latest price {(sbl!.latest_price ?? 0).toFixed(3)}</p>
             </div>
 
             <div className="glass-panel rounded-xl p-4 border border-border">
               <p className="text-xs text-muted-foreground mb-2">Lending / Borrowing Rate</p>
               <p className="text-2xl font-bold text-foreground">
-                {sbl!.lending_rate_pct.toFixed(2)}% / {sbl!.borrowing_rate_pct.toFixed(2)}%
+                {(sbl!.lending_rate_pct ?? 0).toFixed(2)}% / {(sbl!.borrowing_rate_pct ?? 0).toFixed(2)}%
               </p>
               <p className="text-xs text-muted-foreground mt-1">annualized</p>
             </div>
 
             <div className="glass-panel rounded-xl p-4 border border-border">
               <p className="text-xs text-muted-foreground mb-2">Pool vs ADV</p>
-              <p className="text-2xl font-bold text-foreground">{sbl!.pool_as_pct_adv.toFixed(1)}%</p>
-              <p className="text-xs text-muted-foreground mt-1">{sbl!.days_to_liquidate.toFixed(2)} days to liquidate</p>
+              <p className="text-2xl font-bold text-foreground">{(sbl!.pool_as_pct_adv ?? 0).toFixed(1)}%</p>
+              <p className="text-xs text-muted-foreground mt-1">{(sbl!.days_to_liquidate ?? 0).toFixed(2)} days to liquidate</p>
             </div>
           </div>
 
           <div className="mt-4 bg-slate-900/40 border border-slate-800 rounded-lg p-3">
             <p className="text-xs text-muted-foreground">
               <span className="text-amber-600 dark:text-amber-400 font-semibold">Hypothetical impact:</span>{' '}
-              ~{(sbl!.estimated_impact_pct * 100).toFixed(2)}% if the entire pool was sold.{' '}
+              ~{((sbl!.estimated_impact_pct ?? 0) * 100).toFixed(2)}% if the entire pool was sold.{' '}
               {sbl!.impact_interpretation ?? ''}
             </p>
           </div>
@@ -324,9 +326,9 @@ export function ShortSellingAndLending() {
               {peaks.map((p) => (
                 <TableRow key={p.date} className="border-slate-800">
                   <TableCell className="text-slate-300 text-sm">{p.date}</TableCell>
-                  <TableCell className="text-right text-slate-400 text-sm">{fmtPct(p.short_ratio, 1)}</TableCell>
-                  <TableCell className={`text-right text-sm ${p.return_pct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
-                    {p.return_pct.toFixed(1)}%
+                  <TableCell className="text-right text-slate-400 text-sm">{fmtPct(p.short_ratio ?? 0, 1)}</TableCell>
+                  <TableCell className={`text-right text-sm ${(p.return_pct ?? 0) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
+                    {(p.return_pct ?? 0).toFixed(1)}%
                   </TableCell>
                 </TableRow>
               ))}

@@ -58,10 +58,10 @@ export const REPORT_DATA: ReportData = {
 
   theme: {
     badges: {
-      header_health: { text: "Liquidity Health: MODERATE", bg: "bg-amber-500/20", textColor: "text-amber-400", dot: "bg-amber-500" },
-      liq_section: { text: "Liquidity score: 44.8 — MODERATE", bg: "bg-amber-500/20", textColor: "text-amber-400" },
+      header_health: { text: "Liquidity Health: STRONG", bg: "bg-emerald-500/20", textColor: "text-emerald-400", dot: "bg-emerald-500" },
+      liq_section: { text: "Liquidity score: 83.5 — STRONG", bg: "bg-emerald-500/20", textColor: "text-emerald-400" },
       perf: { text: "Context", bg: "bg-slate-700/40", textColor: "text-slate-300" },
-      drivers: { text: "Insufficient history", bg: "bg-slate-500/20", textColor: "text-slate-400" },
+      drivers: { text: "Company-led • 3 regimes", bg: "bg-amber-500/20", textColor: "text-amber-400" },
       exec_check: { text: "LOW impact for size", bg: "bg-emerald-500/20", textColor: "text-emerald-300" },
       intraday: { text: "SPREAD (low HHI)", bg: "bg-emerald-500/20", textColor: "text-emerald-300" },
       ofi: { text: "Moderate • L2 predictive", bg: "bg-amber-500/20", textColor: "text-amber-400" },
@@ -92,41 +92,41 @@ export const REPORT_DATA: ReportData = {
     market_comparison_subtitle: "Your metrics versus peers, sector, and the overall market",
     perf_title: "Stock Performance",
     perf_subtitle: "Returns compared to market, sector, and peer group",
-    perf_insight: "TOKU has strong liquidity vs peers: ADV ~S$1.52M and 122 trades/day put it ahead of the peer median. Spread (1.9%) is in line with peers. A S$50K trade is only ~3.3% of ADV—best execution in the peer set. Factor exposure cannot be estimated yet (insufficient history). Order flow is moderate (|OFI| ~26%); L2 order-book imbalance significantly predicts mid-price (4 min lead).",
+    perf_insight: "TOKU has strong liquidity (score 83.5, rank 93/558): ADV ~S$1.52M and 122 trades/day lead the peer set. Spread (1.9%) is in line; S$50K is ~3% of ADV—best execution. Price moves are 33% market, 16% sector, 51% company-specific; 3 volatility regimes (current: High Vol). Order flow moderate (|OFI| ~26%); L2 OFI significantly predicts mid-price (4 min lead).",
     drivers_title: "What Moves Your Stock Price?",
     drivers_subtitle: "How much comes from the sector and market versus company-specific news?",
     drivers_strip: [
-      { title: "Key Insight", text: "Factor exposure (market/sector/company share) could not be estimated—only 6 days of return history were available. As more data accumulates, we will report sensitivity and lead-lag." },
-      { title: "Market Link", text: "Regression and lead-lag analysis require at least 30 days of returns; currently insufficient." },
-      { title: "Sector Link", text: "Software - Application sector context will be reported once sufficient history is available." }
+      { title: "Key Insight", text: "About 51% of price moves are company-specific, 33% market, 16% sector (3M two-factor regression, R² 34.6%). Stock behaves like small cap (Fama-French β_SMB 4.9)." },
+      { title: "Market Link", text: "Market β −2.3; correlation −0.36 (contemporaneous). Volatility Granger: market stress does not significantly predict stock volatility (ρ 0.10)." },
+      { title: "Sector Link", text: "Sector β 13.1; correlation +0.33 (contemporaneous). Software - Application sector contributes 16% of explained variance." }
     ],
     drivers_pie_title: "What Drives Price Changes (Last 3 Months)",
-    drivers_pie_note: "Insufficient data for this period.",
+    drivers_pie_note: "Share of variance: Market 33.3%, Sector 15.5%, Company 51.2%. Based on 6 days of returns; interpret with caution.",
     lead_lag_title: "Do Other Markets Move First?",
-    lead_lag_note: "Insufficient data for lead-lag analysis.",
+    lead_lag_note: "Market and sector both contemporaneous (lag 0). Correlation market −0.36, sector +0.33.",
     rolling_title: "How This Has Changed Over Time",
     rolling_latest_label: "Latest: {period}",
-    rolling_note: "No rolling windows available (insufficient history).",
-    drivers_bottom_line: "Takeaway: Liquidity and execution are strong; factor breakdown will be available once more trading history exists.",
+    rolling_note: "Single window 2025-11-28 to 2026-01-30 (6 days). More history will enable rolling comparison.",
+    drivers_bottom_line: "Takeaway: Company-specific and small-cap factors dominate. Three regimes identified; currently in High Vol (σ 5.81%).",
     drivers_wtd_title: "What This Means for Trading",
     drivers_wtd_list: [
       "Spread (1.9%) is in line with peer median—limit orders remain sensible.",
-      "A S$50K trade is only ~3.3% of ADV—easiest execution in the peer set; 544 and A31 are next best.",
+      "A S$50K trade is only ~3% of ADV—easiest execution in the peer set; 544 and A31 are next best.",
       "L2 order flow significantly predicts mid-price (4 min lag); order-book imbalance is a useful short-term signal."
     ],
     regime_title: "Market Volatility Patterns",
     regime_subtitle: "Different volatility states help explain timing risk for trades",
-    regime_badge_text: "Insufficient data",
+    regime_badge_text: "High Vol (current)",
     regime_pie_title: "Time Spent in Each Market Condition",
     transition_title: "How Likely is the Market to Change State?",
-    transition_cols: ["From \\ To", "Low Vol", "High Vol"],
-    transition_note_template: "Insufficient data for regime analysis.",
+    transition_cols: ["From \\ To", "Low Vol", "Medium Vol", "High Vol"],
+    transition_note_template: "3-regime model (AIC 8.0). From High Vol: 90.5% → Low Vol, 6.5% → Medium, 3% stay.",
     exec_check_title: "Trading Costs & Market Depth",
     exec_check_subtitle: "Order book depth and estimated price impact for different trade sizes",
     order_book_title: "Order Book Depth (Available Liquidity)",
     order_book_note: "Spread ~1.9%. Deep book: 10 bid/10 ask levels. S$100K sell impact ~−1%; S$1M ~−4.5%; S$2.5M ~−5.3% (45% fill). Execution is favourable vs peers.",
     peer_capacity_title: "How Much Can You Trade? (50K as % of Daily Volume)",
-    peer_capacity_note: "TKU has the best 50K-as-%-of-ADV in the peer set (~3.3%)—execution is easy. Next: 544 (21%), A31 (61%).",
+    peer_capacity_note: "TKU has the best 50K-as-%-of-ADV in the peer set (~3%)—execution is easy. Next: 544 (21%), A31 (61%).",
     impact_summary_title: "Estimated Price Impact (Sell Orders)",
     impact_summary_subtitle: "Price impact from mid to VWAP using latest order book.",
     exec_check_insight: "Execution is favourable: deep book, low impact for 100K–2.5M. S$50K is only ~3% of ADV. Kyle's Lambda not computed (pipeline).",
@@ -178,15 +178,15 @@ export const REPORT_DATA: ReportData = {
 
   content: {
     exec_metrics: [
-      { title: "Liquidity Score", tooltip: { title: "What this means", body: "Composite score (0-100) from volume, trades, spread, impact. Higher is better." }, value: "44.8", suffix: "/100", bar_pct: 45, color_value: "text-amber-400", color_bar: "text-amber-500", subtext: "Rank 309/558 • Below peer median", interpretation: { text: "MODERATE", cls: "interpretation-neutral", icon: "◆" } },
+      { title: "Liquidity Score", tooltip: { title: "What this means", body: "Composite score (0-100) from volume, trades, spread, impact. Higher is better." }, value: "83.5", suffix: "/100", bar_pct: 84, color_value: "text-emerald-400", color_bar: "text-emerald-500", subtext: "Rank 93/558 • Top tier vs peers", interpretation: { text: "STRONG", cls: "interpretation-good", icon: "◆" } },
       { title: "Trading Cost (Spread)", tooltip: { title: "Why this matters", body: "Spread is immediate cost to trade. Tighter is better." }, value: "1.94", suffix: "%", bar_pct: 2, color_value: "text-emerald-400", color_bar: "text-emerald-500", subtext: "In line with peer median (~2.0%)", interpretation: { text: "LOW", cls: "interpretation-good", icon: "◆" } },
       { title: "Median Traded Volume", tooltip: { title: "What this means", body: "Median daily trading value (20D). Higher = more liquidity." }, value: "1.52M", suffix: "SGD", bar_pct: 85, color_value: "text-emerald-400", color_bar: "text-emerald-500", subtext: "Well above peer median (~S$29K)", interpretation: { text: "STRONG", cls: "interpretation-good", icon: "◆" } },
-      { title: "What Drives Price Changes", tooltip: { title: "What this means", body: "Share of moves from market/sector vs company-specific." }, value: "N/A", suffix: "", bar_pct: 0, color_value: "text-slate-400", color_bar: "text-slate-500", subtext: "Insufficient history (6 days)", interpretation: { text: "Insufficient data", cls: "interpretation-neutral", icon: "◆" } }
+      { title: "What Drives Price Changes", tooltip: { title: "What this means", body: "Share of moves from market/sector vs company-specific." }, value: "51.2", suffix: "% company", bar_pct: 51, color_value: "text-white", color_bar: "text-purple-400", subtext: "Market: 33.3% • Sector: 15.5%", interpretation: { text: "Company-led", cls: "interpretation-neutral", icon: "◆" } }
     ],
     exec_takeaways: [
-      "TOKU has moderate liquidity overall (rank 309/558) but is the strongest in its peer set: ADV ~S$1.52M and 122 trades/day. Spread (1.9%) is in line with peers. A S$50K trade is only ~3.3% of ADV—best execution among Software - Application peers.",
+      "TOKU has strong liquidity (PCA score 83.5, rank 93/558) and is the standout in its peer set: ADV ~S$1.52M, 122 trades/day, spread 1.9%. A S$50K trade is only ~3% of ADV—best execution among Software - Application peers.",
       "Sell impact is low: −1% for S$100K, −4.5% for S$1M, −5.3% for S$2.5M (45% fill). Order flow is moderate (|OFI| ~26%); 71% of days are net buying. L2 order-book OFI significantly predicts mid-price (4 min lag).",
-      "Factor/driver analysis is not available (insufficient return history). Short interest is 0%; no SBL pool data. Not eligible for major indices (rank #242, Fledgling); free float data unavailable."
+      "Price moves are 33% market, 16% sector, 51% company-specific (R² 34.6%); behaves like small cap. Three volatility regimes; current regime High Vol (σ 5.81%). No short selling data; not eligible for major indices (rank #242, Fledgling). Float 45.9%."
     ],
     action_plan: {
       borderClass: "border-amber-500",
@@ -220,7 +220,7 @@ export const REPORT_DATA: ReportData = {
       { title: "Spread vs Peers", value: "1.9%", sub: "In line with peer median (~2.0%)", interp: { text: "GOOD", cls: "interpretation-good", icon: "◆" } },
       { title: "50K as % ADV", value: "3.3%", sub: "Best in peer set", interp: { text: "BEST IN PEERS", cls: "interpretation-good", icon: "◆" } }
     ],
-    liq_insight: "Liquidity is strong versus peers: ADV is about 52× the peer median (S$29K), spread is in line (1.9%), and trade count (122/day) is well above median. Execution for size is the best in the set—a S$50K clip is only ~3.3% of ADV. Volatility (2.9%) is higher than peer median (0.5%)—typical for a name with recent listing or event history.",
+    liq_insight: "Liquidity is strong (PCA score 83.5, rank 93/558): ADV is about 52× the peer median (S$29K), spread is in line (1.9%), and trade count (122/day) is well above median. Execution for size is the best in the set—a S$50K clip is only ~3% of ADV. Volatility (2.9%) is higher than peer median (0.5%)—typical for a name with recent listing or event history.",
     perf_badge: "Context",
     exec_check_tiles: [
       { title: "Mid Price", value: "0.2675", note: "SGD (snapshot)", color: "text-white" },
@@ -243,9 +243,9 @@ export const REPORT_DATA: ReportData = {
 
   insights: {
     liquidity: {
-      overall: "TOKU ranks in the middle tier for liquidity (309/558) but is the strongest in its Software - Application peer set. ADV is ~S$1.52M (52× peer median), spread 1.9% (in line), and 122 trades/day. Execution for size is the best among peers—S$50K is only 3.3% of ADV.",
+      overall: "TOKU has strong liquidity (PCA score 83.5, rank 93/558) and is the standout in its Software - Application peer set. ADV is ~S$1.52M (52× peer median), spread 1.9% (in line), 122 trades/day. Execution for size is the best among peers—S$50K is only ~3% of ADV.",
       strengths: ["ADV and trade count are the highest in the peer set; execution is easy for meaningful size.", "Spread (1.9%) is in line with peer median; deep order book (10/10 levels).", "HHI is the lowest in the set—liquidity is well spread through the day."],
-      concerns: ["Volatility (2.9%) is above peer median (0.5%)—may reflect recent listing or event-driven trading.", "Turnover ratio and free float are not available in the pipeline output."],
+      concerns: ["Volatility (2.9%) is above peer median (0.5%)—may reflect recent listing or event-driven trading."],
       peer_context: "544 and A31 have the next-best liquidity in the set; 532, KUX, NXR, U77 are much thinner. TKU is the standout for execution capacity."
     },
     market_comparison: {
@@ -262,16 +262,16 @@ export const REPORT_DATA: ReportData = {
       conclusion: "Liquidity and execution are strong; performance is negative over the available short window. Focus on sustaining two-way flow and visibility."
     },
     drivers: {
-      overall: "Factor exposure (market/sector/company share of variance) could not be estimated—only 6 days of return history were available (minimum 30 required). Regime switching and lead-lag are also unavailable.",
-      interpretation: "As more trading history accumulates, we will report sensitivity to market and sector and whether the stock leads or lags. For now, treat the name as company- and event-driven.",
-      rolling_change: "No rolling windows available (insufficient data).",
-      beta: "N/A (insufficient data)."
+      overall: "About 51% of price moves are company-specific, 33% market, 16% sector (two-factor regression, R² 34.6%). β_market −2.3, β_sector 13.1; Fama-French suggests small-cap behaviour (β_SMB 4.9). Correlation market −0.36, sector +0.33 (contemporaneous).",
+      interpretation: "Stock is company- and small-cap driven. Volatility Granger: market/sector stress do not significantly predict stock volatility (ρ 0.10).",
+      rolling_change: "Single window 2025-11-28 to 2026-01-30; more history will enable rolling comparison.",
+      beta: "β_market −2.32, β_sector 13.05 (two-factor); β_mkt −0.87, β_SMB 4.92 (Fama-French)."
     },
     regime: {
-      overall: "Regime-switching analysis could not be run (6 days < 30 required).",
-      current: "N/A",
-      transitions: "N/A",
-      trading_implications: "Once sufficient data exists, regime context can inform timing."
+      overall: "Three regimes identified (AIC 3-regime 8.0 selected). Low Vol 33% of time (σ 1.45%), Medium Vol 17% (σ 2%), High Vol 50% (σ 5.81%). Current regime: High Vol.",
+      current: "High Vol (σ 5.81%)",
+      transitions: "From High Vol: 90.5% → Low Vol, 6.5% → Medium Vol, 3% stay. From Medium: 100% → High Vol. From Low: 43.4% → Medium, 56.6% → High.",
+      trading_implications: "In High Vol regime; transitions often go to Low Vol—timing large orders when volatility shifts may help."
     },
     trader_composition: {
       overall: "By trade count, 83.9% retail, 15.2% mixed, 0.9% institutional. By value (notional), 28.4% retail, 60.2% mixed, 11.4% institutional—so mixed-size trades account for most volume.",
@@ -286,17 +286,17 @@ export const REPORT_DATA: ReportData = {
       by_trader_type: "Positive movers: 88.7% retail, 11.3% mixed. Negative movers: 78.3% retail, 19.8% mixed, 1.9% institutional."
     },
     short_selling: {
-      overall: "Short interest is 0% over 1M, 3M, and 6M. No SBL lending pool data available for TKU. Pipeline short data mapped to a different security name; TKU-specific short series shows 0%.",
-      level: "0% (low short interest)",
+      overall: "No short selling data found for TKU. SBL lending pool data not available. Pipeline searched by company name 'TOKU'; no match in short/sbl datasets.",
+      level: "N/A",
       correlation: "N/A",
-      trend: "Stable",
+      trend: "N/A",
       peaks: "None"
     },
     execution: {
       overall: "Execution is favourable: S$100K sell impact ~−1%, S$1M ~−4.5%, S$2.5M ~−5.3% (45% fill). S$50K is only 3.3% of ADV—best in the peer set. Deep book (10/10 levels) supports size.",
       concern: "No material execution concern at current sizes; maintain two-way flow.",
       kyle: "Kyle's Lambda not computed in pipeline.",
-      peer_context: "TKU has the best 50K capacity (3.3% ADV). Next: 544 (21%), A31 (61%). ITS, LVR, NXR, U77, 532, KUX are much harder for size."
+      peer_context: "TKU has the best 50K capacity (~3% ADV). Next: 544 (21%), A31 (61%). ITS, LVR, NXR, U77, 532, KUX are much harder for size."
     },
     intraday: {
       overall: "Trading is well spread: 91% continuous, 8.7% auctions. HHI is 0.13—lowest in the peer set (liquidity distributed through the day). Peak buckets 09:00 (15.1%), 10:00 (13.6%), 16:30 (11.4%).",
@@ -311,18 +311,18 @@ export const REPORT_DATA: ReportData = {
       day_breakdown: "Over available period: 71.4% net buying days, 28.6% net selling, 0% balanced."
     },
     index: {
-      overall: "Not eligible for major indices. Market cap rank #242 of 562 (S$162.5M); FTSE size band Fledgling. Free float and float mcap are unavailable in data. Velocity is 93.1%. STI requires top 30; iEdge Next 50 top 80; FTSE All-Share top 98% mcap.",
+      overall: "Not eligible for major indices. Market cap rank #242 of 562 (S$162.5M); FTSE size band Fledgling. Float 45.9%; velocity 93.1%; avg daily turnover S$600K. STI requires top 30; iEdge Next 50 top 80; FTSE All-Share top 98% mcap. FTSE Fledgling eligible.",
       hsci: "N/A (Singapore).",
       hsi_gap: "N/A.",
       tech_gap: "N/A.",
-      recommendation: "Improve market-cap rank for index eligibility; once free float is reported, assess STI/FTSE float criteria. Velocity is already high (93%)."
+      recommendation: "Improve market-cap rank for index eligibility (currently 242; need ≤30 for STI, ≤80 for iEdge Next 50). Float 45.9% meets typical ≥15% criteria; velocity is already high (93%)."
     }
   },
 
   series: {
     peers_liquidity: {
       labels: ["TKU", "ITS", "LVR", "NXR", "U77", "532", "KUX", "A31", "544"],
-      scores: [44.80, 70.97, 66.67, 40.50, 38.53, 19.18, 6.09, 85.84, 91.94],
+      scores: [83.51, 70.79, 66.49, 40.50, 38.53, 19.18, 6.09, 85.84, 91.94],
       is_target: [true, false, false, false, false, false, false, false, false],
       adv: [1518998, 139314.75, 48508, 9396.75, 7110, 225.05, 0, 1629924.15, 4786594],
       total: 558
@@ -364,37 +364,42 @@ export const REPORT_DATA: ReportData = {
       { horizon: "YTD", stock: -7.02, market: 1.59, sector: -0.36, peers: 0 }
     ],
     drivers: {
-      share_market: 0,
-      share_sector: 0,
-      share_idio: 100,
-      beta_market: 0,
-      beta_sector: 0,
-      r_squared: 0,
+      share_market: 33.29,
+      share_sector: 15.50,
+      share_idio: 51.21,
+      beta_market: -2.318,
+      beta_sector: 13.053,
+      r_squared: 34.57,
       lead_lag: {
-        lags: [],
-        corr_market: [],
-        corr_sector: [],
+        lags: [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5],
+        corr_market: [0, 0, 0, 0, 0, -0.359, 0, 0, 0, 0, 0],
+        corr_sector: [0, 0, 0, 0, 0, 0.333, 0, 0, 0, 0, 0],
         best: { market: 0, sector: 0 }
       },
       rolling_windows: {
-        p1: { valid: false }
+        p6: { valid: true, period_label: "2025-11-28 to 2026-01-30", shares: { share_market: 33.29, share_sector: 15.50, share_idio: 51.21 }, regression: { r_squared: 34.57 } }
       },
       rolling: {
-        ordered: [],
-        market: [],
-        sector: [],
-        idio: []
+        ordered: ["2025-11-28 to 2026-01-30"],
+        market: [33.29],
+        sector: [15.50],
+        idio: [51.21]
       },
       regime: {
-        n_regimes: 2,
-        labels: ["Low Vol", "High Vol"],
-        pct_time: [0, 0],
-        current_regime: 0,
+        n_regimes: 3,
+        labels: ["Low Vol", "Medium Vol", "High Vol"],
+        pct_time: [33.33, 16.67, 50],
+        current_regime: 1,
         regimes: [
-          { id: 0, label: "Low Vol", mean_ret: 0, volatility: 1e-6, mean_ret_pct: 0, volatility_pct: 0, n_days: 0, pct_time: 0 },
-          { id: 1, label: "High Vol", mean_ret: 0, volatility: 1e-6, mean_ret_pct: 0, volatility_pct: 0, n_days: 0, pct_time: 0 }
+          { id: 2, label: "Low Vol", mean_ret: -0.02866, volatility: 0.01452, mean_ret_pct: -2.87, volatility_pct: 1.45, n_days: 2, pct_time: 33.33 },
+          { id: 0, label: "Medium Vol", mean_ret: 0.02, volatility: 0.02, mean_ret_pct: 2.0, volatility_pct: 2.0, n_days: 1, pct_time: 16.67 },
+          { id: 1, label: "High Vol", mean_ret: 0, volatility: 0.05814, mean_ret_pct: 0, volatility_pct: 5.81, n_days: 3, pct_time: 50 }
         ],
-        transitions: [[1, 0], [0, 1]]
+        transitions: [
+          [8.2e-7, 0.434, 0.566],
+          [7.9e-7, 0.00039, 0.9996],
+          [0.905, 0.065, 0.030]
+        ]
       }
     },
     order_book: {
@@ -424,7 +429,7 @@ export const REPORT_DATA: ReportData = {
       ]
     },
     peer_capacity: {
-      bx_ticket_pct_adv_50k: 3.29,
+      bx_ticket_pct_adv_50k: 3,
       peers: [
         { ticker: "544", pct: 20.9 },
         { ticker: "A31", pct: 61.4 },
@@ -485,38 +490,20 @@ export const REPORT_DATA: ReportData = {
       negative_movers: { count: 258, avg_size: 8496.83, median_size: 1060, retail_count: 202, mixed_count: 51, institutional_count: 5, retail_pct: 78.29, mixed_pct: 19.77, instit_pct: 1.94 }
     },
     short_selling: {
-      data_available: true,
-      security_name: "TOKU LTD",
-      mapping: { ticker_to_security: "$ METAOPTICS LTD", confidence: "high" },
-      coverage: { n_days_short_data: 13, window_days: 182 },
+      data_available: false,
+      security_name: "",
+      mapping: { ticker_to_security: "", confidence: "none" },
+      coverage: { n_days_short_data: null, window_days: 182 },
       periods: {
-        "1M": { stats: { valid: true, avg_short_ratio: 0, max_short_ratio: 0, interpretation: "Low short interest" } },
-        "3M": { stats: { valid: true, avg_short_ratio: 0, max_short_ratio: 0, interpretation: "Low short interest" } },
-        "6M": { stats: { valid: true, avg_short_ratio: 0, max_short_ratio: 0, interpretation: "Low short interest" } }
+        "1M": { stats: { valid: false, avg_short_ratio: null, max_short_ratio: null, interpretation: "" } },
+        "3M": { stats: { valid: false, avg_short_ratio: null, max_short_ratio: null, interpretation: "" } },
+        "6M": { stats: { valid: false, avg_short_ratio: null, max_short_ratio: null, interpretation: "" } }
       },
       correlation: { valid: false, correlation: null, interpretation: "" },
       peaks: [],
       short_interest_change: { valid: false, monthly_data: [], mom_change: [], interpretation: "" },
-      peer_comparison: [
-        { ticker: "TKU", avg_short_ratio: 0, max_short_ratio: 0, is_target: true },
-        { ticker: "NXR", avg_short_ratio: 8.64e-5, max_short_ratio: 0.0323, is_target: false },
-        { ticker: "U77", avg_short_ratio: 0.000834, max_short_ratio: 0.1235, is_target: false },
-        { ticker: "A31", avg_short_ratio: 0.00146, max_short_ratio: 0.0988, is_target: false },
-        { ticker: "ITS", avg_short_ratio: 0.00204, max_short_ratio: 0.1386, is_target: false },
-        { ticker: "544", avg_short_ratio: 0.0465, max_short_ratio: 0.4378, is_target: false }
-      ],
-      short_series: {
-        valid: true,
-        rows: [
-          { date: "2026-01-30", short_ratio: 0, short_vol: 0, total_vol: 14635000, close: 0.265, return: 0.03922 },
-          { date: "2026-01-29", short_ratio: 0, short_vol: 0, total_vol: 2423300, close: 0.255, return: 0.02 },
-          { date: "2026-01-28", short_ratio: 0, short_vol: 0, total_vol: 2401500, close: 0.25, return: -0.03846 },
-          { date: "2026-01-27", short_ratio: 0, short_vol: 0, total_vol: 3285000, close: 0.26, return: 0 },
-          { date: "2026-01-26", short_ratio: 0, short_vol: 0, total_vol: 5842300, close: 0.26, return: -0.01887 },
-          { date: "2026-01-23", short_ratio: 0, short_vol: 0, total_vol: 12463700, close: 0.265, return: -0.07018 },
-          { date: "2026-01-22", short_ratio: 0, short_vol: 0, total_vol: 30703500, close: 0.285, return: null }
-        ]
-      }
+      peer_comparison: [],
+      short_series: { valid: false, rows: [] }
     },
     intraday: {
       session_periods: ["1M", "3M", "6M"],
@@ -591,18 +578,18 @@ export const REPORT_DATA: ReportData = {
     index_block: {
       tiles: [
         { title: "Market Cap Rank", value: "#242 of 562", sub: "S$162.5M • Fledgling" },
-        { title: "Free Float", value: "N/A", sub: "Data unavailable" },
+        { title: "Free Float", value: "45.9%", sub: "Float MCap N/A" },
         { title: "Avg Daily Turnover", value: "S$600K", sub: "Velocity 93.1%" }
       ],
       table_header: ["Index", "Status", "Notes", "What's Needed"],
       table_rows: [
-        { index: "STI", status: "ineligible", notes: "Rank #242 — outside top 30", gaps: ["Need rank ≤30 (currently 242)", "Need float ≥15% (data unavailable)"] },
-        { index: "FTSE All-Share", status: "ineligible", notes: "Below top 98% coverage (Fledgling)", gaps: ["Need top 98% mcap (currently 99.3%)", "Need float >15% (data unavailable)"] },
-        { index: "iEdge Next 50", status: "ineligible", notes: "Rank #242 — below top 80", gaps: ["Need rank ≤80 (currently 242)"] }
+        { index: "STI", status: "ineligible", notes: "Rank #242 — outside top 30", gaps: ["Need rank ≤30 (currently 242)"] },
+        { index: "FTSE All-Share", status: "ineligible", notes: "Below top 98% coverage (Fledgling)", gaps: ["Need top 98% mcap (currently 99.3%)"] },
+        { index: "iEdge Next 50", status: "ineligible", notes: "Rank #242 — below top 80", gaps: ["Need rank ≤80 (currently 242)"] },
       ],
-      insight: "Not currently eligible for major indices. Market cap rank #242 of 562 (S$162.5M); FTSE size band Fledgling. Free float unavailable; velocity is 93.1%. STI requires top 30 and float ≥15%; iEdge Next 50 top 80; FTSE All-Share top 98% mcap.",
+      insight: "Not currently eligible for major indices. Market cap rank #242 of 562 (S$162.5M); FTSE size band Fledgling. Float 45.9%; velocity 93.1%. STI requires top 30 and float ≥15%; iEdge Next 50 top 80; FTSE All-Share top 98% mcap.",
       levers_title: "How to Improve Index Eligibility",
-      levers: ["Improve market-cap rank (currently 242) for STI (top 30) or iEdge Next 50 (top 80)", "Once free float is reported, ensure it meets index criteria (e.g. ≥15%)"]
+      levers: ["Improve market-cap rank (currently 242) for STI (top 30) or iEdge Next 50 (top 80)", "Float 45.9% already meets typical ≥15% criteria"]
     }
   }
 };

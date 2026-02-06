@@ -35,6 +35,15 @@ export function HeroSection() {
     'Price Moves: Company vs Market': labels.metric_drivers
   };
 
+  const isDriversMetric = (m: (typeof metrics)[0]) =>
+    (titleMap[m.title] ?? m.title) === labels.metric_drivers;
+  const driversLabelFromSuffix = (suffix: string) => {
+    if (suffix.includes('company')) return 'company';
+    if (suffix.includes('market')) return 'market';
+    if (suffix.includes('sector')) return 'sector';
+    return null;
+  };
+
   const liquidityMetric =
     metrics.find((m) => (titleMap[m.title] ?? m.title) === labels.metric_liquidity_score) ?? metrics[0];
   const rankMatch = liquidityMetric?.subtext?.match(/Rank\s+(\d+)\s*\/\s*(\d+)/i);
@@ -82,7 +91,7 @@ export function HeroSection() {
             Data as of {meta.asof_date}.
           </p>
         </motion.div>
-        
+
 
         {/* Big Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -122,30 +131,53 @@ export function HeroSection() {
                   </div>
                 </div>
 
-                {/* Value */}
-                <div className="space-y-1">
-                  <div className="flex items-baseline gap-1">
-                    <span className={`big-number ${metric.color_value}`}>
-                      {metric.value}
-                    </span>
-                    <span className="text-lg text-slate-500">{metric.suffix}</span>
-                  </div>
-                </div>
-
-                {/* Progress bar */}
-                <div className="mt-4">
-                  <div className="h-1 bg-muted rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${Math.min(metric.bar_pct, 100)}%` }}
-                      transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
-                      className={`h-full rounded-full ${metric.color_bar.replace('text-', 'bg-')}`}
-                    />
-                  </div>
-                </div>
-
-                {/* Subtext */}
-                <p className="mt-3 text-xs text-slate-500 leading-relaxed">{metric.subtext}</p>
+                {/* Value — drivers card: big % then label on next line, separator, then Market/Sector (like other companies) */}
+                {isDriversMetric(metric) && driversLabelFromSuffix(metric.suffix ?? '') ? (
+                  <>
+                    <div className="space-y-0.5">
+                      <span className={`text-2xl lg:text-4xl font-bold tracking-tight ${metric.color_value}`}>
+                        {metric.value}%
+                      </span>
+                      <p className="text-sm text-slate-500 capitalize">
+                        {driversLabelFromSuffix(metric.suffix ?? '')}
+                      </p>
+                    </div>
+                    <div className="mt-3 border-t border-slate-700/60 pt-3" />
+                    <p className="mt-2 text-xs text-slate-500 leading-relaxed">{metric.subtext}</p>
+                    <div className="mt-4">
+                      <div className="h-1 bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${Math.min(metric.bar_pct, 100)}%` }}
+                          transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
+                          className={`h-full rounded-full ${metric.color_bar.replace('text-', 'bg-')}`}
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="space-y-1">
+                      <div className="flex items-baseline gap-1">
+                        <span className={meta.ticker === 'TKU' ? `text-2xl lg:text-3xl font-bold tracking-tight ${metric.color_value}` : `big-number ${metric.color_value}`}>
+                          {metric.value}
+                        </span>
+                        <span className={meta.ticker === 'TKU' ? 'text-base text-slate-500' : 'text-lg text-slate-500'}>{metric.suffix}</span>
+                      </div>
+                    </div>
+                    <div className="mt-4">
+                      <div className="h-1 bg-muted rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${Math.min(metric.bar_pct, 100)}%` }}
+                          transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
+                          className={`h-full rounded-full ${metric.color_bar.replace('text-', 'bg-')}`}
+                        />
+                      </div>
+                    </div>
+                    <p className="mt-3 text-xs text-slate-500 leading-relaxed">{metric.subtext}</p>
+                  </>
+                )}
               </div>
             </motion.div>
           ))}

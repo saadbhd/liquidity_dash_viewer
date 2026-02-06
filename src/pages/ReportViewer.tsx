@@ -47,12 +47,13 @@ import type { ReportData } from '@/types/report';
 function buildNavItems(report: ReportData) {
     const showShort = report.meta.market === 'XSES' && !!report.series.short_selling?.data_available;
     const showIndex = report.meta.market === 'XSES';
+    const showPerformance = report.meta.ticker !== 'TKU';
 
     return [
         { id: 'hero', label: 'Overview', icon: LayoutDashboard },
         { id: 'liquidity', label: 'Liquidity Score', icon: Activity },
         { id: 'comparison', label: 'Market Comparison', icon: BarChart2 },
-        { id: 'performance', label: 'Performance', icon: TrendingUp },
+        ...(showPerformance ? [{ id: 'performance', label: 'Performance', icon: TrendingUp }] : []),
         { id: 'drivers', label: 'What Drives Price', icon: PieChart },
         { id: 'traders', label: 'Trader Types', icon: Users },
         { id: 'peer-traders', label: 'Peer Traders', icon: Users },
@@ -300,9 +301,11 @@ export function ReportViewer() {
                             <MarketComparison />
                         </section>
 
-                        <section id="performance">
-                            <PerformancePanel />
-                        </section>
+                        {reportData.meta.ticker !== 'TKU' ? (
+                            <section id="performance">
+                                <PerformancePanel />
+                            </section>
+                        ) : null}
 
                         <section id="drivers">
                             <DriversAnalysis />

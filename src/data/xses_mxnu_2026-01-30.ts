@@ -202,7 +202,7 @@ export const REPORT_DATA: ReportData = {
           priority: "LONGER-TERM (9–24 months)",
           badge: { bg: "bg-emerald-500/20", text: "text-emerald-300", textColor: "text-emerald-300", dot: "bg-emerald-500" },
           items: [
-            { title: "Improve index eligibility", bullets: ["Rank #215 of 562—need top 30 for STI, top 80 for iEdge Next 50. Velocity 8.3%; free float data unavailable."] }
+            { title: "Improve index eligibility", bullets: ["Rank #215 of 562—need top 30 for STI, top 80 for iEdge Next 50. Velocity 8.3%; "] }
           ]
         }
       ]
@@ -307,7 +307,7 @@ export const REPORT_DATA: ReportData = {
       hsci: "N/A (Singapore).",
       hsi_gap: "N/A.",
       tech_gap: "N/A.",
-      recommendation: "Improve market-cap rank (currently 215) for STI (top 30) or iEdge Next 50 (top 80). Free float data unavailable; velocity 8.3%."
+      recommendation: "Improve market-cap rank (currently 215) for STI (top 30) or iEdge Next 50 (top 80); velocity 8.3%."
     }
   },
 
@@ -614,15 +614,15 @@ export const REPORT_DATA: ReportData = {
     index_block: {
       tiles: [
         { title: "Market Cap Rank", value: "#215 of 562", sub: "S$214M • Fledgling" },
-        { title: "Free Float", value: "N/A", sub: "Data unavailable" },
-        { title: "Avg Daily Turnover", value: "S$70K", sub: "Velocity 8.3%" }
+        { title: "Velocityt", value: "8.3%", sub: "" },
+        { title: "Avg Daily Turnover", value: "S$70K", sub: "" }
       ],
       table_header: ["Index", "Status", "Notes", "What's Needed"],
       table_rows: [
         { index: "STI", status: "ineligible", notes: "Rank #215 — outside top 30", gaps: ["Need rank ≤30 (currently 215)", "Need float ≥15% (data unavailable)"] },
-        { index: "FTSE All-Share", status: "ineligible", notes: "Below top 98% coverage (Fledgling)", gaps: ["Need top 98% mcap (currently 99.0%)", "Need float >15% (data unavailable)"] },
         { index: "iEdge Next 50", status: "ineligible", notes: "Rank #215 — below top 80", gaps: ["Need rank ≤80 (currently 215)"] },
-        { index: "FTSE Fledgling", status: "eligible", notes: "Below All-Share coverage", gaps: [] }
+        { index: "FTSE All-Share", status: "eligible", notes: "", gaps: [""] },
+        { index: "FTSE ST Small Cap", status: "eligible", notes: "", gaps: [] }
       ],
       insight: "Not currently eligible for major indices. Market cap rank #215 of 562 (S$214M); FTSE size band Fledgling. Free float unavailable; velocity 8.3%. STI requires top 30; iEdge Next 50 top 80; FTSE All-Share top 98% mcap. FTSE Fledgling eligible.",
       levers_title: "How to Improve Index Eligibility",

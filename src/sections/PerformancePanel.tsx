@@ -92,7 +92,7 @@ export function PerformancePanel() {
           { label: '1M Return', value: returns[0].stock, market: returns[0].market, insight: perfInsights.ytd },
           { label: '3M Return', value: returns[1].stock, market: returns[1].market, insight: perfInsights.three_month },
           { label: '6M Return', value: returns[2].stock, market: returns[2].market, insight: perfInsights.six_month },
-          { label: 'YTD Return', value: returns[3].stock, market: returns[3].market, insight: perfInsights.ytd },
+          { label: '1Y Return', value: returns[3].stock, market: returns[3].market, insight: perfInsights.ytd },
         ].map((period) => {
           const isPositive = period.value >= 0;
           const vsMarket = period.value - period.market;

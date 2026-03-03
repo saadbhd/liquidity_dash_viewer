@@ -3,6 +3,8 @@ import { Brain, PieChart as PieIcon, TrendingUp, HelpCircle } from 'lucide-react
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import { GLOSSARY } from '@/data/glossary';
+import { MethodologyTooltip } from '@/components/MethodologyTooltip';
+import type { Q02RegimeItem, Q02RegimeSwitching } from '@/types/report';
 import {
   PieChart,
   Pie,
@@ -44,8 +46,19 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
+const formatPlain = (value: number | null | undefined, digits = 2) => {
+  if (value === null || value === undefined || !Number.isFinite(value)) return 'Not available';
+  return value.toFixed(digits);
+};
+
+const normalizePct = (value: number | null | undefined) => {
+  if (value === null || value === undefined || !Number.isFinite(value)) return null;
+  return value <= 1.5 ? value * 100 : value;
+};
+
 export function DriversAnalysis() {
-  const { labels, series } = useReport();
+  const report = useReport();
+  const { labels, series, q02 } = report;
   const chartTheme = useChartTheme();
   const { drivers } = series;
 
@@ -85,10 +98,44 @@ export function DriversAnalysis() {
     }));
   })();
 
-  // Regime data (may be empty if model could not be fitted)
-  const regime = drivers.regime;
-  const hasValidRegime = Array.isArray(regime?.regimes) && regime.regimes.length > 0;
-  const currentRegime = hasValidRegime ? regime.regimes[regime.current_regime] : null;
+  // Q02 regime source of truth (with legacy fallback for older files)
+  const fallbackRegimeSwitching: Q02RegimeSwitching = {
+    valid: true,
+    regime_method: 'legacy_regime',
+    regimes:
+      drivers.regime?.regimes?.map((r): Q02RegimeItem => ({
+        id: r.id,
+        label: r.label,
+        pct_time: r.pct_time,
+        mean_ret_pct: r.mean_ret_pct ?? (Math.abs(r.mean_ret) < 2 ? r.mean_ret * 100 : r.mean_ret),
+        volatility_pct: r.volatility_pct ?? (Math.abs(r.volatility) < 2 ? r.volatility * 100 : r.volatility),
+      })) ?? [],
+    transitions: drivers.regime?.transitions ?? [],
+    current_regime: drivers.regime?.current_regime ?? 0,
+    feature_columns: [],
+    methodology: {},
+  };
+
+  const regimeSwitching =
+    q02?.regime_switching && Array.isArray(q02.regime_switching.regimes)
+      ? q02.regime_switching
+      : fallbackRegimeSwitching;
+
+  const regimes = Array.isArray(regimeSwitching.regimes) ? regimeSwitching.regimes : [];
+  const hasRegimeCards = regimes.length > 0;
+  const currentRegime =
+    hasRegimeCards
+      ? regimes.find((r) => r.id === regimeSwitching.current_regime) ??
+        regimes[(regimeSwitching.current_regime as number) ?? 0] ??
+        null
+      : null;
+
+  const regimeMethod = regimeSwitching.regime_method ?? '';
+  const isActivityMethod = regimeMethod === 'activity_day_clustering';
+  const regimeTitle = isActivityMethod ? 'Market Activity Regimes' : labels.regime_title;
+  const regimeSubtitle = isActivityMethod
+    ? 'Activity-based clustering states and how often the market shifts between them.'
+    : labels.regime_subtitle;
 
   return (
     <TooltipProvider>
@@ -106,7 +153,10 @@ export function DriversAnalysis() {
               <Brain className="w-5 h-5 text-purple-400" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-foreground">{labels.drivers_title}</h2>
+              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+                {labels.drivers_title}
+                <MethodologyTooltip methodKey="drivers" size="md" />
+              </h2>
               <p className="text-sm text-muted-foreground">{labels.drivers_subtitle}</p>
             </div>
           </div>
@@ -131,7 +181,7 @@ export function DriversAnalysis() {
           <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
             <div className="flex items-center gap-2 mb-4">
               <PieIcon className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-foreground">{labels.drivers_pie_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-1">{labels.drivers_pie_title} <MethodologyTooltip methodKey="share_of_moves" /></h3>
             </div>
             <div className="flex justify-center">
               <div className="h-64 w-full max-w-md">
@@ -205,8 +255,8 @@ export function DriversAnalysis() {
           </motion.div>
         </div>
 
-        {/* Regime Switching Section - only when regime data is available */}
-        {hasValidRegime && currentRegime ? (
+        {/* Regime Switching Section */}
+        {hasRegimeCards && currentRegime ? (
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-amber-500/50">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
@@ -215,7 +265,7 @@ export function DriversAnalysis() {
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
-                  {labels.regime_title}
+                  {regimeTitle}
                   <UITooltip>
                     <TooltipTrigger asChild>
                       <button className="text-muted-foreground hover:text-foreground">
@@ -228,54 +278,44 @@ export function DriversAnalysis() {
                     </TooltipContent>
                   </UITooltip>
                 </h3>
-                <p className="text-sm text-muted-foreground">{labels.regime_subtitle}</p>
+                <p className="text-sm text-muted-foreground">{regimeSubtitle}</p>
               </div>
             </div>
             <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
               <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
-                Current: {currentRegime.label}
+                Current: {currentRegime.label ?? 'Not available'}
               </span>
             </div>
           </div>
 
-          {/* Regime Characteristics - support decimal (0-1), percent (×100 for display), or already-in-pct (mean_ret_pct/volatility_pct) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            {regime.regimes.map((r) => {
-              const pctTimeDisplay = r.pct_time <= 1.5 ? r.pct_time * 100 : r.pct_time;
-              const meanRetDisplay = r.mean_ret_pct !== undefined
-                ? r.mean_ret_pct
-                : (Math.abs(r.mean_ret) < 2 ? r.mean_ret * 100 : r.mean_ret);
-              const volDisplay = r.volatility_pct !== undefined
-                ? r.volatility_pct
-                : (r.volatility < 2 ? r.volatility * 100 : r.volatility);
-              const meanRetStr = meanRetDisplay >= 0 ? '+' : '';
-              const returnDecimals = (r.mean_ret_pct !== undefined || r.volatility_pct !== undefined) ? 3 : 2;
-              const volDecimals = (r.mean_ret_pct !== undefined || r.volatility_pct !== undefined) ? 4 : 2;
+          {/* Dynamic Regime Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-6">
+            {regimes.map((r) => {
+              const pctTime = normalizePct(r.pct_time);
+              const liquidityScore = r.liquidity_score ?? null;
               return (
               <div
                 key={r.id}
-                className={`p-4 rounded-lg border ${r.id === regime.current_regime
+                className={`p-4 rounded-lg border ${r.id === regimeSwitching.current_regime
                   ? 'bg-emerald-500/10 border-emerald-500/30'
                   : 'bg-muted/50 border-border'
                   }`}
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`text-sm font-medium ${r.id === regime.current_regime ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}>
-                    {r.label}
+                  <span className={`text-sm font-medium ${r.id === regimeSwitching.current_regime ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}>
+                    {r.label ?? `Regime ${r.id}`}
                   </span>
-                  <span className="text-xs text-muted-foreground">{pctTimeDisplay.toFixed(1)}% of time</span>
+                  <span className="text-xs text-muted-foreground">
+                    {pctTime === null ? 'Not available' : `${pctTime.toFixed(1)}% of time`}
+                  </span>
                 </div>
-                <div className="space-y-1 text-xs">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Avg Daily Return:</span>
-                    <span className={meanRetDisplay >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}>
-                      {meanRetStr}{meanRetDisplay.toFixed(returnDecimals)}%
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Volatility:</span>
-                    <span className="text-foreground/80">{volDisplay.toFixed(volDecimals)}%</span>
-                  </div>
+                <div>
+                  <p className="text-[11px] text-slate-500 mb-1">Liquidity Score</p>
+                  <p className="text-sm text-slate-300">
+                    {liquidityScore === null || !Number.isFinite(liquidityScore)
+                      ? 'Not available'
+                      : formatPlain(liquidityScore, 1)}
+                  </p>
                 </div>
               </div>
             );})}
@@ -287,7 +327,7 @@ export function DriversAnalysis() {
             <Table>
               <TableHeader>
                 <TableRow className="border-border hover:bg-transparent">
-                  {labels.transition_cols.map((col) => (
+                  {['From \\ To', ...regimes.map((r) => r.label ?? `Regime ${r.id}`)].map((col) => (
                     <TableHead key={col} className="text-muted-foreground text-xs">
                       {col}
                     </TableHead>
@@ -295,22 +335,25 @@ export function DriversAnalysis() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {regime.regimes.map((fromRegime, fromIdx) => (
+                {regimes.map((fromRegime, fromIdx) => (
                   <TableRow key={fromRegime.id} className="border-border">
                     <TableCell className="text-foreground/80 font-medium text-sm">
-                      {fromRegime.label}
-                      {fromIdx === regime.current_regime && (
+                      {fromRegime.label ?? `Regime ${fromRegime.id}`}
+                      {fromRegime.id === regimeSwitching.current_regime && (
                         <span className="ml-2 text-xs px-2 py-0.5 bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 rounded-full">
                           NOW
                         </span>
                       )}
                     </TableCell>
-                    {regime.transitions[fromIdx].map((prob, toIdx) => {
-                      const probPct = prob <= 1 ? prob * 100 : prob;
+                    {regimes.map((toRegime, toIdx) => {
+                      const prob = regimeSwitching.transitions?.[fromIdx]?.[toIdx];
+                      const probPct = prob === null || prob === undefined || !Number.isFinite(prob)
+                        ? null
+                        : prob <= 1 ? prob * 100 : prob;
                       return (
-                      <TableCell key={toIdx} className="text-muted-foreground text-sm">
+                      <TableCell key={`${fromRegime.id}-${toRegime.id}`} className="text-muted-foreground text-sm">
                         <span className={fromIdx === toIdx ? 'text-emerald-600 dark:text-emerald-400 font-medium' : ''}>
-                          {probPct.toFixed(1)}%
+                          {probPct === null ? 'Not available' : `${probPct.toFixed(1)}%`}
                         </span>
                       </TableCell>
                     );})}
@@ -329,11 +372,11 @@ export function DriversAnalysis() {
               <TrendingUp className="w-5 h-5 text-amber-600 dark:text-amber-400" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-foreground">{labels.regime_title}</h3>
-              <p className="text-sm text-muted-foreground">{labels.regime_subtitle}</p>
+              <h3 className="text-lg font-semibold text-foreground">{regimeTitle}</h3>
+              <p className="text-sm text-muted-foreground">{regimeSubtitle}</p>
             </div>
           </div>
-          <p className="text-sm text-slate-400">Regime analysis is not available for this report (model could not be fitted or data insufficient).</p>
+          <p className="text-sm text-slate-400">Regime analysis is not available for this report.</p>
         </motion.div>
         )}
       </motion.div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, BarChart3, Info, ChevronDown } from 'lucide-react';
+import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import {
@@ -89,7 +90,10 @@ export function IntradayPanel() {
             <Clock className="w-5 h-5 text-amber-600 dark:text-amber-600 dark:text-amber-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">{labels.intraday_title}</h2>
+            <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+              {labels.intraday_title}
+              <MethodologyTooltip methodKey="intraday" size="md" />
+            </h2>
             <p className="text-sm text-muted-foreground">{labels.intraday_subtitle}</p>
           </div>
         </div>
@@ -106,6 +110,7 @@ export function IntradayPanel() {
             <div className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4 text-slate-500" />
               <h3 className="text-sm font-semibold text-foreground">{labels.session_dist_title}</h3>
+              <MethodologyTooltip methodKey="session_distribution" />
             </div>
             <div className="relative">
               <button
@@ -172,6 +177,7 @@ export function IntradayPanel() {
           <div className="flex items-center gap-2 mb-4">
             <Info className="w-4 h-4 text-slate-500" />
             <h3 className="text-sm font-semibold text-foreground">{labels.hhi_title}</h3>
+            <MethodologyTooltip methodKey="hhi" />
           </div>
           <div className="h-48">
             <ResponsiveContainer width="100%" height="100%">

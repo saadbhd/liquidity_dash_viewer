@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Users, HelpCircle } from 'lucide-react';
+import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import * as React from 'react';
@@ -176,7 +177,10 @@ export function TraderComposition() {
               <Users className="w-5 h-5 text-pink-400" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-foreground">{labels.trader_composition_title}</h2>
+              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+                {labels.trader_composition_title}
+                <MethodologyTooltip methodKey="trader_composition" size="md" />
+              </h2>
               <p className="text-sm text-muted-foreground">{labels.trader_composition_subtitle}</p>
             </div>
           </div>

@@ -450,6 +450,170 @@ export interface MetricStats {
   count: number;
 }
 
+export type Q01PeriodKey = '1d' | '30d' | '3m' | '6m';
+
+export interface Q01Liquidity {
+  metric_aggregation: string;
+  metric_window_days: number;
+  score_pca: number;
+  score_pca_percentile: number;
+  rank_pca: number;
+  total: number;
+  adv_notional_sgd: number;
+  adv_volume_shares: number;
+  free_float_shares: number | null;
+  turnover_ratio: number | null;
+  votes: number | null;
+  trades: number | null;
+  spread_pct: number | null;
+  spread_ticks: number | null;
+  amihud: number | null;
+  volatility: number | null;
+}
+
+export interface Q01Pca {
+  valid: boolean;
+  window_days: number;
+  variance_explained: number | null;
+  loadings: Record<string, number | null>;
+}
+
+export interface Q01DataQualityItem {
+  valid: boolean;
+  reason: string | null;
+}
+
+export interface Q01PeerSummary {
+  n_peers: number;
+  peer_median_adv: number | null;
+  peer_median_score_pca: number | null;
+  peer_median_trades: number | null;
+  peer_median_volatility: number | null;
+  peer_median_spread_pct: number | null;
+  peer_median_amihud: number | null;
+  peer_median_turnover_ratio: number | null;
+  target_vs_peer: Record<string, number | null>;
+}
+
+export interface Q01PeerLiquidityRow {
+  ticker: string;
+  score_pca: number;
+  rank_pca: number;
+  adv: number;
+  trades: number | null;
+  volatility: number | null;
+  spread_pct: number | null;
+  spread_ticks: number | null;
+  amihud: number | null;
+  turnover_ratio: number | null;
+  is_target: boolean;
+}
+
+export interface Q01Returns {
+  window_days: number;
+  n_obs: number;
+  stock: number | null;
+  market: number | null;
+  sector: number | null;
+  peers: number | null;
+  vs_market: number | null;
+  vs_sector: number | null;
+  vs_peers: number | null;
+}
+
+export interface Q01MarketComparisonMetrics {
+  adv: MetricStats;
+  spread_pct: MetricStats;
+  turnover_ratio: MetricStats;
+  trades: MetricStats;
+  volatility?: MetricStats;
+  amihud?: MetricStats;
+}
+
+export interface Q01MarketComparison {
+  sector_name: string;
+  sector_count: number;
+  market_count: number;
+  market: Q01MarketComparisonMetrics;
+  sector: Q01MarketComparisonMetrics;
+  peers: Q01MarketComparisonMetrics;
+  returns: Q01Returns;
+}
+
+export interface Q01PeriodData {
+  label: string;
+  window_days: number;
+  liquidity: Q01Liquidity;
+  pca: Q01Pca;
+  data_quality: Record<string, Q01DataQualityItem>;
+  peer_summary: Q01PeerSummary;
+  peer_liquidity: Q01PeerLiquidityRow[];
+  market_comparison: Q01MarketComparison;
+}
+
+export interface Q01 {
+  primary_liquidity_period: Q01PeriodKey;
+  periods: Partial<Record<Q01PeriodKey, Q01PeriodData>>;
+  period_insights?: Partial<
+    Record<
+      Q01PeriodKey,
+      {
+        liquidity?: string;
+        market_comparison?: string;
+      }
+    >
+  >;
+}
+
+export interface Q02RegimeMetricsMedian {
+  [key: string]: number | null | undefined;
+}
+
+export interface Q02RegimeItem {
+  id: number;
+  label: string;
+  pct_time: number;
+  n_days?: number;
+  liquidity_score?: number | null;
+  mean_ret_pct?: number | null;
+  volatility_pct?: number | null;
+  activity_score?: number | null;
+  spread_mode_ticks?: number | null;
+  l2_depth_notional_top4?: number | null;
+  l2_updates?: number | null;
+  l3_events?: number | null;
+  l3_executed_events?: number | null;
+  metrics_median?: Q02RegimeMetricsMedian;
+}
+
+export interface Q02RegimeMethodology {
+  window_days?: number | null;
+  clustering?: string | null;
+  spread_unit?: string | null;
+  tick_size_inferred?: number | null;
+  regime_metric_aggregation?: string | null;
+}
+
+export interface Q02RegimeSwitching {
+  valid?: boolean;
+  regime_method?: string;
+  n_regimes?: number;
+  regimes?: Q02RegimeItem[];
+  transitions?: number[][];
+  current_regime?: number;
+  interpretation?: string;
+  feature_columns?: string[];
+  methodology?: Q02RegimeMethodology;
+}
+
+export interface Q02 {
+  regime_switching?: Q02RegimeSwitching;
+  methodology?: {
+    regime_window_days?: number;
+    [key: string]: number | string | null | undefined;
+  };
+}
+
 export interface CompanyMetrics {
   volatility: number;
   adv: number;
@@ -789,4 +953,6 @@ export interface ReportData {
   content: Content;
   insights: Insights;
   series: Series;
+  q01?: Q01;
+  q02?: Q02;
 }

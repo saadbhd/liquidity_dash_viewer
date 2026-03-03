@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Users } from 'lucide-react';
+import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
 import * as React from 'react';
 import {
@@ -110,7 +111,10 @@ export function PeerTraderComposition() {
             <Users className="w-5 h-5 text-rose-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">{labels.peer_trader_title}</h2>
+            <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+              {labels.peer_trader_title}
+              <MethodologyTooltip methodKey="peer_traders" size="md" />
+            </h2>
             <p className="text-sm text-muted-foreground">{labels.peer_trader_subtitle}</p>
           </div>
         </div>

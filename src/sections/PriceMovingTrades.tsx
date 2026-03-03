@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Activity } from 'lucide-react';
+import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import {
@@ -78,7 +79,10 @@ export function PriceMovingTrades() {
             <Activity className="w-5 h-5 text-orange-600 dark:text-orange-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">{labels.price_moving_title}</h2>
+            <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+              {labels.price_moving_title}
+              <MethodologyTooltip methodKey="price_moving_trades" size="md" />
+            </h2>
             <p className="text-sm text-muted-foreground">{labels.price_moving_subtitle}</p>
           </div>
         </div>

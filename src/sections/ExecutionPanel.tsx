@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Target, TrendingDown, TrendingUp, Minus, AlertTriangle, DollarSign, Activity } from 'lucide-react';
+import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import {
@@ -89,7 +90,10 @@ export function ExecutionPanel() {
             <Target className="w-5 h-5 text-rose-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">{labels.exec_check_title}</h2>
+            <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+              {labels.exec_check_title}
+              <MethodologyTooltip methodKey="execution" size="md" />
+            </h2>
             <p className="text-sm text-muted-foreground">{labels.exec_check_subtitle}</p>
           </div>
         </div>
@@ -209,6 +213,7 @@ export function ExecutionPanel() {
         <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
           <AlertTriangle className="w-4 h-4 text-muted-foreground" />
           {labels.impact_summary_title}
+          <MethodologyTooltip methodKey="impact_simulation" />
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {content.impact_summary_cards.map((card, index) => (

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { TrendingDown, Info, Activity, ShieldAlert } from 'lucide-react';
+import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import {
@@ -110,7 +111,10 @@ export function ShortSellingAndLending() {
             <TrendingDown className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground">{SectionTitle}</h2>
+            <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+              {SectionTitle}
+              <MethodologyTooltip methodKey="short_selling" size="md" />
+            </h2>
             <p className="text-sm text-muted-foreground">{SectionSubtitle}</p>
           </div>
         </div>
@@ -122,7 +126,7 @@ export function ShortSellingAndLending() {
       {/* Tiles */}
       <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-muted-foreground mb-2">Avg Short% (3M)</p>
+          <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">Avg Short% (3M) <MethodologyTooltip methodKey="short_ratio" /></p>
           <p className="text-3xl font-bold text-foreground">{fmtPct(avg3m, 2)}</p>
           <p className="text-xs text-muted-foreground mt-1">
             Max: {p3?.valid ? fmtPct(p3.max_short_ratio ?? 0, 1) : '—'}
@@ -130,7 +134,7 @@ export function ShortSellingAndLending() {
         </div>
 
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-muted-foreground mb-2">Short% → Return corr</p>
+          <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">Short% → Return corr <MethodologyTooltip methodKey="correlation_short_return" /></p>
           <p className="text-3xl font-bold text-foreground">{(corr ?? 0).toFixed(3)}</p>
           <p className="text-xs text-muted-foreground mt-1">{corrLabel}</p>
         </div>
@@ -258,7 +262,7 @@ export function ShortSellingAndLending() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-amber-500/50">
           <div className="flex items-center justify-between mb-3">
             <div>
-              <h3 className="text-sm font-semibold text-foreground">SBL Lending Pool (Borrow Availability)</h3>
+              <h3 className="text-sm font-semibold text-foreground flex items-center gap-1">SBL Lending Pool (Borrow Availability) <MethodologyTooltip methodKey="sbl_pool" /></h3>
               <p className="text-xs text-muted-foreground">
                 This indicates how much stock is available for lending/borrowing and the potential liquidity overhang in a stress scenario.
               </p>

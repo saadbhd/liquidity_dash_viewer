@@ -7,22 +7,19 @@ import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     LayoutDashboard,
-    TrendingUp,
     TrendingDown,
     Activity,
     Clock,
-    Scale,
-    Flag,
     Menu,
     X,
     ChevronRight,
-    Zap,
+    ChevronDown,
     Target,
     ArrowRight,
     ArrowLeft,
     Users,
     PieChart,
-    BarChart2,
+    BarChart3,
     Loader2
 } from 'lucide-react';
 import { loadReportData } from '@/data/reportsIndex';
@@ -30,41 +27,68 @@ import { ReportProvider } from '@/context/ReportContext';
 import { FloatingHelp } from '@/components/FloatingHelp';
 import { HeroSection } from '@/sections/HeroSection';
 import { LiquidityScore } from '@/sections/LiquidityScore';
-import { MarketComparison } from '@/sections/MarketComparison';
-import { PerformancePanel } from '@/sections/PerformancePanel';
 import { DriversAnalysis } from '@/sections/DriversAnalysis';
 import { ExecutionPanel } from '@/sections/ExecutionPanel';
 import { TraderComposition } from '@/sections/TraderComposition';
 import { PeerTraderComposition } from '@/sections/PeerTraderComposition';
 import { PriceMovingTrades } from '@/sections/PriceMovingTrades';
 import { IntradayPanel } from '@/sections/IntradayPanel';
-import { OFIPanel } from '@/sections/OFIPanel';
 import { ShortSellingAndLending } from '@/sections/ShortSellingAndLending';
-import { IndexPanel } from '@/sections/IndexPanel';
-import { ActionPanel } from '@/sections/ActionPanel';
 import type { ReportData } from '@/types/report';
 
-function buildNavItems(report: ReportData) {
+type NavItem = { id: string; label: string; icon: React.ElementType };
+type NavGroup = { id: string; label: string; icon: React.ElementType; children: NavItem[] };
+type NavEntry = NavItem | NavGroup;
+
+function isGroup(entry: NavEntry): entry is NavGroup {
+    return 'children' in entry;
+}
+
+function buildNavItems(report: ReportData): NavEntry[] {
     const showShort = report.meta.market === 'XSES' && !!report.series.short_selling?.data_available;
-    const showIndex = report.meta.market === 'XSES';
-    const showPerformance = report.meta.ticker !== 'TKU';
 
     return [
         { id: 'hero', label: 'Overview', icon: LayoutDashboard },
-        { id: 'liquidity', label: 'Liquidity Score', icon: Activity },
-        { id: 'comparison', label: 'Market Comparison', icon: BarChart2 },
-        ...(showPerformance ? [{ id: 'performance', label: 'Performance', icon: TrendingUp }] : []),
-        { id: 'drivers', label: 'What Drives Price', icon: PieChart },
-        { id: 'traders', label: 'Trader Types', icon: Users },
-        { id: 'peer-traders', label: 'Peer Traders', icon: Users },
-        { id: 'price-moving', label: 'Price-Moving Trades', icon: Activity },
-        { id: 'execution', label: 'Trading Costs', icon: Target },
-        { id: 'intraday', label: 'Trading Times', icon: Clock },
-        { id: 'ofi', label: 'Order Flow', icon: Scale },
-        ...(showShort ? [{ id: 'short', label: 'Short Selling', icon: TrendingDown }] : []),
-        ...(showIndex ? [{ id: 'index', label: 'Index Eligibility', icon: Flag }] : []),
-        { id: 'actions', label: 'Action Plan', icon: Zap },
+        {
+            id: 'group-profile', label: 'Liquidity Profile', icon: BarChart3,
+            children: [
+                { id: 'liquidity', label: 'Liquidity & Market', icon: Activity },
+                { id: 'drivers', label: 'What Drives Price', icon: PieChart },
+                { id: 'execution', label: 'Trading Costs', icon: Target },
+                ...(showShort ? [{ id: 'short', label: 'Short Selling', icon: TrendingDown }] : []),
+            ],
+        },
+        {
+            id: 'group-activity', label: 'Trading Activity', icon: Activity,
+            children: [
+                { id: 'traders', label: 'Trader Types', icon: Users },
+                { id: 'peer-traders', label: 'Peer Traders', icon: Users },
+                { id: 'price-moving', label: 'Price-Moving Trades', icon: Activity },
+                { id: 'intraday', label: 'Trading Times', icon: Clock },
+            ],
+        },
     ];
+}
+
+function getAllSectionIds(report: ReportData): string[] {
+    const ids: string[] = [];
+    for (const entry of buildNavItems(report)) {
+        if (isGroup(entry)) {
+            for (const child of entry.children) ids.push(child.id);
+        } else {
+            ids.push(entry.id);
+        }
+    }
+    return ids;
+}
+
+function getGroupForSection(sectionId: string, navItems: NavEntry[]): string | null {
+    for (const entry of navItems) {
+        if (isGroup(entry) && entry.children.some(c => c.id === sectionId)) {
+            return entry.id;
+        }
+    }
+    return null;
 }
 
 export function ReportViewer() {
@@ -117,21 +141,34 @@ export function ReportViewer() {
         }
     };
 
+    const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
+        'group-profile': true,
+        'group-activity': true,
+    });
+
+    const toggleGroup = (groupId: string) => {
+        setOpenGroups(prev => ({ ...prev, [groupId]: !prev[groupId] }));
+    };
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         setActiveSection(entry.target.id);
+                        if (reportData) {
+                            const group = getGroupForSection(entry.target.id, buildNavItems(reportData));
+                            if (group) setOpenGroups(prev => ({ ...prev, [group]: true }));
+                        }
                     }
                 });
             },
             { threshold: 0.2 }
         );
 
-        const navItems = reportData ? buildNavItems(reportData) : [];
-        navItems.forEach(({ id: navId }) => {
-            const element = document.getElementById(navId);
+        const sectionIds = reportData ? getAllSectionIds(reportData) : [];
+        sectionIds.forEach((sId) => {
+            const element = document.getElementById(sId);
             if (element) observer.observe(element);
         });
 
@@ -231,19 +268,64 @@ export function ReportViewer() {
 
                             {/* Navigation */}
                             <nav className="flex-1 overflow-y-auto p-4 space-y-1">
-                                {buildNavItems(reportData).map(({ id: navId, label, icon: Icon }) => (
-                                    <button
-                                        key={navId}
-                                        onClick={() => scrollToSection(navId)}
-                                        className={`nav-item w-full ${activeSection === navId ? 'active' : ''}`}
-                                    >
-                                        <Icon className="w-4 h-4" />
-                                        <span className="flex-1 text-left">{label}</span>
-                                        {activeSection === navId && (
-                                            <ChevronRight className="w-4 h-4 text-sky-400" />
-                                        )}
-                                    </button>
-                                ))}
+                                {buildNavItems(reportData).map((entry) => {
+                                    if (isGroup(entry)) {
+                                        const groupOpen = openGroups[entry.id] ?? true;
+                                        const hasActive = entry.children.some(c => c.id === activeSection);
+                                        return (
+                                            <div key={entry.id}>
+                                                <button
+                                                    onClick={() => toggleGroup(entry.id)}
+                                                    className={`nav-item w-full ${hasActive ? 'text-sky-400' : ''}`}
+                                                >
+                                                    <entry.icon className="w-4 h-4" />
+                                                    <span className="flex-1 text-left font-medium">{entry.label}</span>
+                                                    <ChevronDown className={`w-3.5 h-3.5 text-slate-500 transition-transform duration-200 ${groupOpen ? '' : '-rotate-90'}`} />
+                                                </button>
+                                                <AnimatePresence initial={false}>
+                                                    {groupOpen && (
+                                                        <motion.div
+                                                            initial={{ height: 0, opacity: 0 }}
+                                                            animate={{ height: 'auto', opacity: 1 }}
+                                                            exit={{ height: 0, opacity: 0 }}
+                                                            transition={{ duration: 0.2 }}
+                                                            className="overflow-hidden"
+                                                        >
+                                                            <div className="ml-4 pl-3 border-l border-slate-800/60 space-y-0.5 py-1">
+                                                                {entry.children.map(({ id: childId, label, icon: Icon }) => (
+                                                                    <button
+                                                                        key={childId}
+                                                                        onClick={() => scrollToSection(childId)}
+                                                                        className={`nav-item w-full text-sm ${activeSection === childId ? 'active' : ''}`}
+                                                                    >
+                                                                        <Icon className="w-3.5 h-3.5" />
+                                                                        <span className="flex-1 text-left">{label}</span>
+                                                                        {activeSection === childId && (
+                                                                            <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
+                                                                        )}
+                                                                    </button>
+                                                                ))}
+                                                            </div>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+                                        );
+                                    }
+                                    return (
+                                        <button
+                                            key={entry.id}
+                                            onClick={() => scrollToSection(entry.id)}
+                                            className={`nav-item w-full ${activeSection === entry.id ? 'active' : ''}`}
+                                        >
+                                            <entry.icon className="w-4 h-4" />
+                                            <span className="flex-1 text-left">{entry.label}</span>
+                                            {activeSection === entry.id && (
+                                                <ChevronRight className="w-4 h-4 text-sky-400" />
+                                            )}
+                                        </button>
+                                    );
+                                })}
                             </nav>
 
                             {/* Footer */}
@@ -289,28 +371,31 @@ export function ReportViewer() {
 
                     {/* Content Sections */}
                     <div className="p-4 lg:p-8 pt-20 lg:pt-8 space-y-8">
+                        {/* Overview */}
                         <section id="hero">
                             <HeroSection />
                         </section>
 
+                        {/* Liquidity Profile */}
                         <section id="liquidity">
                             <LiquidityScore />
                         </section>
-
-                        <section id="comparison">
-                            <MarketComparison />
-                        </section>
-
-                        {reportData.meta.ticker !== 'TKU' ? (
-                            <section id="performance">
-                                <PerformancePanel />
-                            </section>
-                        ) : null}
 
                         <section id="drivers">
                             <DriversAnalysis />
                         </section>
 
+                        <section id="execution">
+                            <ExecutionPanel />
+                        </section>
+
+                        {reportData.meta.market === 'XSES' && reportData.series.short_selling?.data_available ? (
+                            <section id="short">
+                                <ShortSellingAndLending />
+                            </section>
+                        ) : null}
+
+                        {/* Trading Activity */}
                         <section id="traders">
                             <TraderComposition />
                         </section>
@@ -323,32 +408,8 @@ export function ReportViewer() {
                             <PriceMovingTrades />
                         </section>
 
-                        <section id="execution">
-                            <ExecutionPanel />
-                        </section>
-
                         <section id="intraday">
                             <IntradayPanel />
-                        </section>
-
-                        <section id="ofi">
-                            <OFIPanel />
-                        </section>
-
-                        {reportData.meta.market === 'XSES' && reportData.series.short_selling?.data_available ? (
-                            <section id="short">
-                                <ShortSellingAndLending />
-                            </section>
-                        ) : null}
-
-                        {reportData.meta.market === 'XSES' ? (
-                            <section id="index">
-                                <IndexPanel />
-                            </section>
-                        ) : null}
-
-                        <section id="actions">
-                            <ActionPanel />
                         </section>
                     </div>
                 </main>

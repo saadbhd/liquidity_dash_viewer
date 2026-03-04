@@ -4,7 +4,7 @@
 
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
     LayoutDashboard,
     TrendingDown,
@@ -106,20 +106,30 @@ export function ReportViewer() {
         loadReport();
     }, [id]);
 
+    const [contentMounted, setContentMounted] = useState(0);
+
     const handleTabChange = useCallback((tabId: string) => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        if (tabId === activeTab) return;
         setActiveTab(tabId);
         const tab = tabs.find(t => t.id === tabId);
         setActiveSubSection(tab?.subSections?.[0]?.id ?? null);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [tabs]);
+    }, [tabs, activeTab]);
+
+    const isScrollingRef = useRef(false);
 
     const scrollToSubSection = useCallback((sectionId: string) => {
+        setActiveSubSection(sectionId);
+        isScrollingRef.current = true;
+
         const el = document.getElementById(sectionId);
         if (el) {
-            const offset = 140;
+            const offset = 160;
             const top = el.getBoundingClientRect().top + window.scrollY - offset;
             window.scrollTo({ top, behavior: 'smooth' });
         }
+
+        setTimeout(() => { isScrollingRef.current = false; }, 1000);
     }, []);
 
     useEffect(() => {
@@ -128,27 +138,23 @@ export function ReportViewer() {
         const sectionIds = currentTab.subSections.map(s => s.id);
         const observer = new IntersectionObserver(
             (entries) => {
+                if (isScrollingRef.current) return;
                 for (const entry of entries) {
                     if (entry.isIntersecting) {
                         setActiveSubSection(entry.target.id);
                     }
                 }
             },
-            { threshold: 0.25, rootMargin: '-140px 0px -40% 0px' }
+            { threshold: 0.15, rootMargin: '-160px 0px -30% 0px' }
         );
 
-        const timer = requestAnimationFrame(() => {
-            sectionIds.forEach((sId) => {
-                const el = document.getElementById(sId);
-                if (el) observer.observe(el);
-            });
+        sectionIds.forEach((sId) => {
+            const el = document.getElementById(sId);
+            if (el) observer.observe(el);
         });
 
-        return () => {
-            cancelAnimationFrame(timer);
-            observer.disconnect();
-        };
-    }, [currentTab]);
+        return () => observer.disconnect();
+    }, [currentTab, contentMounted]);
 
     if (loading) {
         return (
@@ -238,56 +244,46 @@ export function ReportViewer() {
                         </nav>
                     </div>
 
-                    {/* Sub-section Anchor Pills */}
-                    <AnimatePresence mode="wait">
-                        {currentTab?.subSections && (
-                            <motion.div
-                                key={currentTab.id}
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                                className="overflow-hidden border-t border-border/40"
-                            >
-                                <div className="px-4 lg:px-8 py-2.5 flex justify-center gap-2 overflow-x-auto scrollbar-hide">
-                                    {currentTab.subSections.map((sub) => {
-                                        const isActive = activeSubSection === sub.id;
-                                        const SubIcon = sub.icon;
-                                        return (
-                                            <button
-                                                key={sub.id}
-                                                onClick={() => scrollToSubSection(sub.id)}
-                                                className={`
-                                                    flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
-                                                    whitespace-nowrap transition-all duration-200
-                                                    ${isActive
-                                                        ? 'bg-sky-500/15 text-sky-500 ring-1 ring-sky-500/30'
-                                                        : 'bg-accent/50 text-muted-foreground hover:bg-accent hover:text-foreground'
-                                                    }
-                                                `}
-                                            >
-                                                <SubIcon className="w-3 h-3" />
-                                                {sub.label}
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    {/* Sub-section Anchor Pills — fixed-height container to prevent layout shift */}
+                    <div className="h-[42px] border-t border-border/40 flex items-center justify-center">
+                        {currentTab?.subSections ? (
+                            <div className="px-4 lg:px-8 flex justify-center gap-2 overflow-x-auto scrollbar-hide">
+                                {currentTab.subSections.map((sub) => {
+                                    const isActive = activeSubSection === sub.id;
+                                    const SubIcon = sub.icon;
+                                    return (
+                                        <button
+                                            key={sub.id}
+                                            onClick={() => scrollToSubSection(sub.id)}
+                                            className={`
+                                                flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
+                                                whitespace-nowrap transition-all duration-200
+                                                ${isActive
+                                                    ? 'bg-sky-500/15 text-sky-500 ring-1 ring-sky-500/30'
+                                                    : 'bg-accent/50 text-muted-foreground hover:bg-accent hover:text-foreground'
+                                                }
+                                            `}
+                                        >
+                                            <SubIcon className="w-3 h-3" />
+                                            {sub.label}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        ) : null}
+                    </div>
                 </header>
 
                 {/* Main Content */}
                 <main ref={contentRef}>
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={activeTab}
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -8 }}
-                            transition={{ duration: 0.25 }}
-                            className="p-4 lg:p-8 space-y-8"
-                        >
+                    <motion.div
+                        key={activeTab}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.2 }}
+                        onAnimationComplete={() => setContentMounted(c => c + 1)}
+                        className="p-4 lg:p-8 space-y-8"
+                    >
                             {activeTab === 'overview' && (
                                 <section id="hero">
                                     <HeroSection />
@@ -357,8 +353,7 @@ export function ReportViewer() {
                                     </div>
                                 </section>
                             )}
-                        </motion.div>
-                    </AnimatePresence>
+                    </motion.div>
                 </main>
 
                 {/* Floating Help */}

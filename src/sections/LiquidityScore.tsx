@@ -16,13 +16,16 @@ import {
   ReferenceLine,
 } from 'recharts';
 
-const PERIOD_ORDER: Q01PeriodKey[] = ['1d', '30d', '3m', '6m'];
+const CANONICAL_ORDER: Q01PeriodKey[] = ['1d', '1w', '2w', '30d', '3m', '6m', 'max'];
 
-const PERIOD_LABELS: Record<Q01PeriodKey, string> = {
+const PERIOD_LABELS: Record<string, string> = {
   '1d': '1D',
-  '30d': '30D',
+  '1w': '1W',
+  '2w': '2W',
+  '30d': '1M',
   '3m': '3M',
   '6m': '6M',
+  'max': 'MAX',
 };
 
 type MarketTabKey = 'returns' | 'adv' | 'spread_pct' | 'turnover_ratio' | 'trades' | 'volatility' | 'amihud';
@@ -199,7 +202,9 @@ function getQ01Periods(report: ReportData): {
   legacyFallback: boolean;
 } {
   if (report.q01?.periods) {
-    const availableKeys = PERIOD_ORDER.filter((key) => !!report.q01?.periods?.[key]);
+    const allPeriodKeys = Object.keys(report.q01.periods) as Q01PeriodKey[];
+    const availableKeys = CANONICAL_ORDER.filter((key) => allPeriodKeys.includes(key))
+      .concat(allPeriodKeys.filter((key) => !CANONICAL_ORDER.includes(key)));
     if (availableKeys.length > 0) {
       const preferred = report.q01.primary_liquidity_period;
       return {
@@ -251,6 +256,7 @@ export function LiquidityScore() {
       key: 'adv',
       tabLabel: 'Volume',
       label: 'ADV (Notional)',
+      direction: 'higher_is_better' as const,
       company: period.liquidity.adv_notional_sgd,
       market: period.market_comparison.market.adv,
       sector: period.market_comparison.sector.adv,
@@ -261,6 +267,7 @@ export function LiquidityScore() {
       key: 'spread_pct',
       tabLabel: 'Spread',
       label: 'Spread',
+      direction: 'lower_is_better' as const,
       company: period.liquidity.spread_pct,
       market: period.market_comparison.market.spread_pct,
       sector: period.market_comparison.sector.spread_pct,
@@ -271,6 +278,7 @@ export function LiquidityScore() {
       key: 'turnover_ratio',
       tabLabel: 'Turnover',
       label: 'Turnover Ratio',
+      direction: 'higher_is_better' as const,
       company: period.liquidity.turnover_ratio,
       market: period.market_comparison.market.turnover_ratio,
       sector: period.market_comparison.sector.turnover_ratio,
@@ -281,6 +289,7 @@ export function LiquidityScore() {
       key: 'trades',
       tabLabel: 'Trades',
       label: 'Trades',
+      direction: 'higher_is_better' as const,
       company: period.liquidity.trades,
       market: period.market_comparison.market.trades,
       sector: period.market_comparison.sector.trades,
@@ -291,6 +300,7 @@ export function LiquidityScore() {
       key: 'volatility',
       tabLabel: 'Volatility',
       label: 'Volatility',
+      direction: 'lower_is_better' as const,
       company: period.liquidity.volatility,
       market: period.market_comparison.market.volatility,
       sector: period.market_comparison.sector.volatility,
@@ -301,6 +311,7 @@ export function LiquidityScore() {
       key: 'amihud',
       tabLabel: 'Amihud',
       label: 'Price Impact (Amihud)',
+      direction: 'lower_is_better' as const,
       company: period.liquidity.amihud,
       market: period.market_comparison.market.amihud,
       sector: period.market_comparison.sector.amihud,
@@ -312,6 +323,7 @@ export function LiquidityScore() {
     key: Exclude<MarketTabKey, 'returns'>;
     tabLabel: string;
     label: string;
+    direction: 'higher_is_better' | 'lower_is_better';
     company: number | null | undefined;
     market?: { min: number; max: number; median: number };
     sector?: { median: number };
@@ -468,7 +480,7 @@ export function LiquidityScore() {
                 : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
             }`}
           >
-            {PERIOD_LABELS[periodKey]}
+            {PERIOD_LABELS[periodKey] ?? periodKey.toUpperCase()}
           </button>
         ))}
         {q01View.legacyFallback ? (
@@ -611,7 +623,7 @@ export function LiquidityScore() {
                       : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
                   }`}
                 >
-                  {PERIOD_LABELS[periodKey]}
+                  {PERIOD_LABELS[periodKey] ?? periodKey.toUpperCase()}
                 </button>
               ))}
             </div>
@@ -703,6 +715,70 @@ export function LiquidityScore() {
             <div className="bg-slate-900/30 rounded-xl p-4 border border-slate-800">
               {selectedMetric.market ? (
                 <>
+                  {/* ── Horizontal Bar Chart (direction-aware) ── */}
+                  {(() => {
+                    const dir = selectedMetric.direction;
+                    const lowerBetter = dir === 'lower_is_better';
+                    const barData = metricMarkers.filter(m => m.value !== null && m.value !== undefined && Number.isFinite(m.value));
+                    const maxVal = Math.max(...barData.map(m => Math.abs(m.value as number)), 1e-12);
+                    const stockVal = selectedMetric.company;
+                    const peersVal = selectedMetric.peers?.median;
+                    const stockIsFavorable =
+                      stockVal != null && peersVal != null && Number.isFinite(stockVal) && Number.isFinite(peersVal)
+                        ? lowerBetter ? stockVal <= peersVal : stockVal >= peersVal
+                        : null;
+
+                    return (
+                      <div className="space-y-3">
+                        {barData.map((marker) => {
+                          const absVal = Math.abs(marker.value as number);
+                          const widthPct = Math.max((absVal / maxVal) * 100, 2);
+
+                          let barBg: string;
+                          if (marker.key === 'stock') {
+                            barBg = stockIsFavorable === true ? 'bg-emerald-500/80' : stockIsFavorable === false ? 'bg-red-400/70' : 'bg-sky-500/80';
+                          } else {
+                            const bgMap: Record<string, string> = {
+                              'bg-amber-500': 'bg-amber-500/60',
+                              'bg-teal-500': 'bg-teal-500/60',
+                              'bg-purple-500': 'bg-purple-500/60',
+                            };
+                            barBg = bgMap[marker.cls] ?? 'bg-slate-500/60';
+                          }
+
+                          return (
+                            <div key={marker.key} className="flex items-center gap-3">
+                              <div className="w-28 shrink-0 flex items-center gap-2">
+                                <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${marker.key === 'stock' ? (stockIsFavorable === true ? 'bg-emerald-500' : stockIsFavorable === false ? 'bg-red-400' : marker.cls) : marker.cls}`} />
+                                <span className="text-xs text-slate-400 truncate">{marker.label}</span>
+                              </div>
+                              <div className="flex-1 relative h-7 bg-slate-800/50 rounded-lg overflow-hidden">
+                                <motion.div
+                                  className={`absolute inset-y-0 left-0 rounded-lg ${barBg}`}
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${widthPct}%` }}
+                                  transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                                />
+                                <span className="absolute inset-y-0 right-3 flex items-center text-xs font-medium text-slate-200">
+                                  {selectedMetric.format(marker.value)}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
+
+                  <div className="flex items-center justify-between mt-4 text-[11px] text-slate-500">
+                    <span>Market range: {selectedMetric.format(selectedMetric.market.min)} – {selectedMetric.format(selectedMetric.market.max)}</span>
+                    <span className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-slate-800/60 text-slate-400">
+                      {selectedMetric.direction === 'lower_is_better' ? '↓' : '↑'}
+                      {selectedMetric.direction === 'lower_is_better' ? ' Lower is better' : ' Higher is better'}
+                    </span>
+                  </div>
+
+                  {/* ── OLD CHART (gradient slider) ──
                   <div className="flex justify-between text-[11px] text-slate-500 mb-2">
                     <span>Min: {selectedMetric.format(selectedMetric.market.min)}</span>
                     <span>Max: {selectedMetric.format(selectedMetric.market.max)}</span>
@@ -734,6 +810,8 @@ export function LiquidityScore() {
                   <p className="text-xs text-slate-500 mt-3">
                     Distribution is anchored on market min→max for this period. Markers show stock and median comparators.
                   </p>
+                  ── END OLD CHART ── */}
+
                   <div className="mt-4 pt-4 border-t border-slate-800">
                     <p className="text-xs uppercase tracking-wide text-slate-500 mb-2">Insight</p>
                     <p className="text-sm text-slate-300 leading-relaxed">
@@ -753,7 +831,7 @@ export function LiquidityScore() {
                   </div>
                 </>
               ) : (
-                <div className="text-sm text-slate-400">This metric is not available for {PERIOD_LABELS[activePeriod]}.</div>
+                <div className="text-sm text-slate-400">This metric is not available for {PERIOD_LABELS[activePeriod] ?? activePeriod.toUpperCase()}.</div>
               )}
             </div>
           </div>

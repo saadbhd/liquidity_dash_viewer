@@ -50,11 +50,16 @@ export function ShortSellingAndLending() {
   const fmtPct = (v: number | null | undefined, digits = 2) => `${ratioToPct(Number(v ?? 0)).toFixed(digits)}%`;
   const fmtNum = (n: number) => new Intl.NumberFormat('en-US').format(n);
 
-  const p3 = short.periods?.['3M']?.stats;
-  const p6 = short.periods?.['6M']?.stats;
-
-  const avg3m = p3?.valid ? (p3.avg_short_ratio ?? 0) : 0;
-  const max6m = p6?.valid ? (p6.max_short_ratio ?? 0) : 0;
+  const periodKeys = Object.keys(short.periods ?? {});
+  // Use the same period for both Avg Short% and Max Short%; prefer 1M when available.
+  const primaryPeriodKey =
+    (periodKeys.includes("1M") ? "1M" : null) ??
+    short.methodology?.primary_period ??
+    (periodKeys.length > 1 ? periodKeys[periodKeys.length - 2] : periodKeys[0]) ??
+    "1M";
+  const p = short.periods?.[primaryPeriodKey]?.stats;
+  const avgShort = p?.valid ? (p.avg_short_ratio ?? 0) : 0;
+  const maxShort = p?.valid ? (p.max_short_ratio ?? 0) : 0;
 
   const corr = short.correlation?.valid ? (short.correlation.correlation ?? 0) : 0;
   const corrLabel = short.correlation?.interpretation ?? '—';
@@ -62,7 +67,7 @@ export function ShortSellingAndLending() {
   const trendText = short.short_interest_change?.interpretation ?? 'No trend data';
   const coverageDays = short.coverage?.n_days_short_data;
 
-  const badgeText = p3?.interpretation ?? theme.badges.short.text;
+  const badgeText = p?.interpretation ?? theme.badges.short.text;
 
   const rawRows = short.short_series?.valid
     ? short.short_series.rows.slice().sort((a, b) => a.date.localeCompare(b.date))
@@ -73,6 +78,7 @@ export function ShortSellingAndLending() {
     shortPct: ratioToPct(r.short_ratio),
     ...(r.close != null ? { price: r.close } : {}),
   }));
+  const priceAxisLabel = `Close Price${meta.market === 'XSES' ? ' (SGD)' : meta.market === 'XHKG' ? ' (HKD)' : ''}`;
 
   const priceRange = hasPrice
     ? (() => {
@@ -126,10 +132,10 @@ export function ShortSellingAndLending() {
       {/* Tiles */}
       <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">Avg Short% (3M) <MethodologyTooltip methodKey="short_ratio" /></p>
-          <p className="text-3xl font-bold text-foreground">{fmtPct(avg3m, 2)}</p>
+          <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">Avg Short% ({primaryPeriodKey}) <MethodologyTooltip methodKey="short_ratio" /></p>
+          <p className="text-3xl font-bold text-foreground">{fmtPct(avgShort, 2)}</p>
           <p className="text-xs text-muted-foreground mt-1">
-            Max: {p3?.valid ? fmtPct(p3.max_short_ratio ?? 0, 1) : '—'}
+            Max: {p?.valid ? fmtPct(p.max_short_ratio ?? 0, 1) : '—'}
           </p>
         </div>
 
@@ -140,9 +146,9 @@ export function ShortSellingAndLending() {
         </div>
 
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-muted-foreground mb-2">Max Short% (6M)</p>
-          <p className="text-3xl font-bold text-foreground">{fmtPct(max6m, 1)}</p>
-          <p className="text-xs text-muted-foreground mt-1">{p6?.interpretation ?? '—'}</p>
+          <p className="text-xs text-muted-foreground mb-2">Max Short% ({primaryPeriodKey})</p>
+          <p className="text-3xl font-bold text-foreground">{fmtPct(maxShort, 1)}</p>
+          <p className="text-xs text-muted-foreground mt-1">{p?.interpretation ?? '—'}</p>
         </div>
 
         <div className="glass-panel rounded-xl p-4">
@@ -189,10 +195,22 @@ export function ShortSellingAndLending() {
             <Activity className="w-4 h-4 text-muted-foreground" />
             <h3 className="text-sm font-semibold text-foreground">Short% over time</h3>
           </div>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground mb-2">
+            <span className="inline-flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              Short% (ShortSaleVolume / TotalVolume)
+            </span>
+            {hasPrice ? (
+              <span className="inline-flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                {priceAxisLabel}
+              </span>
+            ) : null}
+          </div>
           {seriesRows.length > 0 ? (
             <div className="h-72 min-h-[280px] flex-1 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={seriesRows} margin={{ top: 10, right: hasPrice ? 50 : 20, left: 0, bottom: 30 }}>
+                <LineChart data={seriesRows} margin={{ top: 10, right: hasPrice ? 64 : 20, left: 0, bottom: 30 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                   <XAxis
                     dataKey="date"
@@ -209,22 +227,42 @@ export function ShortSellingAndLending() {
                     tickLine={false}
                     domain={[0, 'dataMax']}
                     tickFormatter={(v) => `${Number(v).toFixed(0)}%`}
+                    label={{
+                      value: 'Short %',
+                      angle: -90,
+                      position: 'insideLeft',
+                      offset: 2,
+                      fill: chartTheme.tickFill,
+                      fontSize: 11,
+                    }}
                   />
                   {hasPrice && priceRange ? (
                     <YAxis
                       yAxisId="right"
                       orientation="right"
+                      width={72}
                       tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
+                      tickMargin={8}
                       axisLine={false}
                       tickLine={false}
                       domain={[priceRange[0], priceRange[1]]}
                       tickFormatter={(v) => Number(v).toFixed(3)}
+                      label={{
+                        value: 'Price',
+                        angle: 90,
+                        position: 'right',
+                        offset: 8,
+                        fill: chartTheme.tickFill,
+                        fontSize: 10,
+                      }}
                     />
                   ) : null}
                   <Tooltip
                     contentStyle={chartTheme.tooltipContentStyle}
                     formatter={(v: number, name: string) =>
-                      name === 'price' ? [Number(v).toFixed(3), 'Price'] : [`${Number(v).toFixed(2)}%`, 'Short%']
+                      name === 'price'
+                        ? [Number(v).toFixed(3), priceAxisLabel]
+                        : [`${Number(v).toFixed(2)}%`, 'Short % (ShortSaleVolume / TotalVolume)']
                     }
                     labelFormatter={(label) => `Date: ${label}`}
                   />
@@ -313,42 +351,36 @@ export function ShortSellingAndLending() {
       ) : null}
 
       {/* Peaks table */}
-      <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-        <h3 className="text-sm font-semibold text-foreground mb-3">Largest short-ratio days</h3>
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow className="border-slate-800 hover:bg-transparent">
-                <TableHead className="text-muted-foreground text-xs">Date</TableHead>
-                <TableHead className="text-muted-foreground text-xs text-right">Short%</TableHead>
-                <TableHead className="text-muted-foreground text-xs text-right">Return</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {peaks.map((p) => (
-                <TableRow key={p.date} className="border-slate-800">
-                  <TableCell className="text-slate-300 text-sm">{p.date}</TableCell>
-                  <TableCell className="text-right text-slate-400 text-sm">{fmtPct(p.short_ratio ?? 0, 1)}</TableCell>
-                  <TableCell className={`text-right text-sm ${(p.return_pct ?? 0) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
-                    {(p.return_pct ?? 0).toFixed(1)}%
-                  </TableCell>
+      {peaks.length > 0 ? (
+        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
+          <h3 className="text-sm font-semibold text-foreground mb-3">Largest short-ratio days</h3>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-slate-800 hover:bg-transparent">
+                  <TableHead className="text-muted-foreground text-xs">Date</TableHead>
+                  <TableHead className="text-muted-foreground text-xs text-right">Short%</TableHead>
+                  <TableHead className="text-muted-foreground text-xs text-right">Return</TableHead>
                 </TableRow>
-              ))}
-              {peaks.length === 0 ? (
-                <TableRow className="border-slate-800">
-                  <TableCell className="text-muted-foreground text-sm" colSpan={3}>
-                    No peak days available.
-                  </TableCell>
-                </TableRow>
-              ) : null}
-            </TableBody>
-          </Table>
-        </div>
-        <p className="text-xs text-muted-foreground mt-3">
-          {shortInsights?.peaks ?? 'Peaks are episodic; use as context alongside spread and OFI stress.'}
-        </p>
-      </motion.div>
+              </TableHeader>
+              <TableBody>
+                {peaks.map((p) => (
+                  <TableRow key={p.date} className="border-slate-800">
+                    <TableCell className="text-slate-300 text-sm">{p.date}</TableCell>
+                    <TableCell className="text-right text-slate-400 text-sm">{fmtPct(p.short_ratio ?? 0, 1)}</TableCell>
+                    <TableCell className={`text-right text-sm ${(p.return_pct ?? 0) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
+                      {(p.return_pct ?? 0).toFixed(1)}%
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <p className="text-xs text-muted-foreground mt-3">
+            {shortInsights?.peaks ?? 'Peaks are episodic; use as context alongside spread and OFI stress.'}
+          </p>
+        </motion.div>
+      ) : null}
     </motion.section>
   );
 }
-

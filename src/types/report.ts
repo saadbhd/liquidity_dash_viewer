@@ -262,8 +262,41 @@ export interface TraderCompositionLegacy {
   }[];
 }
 
+export interface TraderPeerCompositionRow {
+  ticker: string;
+  currency: string;
+  is_target: boolean;
+  retail_pct: number;
+  mixed_pct: number;
+  instit_pct: number;
+  retail_qty_pct?: number;
+  mixed_qty_pct?: number;
+  instit_qty_pct?: number;
+  retail_notional_pct?: number;
+  mixed_notional_pct?: number;
+  instit_notional_pct?: number;
+  avg_trade_size: number;
+  thresholds: TraderCompositionThresholds;
+}
+
+export interface TraderCompositionPeriodSnapshot {
+  valid: boolean;
+  currency: string;
+  n_trades: number;
+  first_trade_date: string;
+  last_trade_date: string;
+  period_days: number;
+  thresholds: TraderCompositionThresholds;
+  composition: TraderCompositionMix;
+  trade_size: { avg: number; median: number };
+  peer_comparison?: TraderPeerCompositionRow[];
+}
+
 // New (v2) schema from the pipeline (fractions 0-1).
 export interface TraderCompositionV2 {
+  primary_period?: string;
+  periods?: Record<string, TraderCompositionPeriodSnapshot>;
+  peer_comparison_periods?: Record<string, TraderPeerCompositionRow[]>;
   valid: boolean;
   currency: string;
   n_trades: number;
@@ -289,23 +322,7 @@ export interface TraderCompositionV2 {
       total_quantity?: number;
     }[];
   };
-  peer_comparison: {
-    ticker: string;
-    currency: string;
-    is_target: boolean;
-    retail_pct: number;
-    mixed_pct: number;
-    instit_pct: number;
-    // Optional (v3): peer composition by total shares and notional (fractions 0-1).
-    retail_qty_pct?: number;
-    mixed_qty_pct?: number;
-    instit_qty_pct?: number;
-    retail_notional_pct?: number;
-    mixed_notional_pct?: number;
-    instit_notional_pct?: number;
-    avg_trade_size: number;
-    thresholds: TraderCompositionThresholds;
-  }[];
+  peer_comparison: TraderPeerCompositionRow[];
   currency_thresholds?: Record<string, TraderCompositionThresholds>;
   classification_legend?: Record<string, string>;
 }
@@ -343,6 +360,10 @@ export interface ShortSellingPeriodStats {
 export interface ShortSelling {
   data_available: boolean;
   security_name: string;
+  methodology?: {
+    primary_period?: string;
+    [key: string]: string | number | null | undefined;
+  };
   mapping?: {
     ticker_to_security: string;
     confidence: string;
@@ -450,7 +471,7 @@ export interface MetricStats {
   count: number;
 }
 
-export type Q01PeriodKey = '1d' | '30d' | '3m' | '6m';
+export type Q01PeriodKey = '1d' | '1w' | '2w' | '30d' | '3m' | '6m' | 'max' | string;
 
 export interface Q01Liquidity {
   metric_aggregation: string;

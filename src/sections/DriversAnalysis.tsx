@@ -81,13 +81,22 @@ export function DriversAnalysis() {
 
       return Object.values(drivers.rolling_windows)
         .filter((w) => w.valid && w.period_label && w.shares)
+        .filter((w) => {
+          const s = w.shares! as { share_market?: number; share_sector?: number; share_idio?: number; share_company?: number };
+          const idio = s.share_idio ?? s.share_company;
+          return Number.isFinite(s.share_market) && Number.isFinite(s.share_sector) && Number.isFinite(idio);
+        })
         .sort((a, b) => parseStart(a.period_label) - parseStart(b.period_label))
-        .map((w) => ({
-          period: w.period_label!,
-          Market: w.shares!.share_market * 100,
-          Sector: w.shares!.share_sector * 100,
-          'Company-Specific': w.shares!.share_idio * 100,
-        }));
+        .map((w) => {
+          const s = w.shares! as { share_market?: number; share_sector?: number; share_idio?: number; share_company?: number };
+          const idio = s.share_idio ?? s.share_company ?? 0;
+          return {
+            period: w.period_label!,
+            Market: (s.share_market ?? 0) * 100,
+            Sector: (s.share_sector ?? 0) * 100,
+            'Company-Specific': idio * 100,
+          };
+        });
     }
 
     return drivers.rolling.ordered.map((period, index) => ({

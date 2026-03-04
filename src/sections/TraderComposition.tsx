@@ -35,17 +35,64 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
+const PERIOD_ORDER = ['1d', '1w', '2w', '30d', '3m', '6m', 'max'];
+
+const periodLabel = (key: string) => {
+  const map: Record<string, string> = {
+    '1d': '1D',
+    '1w': '1W',
+    '2w': '2W',
+    '30d': '1M',
+    '3m': '3M',
+    '6m': '6M',
+    'max': 'MAX',
+  };
+  return map[key] || key.toUpperCase();
+};
+
 export function TraderComposition() {
   const { labels, insights, series } = useReport();
   const chartTheme = useChartTheme();
   const { trader_composition } = series;
   const { trader_composition: traderInsights } = insights;
 
+  const tcAny = trader_composition as any;
+  const periodSnapshots = (tcAny?.periods && typeof tcAny.periods === 'object') ? tcAny.periods as Record<string, any> : {};
+
+  const periodKeys = React.useMemo(() => {
+    const keys = Object.keys(periodSnapshots).filter((k) => {
+      const s = periodSnapshots[k];
+      return !!s && typeof s === 'object' && (s.composition || s.valid !== undefined);
+    });
+    return [
+      ...PERIOD_ORDER.filter((k) => keys.includes(k)),
+      ...keys.filter((k) => !PERIOD_ORDER.includes(k)),
+    ];
+  }, [periodSnapshots]);
+
+  const primaryPeriod = React.useMemo(() => {
+    const raw = String(tcAny?.primary_period || '').trim();
+    if (raw && periodKeys.includes(raw)) return raw;
+    const pref = [...periodKeys].reverse().find((k) => k !== '1d');
+    return pref || periodKeys[0] || '';
+  }, [tcAny?.primary_period, periodKeys]);
+
+  const [selectedPeriod, setSelectedPeriod] = React.useState<string>(primaryPeriod);
+
+  React.useEffect(() => {
+    if (primaryPeriod && selectedPeriod !== primaryPeriod && !periodKeys.includes(selectedPeriod)) {
+      setSelectedPeriod(primaryPeriod);
+    } else if (!selectedPeriod && primaryPeriod) {
+      setSelectedPeriod(primaryPeriod);
+    }
+  }, [primaryPeriod, selectedPeriod, periodKeys]);
+
+  const activeSnapshot = (selectedPeriod && periodSnapshots[selectedPeriod]) ? periodSnapshots[selectedPeriod] : tcAny;
+
   // Some datasets store shares as fractions (0-1), others as percentages (0-100).
-  // Normalize to percentage points for display/geometry.
   const toPct = (v: number) => (v <= 1 ? v * 100 : v);
 
-  const comp = trader_composition.composition;
+  const comp = activeSnapshot?.composition || tcAny?.composition || {};
   const hasQty =
     typeof comp === 'object' &&
     comp !== null &&
@@ -60,8 +107,14 @@ export function TraderComposition() {
   const defaultMode: ViewMode = availableModes[0]?.id ?? 'trades';
   const [mode, setMode] = React.useState<ViewMode>(defaultMode);
 
-  const getCompPct = (mode: ViewMode) => {
-    if (mode === 'shares' && hasQty) {
+  React.useEffect(() => {
+    if (mode === 'shares' && !hasQty) {
+      setMode('trades');
+    }
+  }, [mode, hasQty]);
+
+  const getCompPct = (m: ViewMode) => {
+    if (m === 'shares' && hasQty) {
       return {
         retail: toPct((comp as any).retail_qty_pct ?? 0),
         mixed: toPct((comp as any).mixed_qty_pct ?? 0),
@@ -75,36 +128,26 @@ export function TraderComposition() {
     };
   };
 
-  // For the “merged” story: show the contrast between Trade-count % and Volume %.
   const compTrades = getCompPct('trades');
   const compShares = hasQty ? getCompPct('shares') : null;
   const compCurrent = getCompPct(mode);
-  
-  // Chart data prepared for future use
-  void comp;
 
-  // Time series data
   const overTimePeriods =
-    'over_time' in trader_composition && Array.isArray(trader_composition.over_time)
-      ? trader_composition.over_time
-      : 'over_time' in trader_composition && trader_composition.over_time && 'periods' in trader_composition.over_time
-        ? trader_composition.over_time.periods
+    'over_time' in trader_composition && Array.isArray((trader_composition as any).over_time)
+      ? (trader_composition as any).over_time
+      : 'over_time' in trader_composition && (trader_composition as any).over_time && 'periods' in (trader_composition as any).over_time
+        ? (trader_composition as any).over_time.periods
         : [];
 
   const timeSeriesData = [...overTimePeriods]
-    // Ensure proper time evolution: oldest -> newest (newest on the right)
     .sort((a, b) => a.month.localeCompare(b.month))
     .map((d: any) => {
       const retail = toPct(d.retail_pct);
       const mixed = toPct(d.mixed_pct);
       const instit = toPct(d.instit_pct);
       const total = retail + mixed + instit;
-
-      // Normalize to exactly 100% to avoid floating tick artifacts (e.g. 100.00001%).
       const scale = total > 0 ? 100 / total : 0;
-
       return {
-        // Keep month label as in the data file (YYYY-MM)
         month: d.month,
         Retail: retail * scale,
         Mixed: mixed * scale,
@@ -132,34 +175,21 @@ export function TraderComposition() {
           })
       : null;
 
-  const currency =
-    'currency' in trader_composition && trader_composition.currency
-      ? trader_composition.currency
-      : 'HKD';
+  const currency = activeSnapshot?.currency || tcAny?.currency || 'HKD';
   const currencyPrefix = currency === 'HKD' ? 'HK$' : currency === 'CNY' ? 'CN¥' : `${currency} `;
 
-  const totalTrades =
-    'n_trades' in trader_composition
-      ? trader_composition.n_trades
-      : trader_composition.trade_stats.total_trades;
-  const avgTradeSize =
-    'trade_size' in trader_composition
-      ? trader_composition.trade_size.avg
-      : trader_composition.trade_stats.avg_size;
-  const medianTradeSize =
-    'trade_size' in trader_composition
-      ? trader_composition.trade_size.median
-      : (trader_composition as any).trade_stats?.median_size ?? (trader_composition as any).trade_stats?.median ?? 0;
-  const periodDays =
-    'period_days' in trader_composition
-      ? trader_composition.period_days
-      : trader_composition.trade_stats.period_days;
+  const totalTrades = activeSnapshot?.n_trades ?? tcAny?.n_trades ?? (trader_composition as any)?.trade_stats?.total_trades ?? 0;
+  const avgTradeSize = activeSnapshot?.trade_size?.avg ?? tcAny?.trade_size?.avg ?? (trader_composition as any)?.trade_stats?.avg_size ?? 0;
+  const medianTradeSize = activeSnapshot?.trade_size?.median ?? tcAny?.trade_size?.median ?? (trader_composition as any)?.trade_stats?.median_size ?? 0;
+  const periodDays = activeSnapshot?.period_days ?? tcAny?.period_days ?? (trader_composition as any)?.trade_stats?.period_days ?? 0;
 
   const fmtTradeSize = (v: number) => {
     if (!Number.isFinite(v)) return '—';
     if (v >= 1000) return `${(v / 1000).toFixed(1)}K`;
     return `${Math.round(v).toLocaleString()}`;
   };
+
+  const selectedPeriodLabel = selectedPeriod ? periodLabel(selectedPeriod) : 'Current';
 
   return (
     <TooltipProvider>
@@ -170,7 +200,6 @@ export function TraderComposition() {
         viewport={{ once: true, margin: "-100px" }}
         className="space-y-6"
       >
-        {/* Section Header */}
         <motion.div variants={itemVariants} className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center">
@@ -186,31 +215,32 @@ export function TraderComposition() {
           </div>
         </motion.div>
 
-        {/* Current Composition (flat row) */}
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
             <div className="flex items-center gap-3">
               <h3 className="text-sm font-semibold text-foreground">Current Composition</h3>
-              <div className="text-xs text-muted-foreground">
-                {hasQty ? (
-                  <>
-                    Compare <span className="font-semibold text-foreground">trade count</span> vs{' '}
-                    <span className="font-semibold text-foreground">Volume</span>.
-                  </>
-                ) : (
-                  <>Trade-count split by trader type.</>
-                )}
-              </div>
+              <div className="text-xs text-muted-foreground">Window: <span className="font-semibold text-foreground">{selectedPeriodLabel}</span></div>
             </div>
-            <Tabs value={mode} onValueChange={(v) => setMode(v as ViewMode)} className="w-auto">
-              <TabsList>
-                {availableModes.map((m) => (
-                  <TabsTrigger key={m.id} value={m.id}>
-                    {m.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
+            <div className="flex flex-wrap items-center gap-2">
+              {periodKeys.length > 1 ? (
+                <Tabs value={selectedPeriod} onValueChange={setSelectedPeriod} className="w-auto">
+                  <TabsList>
+                    {periodKeys.map((k) => (
+                      <TabsTrigger key={k} value={k}>{periodLabel(k)}</TabsTrigger>
+                    ))}
+                  </TabsList>
+                </Tabs>
+              ) : null}
+              <Tabs value={mode} onValueChange={(v) => setMode(v as ViewMode)} className="w-auto">
+                <TabsList>
+                  {availableModes.map((m) => (
+                    <TabsTrigger key={m.id} value={m.id}>
+                      {m.label}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+            </div>
           </div>
 
           {hasQty ? (
@@ -223,7 +253,6 @@ export function TraderComposition() {
           ) : null}
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Retail */}
             <div className="rounded-lg border border-border/50 bg-card/30 p-4">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
@@ -257,7 +286,6 @@ export function TraderComposition() {
               ) : null}
             </div>
 
-            {/* Mixed */}
             <div className="rounded-lg border border-border/50 bg-card/30 p-4">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
@@ -291,7 +319,6 @@ export function TraderComposition() {
               ) : null}
             </div>
 
-            {/* Institutional */}
             <div className="rounded-lg border border-border/50 bg-card/30 p-4">
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2">
@@ -328,8 +355,8 @@ export function TraderComposition() {
 
           <div className="mt-4 pt-4 border-t border-border/50 grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <p className="text-xs text-muted-foreground">Total Trades ({periodDays}D)</p>
-              <p className="text-lg font-bold text-foreground">{totalTrades.toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">Total Trades ({selectedPeriodLabel} • {periodDays}D)</p>
+              <p className="text-lg font-bold text-foreground">{Number(totalTrades || 0).toLocaleString()}</p>
             </div>
             <div>
               <p className="text-xs text-muted-foreground">Avg Trade Size</p>
@@ -352,7 +379,6 @@ export function TraderComposition() {
           </div>
         </motion.div>
 
-        {/* Composition Over Time (row below) */}
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-foreground">Composition Over Time</h3>
@@ -393,7 +419,6 @@ export function TraderComposition() {
           </div>
         </motion.div>
 
-        {/* Insights */}
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-pink-500/50">
           <h4 className="text-sm font-semibold text-foreground mb-3">Key Insights</h4>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

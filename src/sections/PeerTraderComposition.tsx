@@ -36,14 +36,77 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
+const PERIOD_ORDER = ['1d', '1w', '2w', '30d', '3m', '6m', 'max'];
+
+const periodLabel = (key: string) => {
+  const map: Record<string, string> = {
+    '1d': '1D',
+    '1w': '1W',
+    '2w': '2W',
+    '30d': '1M',
+    '3m': '3M',
+    '6m': '6M',
+    'max': 'MAX',
+  };
+  return map[key] || key.toUpperCase();
+};
+
 export function PeerTraderComposition() {
   const { labels, meta, series } = useReport();
   const { trader_composition } = series;
+  const tcAny = trader_composition as any;
 
-  const peerData = trader_composition.peer_comparison;
+  const periodPeerMap = React.useMemo(() => {
+    const out: Record<string, any[]> = {};
+    const m1 = tcAny?.peer_comparison_periods;
+    if (m1 && typeof m1 === 'object') {
+      for (const [k, v] of Object.entries(m1)) {
+        if (Array.isArray(v)) out[k] = v as any[];
+      }
+    }
+    const m2 = tcAny?.periods;
+    if (m2 && typeof m2 === 'object') {
+      for (const [k, v] of Object.entries(m2 as Record<string, any>)) {
+        if (!out[k] && Array.isArray((v as any)?.peer_comparison)) {
+          out[k] = (v as any).peer_comparison;
+        }
+      }
+    }
+    return out;
+  }, [tcAny]);
 
-  // Some datasets store shares as fractions (0-1), others as percentages (0-100).
-  // Normalize to percentage points for charts/tables.
+  const periodKeys = React.useMemo(() => {
+    const keys = Object.keys(periodPeerMap).filter((k) => Array.isArray(periodPeerMap[k]));
+    return [
+      ...PERIOD_ORDER.filter((k) => keys.includes(k)),
+      ...keys.filter((k) => !PERIOD_ORDER.includes(k)),
+    ];
+  }, [periodPeerMap]);
+
+  const primaryPeriod = React.useMemo(() => {
+    const raw = String(tcAny?.primary_period || '').trim();
+    if (raw && periodKeys.includes(raw)) return raw;
+    const pref = [...periodKeys].reverse().find((k) => k !== '1d');
+    return pref || periodKeys[0] || '';
+  }, [tcAny?.primary_period, periodKeys]);
+
+  const [selectedPeriod, setSelectedPeriod] = React.useState<string>(primaryPeriod);
+
+  React.useEffect(() => {
+    if (primaryPeriod && selectedPeriod !== primaryPeriod && !periodKeys.includes(selectedPeriod)) {
+      setSelectedPeriod(primaryPeriod);
+    } else if (!selectedPeriod && primaryPeriod) {
+      setSelectedPeriod(primaryPeriod);
+    }
+  }, [primaryPeriod, selectedPeriod, periodKeys]);
+
+  const peerData = React.useMemo(() => {
+    if (selectedPeriod && Array.isArray(periodPeerMap[selectedPeriod])) {
+      return periodPeerMap[selectedPeriod];
+    }
+    return Array.isArray(tcAny?.peer_comparison) ? tcAny.peer_comparison : [];
+  }, [selectedPeriod, periodPeerMap, tcAny]);
+
   const toPct = (v: number) => (v <= 1 ? v * 100 : v);
 
   const currencyPrefix = (currency: string) =>
@@ -60,8 +123,14 @@ export function PeerTraderComposition() {
   const defaultMode: ViewMode = availableModes[0]?.id ?? 'trades';
   const [mode, setMode] = React.useState<ViewMode>(defaultMode);
 
-  const pctFor = (p: any, mode: ViewMode) => {
-    if (mode === 'shares' && hasQty) {
+  React.useEffect(() => {
+    if (mode === 'shares' && !hasQty) {
+      setMode('trades');
+    }
+  }, [mode, hasQty]);
+
+  const pctFor = (p: any, m: ViewMode) => {
+    if (m === 'shares' && hasQty) {
       return {
         retail: toPct(p.retail_qty_pct ?? 0),
         mixed: toPct(p.mixed_qty_pct ?? 0),
@@ -75,7 +144,6 @@ export function PeerTraderComposition() {
     };
   };
 
-  // Prepare chart data (stacked composition per peer)
   const chartData = peerData.map((p: any) => {
     const v = pctFor(p, mode);
     return {
@@ -87,14 +155,15 @@ export function PeerTraderComposition() {
     };
   });
 
-  const labelForMode = (mode: ViewMode) => (mode === 'shares' ? 'Volume' : 'by trades');
+  const labelForMode = (m: ViewMode) => (m === 'shares' ? 'Volume' : 'by trades');
   const typeIcon = (p: any) => {
     const v = pctFor(p, mode);
-    // Same legend as your console output: 🏠 retail-heavy (>70% retail) | 🏦 institutional (>20% institutional) | ⚖️ mixed otherwise
     if (v.retail > 70) return '🏠';
     if (v.instit > 20) return '🏦';
     return '⚖️';
   };
+
+  const selectedPeriodLabel = selectedPeriod ? periodLabel(selectedPeriod) : 'Current';
 
   return (
     <motion.div
@@ -104,7 +173,6 @@ export function PeerTraderComposition() {
       viewport={{ once: true, margin: "-100px" }}
       className="space-y-6"
     >
-      {/* Section Header */}
       <motion.div variants={itemVariants} className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center">
@@ -120,19 +188,29 @@ export function PeerTraderComposition() {
         </div>
       </motion.div>
 
-      {/* Chart */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-        <div className="flex items-center justify-between mb-3">
-          <div className="text-sm font-semibold text-foreground">Peer composition ({labelForMode(mode)})</div>
-          <Tabs value={mode} onValueChange={(v) => setMode(v as ViewMode)} className="w-auto">
-            <TabsList>
-              {availableModes.map((m) => (
-                <TabsTrigger key={m.id} value={m.id}>
-                  {m.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+          <div className="text-sm font-semibold text-foreground">Peer composition ({labelForMode(mode)}) • Window: {selectedPeriodLabel}</div>
+          <div className="flex flex-wrap items-center gap-2">
+            {periodKeys.length > 1 ? (
+              <Tabs value={selectedPeriod} onValueChange={setSelectedPeriod} className="w-auto">
+                <TabsList>
+                  {periodKeys.map((k) => (
+                    <TabsTrigger key={k} value={k}>{periodLabel(k)}</TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+            ) : null}
+            <Tabs value={mode} onValueChange={(v) => setMode(v as ViewMode)} className="w-auto">
+              <TabsList>
+                {availableModes.map((m) => (
+                  <TabsTrigger key={m.id} value={m.id}>
+                    {m.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </div>
         </div>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
@@ -193,7 +271,6 @@ export function PeerTraderComposition() {
         </div>
       </motion.div>
 
-      {/* Detailed Table */}
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
         <div className="overflow-x-auto">
           <Table>
@@ -208,7 +285,7 @@ export function PeerTraderComposition() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {peerData.map((row) => (
+              {peerData.map((row: any) => (
                 <TableRow key={row.ticker} className="border-slate-800">
                   <TableCell className="text-foreground font-medium text-sm">
                     {row.ticker}
@@ -218,13 +295,13 @@ export function PeerTraderComposition() {
                       </span>
                     )}
                   </TableCell>
-                  <TableCell className="text-right text-muted-foreground text-sm">{pctFor(row as any, mode).retail.toFixed(1)}%</TableCell>
-                  <TableCell className="text-right text-muted-foreground text-sm">{pctFor(row as any, mode).mixed.toFixed(1)}%</TableCell>
-                  <TableCell className="text-right text-muted-foreground text-sm">{pctFor(row as any, mode).instit.toFixed(1)}%</TableCell>
+                  <TableCell className="text-right text-muted-foreground text-sm">{pctFor(row, mode).retail.toFixed(1)}%</TableCell>
+                  <TableCell className="text-right text-muted-foreground text-sm">{pctFor(row, mode).mixed.toFixed(1)}%</TableCell>
+                  <TableCell className="text-right text-muted-foreground text-sm">{pctFor(row, mode).instit.toFixed(1)}%</TableCell>
                   <TableCell className="text-right text-muted-foreground text-sm">
-                    {'avg_trade_size' in row ? currencyPrefix(row.currency) + (row.avg_trade_size / 1000).toFixed(1) : currencyPrefix('HKD') + ((row as any).avg_size / 1000).toFixed(1)}K
+                    {currencyPrefix(row.currency)}{((row.avg_trade_size ?? 0) / 1000).toFixed(1)}K
                   </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">{typeIcon(row as any)}</TableCell>
+                  <TableCell className="text-muted-foreground text-sm">{typeIcon(row)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

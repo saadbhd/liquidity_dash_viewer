@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Target, TrendingDown, TrendingUp, Minus, AlertTriangle, DollarSign, Activity } from 'lucide-react';
+import { Target, TrendingDown, TrendingUp, Minus, AlertTriangle, Percent, Activity } from 'lucide-react';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
@@ -65,14 +65,28 @@ export function ExecutionPanel() {
 
   // Capacity data
   const capacityData = [
-    { ticker: '1828', pct: peer_capacity.bx_ticket_pct_adv_50k, isTarget: true },
+    { ticker: meta.ticker, pct: peer_capacity.bx_ticket_pct_adv_50k, isTarget: true },
     ...peer_capacity.peers.map((p) => ({ ticker: p.ticker, pct: p.pct, isTarget: false })),
-  ];
+  ].map((entry) => ({
+    ...entry,
+    pct: typeof entry.pct === 'number' && Number.isFinite(entry.pct) ? entry.pct : null,
+  }));
 
   const formatMoney = (value: number) => {
     if (value >= 1e6) return `${currencySymbol}${(value / 1e6).toFixed(1)}M`;
     if (value >= 1e3) return `${currencySymbol}${(value / 1e3).toFixed(0)}K`;
     return `${currencySymbol}${value.toFixed(0)}`;
+  };
+
+  const formatPercent = (value: number) => {
+    const maxFractionDigits = Math.abs(value) >= 1000 ? 0 : Math.abs(value) >= 100 ? 1 : 2;
+    return `${value.toLocaleString('en-US', { maximumFractionDigits: maxFractionDigits })}%`;
+  };
+
+  const formatAdvMultiple = (valuePct: number) => {
+    const multiple = valuePct / 100;
+    const maxFractionDigits = Math.abs(multiple) >= 100 ? 0 : Math.abs(multiple) >= 10 ? 1 : 2;
+    return `${multiple.toLocaleString('en-US', { maximumFractionDigits: maxFractionDigits })}x`;
   };
 
   return (
@@ -170,7 +184,7 @@ export function ExecutionPanel() {
         {/* Peer Capacity */}
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
-            <DollarSign className="w-4 h-4 text-muted-foreground" />
+            <Percent className="w-4 h-4 text-muted-foreground" />
             <h3 className="text-sm font-semibold text-foreground">{labels.peer_capacity_title}</h3>
           </div>
           <div className="h-56">
@@ -187,11 +201,16 @@ export function ExecutionPanel() {
                   tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
-                  tickFormatter={(v) => `${v}%`}
+                  tickFormatter={(v) => (typeof v === 'number' ? formatAdvMultiple(v) : '')}
                 />
                 <Tooltip
                   contentStyle={chartTheme.tooltipContentStyle}
-                  formatter={(value: number) => [`${value}%`, '50k as %ADV']}
+                  formatter={(value: unknown) => {
+                    if (typeof value !== 'number' || !Number.isFinite(value)) {
+                      return ['N/A', 'Ticket / ADV'];
+                    }
+                    return [`${formatAdvMultiple(value)} ADV (${formatPercent(value)})`, 'Ticket / ADV'];
+                  }}
                 />
                 <Bar dataKey="pct" radius={[4, 4, 0, 0]} maxBarSize={30}>
                   {capacityData.map((entry, cidx) => (
@@ -204,7 +223,10 @@ export function ExecutionPanel() {
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <p className="text-xs text-muted-foreground mt-2">{labels.peer_capacity_note}</p>
+          <p className="text-xs text-muted-foreground mt-2">
+            1.0x ADV means the ticket equals one full day of average trading value. Lower is easier execution.
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">{labels.peer_capacity_note}</p>
         </motion.div>
       </div>
 

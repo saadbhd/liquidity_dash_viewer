@@ -12,8 +12,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  LineChart,
-  Line,
   Cell,
 } from 'recharts';
 import {
@@ -42,7 +40,7 @@ export function IntradayPanel() {
   const { labels, series } = useReport();
   const chartTheme = useChartTheme();
   const { intraday } = series;
-  const [selectedPeriod, setSelectedPeriod] = useState('6M');
+  const [selectedPeriod, setSelectedPeriod] = useState(intraday.session_periods[0] ?? '6M');
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // Some datasets store shares as fractions (0-1), others as percentages (0-100).
@@ -59,12 +57,6 @@ export function IntradayPanel() {
     { name: 'Other', value: toPct(currentSession.other ?? 0), color: '#a78bfa' },
   ];
 
-  // HHI data
-  const hhiData = intraday.session_periods.map((period) => ({
-    period,
-    hhi: intraday.hhi[period],
-  }));
-
   // Intensity data
   const totalShare = intraday.profile_buckets.reduce((sum, b) => sum + b.avg_share, 0);
   const intensityData = intraday.profile_buckets.map((bucket) => ({
@@ -74,6 +66,7 @@ export function IntradayPanel() {
 
   const sortedIntensity = [...intensityData].sort((a, b) => b.value - a.value);
   const top3Times = new Set(sortedIntensity.slice(0, 3).map((d) => d.time));
+  const intradayInsightText = labels.intraday_insight.replace('Key insight: ', '');
 
   return (
     <motion.div
@@ -172,54 +165,7 @@ export function IntradayPanel() {
           <p className="text-xs text-slate-500 mt-2">{labels.session_dist_note}</p>
         </motion.div>
 
-        {/* HHI Chart */}
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-          <div className="flex items-center gap-2 mb-4">
-            <Info className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-foreground">{labels.hhi_title}</h3>
-            <MethodologyTooltip methodKey="hhi" />
-          </div>
-          <div className="h-48">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={hhiData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
-                <XAxis
-                  dataKey="period"
-                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
-                  axisLine={{ stroke: chartTheme.axisLineStroke }}
-                  tickLine={false}
-                />
-                <YAxis
-                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
-                  axisLine={false}
-                  tickLine={false}
-                  domain={[0, 1]}
-                  tickFormatter={(v) => v.toFixed(1)}
-                />
-                <Tooltip
-                  contentStyle={chartTheme.tooltipContentStyle}
-                  formatter={(value: number) => [value.toFixed(3), 'HHI']}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="hhi"
-                  stroke="#f87171"
-                  strokeWidth={2}
-                  dot={{ r: 4, fill: '#f87171' }}
-                  activeDot={{ r: 6 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-          <p className="text-xs text-slate-500 mt-2">
-            {labels.hhi_note_template.replace('{value}', intraday.hhi['6M'].toFixed(3))}
-          </p>
-        </motion.div>
-      </div>
-
-      {/* Intensity & Peers Table */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Intraday Intensity */}
+        {/* Trading Activity by Time of Day */}
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <BarChart3 className="w-4 h-4 text-slate-500" />
@@ -261,12 +207,14 @@ export function IntradayPanel() {
           </div>
           <p className="text-xs text-slate-500 mt-2">{labels.intraday_intensity_note}</p>
         </motion.div>
+      </div>
 
-        {/* Peers HHI Table */}
+      {/* Peer Comparison + Insights */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <Info className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-foreground">{labels.peers_hhi_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground">Peer Comparison: Trading Concentration</h3>
           </div>
           <div className="overflow-auto max-h-56 rounded-lg border border-slate-800">
             <Table>
@@ -308,15 +256,18 @@ export function IntradayPanel() {
           </div>
           <p className="text-xs text-slate-500 mt-2">{labels.peers_hhi_note}</p>
         </motion.div>
-      </div>
 
-      {/* Insight */}
-      <motion.div variants={itemVariants} className="glass-panel rounded-xl p-4 border-l-2 border-amber-500/50">
-        <p className="text-sm text-slate-400 leading-relaxed">
-          <span className="text-amber-600 dark:text-amber-400 font-semibold">Key insight:</span>{' '}
-          {labels.intraday_insight.replace('Key insight: ', '')}
-        </p>
-      </motion.div>
+        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <Info className="w-4 h-4 text-slate-500" />
+            <h3 className="text-sm font-semibold text-foreground">Insights</h3>
+          </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            <span className="text-amber-600 dark:text-amber-400 font-semibold">Key insight:</span>{' '}
+            {intradayInsightText}
+          </p>
+        </motion.div>
+      </div>
     </motion.div>
   );
 }

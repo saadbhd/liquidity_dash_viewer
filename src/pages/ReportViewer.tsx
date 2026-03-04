@@ -1,8 +1,8 @@
 // ============================================================================
-// REPORT VIEWER PAGE - Displays a single report with dynamic loading
+// REPORT VIEWER PAGE - Tab-based layout with anchor pill navigation
 // ============================================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -10,17 +10,15 @@ import {
     TrendingDown,
     Activity,
     Clock,
-    Menu,
     X,
-    ChevronRight,
-    ChevronDown,
     Target,
-    ArrowRight,
     ArrowLeft,
     Users,
     PieChart,
     BarChart3,
-    Loader2
+    Loader2,
+    Gauge,
+    BookOpen
 } from 'lucide-react';
 import { loadReportData } from '@/data/reportsIndex';
 import { ReportProvider } from '@/context/ReportContext';
@@ -36,22 +34,23 @@ import { IntradayPanel } from '@/sections/IntradayPanel';
 import { ShortSellingAndLending } from '@/sections/ShortSellingAndLending';
 import type { ReportData } from '@/types/report';
 
-type NavItem = { id: string; label: string; icon: React.ElementType };
-type NavGroup = { id: string; label: string; icon: React.ElementType; children: NavItem[] };
-type NavEntry = NavItem | NavGroup;
+type SubSection = { id: string; label: string; icon: React.ElementType };
 
-function isGroup(entry: NavEntry): entry is NavGroup {
-    return 'children' in entry;
-}
+type TabDef = {
+    id: string;
+    label: string;
+    icon: React.ElementType;
+    subSections?: SubSection[];
+};
 
-function buildNavItems(report: ReportData): NavEntry[] {
+function buildTabs(report: ReportData): TabDef[] {
     const showShort = report.meta.market === 'XSES' && !!report.series.short_selling?.data_available;
 
     return [
-        { id: 'hero', label: 'Overview', icon: LayoutDashboard },
+        { id: 'overview', label: 'Overview', icon: LayoutDashboard },
         {
-            id: 'group-profile', label: 'Liquidity Profile', icon: BarChart3,
-            children: [
+            id: 'liquidity-profile', label: 'Liquidity Profile', icon: BarChart3,
+            subSections: [
                 { id: 'liquidity', label: 'Liquidity & Market', icon: Activity },
                 { id: 'drivers', label: 'What Drives Price', icon: PieChart },
                 { id: 'execution', label: 'Trading Costs', icon: Target },
@@ -59,36 +58,17 @@ function buildNavItems(report: ReportData): NavEntry[] {
             ],
         },
         {
-            id: 'group-activity', label: 'Trading Activity', icon: Activity,
-            children: [
+            id: 'trading-activity', label: 'Trading Activity', icon: Activity,
+            subSections: [
                 { id: 'traders', label: 'Trader Types', icon: Users },
                 { id: 'peer-traders', label: 'Peer Traders', icon: Users },
                 { id: 'price-moving', label: 'Price-Moving Trades', icon: Activity },
                 { id: 'intraday', label: 'Trading Times', icon: Clock },
             ],
         },
+        { id: 'sentiment', label: 'Sentiment', icon: Gauge },
+        { id: 'narratives', label: 'Narratives', icon: BookOpen },
     ];
-}
-
-function getAllSectionIds(report: ReportData): string[] {
-    const ids: string[] = [];
-    for (const entry of buildNavItems(report)) {
-        if (isGroup(entry)) {
-            for (const child of entry.children) ids.push(child.id);
-        } else {
-            ids.push(entry.id);
-        }
-    }
-    return ids;
-}
-
-function getGroupForSection(sectionId: string, navItems: NavEntry[]): string | null {
-    for (const entry of navItems) {
-        if (isGroup(entry) && entry.children.some(c => c.id === sectionId)) {
-            return entry.id;
-        }
-    }
-    return null;
 }
 
 export function ReportViewer() {
@@ -97,9 +77,12 @@ export function ReportViewer() {
     const [peerMethodology, setPeerMethodology] = useState<{ title: string; steps: string[]; peers: { ticker: string; name: string; marketCap: string; sector?: string; industry?: string }[] } | undefined>(undefined);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [activeSection, setActiveSection] = useState('hero');
-    const [sidebarOpen, setSidebarOpen] = useState(true);
-    const [scrolled, setScrolled] = useState(false);
+    const [activeTab, setActiveTab] = useState('overview');
+    const [activeSubSection, setActiveSubSection] = useState<string | null>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+
+    const tabs = useMemo(() => reportData ? buildTabs(reportData) : [], [reportData]);
+    const currentTab = tabs.find(t => t.id === activeTab);
 
     useEffect(() => {
         async function loadReport() {
@@ -108,7 +91,6 @@ export function ReportViewer() {
                 setLoading(false);
                 return;
             }
-
             try {
                 setLoading(true);
                 setError(null);
@@ -121,61 +103,53 @@ export function ReportViewer() {
                 setLoading(false);
             }
         }
-
         loadReport();
     }, [id]);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+    const handleTabChange = useCallback((tabId: string) => {
+        setActiveTab(tabId);
+        const tab = tabs.find(t => t.id === tabId);
+        setActiveSubSection(tab?.subSections?.[0]?.id ?? null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [tabs]);
+
+    const scrollToSubSection = useCallback((sectionId: string) => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+            const offset = 140;
+            const top = el.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
     }, []);
 
-    const scrollToSection = (sectionId: string) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-            setActiveSection(sectionId);
-        }
-    };
-
-    const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
-        'group-profile': true,
-        'group-activity': true,
-    });
-
-    const toggleGroup = (groupId: string) => {
-        setOpenGroups(prev => ({ ...prev, [groupId]: !prev[groupId] }));
-    };
-
     useEffect(() => {
+        if (!currentTab?.subSections?.length) return;
+
+        const sectionIds = currentTab.subSections.map(s => s.id);
         const observer = new IntersectionObserver(
             (entries) => {
-                entries.forEach((entry) => {
+                for (const entry of entries) {
                     if (entry.isIntersecting) {
-                        setActiveSection(entry.target.id);
-                        if (reportData) {
-                            const group = getGroupForSection(entry.target.id, buildNavItems(reportData));
-                            if (group) setOpenGroups(prev => ({ ...prev, [group]: true }));
-                        }
+                        setActiveSubSection(entry.target.id);
                     }
-                });
+                }
             },
-            { threshold: 0.2 }
+            { threshold: 0.25, rootMargin: '-140px 0px -40% 0px' }
         );
 
-        const sectionIds = reportData ? getAllSectionIds(reportData) : [];
-        sectionIds.forEach((sId) => {
-            const element = document.getElementById(sId);
-            if (element) observer.observe(element);
+        const timer = requestAnimationFrame(() => {
+            sectionIds.forEach((sId) => {
+                const el = document.getElementById(sId);
+                if (el) observer.observe(el);
+            });
         });
 
-        return () => observer.disconnect();
-    }, [reportData]);
+        return () => {
+            cancelAnimationFrame(timer);
+            observer.disconnect();
+        };
+    }, [currentTab]);
 
-    // Loading State
     if (loading) {
         return (
             <div className="min-h-screen bg-background flex items-center justify-center">
@@ -187,7 +161,6 @@ export function ReportViewer() {
         );
     }
 
-    // Error State
     if (error || !reportData) {
         return (
             <div className="min-h-screen bg-background flex items-center justify-center">
@@ -212,209 +185,183 @@ export function ReportViewer() {
     return (
         <ReportProvider report={reportData}>
             <div className="min-h-screen bg-background">
-                {/* Background gradient overlay */}
                 <div className="fixed inset-0 bg-gradient-radial pointer-events-none" />
 
-                {/* Mobile Header */}
-                <div className="lg:hidden fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800/50">
-                    <div className="flex items-center justify-between px-4 py-3">
+                {/* Sticky Header */}
+                <header className="sticky top-0 z-50 glass border-b border-border/60">
+                    {/* Top bar: back + report info */}
+                    <div className="flex items-center justify-between px-4 lg:px-8 py-3">
                         <div className="flex items-center gap-3">
-                            <Link to="/" className="p-2 text-slate-400 hover:text-foreground">
-                                <ArrowLeft className="w-5 h-5" />
+                            <Link to="/" className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-accent/60 transition-colors">
+                                <ArrowLeft className="w-4 h-4" />
                             </Link>
-                            <div className="w-10 h-10 bg-gradient-to-br from-sky-500 to-blue-600 rounded-lg flex items-center justify-center">
-                                <span className="text-white font-bold text-sm">{reportData.meta.ticker}</span>
+                            <div className="w-9 h-9 bg-gradient-to-br from-sky-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md shadow-sky-500/20">
+                                <span className="text-white font-bold text-xs">{reportData.meta.ticker}</span>
                             </div>
-                            <div>
-                                <h1 className="text-sm font-semibold text-foreground">{reportData.meta.company}</h1>
-                                <p className="text-xs text-slate-500">Liquidity Report</p>
+                            <div className="hidden sm:block">
+                                <h1 className="text-sm font-semibold text-foreground leading-tight">{reportData.meta.company}</h1>
+                                <p className="text-xs text-muted-foreground">{reportData.meta.asof_date} · {reportData.meta.market} · {reportData.meta.sector}</p>
                             </div>
                         </div>
-                        <button
-                            onClick={() => setSidebarOpen(!sidebarOpen)}
-                            className="p-2 text-slate-400 hover:text-foreground"
-                        >
-                            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <span className="hidden sm:inline">Live Data</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                {/* Sidebar */}
-                <AnimatePresence>
-                    {sidebarOpen && (
-                        <motion.aside
-                            initial={{ x: -280 }}
-                            animate={{ x: 0 }}
-                            exit={{ x: -280 }}
-                            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                            className="fixed left-0 top-0 bottom-0 w-[280px] z-40 glass-panel border-r border-slate-800/50 hidden lg:flex flex-col"
-                        >
-                            {/* Logo */}
-                            <div className="p-6 border-b border-slate-800/50">
-                                <Link to="/" className="flex items-center gap-2 text-slate-400 hover:text-foreground text-sm mb-4 transition-colors">
-                                    <ArrowLeft className="w-4 h-4" />
-                                    <span>All Reports</span>
-                                </Link>
-                                <div className="flex items-center gap-4">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-sky-500/20">
-                                        <span className="text-white font-bold">{reportData.meta.ticker}</span>
-                                    </div>
-                                    <div>
-                                        <h1 className="font-semibold text-foreground">{reportData.meta.company}</h1>
-                                        <p className="text-xs text-slate-500">{reportData.meta.asof_date}</p>
-                                    </div>
-                                </div>
-                            </div>
+                    {/* Main Tabs */}
+                    <div className="px-4 lg:px-8">
+                        <nav className="flex justify-center gap-2 -mb-px overflow-x-auto scrollbar-hide">
+                            {tabs.map((tab) => {
+                                const isActive = activeTab === tab.id;
+                                const Icon = tab.icon;
+                                return (
+                                    <button
+                                        key={tab.id}
+                                        onClick={() => handleTabChange(tab.id)}
+                                        className={`
+                                            relative flex items-center gap-2.5 px-5 py-3 text-[0.9rem] font-medium whitespace-nowrap
+                                            transition-colors duration-200 border-b-2
+                                            ${isActive
+                                                ? 'text-sky-500 border-sky-500'
+                                                : 'text-muted-foreground border-transparent hover:text-foreground hover:border-border'
+                                            }
+                                        `}
+                                    >
+                                        <Icon className="w-[18px] h-[18px]" />
+                                        {tab.label}
+                                    </button>
+                                );
+                            })}
+                        </nav>
+                    </div>
 
-                            {/* Navigation */}
-                            <nav className="flex-1 overflow-y-auto p-4 space-y-1">
-                                {buildNavItems(reportData).map((entry) => {
-                                    if (isGroup(entry)) {
-                                        const groupOpen = openGroups[entry.id] ?? true;
-                                        const hasActive = entry.children.some(c => c.id === activeSection);
+                    {/* Sub-section Anchor Pills */}
+                    <AnimatePresence mode="wait">
+                        {currentTab?.subSections && (
+                            <motion.div
+                                key={currentTab.id}
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="overflow-hidden border-t border-border/40"
+                            >
+                                <div className="px-4 lg:px-8 py-2.5 flex justify-center gap-2 overflow-x-auto scrollbar-hide">
+                                    {currentTab.subSections.map((sub) => {
+                                        const isActive = activeSubSection === sub.id;
+                                        const SubIcon = sub.icon;
                                         return (
-                                            <div key={entry.id}>
-                                                <button
-                                                    onClick={() => toggleGroup(entry.id)}
-                                                    className={`nav-item w-full ${hasActive ? 'text-sky-400' : ''}`}
-                                                >
-                                                    <entry.icon className="w-4 h-4" />
-                                                    <span className="flex-1 text-left font-medium">{entry.label}</span>
-                                                    <ChevronDown className={`w-3.5 h-3.5 text-slate-500 transition-transform duration-200 ${groupOpen ? '' : '-rotate-90'}`} />
-                                                </button>
-                                                <AnimatePresence initial={false}>
-                                                    {groupOpen && (
-                                                        <motion.div
-                                                            initial={{ height: 0, opacity: 0 }}
-                                                            animate={{ height: 'auto', opacity: 1 }}
-                                                            exit={{ height: 0, opacity: 0 }}
-                                                            transition={{ duration: 0.2 }}
-                                                            className="overflow-hidden"
-                                                        >
-                                                            <div className="ml-4 pl-3 border-l border-slate-800/60 space-y-0.5 py-1">
-                                                                {entry.children.map(({ id: childId, label, icon: Icon }) => (
-                                                                    <button
-                                                                        key={childId}
-                                                                        onClick={() => scrollToSection(childId)}
-                                                                        className={`nav-item w-full text-sm ${activeSection === childId ? 'active' : ''}`}
-                                                                    >
-                                                                        <Icon className="w-3.5 h-3.5" />
-                                                                        <span className="flex-1 text-left">{label}</span>
-                                                                        {activeSection === childId && (
-                                                                            <ChevronRight className="w-3.5 h-3.5 text-sky-400" />
-                                                                        )}
-                                                                    </button>
-                                                                ))}
-                                                            </div>
-                                                        </motion.div>
-                                                    )}
-                                                </AnimatePresence>
-                                            </div>
+                                            <button
+                                                key={sub.id}
+                                                onClick={() => scrollToSubSection(sub.id)}
+                                                className={`
+                                                    flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
+                                                    whitespace-nowrap transition-all duration-200
+                                                    ${isActive
+                                                        ? 'bg-sky-500/15 text-sky-500 ring-1 ring-sky-500/30'
+                                                        : 'bg-accent/50 text-muted-foreground hover:bg-accent hover:text-foreground'
+                                                    }
+                                                `}
+                                            >
+                                                <SubIcon className="w-3 h-3" />
+                                                {sub.label}
+                                            </button>
                                         );
-                                    }
-                                    return (
-                                        <button
-                                            key={entry.id}
-                                            onClick={() => scrollToSection(entry.id)}
-                                            className={`nav-item w-full ${activeSection === entry.id ? 'active' : ''}`}
-                                        >
-                                            <entry.icon className="w-4 h-4" />
-                                            <span className="flex-1 text-left">{entry.label}</span>
-                                            {activeSection === entry.id && (
-                                                <ChevronRight className="w-4 h-4 text-sky-400" />
-                                            )}
-                                        </button>
-                                    );
-                                })}
-                            </nav>
-
-                            {/* Footer */}
-                            <div className="p-4 border-t border-slate-800/50">
-                                <div className="flex items-center gap-2 text-xs text-slate-500">
-                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                                    <span>Live Data</span>
+                                    })}
                                 </div>
-                                <p className="text-xs text-slate-600 mt-2">{reportData.content.footer}</p>
-                            </div>
-                        </motion.aside>
-                    )}
-                </AnimatePresence>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </header>
 
                 {/* Main Content */}
-                <main className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-[280px]' : ''}`}>
-                    {/* Desktop Header */}
-                    <header
-                        className={`hidden lg:flex items-center justify-between px-8 py-4 sticky top-0 z-30 transition-all duration-300 ${scrolled ? 'glass border-b border-slate-800/50' : ''
-                            }`}
-                    >
-                        <div className="flex items-center gap-4">
-                            <button
-                                onClick={() => setSidebarOpen(!sidebarOpen)}
-                                className="p-2 text-slate-400 hover:text-foreground rounded-lg hover:bg-slate-800/50"
-                            >
-                                <Menu className="w-5 h-5" />
-                            </button>
-                            <div className="h-6 w-px bg-slate-800" />
-                            <nav className="flex items-center gap-2 text-sm text-slate-500">
-                                <Link to="/" className="hover:text-foreground transition-colors">Reports</Link>
-                                <ArrowRight className="w-3 h-3" />
-                                <span className="text-slate-300">Liquidity Analysis</span>
-                                <ArrowRight className="w-3 h-3" />
-                                <span className="text-sky-400">{reportData.meta.ticker}</span>
-                            </nav>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <span className="text-xs text-slate-500">Market: {reportData.meta.market}</span>
-                            <span className="text-xs text-slate-500">Sector: {reportData.meta.sector}</span>
-                        </div>
-                    </header>
+                <main ref={contentRef}>
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeTab}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.25 }}
+                            className="p-4 lg:p-8 space-y-8"
+                        >
+                            {activeTab === 'overview' && (
+                                <section id="hero">
+                                    <HeroSection />
+                                </section>
+                            )}
 
-                    {/* Content Sections */}
-                    <div className="p-4 lg:p-8 pt-20 lg:pt-8 space-y-8">
-                        {/* Overview */}
-                        <section id="hero">
-                            <HeroSection />
-                        </section>
+                            {activeTab === 'liquidity-profile' && (
+                                <>
+                                    <section id="liquidity">
+                                        <LiquidityScore />
+                                    </section>
+                                    <section id="drivers">
+                                        <DriversAnalysis />
+                                    </section>
+                                    <section id="execution">
+                                        <ExecutionPanel />
+                                    </section>
+                                    {reportData.meta.market === 'XSES' && reportData.series.short_selling?.data_available && (
+                                        <section id="short">
+                                            <ShortSellingAndLending />
+                                        </section>
+                                    )}
+                                </>
+                            )}
 
-                        {/* Liquidity Profile */}
-                        <section id="liquidity">
-                            <LiquidityScore />
-                        </section>
+                            {activeTab === 'trading-activity' && (
+                                <>
+                                    <section id="traders">
+                                        <TraderComposition />
+                                    </section>
+                                    <section id="peer-traders">
+                                        <PeerTraderComposition />
+                                    </section>
+                                    <section id="price-moving">
+                                        <PriceMovingTrades />
+                                    </section>
+                                    <section id="intraday">
+                                        <IntradayPanel />
+                                    </section>
+                                </>
+                            )}
 
-                        <section id="drivers">
-                            <DriversAnalysis />
-                        </section>
+                            {activeTab === 'sentiment' && (
+                                <section id="sentiment">
+                                    <div className="rounded-2xl border border-border/60 bg-card/80 p-8 lg:p-12 text-center">
+                                        <div className="mx-auto w-16 h-16 rounded-2xl bg-sky-500/10 flex items-center justify-center mb-6">
+                                            <Gauge className="w-8 h-8 text-sky-500" />
+                                        </div>
+                                        <h2 className="text-2xl font-semibold text-foreground mb-3">Sentiment Analysis</h2>
+                                        <p className="text-muted-foreground max-w-md mx-auto">
+                                            Market sentiment data and analysis will be displayed here.
+                                        </p>
+                                    </div>
+                                </section>
+                            )}
 
-                        <section id="execution">
-                            <ExecutionPanel />
-                        </section>
-
-                        {reportData.meta.market === 'XSES' && reportData.series.short_selling?.data_available ? (
-                            <section id="short">
-                                <ShortSellingAndLending />
-                            </section>
-                        ) : null}
-
-                        {/* Trading Activity */}
-                        <section id="traders">
-                            <TraderComposition />
-                        </section>
-
-                        <section id="peer-traders">
-                            <PeerTraderComposition />
-                        </section>
-
-                        <section id="price-moving">
-                            <PriceMovingTrades />
-                        </section>
-
-                        <section id="intraday">
-                            <IntradayPanel />
-                        </section>
-                    </div>
+                            {activeTab === 'narratives' && (
+                                <section id="narratives">
+                                    <div className="rounded-2xl border border-border/60 bg-card/80 p-8 lg:p-12 text-center">
+                                        <div className="mx-auto w-16 h-16 rounded-2xl bg-sky-500/10 flex items-center justify-center mb-6">
+                                            <BookOpen className="w-8 h-8 text-sky-500" />
+                                        </div>
+                                        <h2 className="text-2xl font-semibold text-foreground mb-3">Narratives</h2>
+                                        <p className="text-muted-foreground max-w-md mx-auto">
+                                            Key narratives and thematic analysis will be displayed here.
+                                        </p>
+                                    </div>
+                                </section>
+                            )}
+                        </motion.div>
+                    </AnimatePresence>
                 </main>
 
-                {/* Floating Help Button */}
+                {/* Floating Help */}
                 <FloatingHelp peerMethodology={peerMethodology} />
             </div>
         </ReportProvider>

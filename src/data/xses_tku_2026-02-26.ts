@@ -1619,20 +1619,20 @@ export const REPORT_DATA: ReportData = {
     },
     "period_insights": {
       "1d": {
-        "liquidity": "Latest snapshot: notional ADV is S$430,575, down 28.53% versus the 30d baseline (S$602,462), while spread is 2.50%, which is 13.35% wider/worse than the 30d baseline (2.20%). This is a clear near-term slowdown: less daily value changing hands and a higher quoted cost to trade, which raises execution friction for any time-sensitive activity.",
-        "market_comparison": "Even with the 1d slowdown, TKU’s S$430,575 ADV is far above the market median (S$26,415) and sector median (S$30,296.5), and trades/day (114) are well above market (10) and sector (10.5), supporting reliable day-to-day liquidity. Cost-wise, 2.50% spread is worse than the market median (2.35%) but better than sector (3.52%) and peers (2.94%), so TKU is liquid on activity but still not consistently cheap versus the broader market."
+        "liquidity": "Latest snapshot: notional ADV was S$430,575, which is 28.53% below the 30d baseline (S$602,462), signaling a recent slowdown in trading depth. Spread was 2.50%, 13.35% worse than the 30d baseline (2.20%), implying higher trading cost per trade today despite...",
+        "market_comparison": "Versus peers, ADV is far higher (S$430,575 vs peer median S$30,296.5; +1321.20%), but spread is better (2.50% vs 2.94%; -15.16%), which supports better day-to-day tradability than most peers. Versus the market median, ADV is also much higher (S$430,575 vs S..."
       },
       "1w": {
-        "liquidity": "Over 1w, notional ADV is S$405,925, down 32.62% versus 30d (S$602,462), and spread is 2.41%, 9.44% wider/worse than the 30d baseline (2.20%). This combination signals weakening near-term trading conditions: fewer dollars available and higher implied transaction cost, increasing the risk of paying up when you need to transact quickly.",
-        "market_comparison": "Activity remains a strong point: S$405,925 ADV is above market (S$18,674.2) and sector/peers (S$32,287.5), and trades (89) exceed market (9) and sector/peers (10.5). However, spread at 2.41% is higher/worse than market (2.32%) and peers (2.26%), and volatility at 1.92% is well above market (0.56%), sector (0.65%), and peers (0.83%), meaning price moves are larger and costs can jump during active days."
+        "liquidity": "Over 1w, notional ADV was S$405,925, down 32.62% vs the 30d baseline (S$602,462), showing softer participation recently. Spread widened to 2.41% (+9.44% vs 30d), meaning trading cost worsened even as trades stayed elevated at 89 vs a market median of 9.",
+        "market_comparison": "Against peers, TKU remains a volume leader (S$405,925 vs S$32,287.5; +1157.22%), but spread is worse (2.41% vs 2.26%; +6.45%), so size is easy to find yet costs run higher than peer norms. Versus market, ADV is far higher (S$405,925 vs S$18,674.2) while spr..."
       },
       "2w": {
-        "liquidity": "Over 2w, notional ADV is S$418,250, down 30.58% versus 30d (S$602,462), while spread is 2.52%, 14.36% wider/worse than the 30d baseline (2.20%). Liquidity is still functional, but the cost and depth picture has deteriorated versus the 30d norm, so larger orders are more likely to move the price unless paced.",
-        "market_comparison": "TKU remains a clear activity leader: S$418,250 ADV is well above market (S$14,536.1) and sector/peers (S$12,179.125), with trades (110.5) far above market (7) and sector/peers (8.5). The trade-off is cost: spread (2.52%) is higher/worse than market (2.43%) and peers (2.32%), and volatility (1.94%) is materially above market (0.65%), sector (0.65%), and peers (0.59%), implying less predictable execution pricing."
+        "liquidity": "Over 2w, notional ADV was S$418,250, down 30.58% vs the 30d baseline, confirming the recent slowdown persists beyond a single week. Spread was 2.52% (+14.36% vs 30d), a clear deterioration in trading cost; trades stayed high at 110.5, but each trade is happ...",
+        "market_comparison": "Versus peers, ADV is extremely strong (S$418,250 vs S$12,179.125; +3334.15%), but spread is worse (2.52% vs 2.32%; +8.54%), indicating liquidity quantity is strong but quality (cost) lags peers. Versus market, ADV is much higher (S$418,250 vs S$14,536.1) wh..."
       },
       "30d": {
-        "liquidity": "Primary view (30d): liquidity is solid for a small-cap, with notional ADV of S$602,462, 171 trades/day, and 0.4250% turnover supporting consistent trading access. Spread is 2.20%, which is a meaningful ongoing cost to trade, so liquidity is strong on activity but not “cheap” on a cost basis.",
-        "market_comparison": "TKU is a liquidity activity leader versus market and peers: S$602,462 ADV versus market median S$15,030 and peer median S$16,648, and 171 trades/day versus market/sector/peers at 8. The spread (2.20%) is better than market (2.38%) and sector (2.61%) but slightly worse than peers (2.11%), while volatility (2.00%) is higher than market (0.62%), sector (0.65%), and peers (0.83%), meaning pricing can be more jumpy even when trading is active."
+        "liquidity": "Primary (30d): notional ADV is S$602,462 with 171 trades and 0.4250% turnover, supporting consistent day-to-day liquidity for a S$131.2M small cap. Spread is 2.20%; this is better than market (2.38%) and sector (2.61%), but still higher than peers (2.11%)...",
+        "market_comparison": "Versus peers, TKU is a clear liquidity leader on activity (S$602,462 vs S$16,648; +3518.83% ADV) and engagement (171 trades vs peer median 8), which improves reliability for larger tickets. The trade-off is cost: spread is 2.20% vs pee% (+4.19%), and volati..."
       }
     }
   },
@@ -1690,7 +1690,7 @@ export const REPORT_DATA: ReportData = {
         "dot": "bg-emerald-400"
       },
       "liq_section": {
-        "text": "Liquidity score: 80.8% — Strong",
+        "text": "Liquidity score: 80.82% — Strong",
         "bg": "bg-emerald-500/20",
         "textColor": "text-emerald-400"
       },
@@ -1700,7 +1700,7 @@ export const REPORT_DATA: ReportData = {
         "textColor": "text-emerald-400"
       },
       "exec_check": {
-        "text": "Weak",
+        "text": "High impact risk",
         "bg": "bg-red-500/20",
         "textColor": "text-red-400"
       },
@@ -1731,7 +1731,7 @@ export const REPORT_DATA: ReportData = {
       }
     },
     "borders": {
-      "action_plan": "border-emerald-500/30",
+      "action_plan": "border-emerald-400/30",
       "index": "border-slate-700"
     },
     "colors": {
@@ -1743,23 +1743,23 @@ export const REPORT_DATA: ReportData = {
   "labels": {
     "header_title": "Liquidity Analysis Report",
     "header_meta_line1_tokens": [
-      "{company}",
+      "Toku Ltd",
       "•",
-      "{ticker}",
+      "TKU",
       "•",
-      "Sector: {sector}",
+      "Sector: Software - Application",
       "•",
-      "Market Cap: {mcap} ({mcap_cat} cap)"
+      "Market Cap: 131.2M (small cap)"
     ],
     "header_meta_line2_tokens": [
-      "As of: {asof}",
+      "As of: 2026-02-26",
       "•",
-      "Universe: {univ}",
+      "Universe: 558",
       "•",
-      "Peers: {peers}"
+      "Peers: 8"
     ],
     "exec_title": "Executive Summary: What Matters for Trading",
-    "exec_subtitle": "Strong overall liquidity score with above-peer volume, but recent trading has slowed and costs have worsened; price moves are mostly company-driven.",
+    "exec_subtitle": "Strong 30d liquidity score, but recent trading slowed and spreads widened—expect higher trading costs if current conditions persist.",
     "exec_takeaways_title": "Key Takeaways:",
     "metric_liquidity_score": "Liquidity Score",
     "metric_spread": "Trading Cost (Spread)",
@@ -1767,80 +1767,80 @@ export const REPORT_DATA: ReportData = {
     "metric_drivers": "What Drives Price Changes",
     "footer": "Liquidity Analysis Report • Generated by Deltablock",
     "liq_title": "Liquidity Health & Peer Comparison",
-    "liq_subtitle": "30d liquidity score 80.8% (rank 108/558) with S$602,462 notional ADV; recent 1d–2w shows lower ADV and wider spreads versus the 30d baseline.",
+    "liq_subtitle": "30d liquidity is strong for a S$131.2M small cap, but the last 1–2 weeks show lower activity and higher trading cost vs the 30d baseline.",
     "market_comparison_title": "How You Compare to the Market",
-    "market_comparison_subtitle": "TKU leads on trading activity (ADV and trades) versus market/sector/peers, but spreads are not consistently best-in-peer and volatility is higher than benchmarks.",
+    "market_comparison_subtitle": "TKU trades far more than market/sector/peers on notional and trade count, while spreads are better than market/sector but slightly worse than peers.",
     "perf_title": "Stock Performance",
-    "perf_subtitle": "As of 2026-02-26 | TKU small-cap (131.2M) vs Market, Software - Application sector, and 8 peers",
-    "perf_insight": "2W breakout (+13.64%) but 30D pullback (-3.85%); beating sector and peers over 30D despite lagging market.",
+    "perf_subtitle": "As of 2026-02-26 | TKU (XSES) | 131.2M small cap | Sector: Software - Application",
+    "perf_insight": "Short-term surge (2w +13.64%) vs flat market (+0.00%), modestly positive sector (+0.11%) and peers (+0.29%), but 30d is down (-3.85%) while market is up (+2.13%).",
     "drivers_title": "What Moves Your Stock Price?",
-    "drivers_subtitle": "TKU is mainly driven by company-specific moves, with secondary sensitivity to Software - Application sector rotation; broad market influence is smaller.",
+    "drivers_subtitle": "Decomposes TKU moves into broad market, software sector rotation, and company-specific drivers (news, fundamentals, liquidity shocks).",
     "drivers_strip": [
       {
         "title": "Key Insight",
-        "text": "67.9% of TKU’s price movement is company-specific (vs 12.5% market and 19.6% sector). This means narrative and execution around TKU’s own milestones can move the stock more than macro headlines—so management communication timing matters more than market timing."
+        "text": "67.9% of TKU’s moves are company-specific, vs 12.5% market and 19.6% sector. This means headlines, guidance, and single-name liquidity events will dominate—prioritize clear, proactive IR messaging."
       },
       {
         "title": "Market Link",
-        "text": "Market explains 12.5% and the market beta is -0.81 (tends to move opposite the market when it does move). Practical implication: during broad market selloffs/rallies, TKU may not provide the same directionality as peers—prepare IR messaging to explain any “non-market” move."
+        "text": "Market influence is modest at 12.5%, and the market beta is -0.81 (often moves opposite the market). In broad sell-offs, TKU may not reliably drop with the index—risk monitoring must be name-specific."
       },
       {
         "title": "Sector Link",
-        "text": "Sector explains 19.6% but sector beta is 5.61 (very strong sensitivity when sector moves). Practical implication: when the Software - Application group swings, TKU can overreact—monitor sector news/earnings days and align updates/Q&A to reduce surprise."
+        "text": "Sector explains 19.6% of moves, but sector beta is +5.61 (very sensitive when the software sector moves). If software sentiment swings, TKU can amplify it—prepare comms for sector-driven days."
       }
     ],
-    "drivers_pie_title": "What’s driving TKU day-to-day?",
-    "drivers_pie_note": "Split of price moves explained by broad market, sector rotation, and TKU-specific factors (67.9% is TKU-specific).",
-    "lead_lag_title": "Does TKU Lead or Follow?",
-    "lead_lag_note": "Best fit suggests TKU follows the market with ~5 trading days delay, but moves in sync with its sector (same day).",
-    "rolling_title": "How the Driver Mix Is Changing",
+    "drivers_pie_title": "Driver Mix (Latest Window)",
+    "drivers_pie_note": "Shares show what portion of price movement is typically explained by market, sector, vs TKU-specific forces ove-12-25 to 2026-02-26.",
+    "lead_lag_title": "Lead–Lag vs Market and Sector",
+    "lead_lag_note": "Best lag indicates whether TKU tends to react after (positive lag) or move with (zero lag) the benchmark; use this to time communications, not trading.",
+    "rolling_title": "How Drivers Evolved Over Time",
     "rolling_latest_label": "Latest: {period}",
-    "rolling_note": "Only one rolling window is available (2025-12-25 to 2026-02-26), so trend in correlation over time is unavailable; treat current mix as a snapshot, not a proven shift.",
-    "drivers_bottom_line": "CEO takeaway: TKU is largely “dancing to its own tune” (67.9% company-driven), but it can swing hard with sector rotation (beta 5.61). Market linkage is smaller (12.5%) and tends to be opposite-direction (beta -0.81).",
+    "rolling_note": "Only one rolling window was provided, so trend in correlation over time is unavailable; treat the latest mix as the current baseline.",
+    "drivers_bottom_line": "TKU is mostly “its own story” (67.9% company-driven), with a meaningful but secondary sector link (19.6%) and limited market tie (12.5%).",
     "drivers_wtd_title": "What This Means for Trading",
     "drivers_wtd_list": [
-      "Communication: Because 67.9% is company-driven, prioritize predictable, well-timed updates around product/financial milestones—silence increases the risk that small, idiosyncratic news drives outsized moves.",
-      "Risk monitoring: Set a standing watchlist for Software - Application sector catalysts; even though sector explains 19.6%, the high sector beta (5.61) means sector days can dominate outcomes—prepare rapid-response FAQs for IR.",
-      "Liquidity planning: Current regime is Low Activity; given a 62.5% chance of staying Low Activity day-to-day and a 12.5% chance of jumping directly to High Activity, plan for occasional sudden activity spikes even in otherwise quiet periods (keep internal approvals/data ready)."
+      "Communication: Because 67.9% is company-driven, tighten disclosure cadence around results, guidance, and material updates to reduce rumor-driven volatility and protect credibility.",
+      "Liquidity planning: With a negative market link (beta -0.81) and large sector sensitivity (beta +5.61), stress-test cash and funding narratives for software-sector shock days, not just index drawdowns.",
+      "Risk monitoring: Set alerts for sector moves because 19.6% is sector-driven and amplified (beta +5.61); separate sector-wide pressure from TKU-specific issues when responding publicly."
     ],
-    "regime_title": "Liquidity Backdrop (Regimes)",
-    "regime_subtitle": "Activity-day clustering splits trading conditions into 3 regimes; current state is Low Activity.",
-    "regime_badge_text": "Current: Low Activity",
-    "regime_pie_title": "How often each regime occurs",
-    "transition_title": "How regimes tend to change next day",
+    "regime_title": "Trading Activity Regimes",
+    "regime_subtitle": "Regimes classify days into Low/Medium/High activity to understand how stable the liquidity backdrop is; current regime indicates the present environment for liquidity planning.",
+    "regime_badge_text": "Current: Low Activity (Regime 0)",
+    "regime_pie_title": "Time Spent in Each Activity Regime",
+    "transition_title": "Regime Stability (Transition Probabilities)",
     "transition_cols": [
       "From \\ To",
-      "Medium Activity",
-      "High Activity"
+      "Low Activity",
+      "Medium Activity"
     ],
-    "transition_note_template": "From Low Activity, next day probabilities are: stay Low 62.5%, move to Medium 25.0%, move to High 12.5%. From High Activity, there is a 50.0% chance of dropping to Medium and 50.0% chance of staying High.",
+    "transition_note_template": "Stability check: from {from_regime}, probability of staying is {stay_prob}; probability of shifting to {to_regime} is {shift_prob}.",
     "exec_check_title": "Trading Costs & Market Depth",
-    "exec_check_subtitle": "TKU (XSES) small-cap (S$131.2M): limited on-screen liquidity; larger sells face partial fills and material price slippage.",
+    "exec_check_subtitle": "Small-cap (131.2M) with wide spread (1.98%) and limited displayed liquidity; sell impact rises quickly beyond ~S$100K.",
     "order_book_title": "Order Book Depth (Available Liquidity)",
-    "order_book_note": "Snapshot across 10 levels: Total bid value (immediate sell capacity) is S$617,384 vs total ask value S$1,677,806; sell-side liquidity is meaningfully thinner than buy-side support.",
-    "peer_capacity_title": "Peer Capacity (Impact vs ADV Benchmark)",
-    "peer_capacity_note": "Peer data shown is impact for a S$50k trade as % of ADV (higher = more capacity). TKU is not provided here; use peers only as directional context (2 of 8 peers missing).",
+    "order_book_note": "Displayed depth is based on TOP 10 levels per side (L2): bid S$617,384 vs ask S$1,677,806. This is displayed liquidity only; full-orderbook coverage is planned soon.",
+    "peer_capacity_title": "Peer Liquidity Capacity (Relative)",
+    "peer_capacity_note": "Peer capacity data is shown for impact at a 50k-size as % of ADV; TKU’s %ADV metrics are unavailable here, so comparison is directional only.",
     "impact_summary_title": "Estimated Price Impact (Sell Orders)",
-    "impact_summary_subtitle": "Model-based estimates at current book conditions; negative numbers mean price pressure on sells. Where fill <100%, the rest would likely require time and/or lower prices.",
-    "exec_check_insight": "S$100k sells are feasible (100% filled) but still move the price; S$1.0–2.5M sells cannot complete on current liquidity without spreading over time.",
+    "impact_summary_subtitle": "Approximate price impact (%) for sell orders.",
+    "exec_check_insight": "At 1.98% spread and only S$617,384 of displayed bid value (top 10 levels), sell orders above S$100K show steep impact and incomplete immediate fill, raising execution cost and headline risk for IR.",
     "trader_composition_title": "Who's Trading Your Stock?",
-    "trader_composition_subtitle": "30D mix shows many small retail prints, but most value comes from mixed and institutional-sized tickets (SGD).",
-    "trader_retail_threshold": "Retail: < S$13,500 per trade",
-    "trader_mixed_threshold": "Mixed: S$13,500–S$67,500 per trade",
-    "trader_instit_threshold": "Institutional: ≥ S$67,500 per trade",
-    "peer_trader_title": "Peer Comparison: Trader Mix",
-    "peer_trader_subtitle": "Compare trade-count share vs notional share to separate “noise” (many small trades) from “control” (who carries the value).",
+    "trader_composition_subtitle": "30d view (3,098 trades): mostly retail by trade count, but most notional is Mixed + Institutional.",
+    "trader_retail_threshold": "Retail: <S$13.5K per trade",
+    "trader_mixed_threshold": "Mixed: S$13.5K–S$67.5K per trade",
+    "trader_instit_threshold": "Institutional: ≥S$67.5K per trade",
+    "peer_trader_title": "Peer Comparison: Trader Mix (30d)",
+    "peer_trader_subtitle": "TKU has more institutional notional than most peers, despite similar retail-heavy trade counts.",
     "price_moving_title": "Which Trades Move the Price?",
-    "price_moving_subtitle": "Only 20.2% of trades were price-moving (898 of 4,437), so a minority of executions drive most of the short-term price changes.",
+    "price_moving_subtitle": "Across 4,437 trades, 898 (20.2%) changed the price; most trades do not move the quote.",
     "intraday_title": "When Does Trading Happen?",
-    "intraday_subtitle": "Most trading occurs in the continuous session (94.2%); auctions are 5.8% of activity, with a clear volume spike at 09:00 (13.4%).",
+    "intraday_subtitle": "Most activity is in continuous trading (94.2%); auctions are 5.8% and concentration is moderate (HHI 0.196).",
     "session_dist_title": "Trading by Session",
     "session_period_label": "Period:",
-    "session_dist_note": "30D split: Opening 1.7%, Continuous 94.2%, Closing 3.2% (Auctions total 5.8%). Use auctions mainly for liquidity capture; expect most price formation during continuous.",
+    "session_dist_note": "Session split is based on notional activity: Opening + Closing are auction windows; Continuous is regular trading.",
     "hhi_title": "Trading Concentration (HHI)",
-    "hhi_note_template": "HHI {hhi} indicates how concentrated volume is across the day; higher means more volume is clustered into fewer time windows, raising timing risk.",
+    "hhi_note_template": "HHI summarizes how concentrated trading is across the day (higher = more clustered into a few time intervals).",
     "intraday_intensity_title": "Trading Activity by Time of Day",
-    "intraday_intensity_note": "Peak time is 09:00 with 13.4% of volume; concentrate monitoring and communications readiness around this window.",
+    "intraday_intensity_note": "Peak time highlights where the largest share of daily notional clusters; clustering increases short bursts of volatility risk.",
     "peers_hhi_title": "Peer Comparison: Trading Concentration",
     "peers_hhi_cols": [
       "Ticker",
@@ -1848,10 +1848,10 @@ export const REPORT_DATA: ReportData = {
       "HHI",
       "Interpretation"
     ],
-    "peers_hhi_note": "Lower HHI generally means volume is spread more evenly through the day (easier execution planning); higher HHI means timing matters more.",
-    "intraday_insight": "Trading is overwhelmingly in the continuous session (94.2%) with auctions at 5.8% split between open (1.7%) and close (3.2%). The main timing risk is the 09:00 spike where 13.4% of volume concentrates and short-term swings are most likely. HHI of 0.196 means activity is moderately concentrated—some time windows dominate, so execution timing can change outcomes. Versus peers, TKU’s HHI (~0.190) is among the least concentrated, implying more predictable liquidity through the day than several peers.",
+    "peers_hhi_note": "Lower HHI suggests steadier liquidity through the day; higher auction share suggests more trading in auction windows.",
+    "intraday_insight": "Trading is overwhelmingly in the continuous session (94.2%) with a measurable open/close presence (auctions 5.8%). Peak activity is at 09:00 (13.4%), so price jumps can cluster early. HHI 0.196 implies moderate clustering; versus peers, TKU’s HHI (~0.190) i...",
     "short_title": "Short Selling & Lending",
-    "short_subtitle": "Short activity is near-zero (1W avg 0.0; 2W avg 0.0; 1M avg 0.00321, max 0.0210). Days-to-cover is 0.0 (avg 0.000543), and short interest fell -78% MoM (Feb ratio 0.00203 vs Jan 0.00907).",
+    "short_subtitle": "Short activity is minimal (1M avg short ratio 0.32%, max 2.10%) and the position is easily unwound (days-to-cover max 0.004; current near zero). Shorts are covering sharply (-78% MoM: 0.91% in 2026-01 to 0.20% in 2026-02), reducing downside pressure and eas...",
     "ofi_title": "Order Flow Balance",
     "ofi_subtitle": "Order flow imbalance data is not yet available for this report.",
     "ofi_tiles": [
@@ -1899,14 +1899,14 @@ export const REPORT_DATA: ReportData = {
         "title": "Liquidity Score",
         "tooltip": {
           "title": "Liquidity Score (30d)",
-          "body": "Composite liquidity measure (0–100) based on volume, trading cost (spread), and consistency; higher is better."
+          "body": "Composite liquidity score across volume, trading activity and trading cost; higher is better. TKU scores 80.8 with rank 108/558."
         },
-        "value": "80.8",
+        "value": "81",
         "suffix": "/100",
-        "bar_pct": 80.8,
+        "bar_pct": 81,
         "color_value": "text-emerald-400",
         "color_bar": "bg-emerald-500/20",
-        "subtext": "Rank 108/558 • Top quintile liquidity",
+        "subtext": "Rank 108/558 • Above-average liquidity for a small cap",
         "interpretation": {
           "text": "Strong",
           "cls": "interpretation-good",
@@ -1917,14 +1917,14 @@ export const REPORT_DATA: ReportData = {
         "title": "Trading Cost (Spread)",
         "tooltip": {
           "title": "Spread (30d)",
-          "body": "Average bid-ask spread over the last 30 days; higher spread means higher all-in trading cost."
+          "body": "Average bid-ask spread over the selected window; lower means lower trading friction. TKU spread is 2.20% vs peer median 2.11%."
         },
         "value": "2.20",
         "suffix": "%",
-        "bar_pct": null,
+        "bar_pct": 22,
         "color_value": "text-amber-400",
         "color_bar": "bg-amber-500/20",
-        "subtext": "2.20% vs peer median 2.11% (higher cost); recent cost worsened: +13.35% (1d), +9.44% (1w), +14.36% (2w) vs 30d.",
+        "subtext": "2.20% vs peers 2.11% (wider/worse) • Recent costs worsened: +13.35% (1d) and +9.44% (1w) vs 30d",
         "interpretation": {
           "text": "Moderate",
           "cls": "interpretation-neutral",
@@ -1934,17 +1934,17 @@ export const REPORT_DATA: ReportData = {
       {
         "title": "Average Traded Volume",
         "tooltip": {
-          "title": "ADV (Notional, 30d)",
-          "body": "Average daily traded value over the last 30 days; higher ADV usually supports larger orders with less price impact."
+          "title": "Notional ADV (30d)",
+          "body": "Average daily traded value in local currency over the selected window; higher supports larger turnover with less disruption. TKU ADV is S$602,462 vs peer median S$16,648."
         },
         "value": "S$602K",
         "suffix": "",
-        "bar_pct": null,
+        "bar_pct": 80,
         "color_value": "text-emerald-400",
         "color_bar": "bg-emerald-500/20",
-        "subtext": "30d ADV S$602K vs peer median S$16.6K (+3518.8%); but recent slowdown: -28.53% (1d), -32.62% (1w), -30.58% (2w) vs 30d.",
+        "subtext": "S$602K/day vs peers S$16.6K/day (+3518.8%) • Recent slowdown: -28.53% (1d), -32.62% (1w), -30.58% (2w) vs 30d",
         "interpretation": {
-          "text": "Strong",
+          "text": "High",
           "cls": "interpretation-good",
           "icon": "◆"
         }
@@ -1952,34 +1952,34 @@ export const REPORT_DATA: ReportData = {
       {
         "title": "What Drives Price Changes",
         "tooltip": {
-          "title": "Return Drivers (Factor Exposure)",
-          "body": "Estimated share of price moves driven by broad market, sector, vs company-specific factors; higher company-specific means news/IR events matter more."
+          "title": "Price-change drivers",
+          "body": "Share of price moves explained by company vs sector vs market; higher company-specific means moves are driven more by stock-specific factors than broad conditions. TKU: 67.9% company, 19.6% sector, 12.5% market."
         },
         "value": "67.9",
         "suffix": "company-specific",
-        "bar_pct": 67.9,
+        "bar_pct": 68,
         "color_value": "text-amber-400",
         "color_bar": "bg-amber-500/20",
-        "subtext": "Company-specific 67.9% vs market 12.5% and sector 19.6%—day-to-day moves are more about TKU news flow than market drift.",
+        "subtext": "67.9% company-driven vs 19.6% sector and 12.5% market • Liquidity perception can shift on TKU-specific news flow",
         "interpretation": {
-          "text": "Moderate",
+          "text": "Company",
           "cls": "interpretation-neutral",
           "icon": "◆"
         }
       }
     ],
     "exec_takeaways": [
-      "Liquidity is a relative strength: score 80.8 (rank 108/558) with 30d ADV S$602K, far above peers (peer median S$16.6K, +3518.8%). Practical implication: the stock can typically absorb routine investor flows, supporting steadier access to capital markets communication when needed.",
-      "Trading quality has deteriorated recently: ADV is down vs the 30d baseline (-32.62% over 1w; -30.58% over 2w) while spread is higher (+9.44% over 1w; +14.36% over 2w). Why it matters: lower activity plus higher spread increases execution friction and can amplify price moves on moderate orders; implication: prioritize liquidity-supporting cadence (IR updates/news timing) during thin weeks and monitor daily liquidity before any major shareholder actions.",
-      "Price moves are mostly within management’s control: 67.9% of movement is company-specific (vs 12.5% market, 19.6% sector). Why it matters: messaging, disclosures, and event planning can materially change near-term trading conditions; implication: tighten governance around announcements (timing, clarity, Q&A readiness) to reduce avoidable volatility (30d volatility is 2.00%) and help stabilize trading costs (30d spread 2.20%)."
+      "Liquidity is strong on a 30d basis (score 80.8; rank 108/558), supported by S$602K/day ADV and 171 trades/day—this gives the company credibility with liquidity-sensitive investors despite a 131.2M small-cap size.",
+      "Trading quality is slipping short-term: ADV is down -32.62% (1w) vs 30d and spread is up +9.44% (1w) vs 30d, implying higher friction and potentially more investor reluctance if the pattern persists.",
+      "Costs are also worse than peers on spread (2.20% vs 2.11% median), even though volume is far higher (+3518.8% ADV vs peers); prioritize actions that improve quote quality and reduce perceived risk around TKU-specific catalysts (67.9% company-driven moves)."
     ],
     "perf_badge": "Context",
     "footer": "Liquidity Analysis Report • Generated by Deltablock",
     "liq_tiles": [
       {
         "title": "Liquidity Score (30d)",
-        "value": "80.8% (108/558)",
-        "sub": "Down to 71.3% on 1d; -11.75% vs 30d baseline score",
+        "value": "80.82% (Rank 108/558)",
+        "sub": "Down to 71.33% on latest 1d snapshot (161/558), reflecting weaker recent conditions vs the 30d baseline.",
         "interp": {
           "text": "Strong",
           "cls": "interpretation-good",
@@ -1989,7 +1989,7 @@ export const REPORT_DATA: ReportData = {
       {
         "title": "Notional ADV (30d)",
         "value": "S$602,462",
-        "sub": "Recent slowdown: 1d S$430,575 (-28.53%), 1w S$405,925 (-32.62%) vs 30d",
+        "sub": "Recent slowdown: 1w S$405,925 (-32.62%) and 1d S$430,575 (-28.53%) vs 30d baseline.",
         "interp": {
           "text": "Strong",
           "cls": "interpretation-good",
@@ -1999,7 +1999,7 @@ export const REPORT_DATA: ReportData = {
       {
         "title": "Spread (30d)",
         "value": "2.20%",
-        "sub": "Cost worsened recently: 1d 2.50% (+13.35%), 2w 2.52% (+14.36%) vs 30d",
+        "sub": "Cost worsened recently: 1d 2.50% (+13.35%), 1w 2.41% (+9.44%), 2w 2.52% (+14.36%) vs 30d baseline.",
         "interp": {
           "text": "Moderate",
           "cls": "interpretation-neutral",
@@ -2007,42 +2007,42 @@ export const REPORT_DATA: ReportData = {
         }
       }
     ],
-    "liq_insight": "Over 30d, TKU’s liquidity is strong on activity (S$602,462 ADV; 171 trades/day), supporting operational flexibility for trading. The near-term (1d–2w) shows a clear deterioration versus the 30d baseline: ADV is down ~29–33% and spreads are ~9–14% wider, which increases transaction cost and timing risk.",
+    "liq_insight": "Over 30d, TKU has strong, reliable liquidity (S$602,462 ADV; 171 trades; 0.4250% turnover), making it easier to support consistent trading interest. The red flag is recent deterioration versus that baseline: ADV is down ~29–33% and spread is up ~9–14%, incr...",
     "exec_check_tiles": [
       {
         "title": "Mid Price",
         "value": "S$0.2525",
-        "note": "As-of 2026-02-26; execution costs below are relative to this mid.",
+        "note": "Reference price at snapshot; impact estimates below are measured versus this level.",
         "color": "text-white"
       },
       {
         "title": "Spread",
         "value": "1.98%",
-        "note": "High spread implies higher all-in trading cost and more slippage risk, especially when urgency is high.",
-        "color": "text-red-400"
+        "note": "Wide gap between buyers and sellers; this raises trading cost and makes price moves look larger on small notional trades.",
+        "color": "text-red-500"
       },
       {
         "title": "Depth",
-        "value": "S$617,384",
-        "note": "Total bid value across 10 levels (what can absorb sells now). This is below S$1.0M, signalling limited immediate capacity.",
-        "color": "text-red-400"
+        "value": "Bid S$617K / Ask S$1.68M",
+        "note": "Top-10 displayed liquidity is ask-heavy; sells hit the thinner bid side first, increasing downside impact risk.",
+        "color": "text-red-500"
       }
     ],
     "impact_summary_cards": [
       {
-        "title": "Capacity breaks above ~S$100k",
-        "text": "At S$100k sell: 100.0% filled with -114.75 bps impact (about -1.15%). At S$1.0M: only 61.7% fills and impact worsens to -693.91 bps (about -6.94%), meaning size overwhelms displayed bids and forces lower prices or time-slicing. At S$2.5M: only 24.7% fills with the same -693.91 bps estimate, indicating the book is the binding constraint, not the model limit.",
-        "cls": "interpretation-bad"
+        "title": "~S$100K sell",
+        "text": "Estimated impact ~-1.15% with 100.0% fill.",
+        "cls": "ok"
       },
       {
-        "title": "Execution consistency: unavailable beyond 1 day",
-        "text": "Multi-day impact has N=1 day only: S$100k mean/median -114.75 bps; S$1.0M and S$2.5M mean/median -693.91 bps. With only one observation, consistency over time is unproven; leadership should assume variability and avoid relying on a single-day estimate for large sales.",
-        "cls": "interpretation-neutral"
+        "title": "S$1.0M sell",
+        "text": "Estimated impact ~-6.94% with 61.7% fill.",
+        "cls": "warn"
       },
       {
-        "title": "Order-flow sensitivity is elevated",
-        "text": "Kyle’s Lambda is 0.00009093598867490895% per S$10,000: price is meaningfully sensitive to incremental selling (more selling tends to move price more). Practical implication: use smaller order clips and longer time windows to reduce visible pressure on the bid.",
-        "cls": "interpretation-bad"
+        "title": "S$2.5M sell",
+        "text": "Estimated impact ~-6.94% with 24.7% fill.",
+        "cls": "warn"
       }
     ],
     "peers_hhi_header": [
@@ -2068,131 +2068,67 @@ export const REPORT_DATA: ReportData = {
   },
   "insights": {
     "liquidity": {
-      "overall": "Liquidity is strong on 30d (score 80.8%, rank 108/558) but has weakened in the most recent windows as dollar volume fell and spreads widened versus the 30d baseline.",
+      "overall": "Liquidity is strong on a 30d view (score 80.82%, rank 108/558), but recent periods show deteriorating conditions versus that baseline: lower ADV and wider spreads raise trading friction.",
       "strengths": [
-        "Scale of activity is a competitive advantage: 30d ADV S$602,462 versus peer median S$16,648 (+3518.83% higher/better), supporting consistent access to liquidity despite small-cap size (S$131.2M).",
-        "High trade frequency: 30d trades/day 171 versus peer median 8, helping orders get filled in smaller increments with less waiting."
+        "Scale of activity is a standout: 30d notional ADV S$602,462 vs peer median S$16,648 (+3518.83%), supporting larger day-to-day capacity.",
+        "High trade frequency: 30d trades 171 vs peer median 8 and market median 8, improving continuity of price discovery (more frequent prints)."
       ],
       "concerns": [
-        "Recent liquidity deterioration versus 30d: 1w ADV S$405,925 (-32.62%) and 2w ADV S$418,250 (-30.58%), reducing depth available on a typical day.",
-        "Cost pressure in recent windows: spread widened from 2.20% (30d) to 2.50% (1d, +13.35%) and 2.52% (2w, +14.36%), which directly increases trading cost and can impact buybacks, employee plan administration, or any treasury activity.",
-        "Volatility is elevated: 30d volatility 2.00% versus market 0.62% and peers 0.83%, meaning execution prices can shift quickly even when volume is available."
+        "Recent slowdown: ADV fell from S$602,462 (30d) to S$405,925 (1w, -32.62%) and S$430,575 (1d, -28.53%), which can make larger orders move the price more than expected.",
+        "Recent cost deterioration: spread increased from 2.20% (30d) to 2.41% (1w, +9.44%) and 2.50% (1d, +13.35%), directly increasing implementation cost.",
+        "Trading quality vs peers is mixed: 30d spread is worse than peers (2.20% vs 2.11%, +4.19%) while volatility is higher (2.00% vs 0.83%), increasing uncertainty around achieved prices."
       ],
-      "peer_context": "TKU is an activity leader versus its 8 peers (ADV and trades far higher), but it is not a consistent cost leader: 30d spread is 2.20% versus peer median 2.11% (wider/worse), and volatility is higher than peers (2.00% vs 0.83%), which can make realized trading costs less predictable."
+      "peer_context": "TKU is a liquidity leader on volume and trade count across all windows (e.g., 1d ADV S$430,575 vs peers S$30,296.5; 30d ADV S$602,462 vs peers S$16,648), but it is not a cost leader because spreads are typically wider than peers outside the 1d snapshot."
     },
     "market_comparison": {
-      "adv": {
-        "insight": "TKU trades at a much larger notional scale than benchmarks, though the latest 1d–2w shows a meaningful pullback versus its own 30d norm.",
-        "vs_market": "30d ADV S$602,462 vs market median S$15,030 (higher/better); 1d ADV S$430,575 vs market median S$26,415 (higher/better).",
-        "vs_sector": "30d ADV S$602,462 vs sector median S$16,648 (higher/better); 1w ADV S$405,925 vs sector median S$32,287.5 (higher/better).",
-        "vs_peers": "30d ADV S$602,462 vs peer median S$16,648 (+3518.83% higher/better); 1d ADV S$430,575 vs peer median S$30,296.5 (+1321.20% higher/better)."
-      },
-      "spread": {
-        "insight": "Quoted trading cost is acceptable versus market/sector on 30d but slips versus peers in 1w/2w/30d, and it has worsened versus the 30d baseline in the latest windows.",
-        "vs_market": "30d spread 2.20% vs market median 2.38% (lower/better), but 1d spread 2.50% vs market median 2.35% (higher/worse).",
-        "vs_sector": "30d spread 2.20% vs sector median 2.61% (lower/better); 1d spread 2.50% vs sector median 3.52% (lower/better).",
-        "vs_peers": "30d spread 2.20% vs peer median 2.11% (+4.19% wider/worse); 1w spread 2.41% vs peers 2.26% (+6.45% wider/worse); 2w spread 2.52% vs peers 2.32% (+8.54% wider/worse)."
-      },
-      "volatility": {
-        "insight": "Price swings are consistently larger than market/sector/peers in the multi-day windows, which can increase all-in execution slippage (difference between expected and achieved price).",
-        "vs_market": "30d volatility 2.00% vs market median 0.62% (higher/worse); 1w volatility 1.92% vs market 0.56% (higher/worse).",
-        "vs_sector": "30d volatility 2.00% vs sector median 0.65% (higher/worse); 2w volatility 1.94% vs sector 0.65% (higher/worse).",
-        "vs_peers": "30d volatility 2.00% vs peer median 0.83% (higher/worse); 2w volatility 1.94% vs peers 0.59% (higher/worse)."
-      },
-      "trades": {
-        "insight": "TKU has far more daily trades than benchmarks across all periods, improving the ability to transact without relying on a single moment of liquidity.",
-        "vs_market": "30d trades/day 171 vs market median 8 (higher/better); 1d trades 114 vs market 10 (higher/better).",
-        "vs_sector": "30d trades/day 171 vs sector median 8 (higher/better); 1w trades 89 vs sector 10.5 (higher/better).",
-        "vs_peers": "30d trades/day 171 vs peer median 8 (higher/better); 2w trades 110.5 vs peer median 8.5 (higher/better)."
-      }
+      "adv": "TKU’s notional trading activity is far above market, sector, and peer medians, but recent weeks are materially below the 30d baseline, which is the main near-term watch item.",
+      "spread": "Spreads are competitive versus the market and sector on the 30d view, but generally worse than peers and have widened versus the 30d baseline in recent periods—this is a direct cost headwind.",
+      "volatility": "Price movement is elevated versus market/sector/peers in multi-day windows, which can increase uncertainty in achieved prices even when volume is strong.",
+      "trades": "Trade counts are consistently far above market/sector/peer medians, supporting continuous two-way activity; however, recent wider spreads mean those trades are occurring at higher cost than the 30d baseline."
     },
     "performance": {
-      "overall": {
-        "interpretation": {
-          "text": "Mixed",
-          "cls": "interpretation-neutral",
-          "icon": "◆"
-        },
-        "details": [
-          {
-            "timeframe": "1W",
-            "stock_return": 0.020408163265306145,
-            "vs_market": 0.027841879015128357,
-            "vs_sector": 0.022021066491112684,
-            "vs_peers": 0.017534600046915427,
-            "message": "Up +2.04% in 1W while Market fell -0.74% and Sector fell -0.16%, outperforming both by +2.78pts and +2.20pts; this suggests near-term confidence is improving faster than the backdrop, so IR should reinforce the near-term catalyst narrative and quantify what changed recently."
-          },
-          {
-            "timeframe": "2W",
-            "stock_return": 0.13636363636363646,
-            "vs_market": 0.13633747273116437,
-            "vs_sector": 0.13527819608464786,
-            "vs_peers": 0.13349007314524575,
-            "message": "A sharp +13.64% gain over 2W versus a flat Market (+0.00%), Sector (+0.11%), and Peers (+0.29%) is a clear divergence; this looks like stock-specific re-rating, so prioritize consistent messaging on the driver (execution, pipeline, or guidance) to sustain credibility."
-          },
-          {
-            "timeframe": "30D",
-            "stock_return": -0.03846153846153888,
-            "vs_market": -0.05974341318310394,
-            "vs_sector": -0.012321598726877325,
-            "vs_peers": -0.03583322382313214,
-            "message": "Despite a -3.85% decline over 30D, TKU did better than the Sector (-2.61%) and Peers (-0.26%) but lagged the Market (+2.13%) by -5.97pts; this implies the market is rewarding broader risk exposure more than small-cap application software, so IR should address why TKU can close the gap to the market (visibility, profitability path, or cash discipline)."
-          },
-          {
-            "timeframe": "Momentum check (short vs longer)",
-            "stock_return": null,
-            "vs_market": null,
-            "vs_sector": null,
-            "vs_peers": null,
-            "message": "Returns are mixed across horizons: 1W (+2.04%) and 2W (+13.64%) are strong, but 30D is negative (-3.85%); this pattern suggests a recent rebound after earlier weakness, so management should monitor whether the 2W move is supported by repeatable fundamentals and be ready to clarify any one-off drivers."
-          }
-        ]
-      },
-      "conclusion": "Near-term performance is strong and clearly stock-specific (2W +13.64% vs near-flat benchmarks), but the 30D decline (-3.85%) means confidence is not yet stable; IR should lean into the recent divergence with measurable proof points and simultaneously explain the gap versus the broader market (+2.13% over 30D) to avoid the rally being dismissed as short-lived."
+      "overall": "Mixed",
+      "conclusion": "Momentum improved from 1w (+2.04%) to 2w (+13.64%), beating market (-0.74% / +0.00%), sector (-0.16% / +0.11%), and peers (+0.29% / +0.29%); this supports an IR message that recent news-flow or execution is being rewarded. However, 30d is still negative (-3..."
     },
     "drivers": {
-      "overall": "Variance decomposition shows TKU is predominantly company-specific: 67.9% company vs 19.6% sector vs 12.5% market. Business meaning: investor focus will be on TKU execution and news flow more than macro, so leadership should control the narrative cadence and be ready to explain idiosyncratic moves quickly.",
-      "interpretation": {
-        "text": "Strong",
-        "cls": "interpretation-good",
-        "icon": "◆"
-      },
-      "rolling_change": "Unavailable: only one rolling window (2025-12-25 to 2026-02-26) is provided, so we cannot say whether TKU is becoming more or less correlated over time. Practical implication: treat the 67.9% company-driven mix as current-state; re-check monthly before changing communication or liquidity assumptions.",
-      "beta": "Directional sensitivities: market beta -0.81 (tends to move opposite the market) and sector beta 5.61 (amplifies Software - Application moves). Practical implication: on sector-wide risk-on/risk-off days, expect larger-than-peer reactions; on broad market days, do not assume TKU will track the index direction."
+      "overall": "Variance decomposition shows TKU is primarily company-driven (67.9%), not a market proxy (12.5%) and only partly sector-rotational (19.6%). Practical implication: CEO/CFO messaging and company events will move the stock more than macro news.",
+      "interpretation": "Strong",
+      "rolling_change": "Trend over rolling windows is unavailable because only 2025-12-25 to 2026-02-26 is provided; use 67.9% company / 19.6% sector / 12.5% market as the current correlation baseline.",
+      "beta": "Directional sensitivities: market beta is -0.81 (often opposite-market), while sector beta is +5.61 (large amplification of software-sector moves). Practical implication: manage narratives separately for sector shocks vs idiosyncratic TKU news."
     },
     "regime": {
-      "overall": "Regime analysis indicates trading conditions are often not high-activity: Low Activity occurs 37.5% of the time, Medium 45.8%, High 16.7%. Business meaning: most days are quiet-to-normal, but a meaningful minority can become high-activity.",
-      "current": "Current regime is 0 (Low Activity). With a 62.5% probability to remain Low Activity the next day, the near-term backdrop is generally stable/quiet; however, there is still a 12.5% chance of jumping directly to High Activity from Low, which can strain responsiveness if communications and internal data aren’t ready.",
-      "transitions": "Persistence is moderate: Low stays Low 62.5%; Medium stays Medium 63.6%; High stays High 50.0%. Notably, High never drops straight to Low (0.0%); it either stays High (50.0%) or cools to Medium (50.0%). Practical implication: once activity spikes, expect at least a multi-day “afterburn” (High/Medium) requiring sustained monitoring.",
-      "trading_implications": "Avg_vol and regime scores are unavailable (N/A/None), so we cannot quantify costs/spreads by regime. Practical implication: use the regime labels as an early-warning for operational readiness (IR response time, disclosure Q&A prep) rather than a precise estimate of transaction cost; add volume/spread tracking to make the regime dashboard decision-grade."
+      "overall": "Activity regimes: Medium Activity dominates (45.8% of days), Low Activity is also frequent (37.5%), and High Activity is less common (16.7%). This mix suggests liquidity conditions can shift, but extreme activity is not the norm.",
+      "current": "Current regime is 0 (Low Activity). Practical implication: plan disclosures and investor engagement assuming thinner day-to-day activity; surprises can translate into larger price jumps when activity is low.",
+      "transitions": "Regime persistence is moderate: Low Activity stays Low 62.5% of the time and shifts to Medium 25.0% (to High 12.5%). High Activity is fragile (stays High 50.0% and shifts to Medium 50.0%), while Medium stays Medium 63.6% and shifts to Low 36.4%.",
+      "trading_implications": "Liquidity backdrop is somewhat stable within Low/Medium (62.5% and 63.6% stay rates), but High Activity does not persist (50% chance of dropping to Medium). Practical implication: treat the current Low Activity as normal-but-fragile for sudden news; keep in..."
     },
     "execution": {
-      "overall": "TKU can handle ~S$100k sells in one pass but with ~1.15% estimated impact; anything near S$1.0M+ is likely to be incomplete on-screen and materially price-moving (only 61.7% filled at S$1.0M; 24.7% at S$2.5M).",
-      "concern": "Displayed bid depth is only S$617,384 across 10 levels and spread is 1.98%, so urgent selling quickly runs out of liquidity and pays both spread + slippage; plan for multi-session execution if size approaches or exceeds the visible bid stack.",
-      "peer_context": "Peer capacity (S$50k impact as % of ADV) ranges widely: ITS 98.3, 5DD 207.8, BN2 245.4, LVR 3416.6, NXR 53995.7, U77 54555.4; 532 and KUX are unavailable. This dispersion suggests liquidity varies sharply by name; without TKU’s peer metric provided, treat TKU as lower-capacity given its shallow bid depth and large-size partial fills."
+      "overall": "Spread 1.98% plus limited bid depth (S$617,384 across top 10 levels) makes execution costs high and sell-side market impact material beyond ~S$100K.",
+      "concern": "A S$1.0M sell shows ≈-6.94% impact with 61.7% fill, and S$2.5M shows the same ≈-6.94% with only 24.7% fill—sizes this large can distort the tape and complicate capital markets messaging.",
+      "peer_context": "Peers show wide dispersion in 50k capacity (%ADV): from 98.3 (ITS) and 207.8 (5DD) up to 54,555.4 (U77); TKU’s %ADV is unavailable, but the observed -6.94% at S$1.0M suggests weaker practical capacity than the more liquid peer set."
     },
     "trader_composition": {
-      "overall": "30D, TKU is retail-dominated by trade count (Retail 90.0% of trades vs Institutional 0.8%), but not by value: Retail is only 36.7% of notional while Mixed is 50.0% and Institutional is 13.3%. This means the tape is driven by many small retail prints, while price discovery and liquidity provision rely heavily on larger mixed/institutional-sized tickets. Practical implication: prioritize consistent disclosure cadence and market education for retail visibility, but keep IR access geared to a smaller set of value-setting participants.",
-      "retail_heavy": "Retail is consistently the majority of trade count (1D 93.1%, 1W 87.5%, 30D 90.0%), yet its notional share is far lower (30D 36.7%). This divergence signals “high activity, smaller ticket sizes,” which can increase headline volatility without equivalent capital commitment. Practical implication: monitor retail-driven news sensitivity around peak times and ensure rapid clarification on rumors to protect perceived price quality.",
-      "institutional_gap": "Institutional participation is small in trade count (30D 0.8%) but meaningful in notional (13.3%), and it rose in the latest 1D snapshot (21.3% of notional; 1.4% of trades) versus 30D. The month-to-month notional trend is unavailable (2026-01 and 2026-02 notional fields are 0.0%), so do not infer a longer trend; however, the recent day shows institutions can quickly become value-relevant even with few trades. Practical implication: treat a small number of large tickets as potentially decisive for closing/next-day price, and keep management availability flexible when larger holders engage.",
-      "peer_comparison": "Versus peers, TKU sits away from the extreme retail-only names (e.g., 532 and KUX at 100% retail by trades and 100% retail by notional). TKU’s retail trade share is high (90.0%), but its institutional notional share (13.3%) is similar to 5DD (13.6%) and below ITS (22.9%) and BN2 (25.3%), indicating room to deepen institutional value participation without needing a big change in retail activity. Practical implication: IR should target incremental institutional depth (closer to ITS/BN2 levels) to improve price stability and reduce over-reliance on mixed flow."
+      "overall": "In the last 30d, retail is 90.0% of trades but only 36.7% of notional; Mixed is 9.2% of trades yet 50.0% of notional, and Institutional is 0.8% of trades but 13.3% of notional. This means many small tickets set the “noise,” while larger tickets drive most c...",
+      "retail_heavy": "Trade flow is retail-dominated by count (90.0% in 30d; 93.1% in 1d), but retail’s notional share can swing (36.7% in 30d vs 49.2% in 1d). This variability can make headline activity look strong even when larger-money participation is inconsistent—IR should...",
+      "institutional_gap": "Institutional participation is small by trade count (0.8% over 30d; 1.4% in 1d) but meaningful by notional (13.3% over 30d; 21.3% in 1d), implying infrequent but larger trades. Practical implication: liquidity perception can change quickly day-to-day; manag...",
+      "peer_comparison": "Versus peers that are often 0.0% institutional by notional (e.g., 532, KUX, U77, LVR), TKU stands out with 13.3% institutional notional while still being retail-heavy by trade count (90.0%). This is a relative advantage for price quality and credibility wit..."
     },
     "price_moving": {
-      "overall": "Only 20.2% of trades were price-moving (898 of 4,437), meaning most executions do not change the price and a minority drives short-term moves. This concentration of impact elevates event and timing sensitivity: a small subset of orders can reset the reference price. Practical implication: management should be cautious interpreting intraday price changes as “consensus” and focus on the drivers of the mover subset (news, liquidity windows).",
+      "overall": "Only 898 of 4,437 trades moved the price (20.2%), so most prints are liquidity-taking without changing the quote. Business implication: reducing unnecessary micro-volatility is more about the minority of impactful trades than overall trade noise.",
       "interpretation": "Moderate",
-      "asymmetry": "Price-moving trades are balanced by direction (448 positive vs 450 negative), but the institutional contribution is higher on down-moves (Institutional 200.0% on negative movers vs 67.0% on positive movers, as reported). This suggests downside moves may be more associated with larger-ticket flow than upside moves, increasing reputational and narrative risk when the stock is weak. Practical implication: prioritize proactive communication during drawdowns (clarify fundamentals and liquidity expectations) because larger-ticket selling pressure is more likely to move price than scattered retail buying."
+      "asymmetry": "Price-moving trades are roughly balanced: 448 positive vs 450 negative movers. However, the negative side shows higher institutional share (institutional index 200.0% vs 67.0% on positives), suggesting down-moves are more tied to larger players—monitor sell..."
     },
     "intraday": {
-      "overall": "30D trading is concentrated in continuous (94.2%) with auctions at 5.8% (open 1.7%, close 3.2%), so most price formation happens during the day rather than at the open/close. The largest single time window is 09:00 with 13.4% of volume, making early session the key risk window for abrupt moves. Practical implication: schedule sensitive announcements and management comments with awareness that early-session liquidity can amplify initial reactions.",
-      "hhi_interpretation": "HHI is 0.196 (moderately concentrated), meaning liquidity is not evenly spread—some intervals dominate—so execution outcomes can vary by time even without new information. HHI also varied by period (1W 0.284 vs 1M 0.196), indicating that concentration can worsen in shorter windows and should be monitored weekly. Practical implication: for corporate actions or investor outreach days, coordinate with market activity patterns to avoid thin intervals that can distort price signals.",
-      "best_times": "Given the 09:00 peak (13.4% of volume) and moderate concentration (HHI 0.196), execution planning should avoid being forced into the single busiest minute/hour where short-term swings can be largest, while still staying within the liquid continuous session (94.2%). Auctions are only 5.8% total, so relying on them alone risks limited participation. Practical implication: spread activity across the continuous session and use peak periods selectively for urgency rather than routine flow.",
-      "peer_ranking": "On peer HHI, TKU is at ~0.190, lower than ITS (0.253), LVR (0.341), 5DD (0.372), U77 (0.506), NXR (0.654), 532 (0.785) and KUX (0.801), making TKU one of the least time-concentrated among listed peers in this set. That supports more predictable liquidity through the day relative to several peers where volume clusters heavily into few windows. Practical implication: position TKU to institutions as comparatively easier to execute than the most concentrated peers, while continuing to build institutional notional share to improve price quality further."
+      "overall": "In 1M, 94.2% of notional trades in continuous, with 5.8% in auctions (open 1.7%, close 3.2%). Peak trading is at 09:00 with 13.4% of volume, meaning early-session prints can disproportionately shape the day’s price narrative.",
+      "hhi_interpretation": "HHI is 0.196 in 1M (moderately concentrated), improving versus 1W (0.284) and 2W (0.248), but worse than 1D (0.235 is higher concentration than 1M, so 1D is more clustered). Practical implication: liquidity has recently been less evenly distributed intra-da...",
+      "best_times": "Activity is concentrated at 09:00 (13.4% of volume), and auctions are non-trivial (5.8% in 1M). Implication: opening prints can amplify perceived momentum; IR should be cautious interpreting “early moves” as fundamental signal without broader-day confirmation.",
+      "peer_ranking": "Against peers, TKU’s HHI is ~0.190, lower than ITS (0.253), LVR (0.341), 5DD (0.372) and far below NXR/U77/532/KUX (0.506–0.801), indicating steadier liquidity than most. Despite higher auction % levels shown in the peer table, TKU’s lower HHI suggests less..."
     },
     "short_selling": {
-      "overall": "Short ratio is effectively zero vs trading; this signals little active negative positioning, so near-term short-driven pressure or forced covering is unlikely—IR should prioritize fundamentals/visibility over short rebuttals.",
-      "level": "Low: 1W avg short ratio 0.0 and 2W avg 0.0; even 1M avg is only 0.00321 (max 0.0210), meaning short selling is not a material source of day-to-day flow.",
-      "correlation": "N/A: no returns series or short/return model output provided, so Granger-causal linkage between shorting and returns cannot be assessed; treat price moves as not explainable by reported short flow in this dataset.",
-      "trend": "Covering: short interest ratio dropped -78% MoM (0.00907 in 2026-01 to 0.00203 in 2026-02) and days-to-cover is 0.0 (avg 0.000543), implying the short position is easily unwound and not building; peers show higher potential spikes (e.g., BN2 avg 0.0196, max 0.2235; 5DD max 0.3652), so TKU is not a short-selling outlier."
+      "overall": "Short ratio is low versus trading volume: 1W and 2W average short ratio is near zero; 1M average is 0.32% with a 2.10% peak. This signals limited bearish positioning and low risk of forced covering-driven volatility; management can prioritize operating upda...",
+      "level": "Days-to-cover is near zero (max 0.004), meaning the short position can be covered quickly and is not building into a crowded trade. Practical implication: low probability that lending constraints amplify price moves, but continue monitoring for any jump fro...",
+      "correlation": "N/A (no Granger-causality or short-vs-returns relationship data provided). Practical implication: do not attribute recent price moves to short flows without additional data; focus IR messaging on fundamentals and liquidity disclosure.",
+      "trend": "Short interest is decreasing materially: -78% MoM from 0.91% (2026-01) to 0.20% (2026-02). This suggests shorts are stepping back rather than pressing; IR should watch for any reversal toward January levels as an early warning of renewed negative positioning."
     },
     "ofi": {
       "overall": "Order flow imbalance data not available.",

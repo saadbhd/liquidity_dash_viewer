@@ -109,6 +109,9 @@ export function ExecutionPanel() {
               <MethodologyTooltip methodKey="execution" size="md" />
             </h2>
             <p className="text-sm text-muted-foreground">{labels.exec_check_subtitle}</p>
+            <p className="text-xs text-amber-400/90 mt-1">
+              Section update: methodology and insights are being recalibrated; an improved update is coming soon.
+            </p>
           </div>
         </div>
         <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">

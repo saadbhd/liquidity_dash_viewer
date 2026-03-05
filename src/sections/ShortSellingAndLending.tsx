@@ -34,6 +34,16 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
+const safeText = (v: unknown): string => {
+  if (typeof v === 'string') return v;
+  if (v && typeof v === 'object') {
+    const o = v as Record<string, unknown>;
+    if (typeof o.text === 'string') return o.text;
+    if (typeof o.insight === 'string') return o.insight;
+  }
+  return '';
+};
+
 export function ShortSellingAndLending() {
   const { labels, theme, insights, series, meta } = useReport();
   const chartTheme = useChartTheme();
@@ -124,8 +134,10 @@ export function ShortSellingAndLending() {
             <p className="text-sm text-muted-foreground">{SectionSubtitle}</p>
           </div>
         </div>
-        <span className={`status-badge ${theme.badges.short.bg} ${theme.badges.short.textColor} border border-current/30`}>
-          {badgeText}
+        <span
+          className={`inline-flex items-center justify-center px-5 py-2 rounded-full border text-sm font-medium ${theme.badges.short.bg} ${theme.badges.short.textColor} border-current/30`}
+        >
+          {safeText(badgeText) || theme.badges.short.text}
         </span>
       </motion.div>
 
@@ -166,7 +178,7 @@ export function ShortSellingAndLending() {
             <h3 className="text-sm font-semibold text-foreground">Executive take</h3>
           </div>
           <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
-            <p>{shortInsights?.overall ?? 'Short selling context is available for this report.'}</p>
+            <p>{safeText(shortInsights?.overall) || 'Short selling context is available for this report.'}</p>
             {showSbl ? (
               <div className="bg-slate-900/40 border border-slate-800 rounded-lg p-3">
                 <div className="flex items-center gap-2 mb-1 text-xs font-semibold text-slate-300">
@@ -185,7 +197,7 @@ export function ShortSellingAndLending() {
                 <Info className="w-3 h-3 text-sky-600 dark:text-sky-400" />
                 Trend / change
               </div>
-              <p className="text-xs text-muted-foreground">{shortInsights?.trend ?? trendText}</p>
+              <p className="text-xs text-muted-foreground">{safeText(shortInsights?.trend) || trendText}</p>
             </div>
           </div>
         </motion.div>
@@ -377,7 +389,7 @@ export function ShortSellingAndLending() {
             </Table>
           </div>
           <p className="text-xs text-muted-foreground mt-3">
-            {shortInsights?.peaks ?? 'Peaks are episodic; use as context alongside spread and OFI stress.'}
+            {safeText(shortInsights?.peaks) || 'Peaks are episodic; use as context alongside spread and OFI stress.'}
           </p>
         </motion.div>
       ) : null}

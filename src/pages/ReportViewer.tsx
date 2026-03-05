@@ -18,7 +18,8 @@ import {
     BarChart3,
     Loader2,
     Gauge,
-    BookOpen
+    BookOpen,
+    Info
 } from 'lucide-react';
 import { loadReportData } from '@/data/reportsIndex';
 import { ReportProvider } from '@/context/ReportContext';
@@ -311,6 +312,14 @@ export function ReportViewer() {
 
                             {activeTab === 'trading-activity' && (
                                 <>
+                                    <section id="trading-activity-calibration" className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4">
+                                        <div className="flex items-start gap-3">
+                                            <Info className="w-5 h-5 mt-0.5 text-amber-600 dark:text-amber-400" />
+                                            <p className="text-sm text-amber-700 dark:text-amber-300 leading-relaxed">
+                                                This section is still being calibrated for better trader-type identification for your company and improved metrics. A new update will be released soon.
+                                            </p>
+                                        </div>
+                                    </section>
                                     <section id="traders">
                                         <TraderComposition />
                                     </section>

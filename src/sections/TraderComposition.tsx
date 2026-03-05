@@ -37,6 +37,17 @@ const itemVariants = {
 
 const PERIOD_ORDER = ['1d', '1w', '2w', '30d', '3m', '6m', 'max'];
 
+
+const safeText = (v: unknown): string => {
+  if (typeof v === 'string') return v;
+  if (v && typeof v === 'object') {
+    const o = v as Record<string, unknown>;
+    if (typeof o.text === 'string') return o.text;
+    if (typeof o.insight === 'string') return o.insight;
+  }
+  return '';
+};
+
 const periodLabel = (key: string) => {
   const map: Record<string, string> = {
     '1d': '1D',
@@ -423,12 +434,12 @@ export function TraderComposition() {
           <h4 className="text-sm font-semibold text-foreground mb-3">Key Insights</h4>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <p className="text-sm text-muted-foreground leading-relaxed">{traderInsights.overall}</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">{traderInsights.retail_heavy}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{safeText(traderInsights.overall)}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{safeText(traderInsights.retail_heavy)}</p>
             </div>
             <div className="space-y-2">
-              <p className="text-sm text-muted-foreground leading-relaxed">{traderInsights.institutional_gap}</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">{traderInsights.peer_comparison}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{safeText(traderInsights.institutional_gap)}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{safeText(traderInsights.peer_comparison)}</p>
             </div>
           </div>
         </motion.div>

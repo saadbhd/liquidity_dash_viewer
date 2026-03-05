@@ -348,8 +348,8 @@ export function LiquidityScore() {
     },
     {
       key: 'amihud',
-      tabLabel: 'Amihud',
-      label: 'Price Impact (Amihud)',
+      tabLabel: 'Price Impact',
+      label: 'Price Impact',
       direction: 'lower_is_better' as const,
       company: period.liquidity.amihud,
       market: marketComparison.market.amihud,
@@ -562,7 +562,7 @@ export function LiquidityScore() {
           <p className="text-xs text-slate-500 mt-1">Daily</p>
         </div>
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Amihud <MethodologyTooltip methodKey="amihud" /></p>
+          <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Price Impact <MethodologyTooltip methodKey="price_impact" /></p>
           <p className="text-2xl font-bold text-foreground">
             {period.liquidity.amihud === null || period.liquidity.amihud === undefined
               ? 'N/A'

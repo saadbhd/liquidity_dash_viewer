@@ -34,6 +34,17 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
+
+const safeText = (v: unknown): string => {
+  if (typeof v === 'string') return v;
+  if (v && typeof v === 'object') {
+    const o = v as Record<string, unknown>;
+    if (typeof o.text === 'string') return o.text;
+    if (typeof o.insight === 'string') return o.insight;
+  }
+  return '';
+};
+
 export function PriceMovingTrades() {
   const { labels, insights, series, meta } = useReport();
   const chartTheme = useChartTheme();
@@ -240,15 +251,15 @@ export function PriceMovingTrades() {
         <h4 className="text-sm font-semibold text-foreground mb-3">Key Finding</h4>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
-            <p className="text-sm text-muted-foreground leading-relaxed">{priceInsights.overall}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{safeText(priceInsights.overall)}</p>
             {priceInsights.by_trader_type && (
               <p className="text-sm text-orange-600 dark:text-orange-400/90 leading-relaxed mt-3">
-                {priceInsights.by_trader_type}
+                {safeText(priceInsights.by_trader_type)}
               </p>
             )}
           </div>
           <div>
-            <p className="text-sm text-muted-foreground leading-relaxed">{priceInsights.interpretation}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{safeText(priceInsights.interpretation)}</p>
             <p className="text-sm text-orange-600 dark:text-orange-400 mt-2">
               Sell trades that move prices are {sizeRatio.toFixed(1)}x larger on average than buy trades that move prices.
             </p>

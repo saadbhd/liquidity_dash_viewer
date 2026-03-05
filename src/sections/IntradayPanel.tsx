@@ -67,7 +67,15 @@ export function IntradayPanel() {
   const sortedIntensity = [...intensityData].sort((a, b) => b.value - a.value);
   const top3Times = new Set(sortedIntensity.slice(0, 3).map((d) => d.time));
 
-  const cleanInsight = (v?: string) => (v || '').replace('Key insight: ', '').trim();
+  const cleanInsight = (v: unknown) => {
+    if (typeof v === 'string') return v.replace('Key insight: ', '').trim();
+    if (v && typeof v === 'object') {
+      const o = v as Record<string, unknown>;
+      if (typeof o.text === 'string') return o.text.replace('Key insight: ', '').trim();
+      if (typeof o.insight === 'string') return o.insight.replace('Key insight: ', '').trim();
+    }
+    return '';
+  };
   const intradayNarratives = [
     cleanInsight(insights?.intraday?.overall),
     cleanInsight(insights?.intraday?.hhi_interpretation),

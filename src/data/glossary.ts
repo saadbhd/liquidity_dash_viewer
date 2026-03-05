@@ -11,7 +11,7 @@ export const GLOSSARY = {
     },
     adv: {
         term: "Average Daily Volume (ADV)",
-        explanation: "The average amount of shares or money traded per day over the last 20 trading days. Higher ADV means more liquidity and easier to trade large amounts without moving the price.",
+        explanation: "The typical amount of shares or money traded per day over the selected analysis period. Higher ADV means more liquidity and easier trading of larger amounts with less market disruption.",
         plainLanguage: "How much of this stock trades on a typical day"
     },
     hhi: {
@@ -40,8 +40,8 @@ export const GLOSSARY = {
         plainLanguage: "How much does the price move when you buy or sell?"
     },
     amihud: {
-        term: "Amihud Ratio",
-        explanation: "Measures price impact per dollar traded. Lower values indicate better liquidity. It's calculated as the average of (|return| / dollar volume) over a period.",
+        term: "Price Impact Score",
+        explanation: "Measures how much price tends to move for each unit of value traded. Lower values indicate better liquidity. It is calculated as average (|return| / traded value) over the selected period.",
         plainLanguage: "How much does the price bounce around relative to how much is being traded"
     },
     idiosyncratic: {

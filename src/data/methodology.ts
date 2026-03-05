@@ -5,7 +5,7 @@
 export const METHODOLOGY: Record<string, { title: string; body: string }> = {
   liquidity_score: {
     title: "Liquidity Score (PCA)",
-    body: "Composite score built from six liquidity features (ADV notional, trade count, turnover, bid-ask spread, Amihud illiquidity, volatility) using Principal Component Analysis (PCA). Features are computed as 20-day trailing medians, standardized, and projected onto the first principal component. The score is oriented so higher = more liquid, then converted to a percentile rank across the full exchange universe.",
+    body: "Composite score built from six liquidity features (average daily trading value, trade count, turnover vs free float, bid-ask spread, price impact score, price variability) using Principal Component Analysis (PCA). Features are computed as 20-day trailing medians, standardized, and projected onto the first principal component. The score is oriented so higher = more liquid, then converted to a percentile rank across the full exchange universe.",
   },
   drivers: {
     title: "Drivers of Moves",
@@ -13,7 +13,7 @@ export const METHODOLOGY: Record<string, { title: string; body: string }> = {
   },
   regime_switching: {
     title: "Liquidity Regime Detection",
-    body: "A daily liquidity score is computed from the same PCA feature family (notional, trades, turnover, spread, Amihud, volatility) over 20-day rolling medians. A Markov Switching model (2 or 3 regimes, selected by AIC) identifies distinct liquidity states — Low, Medium, High — and estimates transition probabilities between them. Granger causality tests within each regime reveal directional links.",
+    body: "A daily liquidity score is computed from the same PCA feature family (trading value, trades, turnover, spread, price impact, and price variability) over 20-day rolling medians. A Markov Switching model (2 or 3 regimes, selected by AIC) identifies distinct liquidity states — Low, Medium, High — and estimates transition probabilities between them. Granger causality tests within each regime reveal directional links.",
   },
   execution: {
     title: "Execution Impact Simulation",
@@ -29,7 +29,7 @@ export const METHODOLOGY: Record<string, { title: string; body: string }> = {
   },
   peer_traders: {
     title: "Peer Trader Comparison",
-    body: "Compares the trader composition (retail / institutional / mixed) of the target stock against its 8 selected peers. Peers are chosen using a 5-tier matching algorithm: same cap class + sector, same cap + industry, same industry, same cap class, then nearest ADV. Trader percentages are averaged across peers for benchmarking.",
+    body: "Compares the trader composition (retail / institutional / mixed) of the target stock against its 8 selected peers. Peers are chosen using a 5-tier matching algorithm: same cap class + sector, same cap + industry, same industry, same cap class, then nearest average daily trading value. Trader percentages are averaged across peers for benchmarking.",
   },
   price_moving_trades: {
     title: "Price-Moving Trades",
@@ -37,50 +37,50 @@ export const METHODOLOGY: Record<string, { title: string; body: string }> = {
   },
   short_selling: {
     title: "Short Selling Analysis",
-    body: "Daily short ratio = ShortSaleVolume / TotalVolume. Days to cover = ShortVolume / 20-day rolling ADV. Unusual activity is flagged when the short ratio exceeds the 60-day rolling mean + 2 standard deviations. Peak days are those with short ratio above 15%. SBL pool impact estimates the bps cost of liquidating the available lending pool.",
+    body: "Daily short ratio = ShortSaleVolume / TotalVolume. Days to cover = ShortVolume / 20-day rolling average daily trading value. Unusual activity is flagged when the short ratio exceeds the 60-day rolling mean + 2 standard deviations. Peak days are those with short ratio above 15%. SBL pool impact estimates the bps cost of liquidating the available lending pool.",
   },
   pca_score: {
     title: "PCA Liquidity Score",
-    body: "Six features — log(ADV notional), log(trades), log(turnover), negative spread, negative Amihud, negative volatility — are standardized (z-score) and decomposed via SVD. The first principal component captures the dominant liquidity dimension. Scores are oriented so higher = more liquid and converted to a percentile rank in the exchange universe.",
+    body: "Six features — log(average daily trading value), log(trades), log(turnover), negative spread, negative price impact, negative price variability — are standardized (z-score) and decomposed via SVD. The first principal component captures the dominant liquidity dimension. Scores are oriented so higher = more liquid and converted to a percentile rank in the exchange universe.",
   },
   spread: {
     title: "Bid-Ask Spread",
     body: "The relative bid-ask spread is computed as (Ask − Bid) / Mid × 100%. We use the 20-day trailing median of daily mean spreads (Spread_RelMean). Lower spread means lower implicit trading cost.",
   },
   amihud: {
-    title: "Amihud Illiquidity Ratio",
-    body: "Measures price impact per unit of value traded: Amihud = mean(|daily return| / daily notional volume). Higher values indicate that even small trades move the price significantly, signaling poor liquidity. We use the 20-day trailing median.",
+    title: "Price Impact Score",
+    body: "Measures price impact per unit of value traded: Price Impact Score = mean(|daily return| / daily notional volume). Higher values indicate that even small trades move the price significantly, signaling poor liquidity. We use the 20-day trailing median.",
   },
   adv: {
-    title: "Average Daily Volume (Notional)",
-    body: "Median of (close price × volume) over the last 20 trading days. Expressed in local currency (e.g., S$, HK$). ADV is the primary measure of how much liquidity is available daily.",
+    title: "Average Daily Trading Value",
+    body: "Median of (close price × volume) over the last 20 trading days. Expressed in local currency (e.g., S$, HK$). This is the primary measure of how much liquidity is available daily.",
   },
   turnover: {
-    title: "Turnover Ratio",
-    body: "Daily volume / shares outstanding, medianed over 20 trading days. Measures the fraction of the company that changes hands on a typical day. Higher turnover implies more active trading relative to the stock's size.",
+    title: "Turnover vs Free Float",
+    body: "Daily volume divided by free-float shares (fallback: shares outstanding), medianed over 20 trading days. Measures the fraction of the company that changes hands on a typical day. Higher turnover implies more active trading relative to the stock's size.",
   },
   volatility: {
-    title: "Realized Volatility",
-    body: "Median of daily |return| over the 20-day trailing window. Used as a proxy for price uncertainty. Enters the PCA score inversely (higher volatility reduces the liquidity score).",
+    title: "Price Variability",
+    body: "Median of daily |return| over the 20-day trailing window. Used as a proxy for price uncertainty. Enters the PCA score inversely (higher variability reduces the liquidity score).",
   },
   kyles_lambda: {
     title: "Kyle's Lambda (Price Impact)",
     body: "Regression of |daily return| on daily notional volume over 63 trading days. The slope (λ) measures how much the price moves per unit of volume traded. Scaled to a reference notional amount (e.g., S$10K) to give impact in bps. Higher λ = more price impact = less liquid.",
   },
   hhi: {
-    title: "HHI Concentration Index",
-    body: "Herfindahl-Hirschman Index: for each day, HHI = Σ(share_bucket²) across 30-minute volume buckets. Then averaged across all days in the period. Range 0 to 1: closer to 0 = evenly distributed, closer to 1 = concentrated. Values above 0.25 indicate high intraday concentration.",
+    title: "Trading Concentration Index (HHI)",
+    body: "Herfindahl-Hirschman Index: for each day, the index = Σ(share_bucket²) across 30-minute volume buckets. Then averaged across all days in the period. Range 0 to 1: closer to 0 = evenly distributed, closer to 1 = concentrated. Values above 0.25 indicate high intraday concentration.",
   },
   granger: {
     title: "Granger Causality",
     body: "Statistical test checking whether lagged order flow imbalance (OFI) helps predict future price returns, controlling for past returns. Uses maximum lag of 2 days. A significant p-value (< 0.05) suggests order flow has predictive power over price movements.",
   },
   beta_market: {
-    title: "Market Beta",
+    title: "Market Sensitivity (Beta)",
     body: "Sensitivity of the stock's return to the overall market (index) return. Estimated from the 2-factor regression over 63 trading days. β_market > 1 means the stock amplifies market moves; < 1 means it dampens them.",
   },
   beta_sector: {
-    title: "Sector Beta",
+    title: "Sector Sensitivity (Beta)",
     body: "Sensitivity of the stock's return to its sector median return, after controlling for market moves. Estimated from the 2-factor regression over 63 trading days. A high sector beta means the stock tracks sector-specific trends closely.",
   },
   share_of_moves: {

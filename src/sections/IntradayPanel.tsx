@@ -37,7 +37,7 @@ const itemVariants = {
 };
 
 export function IntradayPanel() {
-  const { labels, series } = useReport();
+  const { labels, series, insights } = useReport();
   const chartTheme = useChartTheme();
   const { intraday } = series;
   const [selectedPeriod, setSelectedPeriod] = useState(intraday.session_periods[0] ?? '6M');
@@ -66,7 +66,17 @@ export function IntradayPanel() {
 
   const sortedIntensity = [...intensityData].sort((a, b) => b.value - a.value);
   const top3Times = new Set(sortedIntensity.slice(0, 3).map((d) => d.time));
-  const intradayInsightText = labels.intraday_insight.replace('Key insight: ', '');
+
+  const cleanInsight = (v?: string) => (v || '').replace('Key insight: ', '').trim();
+  const intradayNarratives = [
+    cleanInsight(insights?.intraday?.overall),
+    cleanInsight(insights?.intraday?.hhi_interpretation),
+    cleanInsight(insights?.intraday?.best_times),
+    cleanInsight(insights?.intraday?.peer_ranking),
+  ].filter(Boolean);
+  const fallbackInsight = cleanInsight(labels.intraday_insight);
+  const intradayInsightText = intradayNarratives[0] || fallbackInsight || 'No intraday insight available.';
+  const intradayExtraInsights = intradayNarratives.slice(1);
 
   return (
     <motion.div
@@ -214,7 +224,8 @@ export function IntradayPanel() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <Info className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-foreground">Peer Comparison: Trading Concentration</h3>
+            <h3 className="text-sm font-semibold text-foreground">{labels.peers_hhi_title}</h3>
+            <MethodologyTooltip methodKey="hhi" />
           </div>
           <div className="overflow-auto max-h-56 rounded-lg border border-slate-800">
             <Table>
@@ -262,10 +273,22 @@ export function IntradayPanel() {
             <Info className="w-4 h-4 text-slate-500" />
             <h3 className="text-sm font-semibold text-foreground">Insights</h3>
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            <span className="text-amber-600 dark:text-amber-400 font-semibold">Key insight:</span>{' '}
-            {intradayInsightText}
-          </p>
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              <span className="text-amber-600 dark:text-amber-400 font-semibold">Key insight:</span>{' '}
+              {intradayInsightText}
+            </p>
+            {intradayExtraInsights.length > 0 ? (
+              <ul className="space-y-2 text-sm text-muted-foreground leading-relaxed">
+                {intradayExtraInsights.map((line, idx) => (
+                  <li key={`intraday-extra-${idx}`} className="flex gap-2">
+                    <span className="text-slate-500">•</span>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
         </motion.div>
       </div>
     </motion.div>

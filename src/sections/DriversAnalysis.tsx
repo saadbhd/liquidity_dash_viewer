@@ -46,11 +46,6 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
-const formatPlain = (value: number | null | undefined, digits = 2) => {
-  if (value === null || value === undefined || !Number.isFinite(value)) return 'Not available';
-  return value.toFixed(digits);
-};
-
 const normalizePct = (value: number | null | undefined) => {
   if (value === null || value === undefined || !Number.isFinite(value)) return null;
   return value <= 1.5 ? value * 100 : value;
@@ -301,7 +296,6 @@ export function DriversAnalysis() {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-6">
             {regimes.map((r) => {
               const pctTime = normalizePct(r.pct_time);
-              const liquidityScore = r.liquidity_score ?? null;
               return (
               <div
                 key={r.id}
@@ -317,14 +311,6 @@ export function DriversAnalysis() {
                   <span className="text-xs text-muted-foreground">
                     {pctTime === null ? 'Not available' : `${pctTime.toFixed(1)}% of time`}
                   </span>
-                </div>
-                <div>
-                  <p className="text-[11px] text-slate-500 mb-1">Liquidity Score</p>
-                  <p className="text-sm text-slate-300">
-                    {liquidityScore === null || !Number.isFinite(liquidityScore)
-                      ? 'Not available'
-                      : formatPlain(liquidityScore, 1)}
-                  </p>
                 </div>
               </div>
             );})}

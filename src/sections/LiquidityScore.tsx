@@ -242,6 +242,45 @@ export function LiquidityScore() {
   const period = q01View.periods[activePeriod];
   if (!period) return null;
 
+  const marketComparison = period.market_comparison ?? {
+    sector_name: 'N/A',
+    sector_count: 0,
+    market_count: 0,
+    market: {},
+    sector: {},
+    peers: {},
+    returns: {
+      window_days: period.window_days ?? 0,
+      n_obs: 0,
+      stock: null,
+      market: null,
+      sector: null,
+      peers: null,
+      vs_market: null,
+      vs_sector: null,
+      vs_peers: null,
+    },
+  };
+
+  const marketReturns = marketComparison.returns ?? {
+    window_days: period.window_days ?? 0,
+    n_obs: 0,
+    stock: null,
+    market: null,
+    sector: null,
+    peers: null,
+    vs_market: null,
+    vs_sector: null,
+    vs_peers: null,
+  };
+
+  const scorePca = Number.isFinite(period.liquidity?.score_pca) ? period.liquidity.score_pca : 0;
+  const scorePcaPercentile = Number.isFinite(period.liquidity?.score_pca_percentile)
+    ? period.liquidity.score_pca_percentile
+    : 0;
+  const rankPca = Number.isFinite(period.liquidity?.rank_pca) ? period.liquidity.rank_pca : 0;
+  const totalPca = Number.isFinite(period.liquidity?.total) ? period.liquidity.total : 0;
+
   const peerRows = period.peer_liquidity ?? [];
   const targetPeer = peerRows.find((row) => row.is_target) ?? peerRows.find((row) => row.ticker === report.meta.ticker);
   const peerChartData = peerRows.map((row) => ({
@@ -258,9 +297,9 @@ export function LiquidityScore() {
       label: 'ADV (Notional)',
       direction: 'higher_is_better' as const,
       company: period.liquidity.adv_notional_sgd,
-      market: period.market_comparison.market.adv,
-      sector: period.market_comparison.sector.adv,
-      peers: period.market_comparison.peers.adv,
+      market: marketComparison.market.adv,
+      sector: marketComparison.sector.adv,
+      peers: marketComparison.peers.adv,
       format: (v: number | null | undefined) => formatMoney(v, report.meta.market),
     },
     {
@@ -269,9 +308,9 @@ export function LiquidityScore() {
       label: 'Spread',
       direction: 'lower_is_better' as const,
       company: period.liquidity.spread_pct,
-      market: period.market_comparison.market.spread_pct,
-      sector: period.market_comparison.sector.spread_pct,
-      peers: period.market_comparison.peers.spread_pct,
+      market: marketComparison.market.spread_pct,
+      sector: marketComparison.sector.spread_pct,
+      peers: marketComparison.peers.spread_pct,
       format: formatPct,
     },
     {
@@ -280,9 +319,9 @@ export function LiquidityScore() {
       label: 'Turnover Ratio',
       direction: 'higher_is_better' as const,
       company: period.liquidity.turnover_ratio,
-      market: period.market_comparison.market.turnover_ratio,
-      sector: period.market_comparison.sector.turnover_ratio,
-      peers: period.market_comparison.peers.turnover_ratio,
+      market: marketComparison.market.turnover_ratio,
+      sector: marketComparison.sector.turnover_ratio,
+      peers: marketComparison.peers.turnover_ratio,
       format: formatPct,
     },
     {
@@ -291,9 +330,9 @@ export function LiquidityScore() {
       label: 'Trades',
       direction: 'higher_is_better' as const,
       company: period.liquidity.trades,
-      market: period.market_comparison.market.trades,
-      sector: period.market_comparison.sector.trades,
-      peers: period.market_comparison.peers.trades,
+      market: marketComparison.market.trades,
+      sector: marketComparison.sector.trades,
+      peers: marketComparison.peers.trades,
       format: formatCount,
     },
     {
@@ -302,9 +341,9 @@ export function LiquidityScore() {
       label: 'Volatility',
       direction: 'lower_is_better' as const,
       company: period.liquidity.volatility,
-      market: period.market_comparison.market.volatility,
-      sector: period.market_comparison.sector.volatility,
-      peers: period.market_comparison.peers.volatility,
+      market: marketComparison.market.volatility,
+      sector: marketComparison.sector.volatility,
+      peers: marketComparison.peers.volatility,
       format: formatPct,
     },
     {
@@ -313,9 +352,9 @@ export function LiquidityScore() {
       label: 'Price Impact (Amihud)',
       direction: 'lower_is_better' as const,
       company: period.liquidity.amihud,
-      market: period.market_comparison.market.amihud,
-      sector: period.market_comparison.sector.amihud,
-      peers: period.market_comparison.peers.amihud,
+      market: marketComparison.market.amihud,
+      sector: marketComparison.sector.amihud,
+      peers: marketComparison.peers.amihud,
       format: (v: number | null | undefined) =>
         v === null || v === undefined || !Number.isFinite(v) ? 'N/A' : v.toExponential(2),
     },
@@ -343,29 +382,29 @@ export function LiquidityScore() {
 
   const metricMarkers = selectedMetric
     ? [
-        { key: 'stock', label: 'Stock', value: selectedMetric.company, pos: toPos(selectedMetric.company), cls: 'bg-sky-500' },
-        {
-          key: 'peers',
-          label: 'Peers median',
-          value: selectedMetric.peers?.median,
-          pos: toPos(selectedMetric.peers?.median),
-          cls: 'bg-amber-500',
-        },
-        {
-          key: 'sector',
-          label: 'Sector median',
-          value: selectedMetric.sector?.median,
-          pos: toPos(selectedMetric.sector?.median),
-          cls: 'bg-teal-500',
-        },
-        {
-          key: 'market',
-          label: 'Market median',
-          value: selectedMetric.market?.median,
-          pos: toPos(selectedMetric.market?.median),
-          cls: 'bg-purple-500',
-        },
-      ]
+      { key: 'stock', label: 'Stock', value: selectedMetric.company, pos: toPos(selectedMetric.company), cls: 'bg-sky-500' },
+      {
+        key: 'peers',
+        label: 'Peers median',
+        value: selectedMetric.peers?.median,
+        pos: toPos(selectedMetric.peers?.median),
+        cls: 'bg-amber-500',
+      },
+      {
+        key: 'sector',
+        label: 'Sector median',
+        value: selectedMetric.sector?.median,
+        pos: toPos(selectedMetric.sector?.median),
+        cls: 'bg-teal-500',
+      },
+      {
+        key: 'market',
+        label: 'Market median',
+        value: selectedMetric.market?.median,
+        pos: toPos(selectedMetric.market?.median),
+        cls: 'bg-purple-500',
+      },
+    ]
     : [];
 
   const useNarrativeInsights = activePeriod === q01View.primaryKey;
@@ -395,49 +434,49 @@ export function LiquidityScore() {
 
   const metricFallbackSummary = selectedMetric
     ? `${selectedMetric.label}: stock ${selectedMetric.format(selectedMetric.company)}, peers ${selectedMetric.format(
-        selectedMetric.peers?.median
-      )}, sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(
-        selectedMetric.market?.median
-      )}.`
+      selectedMetric.peers?.median
+    )}, sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(
+      selectedMetric.market?.median
+    )}.`
     : null;
 
   const metricFallbackVsMarket = selectedMetric
     ? `${relativeLabel(
-        selectedMetric.company,
-        selectedMetric.market?.median,
-        selectedMetric.market?.direction
-      )}: ${selectedMetric.format(selectedMetric.company)} vs market ${selectedMetric.format(selectedMetric.market?.median)}`
+      selectedMetric.company,
+      selectedMetric.market?.median,
+      selectedMetric.market?.direction
+    )}: ${selectedMetric.format(selectedMetric.company)} vs market ${selectedMetric.format(selectedMetric.market?.median)}`
     : null;
 
   const metricFallbackVsSector = selectedMetric
     ? `${relativeLabel(
-        selectedMetric.company,
-        selectedMetric.sector?.median,
-        selectedMetric.market?.direction
-      )}: ${selectedMetric.format(selectedMetric.company)} vs sector ${selectedMetric.format(selectedMetric.sector?.median)}`
+      selectedMetric.company,
+      selectedMetric.sector?.median,
+      selectedMetric.market?.direction
+    )}: ${selectedMetric.format(selectedMetric.company)} vs sector ${selectedMetric.format(selectedMetric.sector?.median)}`
     : null;
 
   const metricFallbackVsPeers = selectedMetric
     ? `${relativeLabel(
-        selectedMetric.company,
-        selectedMetric.peers?.median,
-        selectedMetric.market?.direction
-      )}: ${selectedMetric.format(selectedMetric.company)} vs peers ${selectedMetric.format(selectedMetric.peers?.median)}`
+      selectedMetric.company,
+      selectedMetric.peers?.median,
+      selectedMetric.market?.direction
+    )}: ${selectedMetric.format(selectedMetric.company)} vs peers ${selectedMetric.format(selectedMetric.peers?.median)}`
     : null;
 
-  const returnsSummary = `Stock ${formatSignedPct(period.market_comparison.returns.stock)} vs market ${formatSignedPct(
-    period.market_comparison.returns.market
-  )}, sector ${formatSignedPct(period.market_comparison.returns.sector)}, peers ${formatSignedPct(
-    period.market_comparison.returns.peers
-  )} over ${period.market_comparison.returns.window_days}D (${period.market_comparison.returns.n_obs} obs).`;
+  const returnsSummary = `Stock ${formatSignedPct(marketReturns.stock)} vs market ${formatSignedPct(
+    marketComparison.returns.market
+  )}, sector ${formatSignedPct(marketReturns.sector)}, peers ${formatSignedPct(
+    marketComparison.returns.peers
+  )} over ${marketReturns.window_days}D (${marketReturns.n_obs} obs).`;
   const returnsInsightText =
     periodMarketComparisonInsight ??
     (useNarrativeInsights ? toSafeText(report.insights?.performance?.overall) : null) ??
     returnsSummary;
 
-  const returnsVsMarket = `vs market: ${formatSignedPct(period.market_comparison.returns.vs_market)}`;
-  const returnsVsSector = `vs sector: ${formatSignedPct(period.market_comparison.returns.vs_sector)}`;
-  const returnsVsPeers = `vs peers: ${formatSignedPct(period.market_comparison.returns.vs_peers)}`;
+  const returnsVsMarket = `vs market: ${formatSignedPct(marketReturns.vs_market)}`;
+  const returnsVsSector = `vs sector: ${formatSignedPct(marketReturns.vs_sector)}`;
+  const returnsVsPeers = `vs peers: ${formatSignedPct(marketReturns.vs_peers)}`;
 
   return (
     <motion.div
@@ -464,7 +503,7 @@ export function LiquidityScore() {
         </div>
         <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
           <span className="text-xs font-medium text-emerald-400">
-            Liquidity Score: {period.liquidity.score_pca.toFixed(1)}
+            Liquidity Score: {scorePca.toFixed(1)}
           </span>
         </div>
       </motion.div>
@@ -474,11 +513,10 @@ export function LiquidityScore() {
           <button
             key={periodKey}
             onClick={() => setActivePeriod(periodKey)}
-            className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${
-              activePeriod === periodKey
+            className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activePeriod === periodKey
                 ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
                 : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
-            }`}
+              }`}
           >
             {PERIOD_LABELS[periodKey] ?? periodKey.toUpperCase()}
           </button>
@@ -493,9 +531,9 @@ export function LiquidityScore() {
       <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
         <div className="glass-panel rounded-xl p-4">
           <p className="text-xs text-slate-500 mb-1">Score (Percentile)</p>
-          <p className="text-2xl font-bold text-foreground">{period.liquidity.score_pca_percentile.toFixed(1)}</p>
+          <p className="text-2xl font-bold text-foreground">{scorePcaPercentile.toFixed(1)}</p>
           <p className="text-xs text-slate-500 mt-1">
-            Rank {period.liquidity.rank_pca}/{period.liquidity.total}
+            Rank {rankPca}/{totalPca}
           </p>
         </div>
         <div className="glass-panel rounded-xl p-4">
@@ -610,18 +648,17 @@ export function LiquidityScore() {
           </h3>
           <div className="flex flex-col gap-2 lg:items-end">
             <span className="text-xs text-slate-500">
-              {period.market_comparison.sector_name} ({period.market_comparison.sector_count}) • Market ({period.market_comparison.market_count})
+              {marketComparison.sector_name} ({marketComparison.sector_count}) • Market ({marketComparison.market_count})
             </span>
             <div className="flex flex-wrap gap-2 lg:justify-end">
               {q01View.availableKeys.map((periodKey) => (
                 <button
                   key={`mc-period-${periodKey}`}
                   onClick={() => setActivePeriod(periodKey)}
-                  className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${
-                    activePeriod === periodKey
+                  className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activePeriod === periodKey
                       ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
                       : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
-                  }`}
+                    }`}
                 >
                   {PERIOD_LABELS[periodKey] ?? periodKey.toUpperCase()}
                 </button>
@@ -633,11 +670,10 @@ export function LiquidityScore() {
         <div className="flex flex-wrap gap-2 mb-4">
           <button
             onClick={() => setActiveMarketTab('returns')}
-            className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${
-              activeMarketTab === 'returns'
+            className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activeMarketTab === 'returns'
                 ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
                 : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
-            }`}
+              }`}
           >
             Returns
           </button>
@@ -645,11 +681,10 @@ export function LiquidityScore() {
             <button
               key={metric.key}
               onClick={() => setActiveMarketTab(metric.key)}
-              className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${
-                activeMarketTab === metric.key
+              className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activeMarketTab === metric.key
                   ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
                   : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
-              }`}
+                }`}
             >
               {metric.tabLabel}
             </button>
@@ -665,37 +700,37 @@ export function LiquidityScore() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">Stock</p>
-                <p className="text-lg font-semibold text-foreground">{formatSignedPct(period.market_comparison.returns.stock)}</p>
+                <p className="text-lg font-semibold text-foreground">{formatSignedPct(marketReturns.stock)}</p>
               </div>
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">Market</p>
-                <p className="text-lg font-semibold text-foreground">{formatSignedPct(period.market_comparison.returns.market)}</p>
+                <p className="text-lg font-semibold text-foreground">{formatSignedPct(marketReturns.market)}</p>
               </div>
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">Sector</p>
-                <p className="text-lg font-semibold text-foreground">{formatSignedPct(period.market_comparison.returns.sector)}</p>
+                <p className="text-lg font-semibold text-foreground">{formatSignedPct(marketReturns.sector)}</p>
               </div>
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">Peers</p>
-                <p className="text-lg font-semibold text-foreground">{formatSignedPct(period.market_comparison.returns.peers)}</p>
+                <p className="text-lg font-semibold text-foreground">{formatSignedPct(marketReturns.peers)}</p>
               </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">vs Market</p>
-                <p className="text-sm font-medium text-slate-300">{formatSignedPct(period.market_comparison.returns.vs_market)}</p>
+                <p className="text-sm font-medium text-slate-300">{formatSignedPct(marketReturns.vs_market)}</p>
               </div>
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">vs Sector</p>
-                <p className="text-sm font-medium text-slate-300">{formatSignedPct(period.market_comparison.returns.vs_sector)}</p>
+                <p className="text-sm font-medium text-slate-300">{formatSignedPct(marketReturns.vs_sector)}</p>
               </div>
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">vs Peers</p>
-                <p className="text-sm font-medium text-slate-300">{formatSignedPct(period.market_comparison.returns.vs_peers)}</p>
+                <p className="text-sm font-medium text-slate-300">{formatSignedPct(marketReturns.vs_peers)}</p>
               </div>
             </div>
             <p className="text-xs text-slate-500 mt-3">
-              Window days: {period.market_comparison.returns.window_days} • Observations: {period.market_comparison.returns.n_obs}
+              Window days: {marketReturns.window_days} • Observations: {marketReturns.n_obs}
             </p>
             <div className="mt-4 pt-4 border-t border-slate-800">
               <p className="text-xs uppercase tracking-wide text-slate-500 mb-2">Insight</p>

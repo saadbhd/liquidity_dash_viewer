@@ -466,19 +466,25 @@ export function LiquidityScore() {
     )}: ${selectedMetric.format(selectedMetric.company)} vs peers ${selectedMetric.format(selectedMetric.peers?.median)}`
     : null;
 
-  const returnsSummary = `Stock ${formatSignedPct(marketReturns.stock)} vs market ${formatSignedPct(
-    marketComparison.returns.market
-  )}, sector ${formatSignedPct(marketReturns.sector)}, peers ${formatSignedPct(
-    marketComparison.returns.peers
-  )} over ${marketReturns.window_days}D (${marketReturns.n_obs} obs).`;
-  const returnsInsightText =
-    periodMarketComparisonInsight ??
-    (useNarrativeInsights ? toSafeText(report.insights?.performance?.overall) : null) ??
-    returnsSummary;
-
-  const returnsVsMarket = `vs market: ${formatSignedPct(marketReturns.vs_market)}`;
-  const returnsVsSector = `vs sector: ${formatSignedPct(marketReturns.vs_sector)}`;
-  const returnsVsPeers = `vs peers: ${formatSignedPct(marketReturns.vs_peers)}`;
+  const returnsMarkers = [
+    { key: 'stock', label: 'Stock', value: marketReturns.stock, cls: 'bg-sky-500' },
+    { key: 'peers', label: 'Peers median', value: marketReturns.peers, cls: 'bg-amber-500' },
+    { key: 'sector', label: 'Sector median', value: marketReturns.sector, cls: 'bg-teal-500' },
+    { key: 'market', label: 'Market median', value: marketReturns.market, cls: 'bg-purple-500' },
+  ] as const;
+  const returnsBarData = returnsMarkers.filter((m) => m.value !== null && m.value !== undefined && Number.isFinite(m.value));
+  const returnsAbsMax = Math.max(...returnsBarData.map((m) => Math.abs(m.value as number)), 1e-12);
+  const returnsMin = returnsBarData.length > 0 ? Math.min(...returnsBarData.map((m) => m.value as number)) : null;
+  const returnsMax = returnsBarData.length > 0 ? Math.max(...returnsBarData.map((m) => m.value as number)) : null;
+  const returnsStockIsFavorable =
+    marketReturns.stock !== null &&
+    marketReturns.stock !== undefined &&
+    Number.isFinite(marketReturns.stock) &&
+    marketReturns.peers !== null &&
+    marketReturns.peers !== undefined &&
+    Number.isFinite(marketReturns.peers)
+      ? (marketReturns.stock as number) >= (marketReturns.peers as number)
+      : null;
 
   return (
     <motion.div
@@ -699,25 +705,76 @@ export function LiquidityScore() {
               <TrendingUp className="w-4 h-4 text-slate-500" />
               Returns (Frequency-Matched)
             </h4>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
-              <div className="bg-slate-900/40 rounded-lg p-3">
-                <p className="text-xs text-slate-500">Stock</p>
-                <p className="text-lg font-semibold text-foreground">{formatSignedPct(marketReturns.stock)}</p>
-              </div>
-              <div className="bg-slate-900/40 rounded-lg p-3">
-                <p className="text-xs text-slate-500">Market</p>
-                <p className="text-lg font-semibold text-foreground">{formatSignedPct(marketReturns.market)}</p>
-              </div>
-              <div className="bg-slate-900/40 rounded-lg p-3">
-                <p className="text-xs text-slate-500">Sector</p>
-                <p className="text-lg font-semibold text-foreground">{formatSignedPct(marketReturns.sector)}</p>
-              </div>
-              <div className="bg-slate-900/40 rounded-lg p-3">
-                <p className="text-xs text-slate-500">Peers</p>
-                <p className="text-lg font-semibold text-foreground">{formatSignedPct(marketReturns.peers)}</p>
-              </div>
+            <div className="bg-slate-900/30 rounded-xl p-4 border border-slate-800">
+              {returnsBarData.length > 0 ? (
+                <>
+                  <div className="space-y-3">
+                    {returnsBarData.map((marker) => {
+                      const absVal = Math.abs(marker.value as number);
+                      const widthPct = Math.max((absVal / returnsAbsMax) * 100, 2);
+
+                      let barBg: string;
+                      if (marker.key === 'stock') {
+                        barBg =
+                          returnsStockIsFavorable === true
+                            ? 'bg-emerald-500/80'
+                            : returnsStockIsFavorable === false
+                              ? 'bg-red-400/70'
+                              : 'bg-sky-500/80';
+                      } else {
+                        const bgMap: Record<string, string> = {
+                          'bg-amber-500': 'bg-amber-500/60',
+                          'bg-teal-500': 'bg-teal-500/60',
+                          'bg-purple-500': 'bg-purple-500/60',
+                        };
+                        barBg = bgMap[marker.cls] ?? 'bg-slate-500/60';
+                      }
+
+                      return (
+                        <div key={marker.key} className="flex items-center gap-3">
+                          <div className="w-28 shrink-0 flex items-center gap-2">
+                            <span
+                              className={`w-2.5 h-2.5 rounded-full shrink-0 ${marker.key === 'stock'
+                                  ? returnsStockIsFavorable === true
+                                    ? 'bg-emerald-500'
+                                    : returnsStockIsFavorable === false
+                                      ? 'bg-red-400'
+                                      : marker.cls
+                                  : marker.cls
+                                }`}
+                            />
+                            <span className="text-xs text-slate-400 truncate">{marker.label}</span>
+                          </div>
+                          <div className="flex-1 relative h-7 bg-slate-800/50 rounded-lg overflow-hidden">
+                            <motion.div
+                              className={`absolute inset-y-0 left-0 rounded-lg ${barBg}`}
+                              initial={{ width: 0 }}
+                              animate={{ width: `${widthPct}%` }}
+                              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                            />
+                            <span className="absolute inset-y-0 right-3 flex items-center text-xs font-medium text-slate-200">
+                              {formatSignedPct(marker.value)}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex items-center justify-between mt-4 text-[11px] text-slate-500">
+                    <span>
+                      Return range: {formatSignedPct(returnsMin)} – {formatSignedPct(returnsMax)}
+                    </span>
+                    <span className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-slate-800/60 text-slate-400">
+                      ↑ Higher is better
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <div className="text-sm text-slate-400">Return data is not available for this period.</div>
+              )}
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-3">
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">vs Market</p>
                 <p className="text-sm font-medium text-slate-300">{formatSignedPct(marketReturns.vs_market)}</p>
@@ -729,20 +786,6 @@ export function LiquidityScore() {
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">vs Peers</p>
                 <p className="text-sm font-medium text-slate-300">{formatSignedPct(marketReturns.vs_peers)}</p>
-              </div>
-            </div>
-            <p className="text-xs text-slate-500 mt-3">
-              Window days: {marketReturns.window_days} • Observations: {marketReturns.n_obs}
-            </p>
-            <div className="mt-4 pt-4 border-t border-slate-800">
-              <p className="text-xs uppercase tracking-wide text-slate-500 mb-2">Insight</p>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                {returnsInsightText}
-              </p>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 mt-3">
-                <div className="bg-slate-900/40 rounded-lg p-2 text-xs text-slate-400">{returnsVsMarket}</div>
-                <div className="bg-slate-900/40 rounded-lg p-2 text-xs text-slate-400">{returnsVsSector}</div>
-                <div className="bg-slate-900/40 rounded-lg p-2 text-xs text-slate-400">{returnsVsPeers}</div>
               </div>
             </div>
           </div>

@@ -16,6 +16,32 @@ except ModuleNotFoundError:
 DEFAULT_API_URL = "https://liquiditypulse-api.deltablock.io"
 
 
+def load_dotenv(dotenv_path: Path) -> None:
+    if not dotenv_path.exists():
+        return
+
+    for raw_line in dotenv_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("export "):
+            line = line[7:].strip()
+        if "=" not in line:
+            continue
+
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip()
+        if not key:
+            continue
+
+        if (value.startswith('"') and value.endswith('"')) or (value.startswith("'") and value.endswith("'")):
+            value = value[1:-1]
+
+        if key not in os.environ:
+            os.environ[key] = value
+
+
 def extract_report_json(ts_file: Path) -> dict:
     cmd = ["node", "scripts/report_json_from_ts.mjs", str(ts_file)]
     result = subprocess.run(cmd, check=True, capture_output=True, text=True)
@@ -51,6 +77,8 @@ def post_payload(api_url: str, api_key: str, payload: dict) -> None:
 
 
 def main() -> None:
+    load_dotenv(Path.cwd() / ".env")
+
     parser = argparse.ArgumentParser(
         description=(
             "Load REPORT_DATA from a TS file, convert to JSON like message.txt "

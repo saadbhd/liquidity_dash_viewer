@@ -511,6 +511,7 @@ export interface Q01PeerSummary {
   peer_median_trades: number | null;
   peer_median_volatility: number | null;
   peer_median_spread_pct: number | null;
+  peer_median_spread_ticks?: number | null;
   peer_median_amihud: number | null;
   peer_median_turnover_ratio: number | null;
   target_vs_peer: Record<string, number | null>;

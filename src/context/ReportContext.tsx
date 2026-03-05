@@ -19,6 +19,13 @@ function normalizeReportForRender<T>(input: T): T {
             return value.map((v) => walk(v, parentKey, listPath));
         }
 
+        if (typeof value === 'string') {
+            let s = value;
+            s = s.replace(/\.{3,}/g, '.').replace(/…+/g, '.');
+            s = s.replace(/\s{2,}/g, ' ').trim();
+            return s;
+        }
+
         if (value && typeof value === 'object') {
             const keys = Object.keys(value);
             const keepAsObject = keepObjectPaths.has(path);

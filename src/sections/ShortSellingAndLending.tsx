@@ -222,7 +222,7 @@ export function ShortSellingAndLending() {
           {seriesRows.length > 0 ? (
             <div className="h-72 min-h-[280px] flex-1 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={seriesRows} margin={{ top: 10, right: hasPrice ? 64 : 20, left: 0, bottom: 30 }}>
+                <LineChart data={seriesRows} margin={{ top: 10, right: hasPrice ? 64 : 20, left: 28, bottom: 30 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                   <XAxis
                     dataKey="date"
@@ -242,8 +242,8 @@ export function ShortSellingAndLending() {
                     label={{
                       value: 'Short %',
                       angle: -90,
-                      position: 'insideLeft',
-                      offset: 2,
+                      position: 'left',
+                      dx: -8,
                       fill: chartTheme.tickFill,
                       fontSize: 11,
                     }}

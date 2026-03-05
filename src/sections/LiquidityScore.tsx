@@ -433,11 +433,13 @@ export function LiquidityScore() {
     : undefined;
 
   const metricFallbackSummary = selectedMetric
-    ? `${selectedMetric.label}: stock ${selectedMetric.format(selectedMetric.company)}, peers ${selectedMetric.format(
-      selectedMetric.peers?.median
-    )}, sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(
-      selectedMetric.market?.median
-    )}.`
+    ? selectedMetric.key === 'spread_pct'
+      ? `${selectedMetric.label}: stock ${selectedMetric.format(selectedMetric.company)} (${formatNumber(period.liquidity.spread_ticks, 2)} ticks), peers ${selectedMetric.format(selectedMetric.peers?.median)} (${formatNumber(period.peer_summary.peer_median_spread_ticks, 2)} ticks), sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(selectedMetric.market?.median)}.`
+      : `${selectedMetric.label}: stock ${selectedMetric.format(selectedMetric.company)}, peers ${selectedMetric.format(
+          selectedMetric.peers?.median
+        )}, sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(
+          selectedMetric.market?.median
+        )}.`
     : null;
 
   const metricFallbackVsMarket = selectedMetric

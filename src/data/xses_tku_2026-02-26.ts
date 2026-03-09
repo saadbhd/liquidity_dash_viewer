@@ -12,35 +12,35 @@ export const PEER_METHODOLOGY = {
     {
       "ticker": "TKU",
       "name": "Toku Ltd",
-      "marketCap": 131155488.65,
+      "marketCap": 125453076.1,
       "sector": "Software - Application",
       "industry": "Technology"
     },
     {
       "ticker": "ITS",
       "name": "Info-Tech",
-      "marketCap": 299280000.0,
+      "marketCap": 281220000.0,
       "sector": "Software - Application",
       "industry": "Technology"
     },
     {
       "ticker": "LVR",
       "name": "17LIVE GROUP",
-      "marketCap": 153515012.64000002,
+      "marketCap": 149153790.69,
       "sector": "Software - Application",
       "industry": "Technology"
     },
     {
       "ticker": "NXR",
       "name": "iWOW Tech",
-      "marketCap": 114034185.6,
+      "marketCap": 107080881.60000001,
       "sector": "Software - Application",
       "industry": "Technology"
     },
     {
       "ticker": "U77",
       "name": "Sarine Tech",
-      "marketCap": 71540079.87,
+      "marketCap": 74946750.34,
       "sector": "Software - Application",
       "industry": "Technology"
     },
@@ -61,14 +61,14 @@ export const PEER_METHODOLOGY = {
     {
       "ticker": "5DD",
       "name": "Micro-Mechanics",
-      "marketCap": 264160573.89999998,
+      "marketCap": 258599298.66000003,
       "sector": "Semiconductor Equipment & Materials",
       "industry": "Technology"
     },
     {
       "ticker": "BN2",
       "name": "Valuetronics",
-      "marketCap": 360647783.76,
+      "marketCap": 346303837.815,
       "sector": "Electronic Components",
       "industry": "Technology"
     }
@@ -83,7 +83,7 @@ export const REPORT_DATA: ReportData = {
     "asof_date": "2026-02-26",
     "industry": "Technology",
     "sector": "Software - Application",
-    "market_cap_display": "131.2M",
+    "market_cap_display": "125.5M",
     "market_cap_category": "small",
     "universe_total": 558,
     "peers_count": 8,
@@ -116,14 +116,14 @@ export const REPORT_DATA: ReportData = {
         "pca": {
           "valid": true,
           "window_days": 1,
-          "variance_explained": 0.5143867189581618,
+          "variance_explained": 0.5143863383620206,
           "loadings": {
-            "log_adv": 0.555467065939067,
-            "log_trades": 0.5082460096270535,
-            "log_turnover": 0.5169582540699952,
-            "neg_spread": 0.37894800312437243,
-            "neg_amihud": 0.04082686444030465,
-            "neg_vol": -0.14362476796203205
+            "log_adv": 0.5554668033138596,
+            "log_trades": 0.5082463897904642,
+            "log_turnover": 0.5169580073728192,
+            "neg_spread": 0.37894838456381535,
+            "neg_amihud": 0.04082695085164811,
+            "neg_vol": -0.14362429535074467
           }
         },
         "data_quality": {
@@ -139,6 +139,7 @@ export const REPORT_DATA: ReportData = {
           "peer_median_trades": 10.5,
           "peer_median_volatility": 0.0,
           "peer_median_spread_pct": 0.029422128259337592,
+          "peer_median_spread_ticks": 1.6742857142857144,
           "peer_median_amihud": 8.775440000561638e-09,
           "peer_median_turnover_ratio": 0.00023430347127915624,
           "target_vs_peer": {
@@ -147,6 +148,7 @@ export const REPORT_DATA: ReportData = {
             "trades_delta_pct": 985.71,
             "volatility_delta_pct": null,
             "spread_pct_delta_pct": 15.16,
+            "spread_ticks_delta_pct": -24.69,
             "amihud_delta_pct": 100.0,
             "turnover_ratio_delta_pct": 1189.05
           }
@@ -287,12 +289,12 @@ export const REPORT_DATA: ReportData = {
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 4315694.438356561,
+              "mean": 4315808.054593663,
               "median": 26415.0,
               "min": 0.0,
               "max": 331579444.0,
               "p5": 0.0,
-              "p95": 23017304.195397075,
+              "p95": 23033072.640041295,
               "count": 558
             },
             "spread_pct": {
@@ -307,7 +309,7 @@ export const REPORT_DATA: ReportData = {
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.01541635010795609,
+              "mean": 0.01541635017239972,
               "median": 0.0005377471899209525,
               "min": 0.0,
               "max": 5.849976929668446,
@@ -317,7 +319,7 @@ export const REPORT_DATA: ReportData = {
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 0.00013292425610952254,
+              "mean": 0.0001329242704362353,
               "median": 1.9000491675723243e-08,
               "min": 0.0,
               "max": 0.03921568627450985,
@@ -439,6 +441,16 @@ export const REPORT_DATA: ReportData = {
               "p95": 0.6339181286549707,
               "count": 8
             },
+            "spread_ticks": {
+              "direction": "neutral",
+              "mean": 4.682622202642049,
+              "median": 1.6742857142857144,
+              "min": 1.0,
+              "max": 24.5,
+              "p5": 1.0112068965517242,
+              "p95": 17.28999999999999,
+              "count": 8
+            },
             "amihud": {
               "direction": "lower_is_better",
               "mean": 3.944205211992539e-08,
@@ -497,14 +509,14 @@ export const REPORT_DATA: ReportData = {
         "pca": {
           "valid": true,
           "window_days": 5,
-          "variance_explained": 0.5252704793739453,
+          "variance_explained": 0.5252701481196802,
           "loadings": {
-            "log_adv": 0.5467174425495432,
-            "log_trades": 0.49311662406709567,
-            "log_turnover": 0.5068464550680919,
-            "neg_spread": 0.38877133805852715,
-            "neg_amihud": 0.08868257239381135,
-            "neg_vol": -0.20502427203496115
+            "log_adv": 0.5467171916154737,
+            "log_trades": 0.49311701295694843,
+            "log_turnover": 0.5068461516055426,
+            "neg_spread": 0.38877161238365643,
+            "neg_amihud": 0.08868261980323117,
+            "neg_vol": -0.20502421534200507
           }
         },
         "data_quality": {
@@ -520,6 +532,7 @@ export const REPORT_DATA: ReportData = {
           "peer_median_trades": 10.5,
           "peer_median_volatility": 0.008256936433732043,
           "peer_median_spread_pct": 0.022640185828192418,
+          "peer_median_spread_ticks": 1.374285714285714,
           "peer_median_amihud": 3.743030944260651e-08,
           "peer_median_turnover_ratio": 0.00032879149020639137,
           "target_vs_peer": {
@@ -528,6 +541,7 @@ export const REPORT_DATA: ReportData = {
             "trades_delta_pct": 747.62,
             "volatility_delta_pct": -132.9,
             "spread_pct_delta_pct": -6.45,
+            "spread_ticks_delta_pct": -11.9,
             "amihud_delta_pct": -29.05,
             "turnover_ratio_delta_pct": 766.02
           }
@@ -668,7 +682,7 @@ export const REPORT_DATA: ReportData = {
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 3476942.4706579833,
+              "mean": 3477070.4065937004,
               "median": 18674.2,
               "min": 0.0,
               "max": 280084950.0,
@@ -688,7 +702,7 @@ export const REPORT_DATA: ReportData = {
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.013657299836590793,
+              "mean": 0.013657299947517151,
               "median": 0.00035248809760375015,
               "min": 0.0,
               "max": 5.849976929668446,
@@ -698,7 +712,7 @@ export const REPORT_DATA: ReportData = {
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 0.00012127287407359296,
+              "mean": 0.00012127288289715996,
               "median": 3.984137735225313e-08,
               "min": 0.0,
               "max": 0.03921568627450985,
@@ -820,6 +834,16 @@ export const REPORT_DATA: ReportData = {
               "p95": 0.6339181286549707,
               "count": 8
             },
+            "spread_ticks": {
+              "direction": "neutral",
+              "mean": 4.628489947575366,
+              "median": 1.374285714285714,
+              "min": 1.0,
+              "max": 24.5,
+              "p5": 1.0144300727566693,
+              "p95": 17.32499999999999,
+              "count": 8
+            },
             "amihud": {
               "direction": "lower_is_better",
               "mean": 0.00027001009127192274,
@@ -878,14 +902,14 @@ export const REPORT_DATA: ReportData = {
         "pca": {
           "valid": true,
           "window_days": 10,
-          "variance_explained": 0.5359027809934307,
+          "variance_explained": 0.5359023812162592,
           "loadings": {
-            "log_adv": 0.5400471949931067,
-            "log_trades": 0.48673999384799105,
-            "log_turnover": 0.5023634644069327,
-            "neg_spread": 0.38808364567686265,
-            "neg_amihud": 0.06955492043965003,
-            "neg_vol": -0.25222480488403504
+            "log_adv": 0.5400469025756961,
+            "log_trades": 0.4867404380115815,
+            "log_turnover": 0.5023632400162318,
+            "neg_spread": 0.38808392998697305,
+            "neg_amihud": 0.06955495646543733,
+            "neg_vol": -0.2522245733865775
           }
         },
         "data_quality": {
@@ -901,6 +925,7 @@ export const REPORT_DATA: ReportData = {
           "peer_median_trades": 8.5,
           "peer_median_volatility": 0.00591930367707208,
           "peer_median_spread_pct": 0.023201765578354402,
+          "peer_median_spread_ticks": 1.4002342813555628,
           "peer_median_amihud": 2.2321244069431397e-07,
           "peer_median_turnover_ratio": 0.00013390868414187522,
           "target_vs_peer": {
@@ -909,6 +934,7 @@ export const REPORT_DATA: ReportData = {
             "trades_delta_pct": 1200.0,
             "volatility_delta_pct": -228.07,
             "spread_pct_delta_pct": -8.54,
+            "spread_ticks_delta_pct": -13.17,
             "amihud_delta_pct": 80.55,
             "turnover_ratio_delta_pct": 2090.93
           }
@@ -1049,7 +1075,7 @@ export const REPORT_DATA: ReportData = {
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 3365993.3987880885,
+              "mean": 3366116.6762959487,
               "median": 14536.099999999999,
               "min": 0.0,
               "max": 320364966.5,
@@ -1069,7 +1095,7 @@ export const REPORT_DATA: ReportData = {
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.010479329190577213,
+              "mean": 0.010479329278721644,
               "median": 0.000317354435969606,
               "min": 0.0,
               "max": 4.417968492518621,
@@ -1079,7 +1105,7 @@ export const REPORT_DATA: ReportData = {
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 0.0005150924131307339,
+              "mean": 0.0005150924236419715,
               "median": 8.166686433962364e-08,
               "min": 0.0,
               "max": 0.2083333333333333,
@@ -1201,6 +1227,16 @@ export const REPORT_DATA: ReportData = {
               "p95": 0.5765151515151513,
               "count": 8
             },
+            "spread_ticks": {
+              "direction": "neutral",
+              "mean": 3.9296300209676387,
+              "median": 1.4002342813555628,
+              "min": 1.0,
+              "max": 18.0,
+              "p5": 1.0196166111814844,
+              "p95": 13.424671052631572,
+              "count": 8
+            },
             "amihud": {
               "direction": "lower_is_better",
               "mean": 0.00023679103030204386,
@@ -1259,14 +1295,14 @@ export const REPORT_DATA: ReportData = {
         "pca": {
           "valid": true,
           "window_days": 21,
-          "variance_explained": 0.5596716358794178,
+          "variance_explained": 0.5596711529570456,
           "loadings": {
-            "log_adv": 0.5251972699670885,
-            "log_trades": 0.471064064037807,
-            "log_turnover": 0.4952761722342145,
-            "neg_spread": 0.3841630854989586,
-            "neg_amihud": 0.11020573232755186,
-            "neg_vol": -0.3118355475413217
+            "log_adv": 0.5251968934850564,
+            "log_trades": 0.4710645170828185,
+            "log_turnover": 0.4952760456980121,
+            "neg_spread": 0.38416339417982553,
+            "neg_amihud": 0.11020580486478289,
+            "neg_vol": -0.3118352922990911
           }
         },
         "data_quality": {
@@ -1282,6 +1318,7 @@ export const REPORT_DATA: ReportData = {
           "peer_median_trades": 8.0,
           "peer_median_volatility": 0.008303983483118782,
           "peer_median_spread_pct": 0.021134715352102953,
+          "peer_median_spread_ticks": 1.2989843943522417,
           "peer_median_amihud": 1.1119606313221315e-07,
           "peer_median_turnover_ratio": 0.00017962823785960417,
           "target_vs_peer": {
@@ -1290,6 +1327,7 @@ export const REPORT_DATA: ReportData = {
             "trades_delta_pct": 2037.5,
             "volatility_delta_pct": -140.85,
             "spread_pct_delta_pct": -4.19,
+            "spread_ticks_delta_pct": -16.7,
             "amihud_delta_pct": 65.37,
             "turnover_ratio_delta_pct": 2265.78
           }
@@ -1430,7 +1468,7 @@ export const REPORT_DATA: ReportData = {
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 3138144.4183211196,
+              "mean": 3138278.9846082875,
               "median": 15030.0,
               "min": 0.0,
               "max": 309150489.0,
@@ -1450,7 +1488,7 @@ export const REPORT_DATA: ReportData = {
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.004972007735504595,
+              "mean": 0.004972007901967641,
               "median": 0.00032052915615159166,
               "min": 0.0,
               "max": 1.4501351262276712,
@@ -1460,7 +1498,7 @@ export const REPORT_DATA: ReportData = {
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 0.0002211116233322482,
+              "mean": 0.00022111157484560047,
               "median": 1.0914916494041928e-07,
               "min": 0.0,
               "max": 0.04901960784313725,
@@ -1582,6 +1620,16 @@ export const REPORT_DATA: ReportData = {
               "p95": 0.5669696969696968,
               "count": 8
             },
+            "spread_ticks": {
+              "direction": "neutral",
+              "mean": 3.599165228308914,
+              "median": 1.2989843943522417,
+              "min": 1.0,
+              "max": 16.8,
+              "p5": 1.0362068965517242,
+              "p95": 12.284999999999993,
+              "count": 8
+            },
             "amihud": {
               "direction": "lower_is_better",
               "mean": 0.00023605771619657155,
@@ -1619,66 +1667,459 @@ export const REPORT_DATA: ReportData = {
     },
     "period_insights": {
       "1d": {
-        "liquidity": "Latest snapshot: notional ADV was S$430,575, which is 28.53% below the 30d baseline (S$602,462), signaling a recent slowdown in trading depth. Spread was 2.50%, 13.35% worse than the 30d baseline (2.20%), implying higher trading cost per trade today despite...",
-        "market_comparison": "Versus peers, ADV is far higher (S$430,575 vs peer median S$30,296.5; +1321.20%), but spread is better (2.50% vs 2.94%; -15.16%), which supports better day-to-day tradability than most peers. Versus the market median, ADV is also much higher (S$430,575 vs S..."
+        "liquidity": "Latest snapshot shows notional ADV at S$430.6K, down 28.53% vs the 30d baseline (S$602.5K), indicating a recent slowdown in activity. Trading cost worsened vs 30d: spread is 2.50% (1.26 ticks) vs 2.20% (1.08 ticks), which can raise execution cost even though.",
+        "market_comparison": "Versus peers, liquidity depth remains a clear strength: ADV is +1321.20% higher than the peer median (S$30.3K), and trades are 114 vs 10.5 median. Spread is better than peers at 2.50% (1.26 ticks) vs 2.94% (1.67 ticks), but it is higher than the market median."
       },
       "1w": {
-        "liquidity": "Over 1w, notional ADV was S$405,925, down 32.62% vs the 30d baseline (S$602,462), showing softer participation recently. Spread widened to 2.41% (+9.44% vs 30d), meaning trading cost worsened even as trades stayed elevated at 89 vs a market median of 9.",
-        "market_comparison": "Against peers, TKU remains a volume leader (S$405,925 vs S$32,287.5; +1157.22%), but spread is worse (2.41% vs 2.26%; +6.45%), so size is easy to find yet costs run higher than peer norms. Versus market, ADV is far higher (S$405,925 vs S$18,674.2) while spr..."
+        "liquidity": "Over 1w, notional ADV is S$405.9K, down 32.62% vs the 30d baseline, confirming the recent slowdown is not just a 1-day effect. Spread is 2.41% (1.21 ticks), which is 9.44% wider/worse than the 30d baseline, implying higher near-term trading friction.",
+        "market_comparison": "Vs peers, ADV remains materially stronger (+1157.22% vs peer median S$32.3K) and trade count is 89 vs 10.5, supporting consistent liquidity access. However, spread is worse than peers (+6.45% wider): 2.41% (1.21 ticks) vs 2.26% (1.37 ticks); despite fewer."
       },
       "2w": {
-        "liquidity": "Over 2w, notional ADV was S$418,250, down 30.58% vs the 30d baseline, confirming the recent slowdown persists beyond a single week. Spread was 2.52% (+14.36% vs 30d), a clear deterioration in trading cost; trades stayed high at 110.5, but each trade is happ...",
-        "market_comparison": "Versus peers, ADV is extremely strong (S$418,250 vs S$12,179.125; +3334.15%), but spread is worse (2.52% vs 2.32%; +8.54%), indicating liquidity quantity is strong but quality (cost) lags peers. Versus market, ADV is much higher (S$418,250 vs S$14,536.1) wh..."
+        "liquidity": "Over 2w, notional ADV is S$418.3K, down 30.58% vs the 30d baseline, so liquidity is running below the recent month’s level. Spread is 2.52% (1.22 ticks), 14.36% wider/worse than the 30d baseline, pointing to higher costs during this period.",
+        "market_comparison": "Vs peers, TKU remains a volume leader: ADV is +3334.15% above the peer median (S$12.2K) and trades are 110.5 vs 8.5. Trading cost is worse than peers (+8.54% wider): 2.52% (1.22 ticks) vs 2.32% (1.40 ticks); ticks look favorable, but percent spread still."
       },
       "30d": {
-        "liquidity": "Primary (30d): notional ADV is S$602,462 with 171 trades and 0.4250% turnover, supporting consistent day-to-day liquidity for a S$131.2M small cap. Spread is 2.20%; this is better than market (2.38%) and sector (2.61%), but still higher than peers (2.11%)...",
-        "market_comparison": "Versus peers, TKU is a clear liquidity leader on activity (S$602,462 vs S$16,648; +3518.83% ADV) and engagement (171 trades vs peer median 8), which improves reliability for larger tickets. The trade-off is cost: spread is 2.20% vs pee% (+4.19%), and volati..."
+        "liquidity": "Primary 30d view shows solid liquidity for a small cap: notional ADV is S$602.5K with 171 trades and 0.4250% turnover, supporting regular two-way trading. Spread averages 2.20% (1.08 ticks), which is close to 1 tick and indicates generally efficient pricing.",
+        "market_comparison": "TKU is a clear liquidity leader vs its peer set on activity: ADV is +3518.83% above peer median (S$16.6K) and trades are 171 vs 8. Spread is slightly worse than peers (+4.19% wider) at 2.20% (1.08 ticks) vs 2.11% (1.30 ticks), but it is better than both."
       }
     }
   },
   "q02": {
-    "regime_switching": {
+    "driver_model": {
       "valid": true,
-      "regime_method": "activity_day_clustering",
-      "n_regimes": 3,
+      "model_method": "hybrid_markov_regression_pymc",
+      "estimation_window_days": 22,
+      "reporting_window_days": 22,
+      "available_history_days": 22,
+      "n_regimes": 2,
       "current_regime": 0,
+      "current_regime_label": "Company-Led",
+      "current_regime_probability": 1.0,
+      "current_driver_mix": {
+        "market_share": {
+          "median": 0.40430819347849967,
+          "low": 0.40430819347849967,
+          "high": 0.40430819347849967
+        },
+        "sector_share": {
+          "median": 0.25722618375017575,
+          "low": 0.25722618375017575,
+          "high": 0.25722618375017575
+        },
+        "company_share": {
+          "median": 0.33846562277132464,
+          "low": 0.33846562277132464,
+          "high": 0.33846562277132464
+        }
+      },
+      "current_sensitivities": {
+        "beta_market": {
+          "median": 0.40628960378982987,
+          "low": 0.40628960378982987,
+          "high": 0.40628960378982987
+        },
+        "beta_sector": {
+          "median": 5.453454415234182,
+          "low": 5.453454415234182,
+          "high": 5.453454415234182
+        },
+        "beta_market_lag": {
+          "median": 0.0,
+          "low": 0.0,
+          "high": 0.0
+        },
+        "beta_sector_lag": {
+          "median": 0.0,
+          "low": 0.0,
+          "high": 0.0
+        }
+      },
+      "rolling_windows": {
+        "p1": {
+          "valid": false,
+          "n_obs": 0
+        },
+        "p2": {
+          "valid": false,
+          "n_obs": 0
+        },
+        "p3": {
+          "valid": false,
+          "n_obs": 0
+        },
+        "p4": {
+          "valid": false,
+          "n_obs": 0
+        },
+        "p5": {
+          "valid": false,
+          "n_obs": 0
+        },
+        "p6": {
+          "valid": true,
+          "n_obs": 22,
+          "period_label": "2026-01-26 to 2026-02-26",
+          "shares": {
+            "share_market": 0.40430819347849967,
+            "share_sector": 0.25722618375017575,
+            "share_idio": 0.33846562277132464
+          },
+          "regression": {
+            "r_squared": null
+          }
+        }
+      },
       "regimes": [
         {
           "id": 0,
-          "label": "Low Activity",
-          "liquidity_score": null,
-          "pct_time": 0.375
+          "label": "Company-Led",
+          "pct_time": 0.8636363636363636,
+          "dominant_driver": "company",
+          "dominant_driver_probability": 1.0,
+          "expected_duration_days": 6.000000849116235,
+          "current_probability": 1.0,
+          "n_days_effective": 19.0,
+          "shares": {
+            "market": {
+              "median": 0.07557373368233432,
+              "low": 0.07557373368233432,
+              "high": 0.07557373368233432
+            },
+            "sector": {
+              "median": 0.24749502077501692,
+              "low": 0.24749502077501692,
+              "high": 0.24749502077501692
+            },
+            "company": {
+              "median": 0.6769312455426488,
+              "low": 0.6769312455426488,
+              "high": 0.6769312455426488
+            }
+          },
+          "sensitivities": {
+            "beta_market": {
+              "median": 0.40628960378982987,
+              "low": 0.40628960378982987,
+              "high": 0.40628960378982987
+            },
+            "beta_sector": {
+              "median": 5.453454415234182,
+              "low": 5.453454415234182,
+              "high": 5.453454415234182
+            },
+            "beta_market_lag": {
+              "median": 0.0,
+              "low": 0.0,
+              "high": 0.0
+            },
+            "beta_sector_lag": {
+              "median": 0.0,
+              "low": 0.0,
+              "high": 0.0
+            }
+          },
+          "volatility": {
+            "median": 0.02632746967083718,
+            "low": 0.02632746967083718,
+            "high": 0.02632746967083718
+          },
+          "lead_signal": {
+            "lead_factor": "none",
+            "lead_confidence": null,
+            "lead_horizon_days": null
+          }
         },
         {
           "id": 1,
-          "label": "Medium Activity",
-          "liquidity_score": null,
-          "pct_time": 0.4583333333333333
+          "label": "Market-Led",
+          "pct_time": 0.13636363636363627,
+          "dominant_driver": "market",
+          "dominant_driver_probability": 1.0,
+          "expected_duration_days": 1.0000009473685545,
+          "current_probability": 0.0,
+          "n_days_effective": 2.9999999999999982,
+          "shares": {
+            "market": {
+              "median": 0.733042653274665,
+              "low": 0.733042653274665,
+              "high": 0.733042653274665
+            },
+            "sector": {
+              "median": 0.26695734672533455,
+              "low": 0.26695734672533455,
+              "high": 0.26695734672533455
+            },
+            "company": {
+              "median": 4.625639366135888e-16,
+              "low": 4.625639366135888e-16,
+              "high": 4.625639366135888e-16
+            }
+          },
+          "sensitivities": {
+            "beta_market": {
+              "median": -7.058264470354537,
+              "low": -7.058264470354537,
+              "high": -7.058264470354537
+            },
+            "beta_sector": {
+              "median": 8.778107677028189,
+              "low": 8.778107677028189,
+              "high": 8.778107677028189
+            },
+            "beta_market_lag": {
+              "median": 0.0,
+              "low": 0.0,
+              "high": 0.0
+            },
+            "beta_sector_lag": {
+              "median": 0.0,
+              "low": 0.0,
+              "high": 0.0
+            }
+          },
+          "volatility": {
+            "median": 1e-06,
+            "low": 1e-06,
+            "high": 1e-06
+          },
+          "lead_signal": {
+            "lead_factor": "none",
+            "lead_confidence": null,
+            "lead_horizon_days": null
+          }
+        }
+      ],
+      "transitions": {
+        "mean": [
+          [
+            0.7998786843221893,
+            0.2001213156778106
+          ],
+          [
+            0.8183751466841239,
+            0.1816248533158761
+          ]
+        ],
+        "low": [
+          [
+            0.685461093801295,
+            0.09024800482401635
+          ],
+          [
+            0.5810508136337699,
+            0.02990673598906
+          ]
+        ],
+        "high": [
+          [
+            0.9097519951759837,
+            0.3145389061987049
+          ],
+          [
+            0.97009326401094,
+            0.4189491863662303
+          ]
+        ],
+        "counts": [
+          [
+            15.0,
+            3.0
+          ],
+          [
+            3.0,
+            0.0
+          ]
+        ]
+      },
+      "methodology": {
+        "estimation_window_days": 22,
+        "reporting_window_days": 22,
+        "regime_inference": "hybrid_markov_bayesian_regression",
+        "uncertainty_engine": "pymc_weighted_regime_regressions",
+        "lead_horizon_days": 1,
+        "distribution": "student_t",
+        "history_limited": true
+      }
+    },
+    "regime_switching": {
+      "valid": true,
+      "regime_method": "hybrid_markov_regression_pymc",
+      "n_regimes": 2,
+      "regimes": [
+        {
+          "id": 0,
+          "label": "Company-Led",
+          "pct_time": 0.8636363636363636,
+          "dominant_driver": "company",
+          "dominant_driver_probability": 1.0,
+          "expected_duration_days": 6.000000849116235,
+          "current_probability": 1.0,
+          "n_days_effective": 19.0,
+          "shares": {
+            "market": {
+              "median": 0.07557373368233432,
+              "low": 0.07557373368233432,
+              "high": 0.07557373368233432
+            },
+            "sector": {
+              "median": 0.24749502077501692,
+              "low": 0.24749502077501692,
+              "high": 0.24749502077501692
+            },
+            "company": {
+              "median": 0.6769312455426488,
+              "low": 0.6769312455426488,
+              "high": 0.6769312455426488
+            }
+          },
+          "sensitivities": {
+            "beta_market": {
+              "median": 0.40628960378982987,
+              "low": 0.40628960378982987,
+              "high": 0.40628960378982987
+            },
+            "beta_sector": {
+              "median": 5.453454415234182,
+              "low": 5.453454415234182,
+              "high": 5.453454415234182
+            },
+            "beta_market_lag": {
+              "median": 0.0,
+              "low": 0.0,
+              "high": 0.0
+            },
+            "beta_sector_lag": {
+              "median": 0.0,
+              "low": 0.0,
+              "high": 0.0
+            }
+          },
+          "volatility": {
+            "median": 0.02632746967083718,
+            "low": 0.02632746967083718,
+            "high": 0.02632746967083718
+          },
+          "lead_signal": {
+            "lead_factor": "none",
+            "lead_confidence": null,
+            "lead_horizon_days": null
+          }
         },
         {
-          "id": 2,
-          "label": "High Activity",
-          "liquidity_score": null,
-          "pct_time": 0.16666666666666666
+          "id": 1,
+          "label": "Market-Led",
+          "pct_time": 0.13636363636363627,
+          "dominant_driver": "market",
+          "dominant_driver_probability": 1.0,
+          "expected_duration_days": 1.0000009473685545,
+          "current_probability": 0.0,
+          "n_days_effective": 2.9999999999999982,
+          "shares": {
+            "market": {
+              "median": 0.733042653274665,
+              "low": 0.733042653274665,
+              "high": 0.733042653274665
+            },
+            "sector": {
+              "median": 0.26695734672533455,
+              "low": 0.26695734672533455,
+              "high": 0.26695734672533455
+            },
+            "company": {
+              "median": 4.625639366135888e-16,
+              "low": 4.625639366135888e-16,
+              "high": 4.625639366135888e-16
+            }
+          },
+          "sensitivities": {
+            "beta_market": {
+              "median": -7.058264470354537,
+              "low": -7.058264470354537,
+              "high": -7.058264470354537
+            },
+            "beta_sector": {
+              "median": 8.778107677028189,
+              "low": 8.778107677028189,
+              "high": 8.778107677028189
+            },
+            "beta_market_lag": {
+              "median": 0.0,
+              "low": 0.0,
+              "high": 0.0
+            },
+            "beta_sector_lag": {
+              "median": 0.0,
+              "low": 0.0,
+              "high": 0.0
+            }
+          },
+          "volatility": {
+            "median": 1e-06,
+            "low": 1e-06,
+            "high": 1e-06
+          },
+          "lead_signal": {
+            "lead_factor": "none",
+            "lead_confidence": null,
+            "lead_horizon_days": null
+          }
         }
       ],
       "transitions": [
         [
-          0.625,
-          0.25,
-          0.125
+          0.7998786843221893,
+          0.2001213156778106
         ],
         [
-          0.36363636363636365,
-          0.6363636363636364,
-          0.0
-        ],
-        [
-          0.0,
-          0.5,
-          0.5
+          0.8183751466841239,
+          0.1816248533158761
         ]
-      ]
+      ],
+      "transition_intervals": {
+        "mean": [
+          [
+            0.7998786843221893,
+            0.2001213156778106
+          ],
+          [
+            0.8183751466841239,
+            0.1816248533158761
+          ]
+        ],
+        "low": [
+          [
+            0.685461093801295,
+            0.09024800482401635
+          ],
+          [
+            0.5810508136337699,
+            0.02990673598906
+          ]
+        ],
+        "high": [
+          [
+            0.9097519951759837,
+            0.3145389061987049
+          ],
+          [
+            0.97009326401094,
+            0.4189491863662303
+          ]
+        ],
+        "counts": [
+          [
+            15.0,
+            3.0
+          ],
+          [
+            3.0,
+            0.0
+          ]
+        ]
+      },
+      "current_regime": 0,
+      "current_regime_label": "Company-Led",
+      "current_regime_probability": 1.0
     }
   },
   "theme": {
@@ -1690,19 +2131,19 @@ export const REPORT_DATA: ReportData = {
         "dot": "bg-emerald-400"
       },
       "liq_section": {
-        "text": "Liquidity score: 80.82% — Strong",
+        "text": "Liquidity score: 81% — Strong",
         "bg": "bg-emerald-500/20",
         "textColor": "text-emerald-400"
       },
       "drivers": {
-        "text": "Company-driven",
+        "text": "Company-Led",
         "bg": "bg-emerald-500/20",
         "textColor": "text-emerald-400"
       },
       "exec_check": {
-        "text": "High impact risk",
+        "text": "Weak",
         "bg": "bg-red-500/20",
-        "textColor": "text-red-400"
+        "textColor": "text-red-500"
       },
       "intraday": {
         "text": "Moderate",
@@ -1731,7 +2172,7 @@ export const REPORT_DATA: ReportData = {
       }
     },
     "borders": {
-      "action_plan": "border-emerald-400/30",
+      "action_plan": "border-emerald-500/20",
       "index": "border-slate-700"
     },
     "colors": {
@@ -1749,7 +2190,7 @@ export const REPORT_DATA: ReportData = {
       "•",
       "Sector: Software - Application",
       "•",
-      "Market Cap: 131.2M (small cap)"
+      "Market Cap: 125.5M (small cap)"
     ],
     "header_meta_line2_tokens": [
       "As of: 2026-02-26",
@@ -1759,7 +2200,7 @@ export const REPORT_DATA: ReportData = {
       "Peers: 8"
     ],
     "exec_title": "Executive Summary: What Matters for Trading",
-    "exec_subtitle": "Strong 30d liquidity score, but recent trading slowed and spreads widened—expect higher trading costs if current conditions persist.",
+    "exec_subtitle": "30d liquidity is strong for a small-cap name, but recent activity slowed and spread widened versus the 30d baseline.",
     "exec_takeaways_title": "Key Takeaways:",
     "metric_liquidity_score": "Liquidity Score",
     "metric_spread": "Trading Cost (Spread)",
@@ -1767,80 +2208,80 @@ export const REPORT_DATA: ReportData = {
     "metric_drivers": "What Drives Price Changes",
     "footer": "Liquidity Analysis Report • Generated by Deltablock",
     "liq_title": "Liquidity Health & Peer Comparison",
-    "liq_subtitle": "30d liquidity is strong for a S$131.2M small cap, but the last 1–2 weeks show lower activity and higher trading cost vs the 30d baseline.",
+    "liq_subtitle": "30d liquidity is strong for a S$125.5M small-cap, but the most recent 1d–2w windows show lower ADV (down ~31% vs 30d) and wider spreads (up ~9–14% vs 30d).",
     "market_comparison_title": "How You Compare to the Market",
-    "market_comparison_subtitle": "TKU trades far more than market/sector/peers on notional and trade count, while spreads are better than market/sector but slightly worse than peers.",
+    "market_comparison_subtitle": "TKU leads peers on trading activity (notional ADV and trade count), while spread is near 1 tick but is mixed versus peers depending on the period.",
     "perf_title": "Stock Performance",
-    "perf_subtitle": "As of 2026-02-26 | TKU (XSES) | 131.2M small cap | Sector: Software - Application",
-    "perf_insight": "Short-term surge (2w +13.64%) vs flat market (+0.00%), modestly positive sector (+0.11%) and peers (+0.29%), but 30d is down (-3.85%) while market is up (+2.13%).",
+    "perf_subtitle": "As of 2026-02-26 | TKU (XSES) | 125.5M market cap | Software - Application",
+    "perf_insight": "Short-term surge (+13.6% over 2w) contrasts with a negative 30d return (-3.85%), suggesting event-driven optimism but uneven follow-through versus benchmarks.",
     "drivers_title": "What Moves Your Stock Price?",
-    "drivers_subtitle": "Decomposes TKU moves into broad market, software sector rotation, and company-specific drivers (news, fundamentals, liquidity shocks).",
+    "drivers_subtitle": "Regime is Company-Led with 1.0 probability; company-specific forces are the main driver (confidence 1.0).",
     "drivers_strip": [
       {
         "title": "Key Insight",
-        "text": "67.9% of TKU’s moves are company-specific, vs 12.5% market and 19.6% sector. This means headlines, guidance, and single-name liquidity events will dominate—prioritize clear, proactive IR messaging."
+        "text": "Current regime: Company-Led (prob=1.0) with company as dominant driver (confidence=1.0); read is based on 22 trading days of history (limited vs 252d)."
       },
       {
         "title": "Market Link",
-        "text": "Market influence is modest at 12.5%, and the market beta is -0.81 (often moves opposite the market). In broad sell-offs, TKU may not reliably drop with the index—risk monitoring must be name-specific."
+        "text": "Market explains 40.4% of moves (range 40.4%–40.4%); market sensitivity is 0.41 (range 0.41–0.41), so broad index swings tend to translate less than one-for-one."
       },
       {
         "title": "Sector Link",
-        "text": "Sector explains 19.6% of moves, but sector beta is +5.61 (very sensitive when the software sector moves). If software sentiment swings, TKU can amplify it—prepare comms for sector-driven days."
+        "text": "Sector explains 25.7% of moves (range 25.7%–25.7%); sector sensitivity is 5.45 (range 5.45–5.45), meaning sector shocks can amplify TKU moves even if sector share is smaller."
       }
     ],
-    "drivers_pie_title": "Driver Mix (Latest Window)",
-    "drivers_pie_note": "Shares show what portion of price movement is typically explained by market, sector, vs TKU-specific forces ove-12-25 to 2026-02-26.",
-    "lead_lag_title": "Lead–Lag vs Market and Sector",
-    "lead_lag_note": "Best lag indicates whether TKU tends to react after (positive lag) or move with (zero lag) the benchmark; use this to time communications, not trading.",
-    "rolling_title": "How Drivers Evolved Over Time",
+    "drivers_pie_title": "Current Driver Mix (Market / Sector / Company)",
+    "drivers_pie_note": "Shares are model-attributed fractions of daily price movement; with only 22 days available (vs 252d target), treat the exact split as directional rather than final.",
+    "lead_lag_title": "Lead/Lag Signals (Who Moves First?)",
+    "lead_lag_note": "No stable external lead is detected in the current regime (lead=none). Best historical lag settings were market=5 days and sector=0 days, but confidence is not provided.",
+    "rolling_title": "How the Driver Mix Has Evolved (Rolling Windows)",
     "rolling_latest_label": "Latest: {period}",
-    "rolling_note": "Only one rolling window was provided, so trend in correlation over time is unavailable; treat the latest mix as the current baseline.",
-    "drivers_bottom_line": "TKU is mostly “its own story” (67.9% company-driven), with a meaningful but secondary sector link (19.6%) and limited market tie (12.5%).",
-    "drivers_wtd_title": "What This Means for Trading",
+    "rolling_note": "Only one rolling window is available in the summary, so changes across time windows cannot be quantified from the provided data.",
+    "drivers_bottom_line": "Despite the Company-Led regime label, the latest month’s mix shows meaningful market (40.4%) and sector (25.7%) influence alongside company (33.8%); the regime call is high-probability but based on limited history (22 days).",
+    "drivers_wtd_title": "Key Takeaways",
     "drivers_wtd_list": [
-      "Communication: Because 67.9% is company-driven, tighten disclosure cadence around results, guidance, and material updates to reduce rumor-driven volatility and protect credibility.",
-      "Liquidity planning: With a negative market link (beta -0.81) and large sector sensitivity (beta +5.61), stress-test cash and funding narratives for software-sector shock days, not just index drawdowns.",
-      "Risk monitoring: Set alerts for sector moves because 19.6% is sector-driven and amplified (beta +5.61); separate sector-wide pressure from TKU-specific issues when responding publicly."
+      "Current regime is Company-Led with probability 1.0, and the model flags company as the dominant driver with confidence 1.0; however, the estimate is based on 22 days (limited vs 252d).",
+      "Latest window (2026-01-26 to 2026-02-26) attributes 33.8% to company moves, 40.4% to market, and 25.7% to sector—so external factors still explain 66.1% of movement in that window.",
+      "Within the sector channel, sensitivity is high (beta 5.45) even though sector share is 25.7%, indicating sector headlines can drive outsized TKU reactions when they matter."
     ],
-    "regime_title": "Trading Activity Regimes",
-    "regime_subtitle": "Regimes classify days into Low/Medium/High activity to understand how stable the liquidity backdrop is; current regime indicates the present environment for liquidity planning.",
-    "regime_badge_text": "Current: Low Activity (Regime 0)",
-    "regime_pie_title": "Time Spent in Each Activity Regime",
-    "transition_title": "Regime Stability (Transition Probabilities)",
+    "regime_title": "Price Driver Regimes",
+    "regime_subtitle": "Two regimes identified; Company-Led dominates time-in-regime but can switch within about a week on average.",
+    "regime_badge_text": "Company-Led",
+    "regime_pie_title": "Time Spent in Each Regime",
+    "transition_title": "Regime Transitions (Stay vs Switch)",
     "transition_cols": [
       "From \\ To",
-      "Low Activity",
-      "Medium Activity"
+      "Company-Led",
+      "Market-Led"
     ],
-    "transition_note_template": "Stability check: from {from_regime}, probability of staying is {stay_prob}; probability of shifting to {to_regime} is {shift_prob}.",
+    "transition_note_template": "Stay probability indicates stickiness: Company-Led stays 0.800 and Market-Led stays 0.182; expected duration in the current regime is ~6.0 days.",
     "exec_check_title": "Trading Costs & Market Depth",
-    "exec_check_subtitle": "Small-cap (131.2M) with wide spread (1.98%) and limited displayed liquidity; sell impact rises quickly beyond ~S$100K.",
+    "exec_check_subtitle": "Small-cap (S$125.5M) with wide spread and limited displayed sell capacity beyond ~S$100K.",
     "order_book_title": "Order Book Depth (Available Liquidity)",
-    "order_book_note": "Displayed depth is based on TOP 10 levels per side (L2): bid S$617,384 vs ask S$1,677,806. This is displayed liquidity only; full-orderbook coverage is planned soon.",
-    "peer_capacity_title": "Peer Liquidity Capacity (Relative)",
-    "peer_capacity_note": "Peer capacity data is shown for impact at a 50k-size as % of ADV; TKU’s %ADV metrics are unavailable here, so comparison is directional only.",
+    "order_book_note": "Based on displayed L2 top 10 levels per side: total bid value S$617,384 vs total ask value S$1,677,806. Full-orderbook coverage is planned soon, so deeper hidden liquidity is not measured here.",
+    "peer_capacity_title": "Peer Execution Capacity (50K vs ADV)",
+    "peer_capacity_note": "Peer capacity metric is impact_50k_pct_adv (higher = worse). Available peers range from 98.3 (ITS) to 54,555.4 (U77); two peers are unavailable (532, KUX).",
     "impact_summary_title": "Estimated Price Impact (Sell Orders)",
-    "impact_summary_subtitle": "Approximate price impact (%) for sell orders.",
-    "exec_check_insight": "At 1.98% spread and only S$617,384 of displayed bid value (top 10 levels), sell orders above S$100K show steep impact and incomplete immediate fill, raising execution cost and headline risk for IR.",
+    "impact_summary_subtitle": "Modelled using displayed liquidity; ADV% is unavailable, so results reflect order book depth rather than typical daily turnover.",
+    "exec_check_insight": "S$100K sell is fully covered but still models ~-1.15% impact; S$1.0M–S$2.5M sells are not fully filled (61.7%/24.7%), signalling material market impact risk and limited depth.",
     "trader_composition_title": "Who's Trading Your Stock?",
-    "trader_composition_subtitle": "30d view (3,098 trades): mostly retail by trade count, but most notional is Mixed + Institutional.",
-    "trader_retail_threshold": "Retail: <S$13.5K per trade",
-    "trader_mixed_threshold": "Mixed: S$13.5K–S$67.5K per trade",
-    "trader_instit_threshold": "Institutional: ≥S$67.5K per trade",
-    "peer_trader_title": "Peer Comparison: Trader Mix (30d)",
-    "peer_trader_subtitle": "TKU has more institutional notional than most peers, despite similar retail-heavy trade counts.",
+    "trader_composition_subtitle": "30d view: 3,098 trades; retail dominates trade count, while mixed + institutional drive most notional.",
+    "trader_retail_threshold": "Retail < S$13,500 per trade",
+    "trader_mixed_threshold": "Mixed S$13,500–S$67,500 per trade",
+    "trader_instit_threshold": "Institutional > S$67,500 per trade",
+    "peer_trader_title": "Peer Comparison: Trader Mix",
+    "peer_trader_subtitle": "Compared with 8 peers, TKU is less retail-only by value than several names, but still retail-led by trade count.",
     "price_moving_title": "Which Trades Move the Price?",
-    "price_moving_subtitle": "Across 4,437 trades, 898 (20.2%) changed the price; most trades do not move the quote.",
+    "price_moving_subtitle": "Across 4,437 trades, 898 moved the price (20.2%); most price moves are associated with retail activity in the provided breakdown.",
     "intraday_title": "When Does Trading Happen?",
-    "intraday_subtitle": "Most activity is in continuous trading (94.2%); auctions are 5.8% and concentration is moderate (HHI 0.196).",
+    "intraday_subtitle": "Most volume trades in the continuous session (94.2%); activity peaks at 09:00 (13.4% of volume).",
     "session_dist_title": "Trading by Session",
     "session_period_label": "Period:",
-    "session_dist_note": "Session split is based on notional activity: Opening + Closing are auction windows; Continuous is regular trading.",
+    "session_dist_note": "1M split: Opening 1.7%, Continuous 94.2%, Closing 3.2% (Auctions total 5.8%).",
     "hhi_title": "Trading Concentration (HHI)",
-    "hhi_note_template": "HHI summarizes how concentrated trading is across the day (higher = more clustered into a few time intervals).",
+    "hhi_note_template": "HHI {hhi} means how clustered trading is across the day; higher values mean more volume is concentrated in fewer time intervals.",
     "intraday_intensity_title": "Trading Activity by Time of Day",
-    "intraday_intensity_note": "Peak time highlights where the largest share of daily notional clusters; clustering increases short bursts of volatility risk.",
+    "intraday_intensity_note": "Peak time is 09:00 with 13.4% of volume; concentrated peaks can increase short-term price jumps when liquidity is uneven.",
     "peers_hhi_title": "Peer Comparison: Trading Concentration",
     "peers_hhi_cols": [
       "Ticker",
@@ -1848,10 +2289,10 @@ export const REPORT_DATA: ReportData = {
       "HHI",
       "Interpretation"
     ],
-    "peers_hhi_note": "Lower HHI suggests steadier liquidity through the day; higher auction share suggests more trading in auction windows.",
-    "intraday_insight": "Trading is overwhelmingly in the continuous session (94.2%) with a measurable open/close presence (auctions 5.8%). Peak activity is at 09:00 (13.4%), so price jumps can cluster early. HHI 0.196 implies moderate clustering; versus peers, TKU’s HHI (~0.190) i...",
+    "peers_hhi_note": "Lower HHI suggests activity is spread more evenly through the day; higher HHI means trading is more time-clustered and potentially more jumpy.",
+    "intraday_insight": "Trading is overwhelmingly in continuous (94.2%) with auctions at 5.8%, so most liquidity depends on regular market hours rather than auctions. Volume peaks at 09:00 (13.4%), which can be a higher jump-risk moment when many orders arrive together.",
     "short_title": "Short Selling & Lending",
-    "short_subtitle": "Short activity is minimal (1M avg short ratio 0.32%, max 2.10%) and the position is easily unwound (days-to-cover max 0.004; current near zero). Shorts are covering sharply (-78% MoM: 0.91% in 2026-01 to 0.20% in 2026-02), reducing downside pressure and eas...",
+    "short_subtitle": "Short activity is very low: 1M avg short ratio 0.32% (max 2.10%) with days-to-cover near zero (max 0.004); short interest fell -78% MoM from 0.91% (2026-01) to 0.20% (2026-02).",
     "ofi_title": "Order Flow Balance",
     "ofi_subtitle": "Order flow imbalance data is not yet available for this report.",
     "ofi_tiles": [
@@ -1898,15 +2339,15 @@ export const REPORT_DATA: ReportData = {
       {
         "title": "Liquidity Score",
         "tooltip": {
-          "title": "Liquidity Score (30d)",
-          "body": "Composite liquidity score across volume, trading activity and trading cost; higher is better. TKU scores 80.8 with rank 108/558."
+          "title": "Composite Liquidity Score (30d)",
+          "body": "Overall liquidity score based on trading activity and trading cost over the selected 30d window; higher is better."
         },
-        "value": "81",
+        "value": "80.8",
         "suffix": "/100",
         "bar_pct": 81,
         "color_value": "text-emerald-400",
         "color_bar": "bg-emerald-500/20",
-        "subtext": "Rank 108/558 • Above-average liquidity for a small cap",
+        "subtext": "Rank 108/558 • Above-universe liquidity for a small cap",
         "interpretation": {
           "text": "Strong",
           "cls": "interpretation-good",
@@ -1916,15 +2357,15 @@ export const REPORT_DATA: ReportData = {
       {
         "title": "Trading Cost (Spread)",
         "tooltip": {
-          "title": "Spread (30d)",
-          "body": "Average bid-ask spread over the selected window; lower means lower trading friction. TKU spread is 2.20% vs peer median 2.11%."
+          "title": "Bid-Ask Spread (30d)",
+          "body": "Average spread over the selected 30d window; higher spread means higher trading cost."
         },
         "value": "2.20",
         "suffix": "%",
         "bar_pct": 22,
         "color_value": "text-amber-400",
         "color_bar": "bg-amber-500/20",
-        "subtext": "2.20% vs peers 2.11% (wider/worse) • Recent costs worsened: +13.35% (1d) and +9.44% (1w) vs 30d",
+        "subtext": "Avg spread 2.20% (~1.08 ticks; 1 tick = minimum price step). Wider than peers at 2.11%, though fewer ticks than peers (1.30), indicating price steps are relatively coarse.",
         "interpretation": {
           "text": "Moderate",
           "cls": "interpretation-neutral",
@@ -1934,17 +2375,17 @@ export const REPORT_DATA: ReportData = {
       {
         "title": "Average Traded Volume",
         "tooltip": {
-          "title": "Notional ADV (30d)",
-          "body": "Average daily traded value in local currency over the selected window; higher supports larger turnover with less disruption. TKU ADV is S$602,462 vs peer median S$16,648."
+          "title": "Average Daily Value Traded (30d)",
+          "body": "Average daily notional traded over the selected 30d window; higher notional ADV generally supports larger trading capacity."
         },
         "value": "S$602K",
         "suffix": "",
-        "bar_pct": 80,
+        "bar_pct": 90,
         "color_value": "text-emerald-400",
         "color_bar": "bg-emerald-500/20",
-        "subtext": "S$602K/day vs peers S$16.6K/day (+3518.8%) • Recent slowdown: -28.53% (1d), -32.62% (1w), -30.58% (2w) vs 30d",
+        "subtext": "S$602K notional ADV vs peer median S$16.6K (+3518.8%), with 171 trades/day—liquidity depth is strong versus direct peers.",
         "interpretation": {
-          "text": "High",
+          "text": "Strong",
           "cls": "interpretation-good",
           "icon": "◆"
         }
@@ -1952,34 +2393,34 @@ export const REPORT_DATA: ReportData = {
       {
         "title": "What Drives Price Changes",
         "tooltip": {
-          "title": "Price-change drivers",
-          "body": "Share of price moves explained by company vs sector vs market; higher company-specific means moves are driven more by stock-specific factors than broad conditions. TKU: 67.9% company, 19.6% sector, 12.5% market."
+          "title": "Return Drivers (Factor Exposure)",
+          "body": "Split of price moves attributed to broad market, sector, and company-specific drivers; higher company share means moves are more stock-specific."
         },
-        "value": "67.9",
+        "value": "33.8",
         "suffix": "company-specific",
-        "bar_pct": 68,
+        "bar_pct": 34,
         "color_value": "text-amber-400",
         "color_bar": "bg-amber-500/20",
-        "subtext": "67.9% company-driven vs 19.6% sector and 12.5% market • Liquidity perception can shift on TKU-specific news flow",
+        "subtext": "Moves are mixed: 33.8% company-specific vs 40.4% market and 25.7% sector—macro/market swings are the largest driver of day-to-day price changes.",
         "interpretation": {
-          "text": "Company",
+          "text": "Mixed",
           "cls": "interpretation-neutral",
           "icon": "◆"
         }
       }
     ],
     "exec_takeaways": [
-      "Liquidity is strong on a 30d basis (score 80.8; rank 108/558), supported by S$602K/day ADV and 171 trades/day—this gives the company credibility with liquidity-sensitive investors despite a 131.2M small-cap size.",
-      "Trading quality is slipping short-term: ADV is down -32.62% (1w) vs 30d and spread is up +9.44% (1w) vs 30d, implying higher friction and potentially more investor reluctance if the pattern persists.",
-      "Costs are also worse than peers on spread (2.20% vs 2.11% median), even though volume is far higher (+3518.8% ADV vs peers); prioritize actions that improve quote quality and reduce perceived risk around TKU-specific catalysts (67.9% company-driven moves)."
+      "Liquidity is strong versus universe and peers: score 80.8 (Rank 108/558) and S$602K 30d notional ADV vs peer median S$16.6K (+3518.8%), supporting meaningful trading capacity despite a 125.5M small-cap size.",
+      "Trading cost is elevated and has recently worsened: 30d spread is 2.20% (vs peers 2.11%); recent windows show wider costs vs 30d baseline (+13.35% 1d, +9.44% 1w, +14.36% 2w) alongside higher tick spreads (+0.18 1d, +0.13 1w/2w).",
+      "Recent activity slowed versus the 30d norm: notional ADV is down -28.53% (1d), -32.62% (1w), and -30.58% (2w) vs 30d, which typically reduces liquidity resilience during volatile days (30d volatility 2.00%)."
     ],
     "perf_badge": "Context",
     "footer": "Liquidity Analysis Report • Generated by Deltablock",
     "liq_tiles": [
       {
         "title": "Liquidity Score (30d)",
-        "value": "80.82% (Rank 108/558)",
-        "sub": "Down to 71.33% on latest 1d snapshot (161/558), reflecting weaker recent conditions vs the 30d baseline.",
+        "value": "80.82 (Rank 108/558)",
+        "sub": "Vs 1d/1w/2w scores: 71.33 / 73.66 / 76.70 (all below 30d)",
         "interp": {
           "text": "Strong",
           "cls": "interpretation-good",
@@ -1988,18 +2429,18 @@ export const REPORT_DATA: ReportData = {
       },
       {
         "title": "Notional ADV (30d)",
-        "value": "S$602,462",
-        "sub": "Recent slowdown: 1w S$405,925 (-32.62%) and 1d S$430,575 (-28.53%) vs 30d baseline.",
+        "value": "S$602.5K",
+        "sub": "Recent slowdown vs 30d: 1d S$430.6K (-28.53%), 1w S$405.9K (-32.62%), 2w S$418.3K (-30.58%)",
         "interp": {
-          "text": "Strong",
-          "cls": "interpretation-good",
+          "text": "Moderate",
+          "cls": "interpretation-neutral",
           "icon": "◆"
         }
       },
       {
         "title": "Spread (30d)",
-        "value": "2.20%",
-        "sub": "Cost worsened recently: 1d 2.50% (+13.35%), 1w 2.41% (+9.44%), 2w 2.52% (+14.36%) vs 30d baseline.",
+        "value": "2.20% (1.08 ticks)",
+        "sub": "Cost worsened recently vs 30d: 1d 2.50% (1.26 ticks), 1w 2.41% (1.21 ticks), 2w 2.52% (1.22 ticks)",
         "interp": {
           "text": "Moderate",
           "cls": "interpretation-neutral",
@@ -2007,24 +2448,24 @@ export const REPORT_DATA: ReportData = {
         }
       }
     ],
-    "liq_insight": "Over 30d, TKU has strong, reliable liquidity (S$602,462 ADV; 171 trades; 0.4250% turnover), making it easier to support consistent trading interest. The red flag is recent deterioration versus that baseline: ADV is down ~29–33% and spread is up ~9–14%, incr...",
+    "liq_insight": "Over the primary 30d window, TKU shows strong liquidity for its size (S$602.5K notional ADV; 171 trades; 0.4250% turnover) with an average spread near 1 tick (2.20%, 1.08 ticks). The most recent 1d–2w windows show a clear softening: ADV is ~29–33% below 30d.",
     "exec_check_tiles": [
       {
         "title": "Mid Price",
         "value": "S$0.2525",
-        "note": "Reference price at snapshot; impact estimates below are measured versus this level.",
+        "note": "Reference price used for impact estimates as of 2026-02-26.",
         "color": "text-white"
       },
       {
         "title": "Spread",
         "value": "1.98%",
-        "note": "Wide gap between buyers and sellers; this raises trading cost and makes price moves look larger on small notional trades.",
+        "note": "Wide displayed spread increases trading cost even for small orders.",
         "color": "text-red-500"
       },
       {
         "title": "Depth",
-        "value": "Bid S$617K / Ask S$1.68M",
-        "note": "Top-10 displayed liquidity is ask-heavy; sells hit the thinner bid side first, increasing downside impact risk.",
+        "value": "Bid S$617K vs Ask S$1,678K",
+        "note": "Top-10 levels show buy-side depth is ~S$1.06M lighter than sell-side, which matters for sell orders needing bids.",
         "color": "text-red-500"
       }
     ],
@@ -2068,67 +2509,66 @@ export const REPORT_DATA: ReportData = {
   },
   "insights": {
     "liquidity": {
-      "overall": "Liquidity is strong on a 30d view (score 80.82%, rank 108/558), but recent periods show deteriorating conditions versus that baseline: lower ADV and wider spreads raise trading friction.",
+      "overall": "30d liquidity is strong, but near-term conditions deteriorated versus the 30d baseline: ADV fell to S$405.9K–S$430.6K (down 28.53% to 32.62%) and spreads widened to 2.41%–2.52% (up 9.44% to 14.36%), increasing trading friction.",
       "strengths": [
-        "Scale of activity is a standout: 30d notional ADV S$602,462 vs peer median S$16,648 (+3518.83%), supporting larger day-to-day capacity.",
-        "High trade frequency: 30d trades 171 vs peer median 8 and market median 8, improving continuity of price discovery (more frequent prints)."
+        "Activity is consistently high versus peers: 30d ADV S$602.5K vs peer median S$16.6K (+3518.83%) and 30d trades 171 vs 8.",
+        "Quoted spread is close to 1 tick on 30d (1.08 ticks), supporting generally efficient price formation despite the stock being a S$125.5M small cap."
       ],
       "concerns": [
-        "Recent slowdown: ADV fell from S$602,462 (30d) to S$405,925 (1w, -32.62%) and S$430,575 (1d, -28.53%), which can make larger orders move the price more than expected.",
-        "Recent cost deterioration: spread increased from 2.20% (30d) to 2.41% (1w, +9.44%) and 2.50% (1d, +13.35%), directly increasing implementation cost.",
-        "Trading quality vs peers is mixed: 30d spread is worse than peers (2.20% vs 2.11%, +4.19%) while volatility is higher (2.00% vs 0.83%), increasing uncertainty around achieved prices."
+        "Recent slowdown vs 30d baseline: 1d ADV S$430.6K (-28.53%), 1w S$405.9K (-32.62%), 2w S$418.3K (-30.58%), which can reduce capacity for larger flows.",
+        "Recent trading cost is worse vs 30d baseline: spread moved from 2.20% (1.08 ticks) to 2.41%–2.52% (1.21–1.26 ticks), raising implicit cost per trade."
       ],
-      "peer_context": "TKU is a liquidity leader on volume and trade count across all windows (e.g., 1d ADV S$430,575 vs peers S$30,296.5; 30d ADV S$602,462 vs peers S$16,648), but it is not a cost leader because spreads are typically wider than peers outside the 1d snapshot."
+      "peer_context": "TKU is a peer-set liquidity leader on notional ADV and trade count across all windows (e.g., 1d +1321.20%, 30d +3518.83% vs peer median ADV). Spread is mixed vs peers: better on 1d (2.50% vs 2.94%) but worse on 1w/2w/30d (+4.19% to +8.54% wider)."
     },
     "market_comparison": {
-      "adv": "TKU’s notional trading activity is far above market, sector, and peer medians, but recent weeks are materially below the 30d baseline, which is the main near-term watch item.",
-      "spread": "Spreads are competitive versus the market and sector on the 30d view, but generally worse than peers and have widened versus the 30d baseline in recent periods—this is a direct cost headwind.",
-      "volatility": "Price movement is elevated versus market/sector/peers in multi-day windows, which can increase uncertainty in achieved prices even when volume is strong.",
-      "trades": "Trade counts are consistently far above market/sector/peer medians, supporting continuous two-way activity; however, recent wider spreads mean those trades are occurring at higher cost than the 30d baseline."
+      "adv": "Across periods, TKU trades far more notional than typical names, but the latest 1d–2w windows are running ~31% below the 30d baseline, signaling reduced recent participation.",
+      "spread": "Spread is near 1 tick on 30d (2.20%, 1.08 ticks), but costs worsened in recent weeks vs 30d (2.41%–2.52%). Versus peers, percent spread is slightly higher in most multi-day windows despite having fewer ticks.",
+      "volatility": "Volatility is elevated versus market/sector in the multi-day windows, which can translate into more variable execution outcomes even if quoted spread is near 1 tick.",
+      "trades": "Trade frequency is a standout strength and supports day-to-day liquidity access; even in the latest snapshot, trades are an order of magnitude above typical market/peer medians."
     },
     "performance": {
-      "overall": "Mixed",
-      "conclusion": "Momentum improved from 1w (+2.04%) to 2w (+13.64%), beating market (-0.74% / +0.00%), sector (-0.16% / +0.11%), and peers (+0.29% / +0.29%); this supports an IR message that recent news-flow or execution is being rewarded. However, 30d is still negative (-3..."
+      "overall": "TKU outperformed market/sector/peers in the last 1w (+2.04% vs Market -0.74%, Sector -0.16%, Peers +0.29%) and especially 2w (+13.64% vs Market near zero, Sector +0.11%, Peers +0.29%), but underperformed over 30d (-3.85% vs Market +2.13% and Peers -0.26%).",
+      "conclusion": "Relative performance shows a divergence: strong near-term outperformance versus both sector and peers (2w +13.64% vs peers +0.29%) despite a weaker 30d trend (-3.85%). Market confidence appears to be improving very recently, but the 30d underperformance."
     },
     "drivers": {
-      "overall": "Variance decomposition shows TKU is primarily company-driven (67.9%), not a market proxy (12.5%) and only partly sector-rotational (19.6%). Practical implication: CEO/CFO messaging and company events will move the stock more than macro news.",
-      "interpretation": "Strong",
-      "rolling_change": "Trend over rolling windows is unavailable because only 2025-12-25 to 2026-02-26 is provided; use 67.9% company / 19.6% sector / 12.5% market as the current correlation baseline.",
-      "beta": "Directional sensitivities: market beta is -0.81 (often opposite-market), while sector beta is +5.61 (large amplification of software-sector moves). Practical implication: manage narratives separately for sector shocks vs idiosyncratic TKU news."
+      "overall": "Current mix (latest window 2026-01-26 to 2026-02-26) is market 40.4%, secto%, company 33.8%. Even in a Company-Led regime (prob=1.0), TKU is still materially exposed to broad market and sector swings.",
+      "interpretation": "Moderate",
+      "rolling_change": "Rolling evolution cannot be assessed from the summary because only one window is provided (2026-01-26 to 2026-02-26). Any statement about trend would be unsupported with the given data.",
+      "beta": "Market sensitivity is 0.41 (range 0.41–0.41), implying below one-for-one response to broad market moves. Sector sensitivity is 5.45 (range 5.45–5.45), implying sector shocks can be amplified when they occur."
     },
     "regime": {
-      "overall": "Activity regimes: Medium Activity dominates (45.8% of days), Low Activity is also frequent (37.5%), and High Activity is less common (16.7%). This mix suggests liquidity conditions can shift, but extreme activity is not the norm.",
-      "current": "Current regime is 0 (Low Activity). Practical implication: plan disclosures and investor engagement assuming thinner day-to-day activity; surprises can translate into larger price jumps when activity is low.",
-      "transitions": "Regime persistence is moderate: Low Activity stays Low 62.5% of the time and shifts to Medium 25.0% (to High 12.5%). High Activity is fragile (stays High 50.0% and shifts to Medium 50.0%), while Medium stays Medium 63.6% and shifts to Low 36.4%.",
-      "trading_implications": "Liquidity backdrop is somewhat stable within Low/Medium (62.5% and 63.6% stay rates), but High Activity does not persist (50% chance of dropping to Medium). Practical implication: treat the current Low Activity as normal-but-fragile for sudden news; keep in..."
+      "overall": "Two regimes are observed: Company-Led (86.4% of the time; company share 67.7% within that regime) and Market-Led (13.6% of the time; market share 73.3% within that regime). No stable lead factor is identified in either regime.",
+      "current": "Current regime is Company-Led with probability 1.0; stay probability is 0.7999, suggesting the regime is fairly sticky day-to-day. Expected duration is ~6.0 days, so shifts can still occur within a typical reporting week; history is limited to 22 days.",
+      "transitions": "From Company-Led, the model stays Company-Led with probability 0.7999 and switches to Market-Led with 0.2001, indicating moderate stability with occasional flips. Market-Led is less sticky (stay 0.1816), so it tends to revert quickly rather than persist.",
+      "trading_implications": "In Company-Led, price moves are mostly explained by company-specific forces (67.7% within-regime), so external benchmarking may explain less of day-to-day performance. In Market-Led, broad market direction dominates (73.3%), so TKU tends to move more in line."
     },
     "execution": {
-      "overall": "Spread 1.98% plus limited bid depth (S$617,384 across top 10 levels) makes execution costs high and sell-side market impact material beyond ~S$100K.",
-      "concern": "A S$1.0M sell shows ≈-6.94% impact with 61.7% fill, and S$2.5M shows the same ≈-6.94% with only 24.7% fill—sizes this large can distort the tape and complicate capital markets messaging.",
-      "peer_context": "Peers show wide dispersion in 50k capacity (%ADV): from 98.3 (ITS) and 207.8 (5DD) up to 54,555.4 (U77); TKU’s %ADV is unavailable, but the observed -6.94% at S$1.0M suggests weaker practical capacity than the more liquid peer set."
+      "overall": "Displayed liquidity supports ~S$100K sells but shows sharp capacity limits above that; wider spread (1.98%) and shallow bids (S$617,384 across top 10) increase expected cost and headline price sensitivity.",
+      "concern": "For S$1.0M and S$2.5M sells, modeled fills drop to 61.7% and 24.7% with ~-6.94% impact, signalling that available bids are quickly exhausted and pricing may gap on size.",
+      "peer_context": "Peer capacity readings vary widely (98.3 to 54,555.4 for impact_50k_pct_adv), suggesting this segment can be uneven; two peer datapoints are unavailable, limiting a complete ranking versus all 8 peers."
     },
     "trader_composition": {
-      "overall": "In the last 30d, retail is 90.0% of trades but only 36.7% of notional; Mixed is 9.2% of trades yet 50.0% of notional, and Institutional is 0.8% of trades but 13.3% of notional. This means many small tickets set the “noise,” while larger tickets drive most c...",
-      "retail_heavy": "Trade flow is retail-dominated by count (90.0% in 30d; 93.1% in 1d), but retail’s notional share can swing (36.7% in 30d vs 49.2% in 1d). This variability can make headline activity look strong even when larger-money participation is inconsistent—IR should...",
-      "institutional_gap": "Institutional participation is small by trade count (0.8% over 30d; 1.4% in 1d) but meaningful by notional (13.3% over 30d; 21.3% in 1d), implying infrequent but larger trades. Practical implication: liquidity perception can change quickly day-to-day; manag...",
-      "peer_comparison": "Versus peers that are often 0.0% institutional by notional (e.g., 532, KUX, U77, LVR), TKU stands out with 13.3% institutional notional while still being retail-heavy by trade count (90.0%). This is a relative advantage for price quality and credibility wit..."
+      "overall": "Retail drives 90.0% of trades but only 36.7% of notional (30d), while Mixed is 9.2% of trades yet 50.0% of notional. This is many small retail trades with larger tickets coming from Mixed/Institutional, which typically improves price quality versus.",
+      "retail_heavy": "Trade count is retail-heavy (90.0% of trades), but value is not: retail is 36.7% of notional and 37.0% of volume (30d). Management takeaway: headline activity looks retail-led, but the stock’s value traded relies more on non-retail participants.",
+      "institutional_gap": "Institutional is 0.8% of trades but 13.3% of notional (30d), meaning few but relatively larger tickets. Short-term mix shifted: 1d institutional notional share is 21.3% (vs 13.3% 30d), but this is based on only 72 trades and may be unstable.",
+      "peer_comparison": "Against peers, TKU is less retail-only by value than several names (e.g., 532 and KUX are 100% retail by notional), but more retail-led by trade count than 5DD (TKU 90.0% retail trades vs 5DD 87.1%). ITS and BN2 show higher institutional notional shares."
     },
     "price_moving": {
-      "overall": "Only 898 of 4,437 trades moved the price (20.2%), so most prints are liquidity-taking without changing the quote. Business implication: reducing unnecessary micro-volatility is more about the minority of impactful trades than overall trade noise.",
+      "overall": "20.2% of trades moved the price (898 of 4,437), so most prints are price-takers rather than price-setters. This supports the view that liquidity exists, but a meaningful minority of trades still shift price.",
       "interpretation": "Moderate",
-      "asymmetry": "Price-moving trades are roughly balanced: 448 positive vs 450 negative movers. However, the negative side shows higher institutional share (institutional index 200.0% vs 67.0% on positives), suggesting down-moves are more tied to larger players—monitor sell..."
+      "asymmetry": "Price moves are balanced by direction (448 positive vs 450 negative movers). The provided breakdown attributes most moving activity to retail on both sides (positive movers retail 8750.0% vs institutional 67.0%; negative movers retail 7933.3% vs institutional."
     },
     "intraday": {
-      "overall": "In 1M, 94.2% of notional trades in continuous, with 5.8% in auctions (open 1.7%, close 3.2%). Peak trading is at 09:00 with 13.4% of volume, meaning early-session prints can disproportionately shape the day’s price narrative.",
-      "hhi_interpretation": "HHI is 0.196 in 1M (moderately concentrated), improving versus 1W (0.284) and 2W (0.248), but worse than 1D (0.235 is higher concentration than 1M, so 1D is more clustered). Practical implication: liquidity has recently been less evenly distributed intra-da...",
-      "best_times": "Activity is concentrated at 09:00 (13.4% of volume), and auctions are non-trivial (5.8% in 1M). Implication: opening prints can amplify perceived momentum; IR should be cautious interpreting “early moves” as fundamental signal without broader-day confirmation.",
-      "peer_ranking": "Against peers, TKU’s HHI is ~0.190, lower than ITS (0.253), LVR (0.341), 5DD (0.372) and far below NXR/U77/532/KUX (0.506–0.801), indicating steadier liquidity than most. Despite higher auction % levels shown in the peer table, TKU’s lower HHI suggests less..."
+      "overall": "Trading is concentrated in the continuous session (94.2%), with auctions at 5.8% (1M). This indicates day-to-day liquidity is mainly driven by regular session flow, not auction events.",
+      "hhi_interpretation": "HHI is 0.196 (1M), labeled “moderately concentrated,” meaning some time intervals dominate activity but volume is not extremely clustered. Concentration rose in shorter windows (1w HHI 0.284 vs 1M 0.196), implying recent trading has been more time-bunched and.",
+      "best_times": "Peak activity is at 09:00 with 13.4% of volume, signaling a clear early-session clustering. In the latest 1d snapshot, auctions are 6.6% and HHI is 0.235, indicating slightly more time concentration than the 1M baseline.",
+      "peer_ranking": "TKU’s peer HHI is 0.1899, the lowest in the provided peer list, versus higher concentration in names like ITS (0.2533) and much higher in 532 (0.7852) and KUX (0.8010). Business meaning: relative to peers, TKU’s liquidity is distributed more evenly through."
     },
     "short_selling": {
-      "overall": "Short ratio is low versus trading volume: 1W and 2W average short ratio is near zero; 1M average is 0.32% with a 2.10% peak. This signals limited bearish positioning and low risk of forced covering-driven volatility; management can prioritize operating upda...",
-      "level": "Days-to-cover is near zero (max 0.004), meaning the short position can be covered quickly and is not building into a crowded trade. Practical implication: low probability that lending constraints amplify price moves, but continue monitoring for any jump fro...",
-      "correlation": "N/A (no Granger-causality or short-vs-returns relationship data provided). Practical implication: do not attribute recent price moves to short flows without additional data; focus IR messaging on fundamentals and liquidity disclosure.",
-      "trend": "Short interest is decreasing materially: -78% MoM from 0.91% (2026-01) to 0.20% (2026-02). This suggests shorts are stepping back rather than pressing; IR should watch for any reversal toward January levels as an early warning of renewed negative positioning."
+      "overall": "1W and 2W average short ratio were near zero, and 1M averaged 0.32% (max 2.10%), signaling limited bearish positioning and limited short-driven price pressure.",
+      "level": "Weak",
+      "correlation": "N/A (no Granger-causality or return linkage statistics provided), but the near-zero short ratios in 1W/2W imply short flows are unlikely to be a primary driver of near-term returns.",
+      "trend": "Shorts covered significantly: short ratio dropped -78% MoM (0.91% in 2026-01 to 0.20% in 2026-02), and days-to-cover stayed near zero (max 0.004), meaning the short position is easily unwound rather than building."
     },
     "ofi": {
       "overall": "Order flow imbalance data not available.",
@@ -2214,7 +2654,7 @@ export const REPORT_DATA: ReportData = {
         },
         "adv": {
           "direction": "higher_is_better",
-          "mean": 3138144.4183211196,
+          "mean": 3138278.9846082875,
           "median": 15030.0,
           "min": 0.0,
           "max": 309150489.0,
@@ -2234,7 +2674,7 @@ export const REPORT_DATA: ReportData = {
         },
         "turnover_ratio": {
           "direction": "higher_is_better",
-          "mean": 0.004972007735504595,
+          "mean": 0.004972007901967641,
           "median": 0.00032052915615159166,
           "min": 0.0,
           "max": 1.4501351262276712,
@@ -2244,7 +2684,7 @@ export const REPORT_DATA: ReportData = {
         },
         "amihud": {
           "direction": "lower_is_better",
-          "mean": 0.0002211116233322482,
+          "mean": 0.00022111157484560047,
           "median": 1.0914916494041928e-07,
           "min": 0.0,
           "max": 0.04901960784313725,
@@ -2366,6 +2806,16 @@ export const REPORT_DATA: ReportData = {
           "p95": 0.5669696969696968,
           "count": 8
         },
+        "spread_ticks": {
+          "direction": "neutral",
+          "mean": 3.599165228308914,
+          "median": 1.2989843943522417,
+          "min": 1.0,
+          "max": 16.8,
+          "p5": 1.0362068965517242,
+          "p95": 12.284999999999993,
+          "count": 8
+        },
         "amihud": {
           "direction": "lower_is_better",
           "mean": 0.00023605771619657155,
@@ -2419,12 +2869,268 @@ export const REPORT_DATA: ReportData = {
       }
     ],
     "drivers": {
-      "share_market": 0.12503498553946285,
-      "share_sector": 0.19552724760991846,
-      "share_idio": 0.6794377668506187,
-      "beta_market": -0.8089187103739899,
-      "beta_sector": 5.6064961162447755,
+      "share_market": 0.40430819347849967,
+      "share_sector": 0.25722618375017575,
+      "share_idio": 0.33846562277132464,
+      "beta_market": 0.40628960378982987,
+      "beta_sector": 5.453454415234182,
       "r_squared": 0.22993070535415516,
+      "driver_model": {
+        "valid": true,
+        "model_method": "hybrid_markov_regression_pymc",
+        "estimation_window_days": 22,
+        "reporting_window_days": 22,
+        "available_history_days": 22,
+        "n_regimes": 2,
+        "current_regime": 0,
+        "current_regime_label": "Company-Led",
+        "current_regime_probability": 1.0,
+        "current_driver_mix": {
+          "market_share": {
+            "median": 0.40430819347849967,
+            "low": 0.40430819347849967,
+            "high": 0.40430819347849967
+          },
+          "sector_share": {
+            "median": 0.25722618375017575,
+            "low": 0.25722618375017575,
+            "high": 0.25722618375017575
+          },
+          "company_share": {
+            "median": 0.33846562277132464,
+            "low": 0.33846562277132464,
+            "high": 0.33846562277132464
+          }
+        },
+        "current_sensitivities": {
+          "beta_market": {
+            "median": 0.40628960378982987,
+            "low": 0.40628960378982987,
+            "high": 0.40628960378982987
+          },
+          "beta_sector": {
+            "median": 5.453454415234182,
+            "low": 5.453454415234182,
+            "high": 5.453454415234182
+          },
+          "beta_market_lag": {
+            "median": 0.0,
+            "low": 0.0,
+            "high": 0.0
+          },
+          "beta_sector_lag": {
+            "median": 0.0,
+            "low": 0.0,
+            "high": 0.0
+          }
+        },
+        "rolling_windows": {
+          "p1": {
+            "valid": false,
+            "n_obs": 0
+          },
+          "p2": {
+            "valid": false,
+            "n_obs": 0
+          },
+          "p3": {
+            "valid": false,
+            "n_obs": 0
+          },
+          "p4": {
+            "valid": false,
+            "n_obs": 0
+          },
+          "p5": {
+            "valid": false,
+            "n_obs": 0
+          },
+          "p6": {
+            "valid": true,
+            "n_obs": 22,
+            "period_label": "2026-01-26 to 2026-02-26",
+            "shares": {
+              "share_market": 0.40430819347849967,
+              "share_sector": 0.25722618375017575,
+              "share_idio": 0.33846562277132464
+            },
+            "regression": {
+              "r_squared": null
+            }
+          }
+        },
+        "regimes": [
+          {
+            "id": 0,
+            "label": "Company-Led",
+            "pct_time": 0.8636363636363636,
+            "dominant_driver": "company",
+            "dominant_driver_probability": 1.0,
+            "expected_duration_days": 6.000000849116235,
+            "current_probability": 1.0,
+            "n_days_effective": 19.0,
+            "shares": {
+              "market": {
+                "median": 0.07557373368233432,
+                "low": 0.07557373368233432,
+                "high": 0.07557373368233432
+              },
+              "sector": {
+                "median": 0.24749502077501692,
+                "low": 0.24749502077501692,
+                "high": 0.24749502077501692
+              },
+              "company": {
+                "median": 0.6769312455426488,
+                "low": 0.6769312455426488,
+                "high": 0.6769312455426488
+              }
+            },
+            "sensitivities": {
+              "beta_market": {
+                "median": 0.40628960378982987,
+                "low": 0.40628960378982987,
+                "high": 0.40628960378982987
+              },
+              "beta_sector": {
+                "median": 5.453454415234182,
+                "low": 5.453454415234182,
+                "high": 5.453454415234182
+              },
+              "beta_market_lag": {
+                "median": 0.0,
+                "low": 0.0,
+                "high": 0.0
+              },
+              "beta_sector_lag": {
+                "median": 0.0,
+                "low": 0.0,
+                "high": 0.0
+              }
+            },
+            "volatility": {
+              "median": 0.02632746967083718,
+              "low": 0.02632746967083718,
+              "high": 0.02632746967083718
+            },
+            "lead_signal": {
+              "lead_factor": "none",
+              "lead_confidence": null,
+              "lead_horizon_days": null
+            }
+          },
+          {
+            "id": 1,
+            "label": "Market-Led",
+            "pct_time": 0.13636363636363627,
+            "dominant_driver": "market",
+            "dominant_driver_probability": 1.0,
+            "expected_duration_days": 1.0000009473685545,
+            "current_probability": 0.0,
+            "n_days_effective": 2.9999999999999982,
+            "shares": {
+              "market": {
+                "median": 0.733042653274665,
+                "low": 0.733042653274665,
+                "high": 0.733042653274665
+              },
+              "sector": {
+                "median": 0.26695734672533455,
+                "low": 0.26695734672533455,
+                "high": 0.26695734672533455
+              },
+              "company": {
+                "median": 4.625639366135888e-16,
+                "low": 4.625639366135888e-16,
+                "high": 4.625639366135888e-16
+              }
+            },
+            "sensitivities": {
+              "beta_market": {
+                "median": -7.058264470354537,
+                "low": -7.058264470354537,
+                "high": -7.058264470354537
+              },
+              "beta_sector": {
+                "median": 8.778107677028189,
+                "low": 8.778107677028189,
+                "high": 8.778107677028189
+              },
+              "beta_market_lag": {
+                "median": 0.0,
+                "low": 0.0,
+                "high": 0.0
+              },
+              "beta_sector_lag": {
+                "median": 0.0,
+                "low": 0.0,
+                "high": 0.0
+              }
+            },
+            "volatility": {
+              "median": 1e-06,
+              "low": 1e-06,
+              "high": 1e-06
+            },
+            "lead_signal": {
+              "lead_factor": "none",
+              "lead_confidence": null,
+              "lead_horizon_days": null
+            }
+          }
+        ],
+        "transitions": {
+          "mean": [
+            [
+              0.7998786843221893,
+              0.2001213156778106
+            ],
+            [
+              0.8183751466841239,
+              0.1816248533158761
+            ]
+          ],
+          "low": [
+            [
+              0.685461093801295,
+              0.09024800482401635
+            ],
+            [
+              0.5810508136337699,
+              0.02990673598906
+            ]
+          ],
+          "high": [
+            [
+              0.9097519951759837,
+              0.3145389061987049
+            ],
+            [
+              0.97009326401094,
+              0.4189491863662303
+            ]
+          ],
+          "counts": [
+            [
+              15.0,
+              3.0
+            ],
+            [
+              3.0,
+              0.0
+            ]
+          ]
+        },
+        "methodology": {
+          "estimation_window_days": 22,
+          "reporting_window_days": 22,
+          "regime_inference": "hybrid_markov_bayesian_regression",
+          "uncertainty_engine": "pymc_weighted_regime_regressions",
+          "lead_horizon_days": 1,
+          "distribution": "student_t",
+          "history_limited": true
+        }
+      },
       "lead_lag": {
         "lags": [
           -5,
@@ -2488,81 +3194,174 @@ export const REPORT_DATA: ReportData = {
         },
         "p6": {
           "valid": true,
-          "period_label": "2025-12-25 to 2026-02-26",
+          "period_label": "2026-01-26 to 2026-02-26",
           "shares": {
-            "share_market": 0.12503498553946285,
-            "share_sector": 0.19552724760991846,
-            "share_company": 0.6794377668506187
+            "share_market": 0.40430819347849967,
+            "share_sector": 0.25722618375017575,
+            "share_company": 0.33846562277132464
           },
           "regression": {
-            "r_squared": 0.22993070535415516
+            "r_squared": null
           }
         }
       },
       "rolling": {
         "ordered": [
-          "2025-12-25 to 2026-02-26"
+          "2026-01-26 to 2026-02-26"
         ],
         "market": [
-          12.5
+          40.4
         ],
         "sector": [
-          19.6
+          25.7
         ],
         "idio": [
-          67.9
+          33.8
         ]
       },
       "regime": {
         "valid": true,
-        "regime_method": "activity_day_clustering",
-        "n_regimes": 3,
+        "regime_method": "hybrid_markov_regression_pymc",
+        "n_regimes": 2,
+        "current_regime_label": "Company-Led",
+        "current_regime_probability": 1.0,
         "labels": [
-          "Low Activity",
-          "Medium Activity",
-          "High Activity"
+          "Company-Led",
+          "Market-Led"
         ],
         "pct_time": [
-          0.375,
-          0.4583333333333333,
-          0.16666666666666666
+          0.8636363636363636,
+          0.13636363636363627
         ],
         "current_regime": 0,
         "regimes": [
           {
             "id": 0,
-            "label": "Low Activity",
-            "liquidity_score": null,
-            "pct_time": 0.375
+            "label": "Company-Led",
+            "pct_time": 0.8636363636363636,
+            "dominant_driver": "company",
+            "dominant_driver_probability": 1.0,
+            "expected_duration_days": 6.000000849116235,
+            "current_probability": 1.0,
+            "n_days_effective": 19.0,
+            "shares": {
+              "market": {
+                "median": 0.07557373368233432,
+                "low": 0.07557373368233432,
+                "high": 0.07557373368233432
+              },
+              "sector": {
+                "median": 0.24749502077501692,
+                "low": 0.24749502077501692,
+                "high": 0.24749502077501692
+              },
+              "company": {
+                "median": 0.6769312455426488,
+                "low": 0.6769312455426488,
+                "high": 0.6769312455426488
+              }
+            },
+            "sensitivities": {
+              "beta_market": {
+                "median": 0.40628960378982987,
+                "low": 0.40628960378982987,
+                "high": 0.40628960378982987
+              },
+              "beta_sector": {
+                "median": 5.453454415234182,
+                "low": 5.453454415234182,
+                "high": 5.453454415234182
+              },
+              "beta_market_lag": {
+                "median": 0.0,
+                "low": 0.0,
+                "high": 0.0
+              },
+              "beta_sector_lag": {
+                "median": 0.0,
+                "low": 0.0,
+                "high": 0.0
+              }
+            },
+            "volatility": {
+              "median": 0.02632746967083718,
+              "low": 0.02632746967083718,
+              "high": 0.02632746967083718
+            },
+            "lead_signal": {
+              "lead_factor": "none",
+              "lead_confidence": null,
+              "lead_horizon_days": null
+            }
           },
           {
             "id": 1,
-            "label": "Medium Activity",
-            "liquidity_score": null,
-            "pct_time": 0.4583333333333333
-          },
-          {
-            "id": 2,
-            "label": "High Activity",
-            "liquidity_score": null,
-            "pct_time": 0.16666666666666666
+            "label": "Market-Led",
+            "pct_time": 0.13636363636363627,
+            "dominant_driver": "market",
+            "dominant_driver_probability": 1.0,
+            "expected_duration_days": 1.0000009473685545,
+            "current_probability": 0.0,
+            "n_days_effective": 2.9999999999999982,
+            "shares": {
+              "market": {
+                "median": 0.733042653274665,
+                "low": 0.733042653274665,
+                "high": 0.733042653274665
+              },
+              "sector": {
+                "median": 0.26695734672533455,
+                "low": 0.26695734672533455,
+                "high": 0.26695734672533455
+              },
+              "company": {
+                "median": 4.625639366135888e-16,
+                "low": 4.625639366135888e-16,
+                "high": 4.625639366135888e-16
+              }
+            },
+            "sensitivities": {
+              "beta_market": {
+                "median": -7.058264470354537,
+                "low": -7.058264470354537,
+                "high": -7.058264470354537
+              },
+              "beta_sector": {
+                "median": 8.778107677028189,
+                "low": 8.778107677028189,
+                "high": 8.778107677028189
+              },
+              "beta_market_lag": {
+                "median": 0.0,
+                "low": 0.0,
+                "high": 0.0
+              },
+              "beta_sector_lag": {
+                "median": 0.0,
+                "low": 0.0,
+                "high": 0.0
+              }
+            },
+            "volatility": {
+              "median": 1e-06,
+              "low": 1e-06,
+              "high": 1e-06
+            },
+            "lead_signal": {
+              "lead_factor": "none",
+              "lead_confidence": null,
+              "lead_horizon_days": null
+            }
           }
         ],
         "transitions": [
           [
-            0.625,
-            0.25,
-            0.125
+            0.7998786843221893,
+            0.2001213156778106
           ],
           [
-            0.36363636363636365,
-            0.6363636363636364,
-            0.0
-          ],
-          [
-            0.0,
-            0.5,
-            0.5
+            0.8183751466841239,
+            0.1816248533158761
           ]
         ]
       }

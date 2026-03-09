@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, BarChart3, Info, ChevronDown } from 'lucide-react';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
+import { SectionTooltip } from '@/components/SectionTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import {
@@ -103,7 +104,7 @@ export function IntradayPanel() {
           <div>
             <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
               {labels.intraday_title}
-              <MethodologyTooltip methodKey="intraday" size="md" />
+              <SectionTooltip sectionKey="intraday" size="md" />
             </h2>
             <p className="text-sm text-muted-foreground">{labels.intraday_subtitle}</p>
           </div>
@@ -140,9 +141,8 @@ export function IntradayPanel() {
                         setSelectedPeriod(period);
                         setDropdownOpen(false);
                       }}
-                      className={`block w-full px-4 py-2 text-sm text-left hover:bg-slate-700 ${
-                        selectedPeriod === period ? 'text-sky-600 dark:text-sky-400' : 'text-foreground/80'
-                      }`}
+                      className={`block w-full px-4 py-2 text-sm text-left hover:bg-slate-700 ${selectedPeriod === period ? 'text-sky-600 dark:text-sky-400' : 'text-foreground/80'
+                        }`}
                     >
                       {period}
                     </button>
@@ -187,7 +187,10 @@ export function IntradayPanel() {
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <BarChart3 className="w-4 h-4 text-slate-500" />
-            <h3 className="text-sm font-semibold text-foreground">{labels.intraday_intensity_title}</h3>
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-1">
+              {labels.intraday_intensity_title}
+              <MethodologyTooltip methodKey="volume_profile" />
+            </h3>
           </div>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">

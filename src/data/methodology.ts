@@ -2,137 +2,221 @@
 // Do NOT edit manually — update the Python source and re-run:
 //   python generate_ts_with_openai.py --methodology-only --methodology-output <path>
 
-export const METHODOLOGY: Record<string, { title: string; body: string }> = {
+export interface MethodologyEntry {
+  title: string;
+  body: string;
+  glossaryKey?: string;
+}
+
+export const METHODOLOGY: Record<string, MethodologyEntry> = {
   liquidity_score: {
-    title: "Liquidity Score (PCA)",
-    body: "Composite score built from six liquidity features (ADV notional, trade count, turnover, bid-ask spread, price impact, volatility) using Principal Component Analysis (PCA). Features are computed as trailing medians over the selected Q01 period window (dynamic set such as 1D, 1W, 2W, 1M, 3M, 6M), standardized, and projected onto the first principal component. The score is oriented so higher = more liquid, then converted to a percentile rank across the full exchange universe.",
+    title: "Liquidity Score",
+    body: "A single score that sums up how easy this stock is to trade. It combines trading value, trading activity, spread, price impact, turnover, and price stability over the selected period. Higher score means better liquidity.",
+    glossaryKey: "liquidity_score",
   },
   drivers: {
     title: "Drivers of Moves",
-    body: "Two-factor regression over the most recent 63 trading days: r_stock = α + β_market × r_market + β_sector × r_sector + ε. Share-of-moves decomposes absolute contributions: market = Σ|β_m × r_mkt|, sector = Σ|β_s × r_sector|, idiosyncratic = Σ|ε|, each normalized to a percentage of total. Rolling windows (6 × 63 days) show how the mix evolves over time.",
+    body: "Shows what has been driving the share price lately: the wider market, the sector, or the company's own story. It also shows the current driver regime and how confident the model is in that read.",
+    glossaryKey: "drivers",
   },
   regime_switching: {
-    title: "Liquidity Regime Detection",
-    body: "A daily liquidity score is computed from the same PCA feature family (notional, trades, turnover, spread, price impact, volatility). A Markov Switching model (2 or 3 regimes, selected by AIC) identifies distinct liquidity states — Low, Medium, High — and estimates transition probabilities between them. Granger causality tests within each regime reveal directional links.",
+    title: "Price Driver Regimes",
+    body: "Groups past trading days into a small number of driver states, such as market-led, sector-led, or company-led phases. It helps show what is leading the stock now, how stable that state has been, and how likely it is to change.",
+    glossaryKey: "regime_switching",
   },
   execution: {
     title: "Execution Impact Simulation",
-    body: "Market orders are simulated through the actual L2 order book: SELL orders hit bids, BUY orders lift asks, walking through levels until the target notional is filled. Current coverage uses the top 10 bid and top 10 ask levels. Impact is reported as approximate price change (%) relative to mid-price. Multi-day statistics aggregate results over 30 snapshots (extended to 90 if sparse). Full-orderbook coverage is planned in an upcoming release.",
+    body: "Shows trading cost from three views: the latest displayed book, large trade sizes seen over the last year, and large sell-side orders observed during the day. The current view uses the top 10 price levels on the bid side and ask side of the order book. Results are shown as approximate price move in percent.",
+    glossaryKey: "execution",
   },
   intraday: {
     title: "Intraday Liquidity Patterns",
-    body: "Trades are bucketed into 30-minute intervals in SGT (UTC+8). Sessions are classified by MarketState: Opening Auction, Continuous Trading, Closing Auction, Intraday Auction. Volume share per bucket uses the median across days (not mean) to reduce outlier impact. Concentration is measured by the Herfindahl-Hirschman Index (HHI) per day, then averaged.",
+    body: "Shows when trading happens during the day and whether activity is spread out or clustered into a few busy periods. It highlights the split between auctions and normal trading, and the time windows where most volume usually appears.",
+    glossaryKey: "intraday",
   },
   trader_composition: {
-    title: "Trader Type Classification",
-    body: "Each trade is classified as Retail, Institutional, or Mixed based on trade size relative to ADV and order characteristics from L3 data. The current month breakdown shows the latest mix; the 6-month trend tracks monthly shifts in participation. Peer comparison shows how the trader mix differs from similar stocks.",
+    title: "Trader Persona Classification",
+    body: "Estimates whether trading behavior looks more like retail flow, institutional flow, a mixed style, or an unclear pattern. The method reads how trades are grouped, how much visible depth they consume, and how price reacts around them. The dashboard now also shows how many trades and runs fall in each bucket, plus the confidence mix behind those classifications.",
+    glossaryKey: "trader_composition",
   },
   peer_traders: {
     title: "Peer Trader Comparison",
-    body: "Compares the trader composition (retail / institutional / mixed) of the target stock against its 8 selected peers. Peers are chosen using a 5-tier matching algorithm: same cap class + sector, same cap + industry, same industry, same cap class, then nearest ADV. Trader percentages are averaged across peers for benchmarking.",
+    body: "Compares the same behavioral trader-persona mix across similar stocks. This shows whether this name looks more retail-like, more institution-like, or simply less observable than its peers. Peer rows also show the full run-confidence mix instead of only the highest-confidence slice.",
+    glossaryKey: "peer_traders",
+  },
+  trader_dominant_persona: {
+    title: "Dominant Persona",
+    body: "Shows the main trading style seen in the selected window. It is based on runs, which means short sequences of nearby trades treated as one broader flow.",
+    glossaryKey: "trader_dominant_persona",
+  },
+  trader_classified_flow: {
+    title: "Classified Flow",
+    body: "Shows how much trading the model was able to classify in the selected window. Trades are individual prints. Runs are short sequences of nearby trades grouped into one broader action.",
+    glossaryKey: "trader_classified_flow",
+  },
+  trader_trade_confidence: {
+    title: "Trade Confidence",
+    body: "Shows how strong the model's evidence is at the individual trade level. The percent is the share of trades in each confidence bucket, and the number in brackets is the trade count.",
+    glossaryKey: "trader_trade_confidence",
+  },
+  trader_run_confidence: {
+    title: "Run Confidence",
+    body: "Shows how strong the model's evidence is after nearby trades are grouped into runs. A run is a short sequence of nearby trades treated as one broader flow.",
+    glossaryKey: "trader_run_confidence",
+  },
+  trader_typical_size: {
+    title: "Typical Size",
+    body: "Shows the average trade value and the average run value. Run value is usually larger because it adds together nearby trades that look like one sequence.",
+    glossaryKey: "trader_typical_size",
+  },
+  trader_recent_trades: {
+    title: "Recent Classified Trades",
+    body: "Shows recent trades in local market time, with the bucket and confidence tag assigned by the method. This is a quick way to inspect what the model saw most recently.",
+    glossaryKey: "trader_recent_trades",
   },
   price_moving_trades: {
     title: "Price-Moving Trades",
-    body: "Identifies trades that caused a price change (tick movement) over the past 6 months. A trade is price-moving if the trade price differs from the previous trade price. The ratio of price-moving trades to total trades indicates how sensitive the price is to individual transactions — higher ratios suggest thinner liquidity.",
+    body: "Counts how often individual trades actually move the price. It also shows which trader personas sit behind those price-moving trades. A higher share means the price is more sensitive to each trade, which usually points to thinner trading conditions.",
+    glossaryKey: "price_moving_trades",
   },
   short_selling: {
     title: "Short Selling Analysis",
-    body: "Daily short ratio = ShortSaleVolume / TotalVolume. Days to cover = ShortVolume / 20-day rolling ADV. Unusual activity is flagged when the short ratio exceeds the 60-day rolling mean + 2 standard deviations. Peak days are those with short ratio above 15%. SBL pool impact estimates the bps cost of liquidating the available lending pool.",
+    body: "Shows how much trading is coming from short sellers, whether short activity has spiked, and how much stock is available to borrow. It helps you see whether short interest is low, normal, or unusually high.",
+    glossaryKey: "short_selling",
   },
   pca_score: {
-    title: "PCA Liquidity Score",
-    body: "Six features — log(ADV notional), log(trades), log(turnover), negative spread, negative price impact, negative volatility — are standardized (z-score) and decomposed via SVD. The first principal component captures the dominant liquidity dimension. Scores are oriented so higher = more liquid and converted to a percentile rank in the exchange universe.",
+    title: "Liquidity Score",
+    body: "This is the main score used to summarize how easy the stock is to trade. It blends trading value, trading activity, spread, price impact, turnover, and price stability into one number. Higher score means better liquidity.",
+    glossaryKey: "pca_score",
   },
   spread: {
     title: "Bid-Ask Spread",
-    body: "The relative bid-ask spread is computed as (Ask − Bid) / Mid × 100%. We use the trailing median of daily mean spreads (Spread_RelMean) over the selected analysis period window. Lower spread means lower implicit trading cost.",
+    body: "Spread is the gap between the best buy price and the best sell price. We show it as a percent, and in some places also in ticks. Lower spread usually means lower trading cost.",
+    glossaryKey: "spread",
   },
   amihud: {
     title: "Price Impact Score",
-    body: "Measures price impact per unit of value traded: Price Impact = mean(|daily return| / daily notional volume). Higher values indicate that even small trades move the price significantly, signaling poor liquidity. We use the trailing median over the selected period window.",
+    body: "Shows how easily the price moves when trading happens. Higher values mean even smaller trades can move the stock more, which usually means weaker liquidity.",
+    glossaryKey: "amihud",
   },
   price_impact: {
     title: "Price Impact Score",
-    body: "Measures price impact per unit of value traded: Price Impact = mean(|daily return| / daily notional volume). Higher values indicate that even small trades move the price significantly, signaling poorer liquidity.",
+    body: "Shows how easily the price moves when trading happens. Higher values mean even smaller trades can move the stock more, which usually means weaker liquidity.",
+    glossaryKey: "price_impact",
   },
   adv: {
-    title: "Average Daily Volume (Notional)",
-    body: "Median of (close price × volume) over the selected analysis period window. Expressed in local currency (e.g., S$, HK$). ADV is the primary measure of how much liquidity is available daily.",
+    title: "Average Daily Trading Value",
+    body: "The typical daily trading value over the selected period. It is shown in money terms, such as S$ or HK$. Higher ADV usually means more liquidity is available.",
+    glossaryKey: "adv",
   },
   turnover: {
     title: "Turnover Ratio",
-    body: "Daily volume / shares outstanding (or free float when available), medianed over the selected analysis period window. Measures the fraction of the company that changes hands on a typical day. Higher turnover implies more active trading relative to the stock's size.",
+    body: "Shows what share of the company changes hands on a typical day. Higher turnover means the stock is trading more actively relative to its size.",
+    glossaryKey: "turnover",
   },
   volatility: {
     title: "Price Variability",
-    body: "Median of daily |return| over the selected analysis period window. Used as a proxy for price uncertainty. Enters the PCA score inversely (higher volatility reduces the liquidity score).",
+    body: "Shows how much the share price tends to move from day to day. More movement means more uncertainty, which can make trading feel less stable.",
+    glossaryKey: "volatility",
   },
   kyles_lambda: {
-    title: "Kyle's Lambda (Price Impact)",
-    body: "Regression of |daily return| on daily notional volume over 63 trading days. The slope (λ) measures how much the price moves per unit of volume traded. Scaled to a reference notional amount (e.g., S$10K) to give impact in bps. Higher λ = more price impact = less liquid.",
+    title: "Historical Price Impact",
+    body: "A historical measure of how strongly price reacted when trading value changed. Higher values mean trading has tended to move the price more.",
+    glossaryKey: "kyles_lambda",
   },
   hhi: {
-    title: "HHI Concentration Index",
-    body: "Herfindahl-Hirschman Index: for each day, HHI = Σ(share_bucket²) across 30-minute volume buckets. Then averaged across all days in the period. Range 0 to 1: closer to 0 = evenly distributed, closer to 1 = concentrated. Values above 0.25 indicate high intraday concentration.",
+    title: "Trading Concentration",
+    body: "Shows whether trading is spread through the day or packed into only a few time windows. Lower values mean trading is more evenly spread. Higher values mean volume is more concentrated.",
+    glossaryKey: "hhi",
   },
   granger: {
-    title: "Granger Causality",
-    body: "Statistical test checking whether lagged order flow imbalance (OFI) helps predict future price returns, controlling for past returns. Uses maximum lag of 2 days. A significant p-value (< 0.05) suggests order flow has predictive power over price movements.",
+    title: "Lead-Lag Signal",
+    body: "Checks whether earlier order flow gave a useful signal about later price moves. This is a directional test only, not proof of cause in a real-world sense.",
+    glossaryKey: "granger",
   },
   beta_market: {
-    title: "Market Beta",
-    body: "Sensitivity of the stock's return to the overall market (index) return. Estimated from the 2-factor regression over 63 trading days. β_market > 1 means the stock amplifies market moves; < 1 means it dampens them.",
+    title: "Market Link",
+    body: "Shows how strongly the stock tends to move with the broader market in the current regime. The dashboard also shows a range, so you can see whether that link looks firm or uncertain.",
+    glossaryKey: "beta_market",
   },
   beta_sector: {
-    title: "Sector Beta",
-    body: "Sensitivity of the stock's return to its sector median return, after controlling for market moves. Estimated from the 2-factor regression over 63 trading days. A high sector beta means the stock tracks sector-specific trends closely.",
+    title: "Sector Link",
+    body: "Shows how strongly the stock tends to move with its sector or industry in the current regime. The range around the number helps show whether that sector link is stable or less certain.",
+    glossaryKey: "beta_sector",
   },
   share_of_moves: {
-    title: "Share of Moves Decomposition",
-    body: "Decomposes absolute price movements into three sources: Market (Σ|β_m × r_mkt|), Sector (Σ|β_s × r_sector|), and Company-specific (Σ|ε|). Each is normalized to a percentage. A high idiosyncratic share means the stock's price is mostly driven by company-specific events, not market or sector.",
+    title: "Share of Moves",
+    body: "Splits recent price moves into three buckets: market-driven, sector-driven, and company-driven. A high company share means the stock has recently been moving more on its own story than on wider market moves.",
+    glossaryKey: "share_of_moves",
   },
   r_squared: {
-    title: "R-Squared (Model Fit)",
-    body: "Proportion of the stock's return variance explained by the 2-factor model (market + sector). Low R² means most movement is company-specific. Typical range: 5-40% for individual stocks.",
+    title: "Base Model Fit",
+    body: "A background check from the simpler market-plus-sector model. Useful for context, but the main Q02 reading now comes from regime probabilities and driver ranges.",
+    glossaryKey: "r_squared",
   },
   short_ratio: {
     title: "Short Ratio",
-    body: "Daily: ShortSaleVolume / TotalVolume. Shows the proportion of each day's trading that comes from short sellers. Higher ratios indicate more bearish positioning or hedging activity.",
+    body: "Shows what share of trading came from short sellers. Higher levels mean short activity is a bigger part of the market in this stock.",
+    glossaryKey: "short_ratio",
   },
   days_to_cover: {
     title: "Days to Cover",
-    body: "ShortSaleVolume / 20-day rolling ADV. Estimates how many days of average volume it would take to cover the current short position. Higher values suggest stronger conviction or harder-to-unwind positions.",
+    body: "Shows how long it could take for short sellers to buy back stock using normal trading volume. Higher values mean it could take longer to unwind.",
+    glossaryKey: "days_to_cover",
   },
   unusual_short: {
     title: "Unusual Short Activity",
-    body: "A day is flagged as unusual when the short ratio exceeds the 60-day rolling mean + 2 × rolling standard deviation. This statistical threshold detects spikes that are significantly above the stock's normal shorting pattern.",
+    body: "Flags days when short activity was much higher than normal for this stock. It is meant to highlight shorting spikes, not small day-to-day noise.",
+    glossaryKey: "unusual_short",
   },
   sbl_pool: {
-    title: "Securities Borrowing & Lending Pool",
-    body: "The SBL pool is the total quantity of shares available for lending. Pool as % of ADV shows how many days of normal volume the pool represents. Impact is estimated by simulating liquidation of the pool through the L2 order book.",
+    title: "Borrowable Share Pool",
+    body: "Shows how many shares are available to borrow for short selling. We also compare that pool with normal trading volume to show whether it is small or large.",
+    glossaryKey: "sbl_pool",
   },
   correlation_short_return: {
-    title: "Short-Return Correlation",
-    body: "Pearson correlation between daily short ratio and daily stock return over the past 3 months (~100 calendar days). Negative correlation suggests shorts anticipate price declines; positive correlation suggests shorts are reactive or used for hedging.",
+    title: "Shorts vs Price Moves",
+    body: "Shows whether short selling tended to rise when the price was falling, rising, or moving independently. It is a simple relationship check, not a full explanation of price moves.",
+    glossaryKey: "correlation_short_return",
   },
   peer_selection: {
-    title: "Peer Selection Methodology",
-    body: "8 peers selected using a 5-tier algorithm: (1) same market cap class + sector, (2) same cap + industry, (3) same industry across all caps, (4) same cap class only, (5) nearest by ADV distance. Distance = |log(ADV_target) − log(ADV_peer)|. ADV is normalized to the target's currency before comparison.",
+    title: "Peer Selection",
+    body: "Peers are chosen to look like this stock in size, sector, industry, and trading profile. The process first looks for similar businesses and then for names with similar trading value.",
+    glossaryKey: "peer_selection",
   },
   session_distribution: {
     title: "Session Distribution",
-    body: "Trading volume split across market sessions: Opening Auction, Continuous Trading, Closing Auction, and Intraday Auction. Sessions are identified from MarketState flags on each trade. The percentage is computed from notional volume per session.",
+    body: "Shows how trading is split between the open, the main session, the close, and auction periods.",
+    glossaryKey: "session_distribution",
   },
   volume_profile: {
     title: "Volume Profile",
-    body: "Distribution of traded volume across 30-minute buckets in SGT (UTC+8). The share for each bucket is the median across all days in the period (not the mean), which reduces the influence of single anomalous days.",
+    body: "Shows which parts of the day usually carry the most trading volume. This helps identify the quieter and busier time windows.",
+    glossaryKey: "volume_profile",
   },
   impact_simulation: {
     title: "Order Book Impact Simulation",
-    body: "A market order of the specified notional is walked through the L2 order book (SELL hits bids, BUY lifts asks) level by level until filled or the book is exhausted. VWAP is the weighted average execution price. Current simulation uses top 10 levels on each side. Impact is shown as approximate price change (%) versus mid-price. Full-orderbook coverage is planned in a future update.",
+    body: "This simulates what could happen if a sell order is pushed through the visible order book. The current model uses the top 10 price levels on each side and reports the estimated price move in percent.",
+    glossaryKey: "impact_simulation",
+  },
+  historical_trade_scenarios: {
+    title: "Historical Trade Stress Test",
+    body: "Uses the stock's own trade sizes over roughly the last year. It takes large real trade sizes from that history and asks what would happen if those sizes were sold into today's displayed book.",
+    glossaryKey: "historical_trade_scenarios",
+  },
+  l3_sell_orders: {
+    title: "Large Sell Orders Seen Today",
+    body: "Looks at the biggest sell-side orders observed during the day and estimates what price impact they could create if they crossed the market immediately.",
+    glossaryKey: "l3_sell_orders",
+  },
+  intraday_book_profile: {
+    title: "Spread & Depth Through The Day",
+    body: "Shows how spread and visible depth changed during the day. This helps identify when trading conditions were tighter, wider, deeper, or thinner.",
+    glossaryKey: "intraday_book_profile",
   },
   adv_execution: {
-    title: "% of ADV",
-    body: "Trade size divided by the reference median daily notional window used in Q03. Shows how many days of normal volume your order represents. Larger % of ADV typically means higher market impact and longer execution time.",
+    title: "% of Daily Trading Value",
+    body: "Shows how large an order is compared with a normal trading day for this stock. A bigger share of daily volume usually means a harder trade.",
+    glossaryKey: "adv_execution",
   },
 };

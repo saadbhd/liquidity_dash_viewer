@@ -23,20 +23,26 @@ const itemVariants = {
 
 export function HeroSection() {
   const { meta, labels, content, series } = useReport();
-  const metrics = content.exec_metrics;
+  const metrics = Array.isArray(content.exec_metrics) ? content.exec_metrics : [];
+  const takeaways = Array.isArray(content.exec_takeaways) ? content.exec_takeaways : [];
+  const liqTiles = Array.isArray(content.liq_tiles) ? content.liq_tiles : [];
+  const liquidityScoreLabel = labels.metric_liquidity_score || 'Liquidity Score';
+  const spreadLabel = labels.metric_spread || 'Trading Cost (Spread)';
+  const advLabel = labels.metric_adv || 'Average Traded Volume';
+  const driversLabel = labels.metric_drivers || 'What Drives Price Changes';
 
   // Map metrics to user-friendly titles
   const titleMap: Record<string, string> = {
-    'Liquidity Score (PCA)': labels.metric_liquidity_score,
-    'Liquidity Score': labels.metric_liquidity_score,
-    'Trading Cost (Spread)': labels.metric_spread,
-    'Capacity (ADV)': labels.metric_adv,
-    'Average Traded Volume': labels.metric_adv,
-    'Price Moves: Company vs Market': labels.metric_drivers
+    'Liquidity Score (PCA)': liquidityScoreLabel,
+    'Liquidity Score': liquidityScoreLabel,
+    'Trading Cost (Spread)': spreadLabel,
+    'Capacity (ADV)': advLabel,
+    'Average Traded Volume': advLabel,
+    'Price Moves: Company vs Market': driversLabel
   };
 
   const isDriversMetric = (m: (typeof metrics)[0]) =>
-    (titleMap[m.title] ?? m.title) === labels.metric_drivers;
+    (titleMap[m.title] ?? m.title) === driversLabel;
   const driversLabelFromSuffix = (suffix: string) => {
     if (suffix.includes('company')) return 'company';
     if (suffix.includes('market')) return 'market';
@@ -45,14 +51,14 @@ export function HeroSection() {
   };
 
   const liquidityMetric =
-    metrics.find((m) => (titleMap[m.title] ?? m.title) === labels.metric_liquidity_score) ?? metrics[0];
+    metrics.find((m) => (titleMap[m.title] ?? m.title) === liquidityScoreLabel) ?? metrics[0] ?? null;
   const rankMatch = liquidityMetric?.subtext?.match(/Rank\s+(\d+)\s*\/\s*(\d+)/i);
   const universeRank = rankMatch ? `#${rankMatch[1]}/${rankMatch[2]}` : `—/${meta.universe_total}`;
 
-  const dailyTradesTile = content.liq_tiles.find((t) => t.title.toLowerCase().includes('daily trades'));
+  const dailyTradesTile = liqTiles.find((t) => t.title.toLowerCase().includes('daily trades'));
   const dailyTrades =
     dailyTradesTile?.value ??
-    (Number.isFinite(series.market_comparison.company.trades) ? `${Math.round(series.market_comparison.company.trades)}` : '—');
+    (Number.isFinite(series.market_comparison?.company?.trades) ? `${Math.round(series.market_comparison.company.trades)}` : '—');
 
   const getTrendIcon = (value: string) => {
     if (value.includes('ABOVE') || value.includes('TIGHT') || value.includes('EXCELLENT')) return <TrendingUp className="w-4 h-4" />;
@@ -87,7 +93,7 @@ export function HeroSection() {
             <div className="h-px flex-1 bg-gradient-to-r from-slate-700 to-transparent" />
           </div>
           <p className="text-muted-foreground max-w-2xl">
-            {labels.exec_subtitle} for {meta.company} ({meta.ticker}).
+            {(labels.exec_subtitle || 'Trading snapshot')} for {meta.company} ({meta.ticker}).
             Data as of {meta.asof_date}.
           </p>
         </motion.div>
@@ -102,7 +108,7 @@ export function HeroSection() {
               className={`glass-panel rounded-xl p-5 card-lift relative overflow-hidden group`}
             >
               {/* Background gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${getBgColor(metric.interpretation.cls)} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+              <div className={`absolute inset-0 bg-gradient-to-br ${getBgColor(metric.interpretation?.cls || '')} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
               
               <div className="relative z-10">
                 {/* Header */}
@@ -125,9 +131,9 @@ export function HeroSection() {
                       </Tooltip>
                     )}
                   </div>
-                  <div className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium ${getTrendColor(metric.interpretation.cls)} bg-current/10`}>
-                    {getTrendIcon(metric.interpretation.text)}
-                    {metric.interpretation.text}
+                    <div className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium ${getTrendColor(metric.interpretation?.cls || '')} bg-current/10`}>
+                    {getTrendIcon(metric.interpretation?.text || '')}
+                    {metric.interpretation?.text || 'N/A'}
                   </div>
                 </div>
 
@@ -148,9 +154,9 @@ export function HeroSection() {
                       <div className="h-1 bg-muted rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{ width: `${Math.min(metric.bar_pct, 100)}%` }}
+                          animate={{ width: `${Math.min(metric.bar_pct ?? 0, 100)}%` }}
                           transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
-                          className={`h-full rounded-full ${metric.color_bar.replace('text-', 'bg-')}`}
+                          className={`h-full rounded-full ${(metric.color_bar || 'bg-slate-500').replace('text-', 'bg-')}`}
                         />
                       </div>
                     </div>
@@ -169,9 +175,9 @@ export function HeroSection() {
                       <div className="h-1 bg-muted rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
-                          animate={{ width: `${Math.min(metric.bar_pct, 100)}%` }}
+                          animate={{ width: `${Math.min(metric.bar_pct ?? 0, 100)}%` }}
                           transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
-                          className={`h-full rounded-full ${metric.color_bar.replace('text-', 'bg-')}`}
+                          className={`h-full rounded-full ${(metric.color_bar || 'bg-slate-500').replace('text-', 'bg-')}`}
                         />
                       </div>
                     </div>
@@ -184,29 +190,31 @@ export function HeroSection() {
         </div>
 
         {/* Key Takeaways Bar */}
-        <motion.div
-          variants={itemVariants}
-          className="glass-panel rounded-xl p-5 border-glow"
-        >
-          <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center flex-shrink-0">
-              <Activity className="w-5 h-5 text-sky-400" />
-            </div>
-            <div className="flex-1">
-                    <h3 className="text-sm font-semibold text-foreground mb-3">{labels.exec_takeaways_title}</h3>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                {content.exec_takeaways.map((takeaway, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                          <span className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground flex-shrink-0">
-                      {idx + 1}
-                    </span>
-                          <p className="text-sm text-muted-foreground leading-relaxed">{takeaway}</p>
-                  </div>
-                ))}
+        {takeaways.length ? (
+          <motion.div
+            variants={itemVariants}
+            className="glass-panel rounded-xl p-5 border-glow"
+          >
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center flex-shrink-0">
+                <Activity className="w-5 h-5 text-sky-400" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold text-foreground mb-3">{labels.exec_takeaways_title || 'Key Takeaways'}</h3>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                  {takeaways.map((takeaway, idx) => (
+                    <div key={idx} className="flex items-start gap-3">
+                      <span className="w-6 h-6 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground flex-shrink-0">
+                        {idx + 1}
+                      </span>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{takeaway}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        ) : null}
 
         {/* Quick Stats Row */}
         <motion.div

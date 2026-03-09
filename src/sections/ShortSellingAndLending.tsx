@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { TrendingDown, Info, Activity, ShieldAlert } from 'lucide-react';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
+import { SectionTooltip } from '@/components/SectionTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import {
@@ -92,11 +93,11 @@ export function ShortSellingAndLending() {
 
   const priceRange = hasPrice
     ? (() => {
-        const prices = seriesRows.map((r: { price?: number }) => r.price).filter((p): p is number => p != null);
-        const minP = Math.min(...prices);
-        const maxP = Math.max(...prices);
-        return [minP, maxP] as [number, number];
-      })()
+      const prices = seriesRows.map((r: { price?: number }) => r.price).filter((p): p is number => p != null);
+      const minP = Math.min(...prices);
+      const maxP = Math.max(...prices);
+      return [minP, maxP] as [number, number];
+    })()
     : null;
 
   const formatAxisDate = (dateStr: string) => {
@@ -129,7 +130,7 @@ export function ShortSellingAndLending() {
           <div>
             <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
               {SectionTitle}
-              <MethodologyTooltip methodKey="short_selling" size="md" />
+              <SectionTooltip sectionKey="short" size="md" />
             </h2>
             <p className="text-sm text-muted-foreground">{SectionSubtitle}</p>
           </div>

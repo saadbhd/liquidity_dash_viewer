@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { loadReportData } from '@/data/reportsIndex';
 import { ReportProvider } from '@/context/ReportContext';
+import { HelpProvider } from '@/context/HelpContext';
 import { FloatingHelp } from '@/components/FloatingHelp';
 import { HeroSection } from '@/sections/HeroSection';
 import { LiquidityScore } from '@/sections/LiquidityScore';
@@ -191,100 +192,101 @@ export function ReportViewer() {
 
     return (
         <ReportProvider report={reportData}>
-            <div className="min-h-screen bg-background">
-                <div className="fixed inset-0 bg-gradient-radial pointer-events-none" />
+            <HelpProvider>
+                <div className="min-h-screen bg-background">
+                    <div className="fixed inset-0 bg-gradient-radial pointer-events-none" />
 
-                {/* Sticky Header */}
-                <header className="sticky top-0 z-50 glass border-b border-border/60">
-                    {/* Top bar: back + report info */}
-                    <div className="flex items-center justify-between px-4 lg:px-8 py-3">
-                        <div className="flex items-center gap-3">
-                            <Link to="/" className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-accent/60 transition-colors">
-                                <ArrowLeft className="w-4 h-4" />
-                            </Link>
-                            <div className="w-9 h-9 bg-gradient-to-br from-sky-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md shadow-sky-500/20">
-                                <span className="text-white font-bold text-xs">{reportData.meta.ticker}</span>
+                    {/* Sticky Header */}
+                    <header className="sticky top-0 z-50 glass border-b border-border/60">
+                        {/* Top bar: back + report info */}
+                        <div className="flex items-center justify-between px-4 lg:px-8 py-3">
+                            <div className="flex items-center gap-3">
+                                <Link to="/" className="p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-accent/60 transition-colors">
+                                    <ArrowLeft className="w-4 h-4" />
+                                </Link>
+                                <div className="w-9 h-9 bg-gradient-to-br from-sky-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md shadow-sky-500/20">
+                                    <span className="text-white font-bold text-xs">{reportData.meta.ticker}</span>
+                                </div>
+                                <div className="hidden sm:block">
+                                    <h1 className="text-sm font-semibold text-foreground leading-tight">{reportData.meta.company}</h1>
+                                    <p className="text-xs text-muted-foreground">{reportData.meta.asof_date} · {reportData.meta.market} · {reportData.meta.sector}</p>
+                                </div>
                             </div>
-                            <div className="hidden sm:block">
-                                <h1 className="text-sm font-semibold text-foreground leading-tight">{reportData.meta.company}</h1>
-                                <p className="text-xs text-muted-foreground">{reportData.meta.asof_date} · {reportData.meta.market} · {reportData.meta.sector}</p>
+                            <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                    <span className="hidden sm:inline">Live Data</span>
+                                </div>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                <span className="hidden sm:inline">Live Data</span>
-                            </div>
-                        </div>
-                    </div>
 
-                    {/* Main Tabs */}
-                    <div className="px-4 lg:px-8">
-                        <nav className="flex justify-center gap-2 -mb-px overflow-x-auto scrollbar-hide">
-                            {tabs.map((tab) => {
-                                const isActive = activeTab === tab.id;
-                                const Icon = tab.icon;
-                                return (
-                                    <button
-                                        key={tab.id}
-                                        onClick={() => handleTabChange(tab.id)}
-                                        className={`
+                        {/* Main Tabs */}
+                        <div className="px-4 lg:px-8">
+                            <nav className="flex justify-center gap-2 -mb-px overflow-x-auto scrollbar-hide">
+                                {tabs.map((tab) => {
+                                    const isActive = activeTab === tab.id;
+                                    const Icon = tab.icon;
+                                    return (
+                                        <button
+                                            key={tab.id}
+                                            onClick={() => handleTabChange(tab.id)}
+                                            className={`
                                             relative flex items-center gap-2.5 px-5 py-3 text-[0.9rem] font-medium whitespace-nowrap
                                             transition-colors duration-200 border-b-2
                                             ${isActive
-                                                ? 'text-sky-500 border-sky-500'
-                                                : 'text-muted-foreground border-transparent hover:text-foreground hover:border-border'
-                                            }
-                                        `}
-                                    >
-                                        <Icon className="w-[18px] h-[18px]" />
-                                        {tab.label}
-                                    </button>
-                                );
-                            })}
-                        </nav>
-                    </div>
-
-                    {/* Sub-section Anchor Pills — fixed-height container to prevent layout shift */}
-                    <div className="h-[42px] border-t border-border/40 flex items-center justify-center">
-                        {currentTab?.subSections ? (
-                            <div className="px-4 lg:px-8 flex justify-center gap-2 overflow-x-auto scrollbar-hide">
-                                {currentTab.subSections.map((sub) => {
-                                    const isActive = activeSubSection === sub.id;
-                                    const SubIcon = sub.icon;
-                                    return (
-                                        <button
-                                            key={sub.id}
-                                            onClick={() => scrollToSubSection(sub.id)}
-                                            className={`
-                                                flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
-                                                whitespace-nowrap transition-all duration-200
-                                                ${isActive
-                                                    ? 'bg-sky-500/15 text-sky-500 ring-1 ring-sky-500/30'
-                                                    : 'bg-accent/50 text-muted-foreground hover:bg-accent hover:text-foreground'
+                                                    ? 'text-sky-500 border-sky-500'
+                                                    : 'text-muted-foreground border-transparent hover:text-foreground hover:border-border'
                                                 }
-                                            `}
+                                        `}
                                         >
-                                            <SubIcon className="w-3 h-3" />
-                                            {sub.label}
+                                            <Icon className="w-[18px] h-[18px]" />
+                                            {tab.label}
                                         </button>
                                     );
                                 })}
-                            </div>
-                        ) : null}
-                    </div>
-                </header>
+                            </nav>
+                        </div>
 
-                {/* Main Content */}
-                <main ref={contentRef}>
-                    <motion.div
-                        key={activeTab}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.2 }}
-                        onAnimationComplete={() => setContentMounted(c => c + 1)}
-                        className="p-4 lg:p-8 space-y-8"
-                    >
+                        {/* Sub-section Anchor Pills — fixed-height container to prevent layout shift */}
+                        <div className="h-[42px] border-t border-border/40 flex items-center justify-center">
+                            {currentTab?.subSections ? (
+                                <div className="px-4 lg:px-8 flex justify-center gap-2 overflow-x-auto scrollbar-hide">
+                                    {currentTab.subSections.map((sub) => {
+                                        const isActive = activeSubSection === sub.id;
+                                        const SubIcon = sub.icon;
+                                        return (
+                                            <button
+                                                key={sub.id}
+                                                onClick={() => scrollToSubSection(sub.id)}
+                                                className={`
+                                                flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
+                                                whitespace-nowrap transition-all duration-200
+                                                ${isActive
+                                                        ? 'bg-sky-500/15 text-sky-500 ring-1 ring-sky-500/30'
+                                                        : 'bg-accent/50 text-muted-foreground hover:bg-accent hover:text-foreground'
+                                                    }
+                                            `}
+                                            >
+                                                <SubIcon className="w-3 h-3" />
+                                                {sub.label}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            ) : null}
+                        </div>
+                    </header>
+
+                    {/* Main Content */}
+                    <main ref={contentRef}>
+                        <motion.div
+                            key={activeTab}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.2 }}
+                            onAnimationComplete={() => setContentMounted(c => c + 1)}
+                            className="p-4 lg:p-8 space-y-8"
+                        >
                             {activeTab === 'overview' && (
                                 <section id="hero">
                                     <HeroSection />
@@ -362,12 +364,13 @@ export function ReportViewer() {
                                     </div>
                                 </section>
                             )}
-                    </motion.div>
-                </main>
+                        </motion.div>
+                    </main>
 
-                {/* Floating Help */}
-                <FloatingHelp peerMethodology={peerMethodology} />
-            </div>
+                    {/* Floating Help */}
+                    <FloatingHelp peerMethodology={peerMethodology} />
+                </div>
+            </HelpProvider>
         </ReportProvider>
     );
 }

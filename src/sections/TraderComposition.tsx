@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { Users, HelpCircle } from 'lucide-react';
+import { Users, BarChart3, ListChecks, ShieldCheck, Activity } from 'lucide-react';
+import { SectionTooltip } from '@/components/SectionTooltip';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
@@ -14,29 +15,30 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts';
-import {
-  Tooltip as UITooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-  }
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+  },
 };
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const PERIOD_ORDER = ['1d', '1w', '2w', '30d', '3m', '6m', 'max'];
+const BUCKET_META = [
+  { key: 'retail', label: 'Retail-like', color: '#38bdf8' },
+  { key: 'mixed', label: 'Mixed', color: '#64748b' },
+  { key: 'instit', label: 'Institution-like', color: '#34d399' },
+  { key: 'unclear', label: 'Unclear', color: '#f59e0b' },
+] as const;
 
+type ViewMode = 'trades' | 'volume' | 'notional' | 'runs';
 
 const safeText = (v: unknown): string => {
   if (typeof v === 'string') return v;
@@ -48,6 +50,55 @@ const safeText = (v: unknown): string => {
   return '';
 };
 
+const toPct = (value: unknown): number => {
+  const num = typeof value === 'number' ? value : Number(value ?? 0);
+  if (!Number.isFinite(num)) return 0;
+  return num <= 1 ? num * 100 : num;
+};
+
+const fmtPct = (value: unknown, digits = 1): string => `${toPct(value).toFixed(digits)}%`;
+
+const fmtCount = (value: unknown): string => {
+  const num = Number(value ?? 0);
+  if (!Number.isFinite(num) || num <= 0) return '0';
+  return Math.round(num).toLocaleString();
+};
+
+const fmtMoney = (value: unknown, currency = 'USD'): string => {
+  const num = Number(value ?? 0);
+  if (!Number.isFinite(num) || num <= 0) return '—';
+  const prefix = currency === 'HKD' ? 'HK$' : currency === 'SGD' ? 'S$' : `${currency} `;
+  if (num >= 1_000_000) return `${prefix}${(num / 1_000_000).toFixed(2)}M`;
+  if (num >= 1_000) return `${prefix}${(num / 1_000).toFixed(1)}K`;
+  return `${prefix}${num.toFixed(0)}`;
+};
+
+const marketTimeSettings = (market?: string) => {
+  if (market === 'XSES') return { timeZone: 'Asia/Singapore', label: 'SGT', locale: 'en-SG' };
+  if (market === 'XHKG') return { timeZone: 'Asia/Hong_Kong', label: 'HKT', locale: 'en-HK' };
+  return { timeZone: 'UTC', label: 'UTC', locale: 'en-GB' };
+};
+
+const fmtMarketTime = (value: unknown, market?: string): string => {
+  if (!value) return '—';
+  const raw = String(value);
+  const dt = new Date(raw);
+  if (Number.isNaN(dt.getTime())) {
+    const match = raw.match(/(\d{2}:\d{2}:\d{2})/);
+    return match?.[1] || raw;
+  }
+  const settings = marketTimeSettings(market);
+  return new Intl.DateTimeFormat(settings.locale, {
+    timeZone: settings.timeZone,
+    day: '2-digit',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).format(dt);
+};
+
 const periodLabel = (key: string) => {
   const map: Record<string, string> = {
     '1d': '1D',
@@ -56,394 +107,507 @@ const periodLabel = (key: string) => {
     '30d': '1M',
     '3m': '3M',
     '6m': '6M',
-    'max': 'MAX',
+    max: 'MAX',
   };
   return map[key] || key.toUpperCase();
 };
 
-export function TraderComposition() {
-  const { labels, insights, series } = useReport();
-  const chartTheme = useChartTheme();
-  const { trader_composition } = series;
-  const { trader_composition: traderInsights } = insights;
+const getUnclearPct = (source: Record<string, any>, base: string): number => {
+  const direct = source[`${base}_pct`];
+  if (direct != null) return toPct(direct);
+  const ambiguous = toPct(source[`ambiguous_${base}_pct`]);
+  const unobservable = toPct(source[`unobservable_${base}_pct`]);
+  return ambiguous + unobservable;
+};
 
-  const tcAny = trader_composition as any;
-  const periodSnapshots = (tcAny?.periods && typeof tcAny.periods === 'object') ? tcAny.periods as Record<string, any> : {};
+const getComposition = (snapshot: any, mode: ViewMode) => {
+  const comp = snapshot?.composition || snapshot || {};
+  const runComp = snapshot?.run_composition || {};
+  if (mode === 'volume') {
+    return {
+      retail: toPct(comp.retail_qty_pct),
+      mixed: toPct(comp.mixed_qty_pct),
+      instit: toPct(comp.instit_qty_pct),
+      unclear: getUnclearPct(comp, 'qty'),
+    };
+  }
+  if (mode === 'notional') {
+    return {
+      retail: toPct(comp.retail_notional_pct),
+      mixed: toPct(comp.mixed_notional_pct),
+      instit: toPct(comp.instit_notional_pct),
+      unclear: getUnclearPct(comp, 'notional'),
+    };
+  }
+  if (mode === 'runs') {
+    return {
+      retail: toPct(runComp.retail_pct),
+      mixed: toPct(runComp.mixed_pct),
+      instit: toPct(runComp.instit_pct),
+      unclear: (() => {
+        if (runComp.unclear_pct != null) return toPct(runComp.unclear_pct);
+        return toPct(runComp.ambiguous_pct) + toPct(runComp.unobservable_pct);
+      })(),
+    };
+  }
+  return {
+    retail: toPct(comp.retail_pct),
+    mixed: toPct(comp.mixed_pct),
+    instit: toPct(comp.instit_pct),
+    unclear: (() => {
+      if (comp.unclear_pct != null) return toPct(comp.unclear_pct);
+      return toPct(comp.ambiguous_pct) + toPct(comp.unobservable_pct);
+    })(),
+  };
+};
+
+const dominantFromBreakdown = (breakdown: ReturnType<typeof getComposition>) => {
+  const ranked = [
+    { label: 'Retail-like', value: breakdown.retail },
+    { label: 'Mixed', value: breakdown.mixed },
+    { label: 'Institution-like', value: breakdown.instit },
+    { label: 'Unclear', value: breakdown.unclear },
+  ].sort((a, b) => b.value - a.value);
+  return ranked[0] || { label: 'Unavailable', value: 0 };
+};
+
+const confidenceRows = (mix: Record<string, any> | undefined, counts: Record<string, any> | undefined) => [
+  { key: 'high', label: 'High' },
+  { key: 'medium', label: 'Medium' },
+  { key: 'low', label: 'Low' },
+  { key: 'na', label: 'N/A' },
+].map((item) => ({
+  ...item,
+  pct: toPct(mix?.[item.key]),
+  count: Number(counts?.[item.key] ?? 0),
+}));
+
+const bucketRows = (counts: Record<string, any> | undefined) => [
+  { key: 'retail', label: 'Retail-like' },
+  { key: 'mixed', label: 'Mixed' },
+  { key: 'institutional', label: 'Institution-like' },
+  { key: 'ambiguous', label: 'Ambiguous' },
+  { key: 'unobservable', label: 'Unobservable' },
+  { key: 'unclear', label: 'Unclear' },
+].map((item) => ({
+  ...item,
+  count: Number(counts?.[item.key] ?? 0),
+}));
+
+const bucketLabel = (value: unknown): string => {
+  const text = String(value || 'UNOBSERVABLE').toUpperCase();
+  const map: Record<string, string> = {
+    RETAIL: 'Retail-like',
+    MIXED: 'Mixed',
+    INSTITUTIONAL: 'Institution-like',
+    AMBIGUOUS: 'Ambiguous',
+    UNOBSERVABLE: 'Unclear',
+  };
+  return map[text] || text;
+};
+
+const confidenceBadgeClass = (value: unknown): string => {
+  const key = String(value || 'NA').toUpperCase();
+  if (key === 'HIGH') return 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300';
+  if (key === 'MEDIUM') return 'border-sky-500/30 bg-sky-500/10 text-sky-300';
+  if (key === 'LOW') return 'border-amber-500/30 bg-amber-500/10 text-amber-300';
+  return 'border-slate-500/30 bg-slate-500/10 text-slate-300';
+};
+
+export function TraderComposition() {
+  const { labels, insights, meta, series } = useReport();
+  const chartTheme = useChartTheme();
+  const traderComposition = series.trader_composition as any;
+  const traderInsights = insights.trader_composition || {};
+
+  const periodSnapshots =
+    traderComposition?.periods && typeof traderComposition.periods === 'object'
+      ? (traderComposition.periods as Record<string, any>)
+      : {};
 
   const periodKeys = React.useMemo(() => {
-    const keys = Object.keys(periodSnapshots).filter((k) => {
-      const s = periodSnapshots[k];
-      return !!s && typeof s === 'object' && (s.composition || s.valid !== undefined);
-    });
+    const keys = Object.keys(periodSnapshots).filter((key) => !!periodSnapshots[key]);
     return [
-      ...PERIOD_ORDER.filter((k) => keys.includes(k)),
-      ...keys.filter((k) => !PERIOD_ORDER.includes(k)),
+      ...PERIOD_ORDER.filter((key) => keys.includes(key)),
+      ...keys.filter((key) => !PERIOD_ORDER.includes(key)),
     ];
   }, [periodSnapshots]);
 
   const primaryPeriod = React.useMemo(() => {
-    const raw = String(tcAny?.primary_period || '').trim();
+    const raw = String(traderComposition?.primary_period || '').trim();
     if (raw && periodKeys.includes(raw)) return raw;
-    const pref = [...periodKeys].reverse().find((k) => k !== '1d');
-    return pref || periodKeys[0] || '';
-  }, [tcAny?.primary_period, periodKeys]);
+    const preferred = [...periodKeys].reverse().find((key) => key !== '1d');
+    return preferred || periodKeys[0] || '';
+  }, [traderComposition?.primary_period, periodKeys]);
 
-  const [selectedPeriod, setSelectedPeriod] = React.useState<string>(primaryPeriod);
-
-  React.useEffect(() => {
-    if (primaryPeriod && selectedPeriod !== primaryPeriod && !periodKeys.includes(selectedPeriod)) {
-      setSelectedPeriod(primaryPeriod);
-    } else if (!selectedPeriod && primaryPeriod) {
-      setSelectedPeriod(primaryPeriod);
-    }
-  }, [primaryPeriod, selectedPeriod, periodKeys]);
-
-  const activeSnapshot = (selectedPeriod && periodSnapshots[selectedPeriod]) ? periodSnapshots[selectedPeriod] : tcAny;
-
-  // Some datasets store shares as fractions (0-1), others as percentages (0-100).
-  const toPct = (v: number) => (v <= 1 ? v * 100 : v);
-
-  const comp = activeSnapshot?.composition || tcAny?.composition || {};
-  const hasQty =
-    typeof comp === 'object' &&
-    comp !== null &&
-    ('retail_qty_pct' in comp || 'mixed_qty_pct' in comp || 'instit_qty_pct' in comp);
-
-  type ViewMode = 'trades' | 'shares';
-  const modes: { id: ViewMode; label: string; available: boolean }[] = [
-    { id: 'trades', label: 'Trades', available: true },
-    { id: 'shares', label: 'Volume', available: !!hasQty },
-  ];
-  const availableModes = modes.filter((m) => m.available);
-  const defaultMode: ViewMode = availableModes[0]?.id ?? 'trades';
-  const [mode, setMode] = React.useState<ViewMode>(defaultMode);
+  const [selectedPeriod, setSelectedPeriod] = React.useState(primaryPeriod);
 
   React.useEffect(() => {
-    if (mode === 'shares' && !hasQty) {
-      setMode('trades');
+    if (primaryPeriod && (!selectedPeriod || !periodKeys.includes(selectedPeriod))) {
+      setSelectedPeriod(primaryPeriod);
     }
-  }, [mode, hasQty]);
+  }, [primaryPeriod, periodKeys, selectedPeriod]);
 
-  const getCompPct = (m: ViewMode) => {
-    if (m === 'shares' && hasQty) {
-      return {
-        retail: toPct((comp as any).retail_qty_pct ?? 0),
-        mixed: toPct((comp as any).mixed_qty_pct ?? 0),
-        instit: toPct((comp as any).instit_qty_pct ?? 0),
-      };
+  const activeSnapshot = (selectedPeriod && periodSnapshots[selectedPeriod]) || traderComposition || {};
+
+  const hasVolume = React.useMemo(() => {
+    const snaps = [activeSnapshot, ...Object.values(periodSnapshots)];
+    return snaps.some((snapshot: any) => snapshot?.composition?.retail_qty_pct != null);
+  }, [activeSnapshot, periodSnapshots]);
+
+  const modes = [
+    { id: 'volume' as ViewMode, label: 'Volume', available: hasVolume },
+    { id: 'trades' as ViewMode, label: 'Trades', available: true },
+  ].filter((mode) => mode.available);
+
+  const [mode, setMode] = React.useState<ViewMode>(modes[0]?.id || 'trades');
+
+  React.useEffect(() => {
+    if (!modes.some((entry) => entry.id === mode)) {
+      setMode(modes[0]?.id || 'trades');
     }
-    return {
-      retail: toPct((comp as any).retail_pct ?? 0),
-      mixed: toPct((comp as any).mixed_pct ?? 0),
-      instit: toPct((comp as any).instit_pct ?? 0),
-    };
-  };
+  }, [mode, modes]);
 
-  const compTrades = getCompPct('trades');
-  const compShares = hasQty ? getCompPct('shares') : null;
-  const compCurrent = getCompPct(mode);
+  const composition = getComposition(activeSnapshot, mode);
+  const dominant = activeSnapshot?.dominant_label || dominantFromBreakdown(composition).label;
+  const dominantShare = activeSnapshot?.dominant_share != null ? fmtPct(activeSnapshot.dominant_share) : fmtPct(dominantFromBreakdown(composition).value);
+  const confidence = activeSnapshot?.confidence || {};
+  const confidenceCounts = activeSnapshot?.confidence_counts || {};
+  const tradeConfidence = activeSnapshot?.trade_confidence || {};
+  const tradeConfidenceCounts = activeSnapshot?.trade_confidence_counts || {};
+  const observability = activeSnapshot?.observability || {};
+  const method = activeSnapshot?.method || traderComposition?.method || {};
+  const currency = activeSnapshot?.currency || traderComposition?.currency || 'USD';
+  const selectedPeriodLabel = selectedPeriod ? periodLabel(selectedPeriod) : 'Current';
+  const timeSettings = marketTimeSettings(meta?.market);
 
-  const overTimePeriods =
-    'over_time' in trader_composition && Array.isArray((trader_composition as any).over_time)
-      ? (trader_composition as any).over_time
-      : 'over_time' in trader_composition && (trader_composition as any).over_time && 'periods' in (trader_composition as any).over_time
-        ? (trader_composition as any).over_time.periods
-        : [];
+  const overTimeSource = Array.isArray(traderComposition?.over_time)
+    ? traderComposition.over_time
+    : Array.isArray(traderComposition?.over_time?.periods)
+      ? traderComposition.over_time.periods
+      : [];
 
-  const timeSeriesData = [...overTimePeriods]
-    .sort((a, b) => a.month.localeCompare(b.month))
-    .map((d: any) => {
-      const retail = toPct(d.retail_pct);
-      const mixed = toPct(d.mixed_pct);
-      const instit = toPct(d.instit_pct);
-      const total = retail + mixed + instit;
-      const scale = total > 0 ? 100 / total : 0;
+  const timeSeriesData = [...overTimeSource]
+    .sort((a: any, b: any) => String(a.month || '').localeCompare(String(b.month || '')))
+    .map((row: any) => {
+      const breakdown = mode === 'volume'
+        ? {
+            retail: toPct(row.retail_qty_pct),
+            mixed: toPct(row.mixed_qty_pct),
+            instit: toPct(row.instit_qty_pct),
+            unclear: getUnclearPct(row, 'qty'),
+          }
+        : mode === 'notional'
+          ? {
+              retail: toPct(row.retail_notional_pct),
+              mixed: toPct(row.mixed_notional_pct),
+              instit: toPct(row.instit_notional_pct),
+              unclear: getUnclearPct(row, 'notional'),
+            }
+          : mode === 'runs'
+            ? {
+                retail: toPct(row.run_retail_pct),
+                mixed: toPct(row.run_mixed_pct),
+                instit: toPct(row.run_instit_pct),
+                unclear: toPct(row.run_unclear_pct) + toPct(row.run_ambiguous_pct) + toPct(row.run_unobservable_pct),
+              }
+            : {
+                retail: toPct(row.retail_pct),
+                mixed: toPct(row.mixed_pct),
+                instit: toPct(row.instit_pct),
+                unclear: toPct(row.unclear_pct) + toPct(row.ambiguous_pct) + toPct(row.unobservable_pct),
+              };
       return {
-        month: d.month,
-        Retail: retail * scale,
-        Mixed: mixed * scale,
-        Institutional: instit * scale,
+        month: row.month,
+        'Retail-like': breakdown.retail,
+        Mixed: breakdown.mixed,
+        'Institution-like': breakdown.instit,
+        Unclear: breakdown.unclear,
       };
     });
 
-  const timeSeriesDataByQty =
-    overTimePeriods.some((p: any) => p && (p.retail_qty_pct != null || p.mixed_qty_pct != null || p.instit_qty_pct != null))
-      ? [...overTimePeriods]
-          .sort((a: any, b: any) => a.month.localeCompare(b.month))
-          .map((d: any) => {
-            const retail = toPct(d.retail_qty_pct ?? 0);
-            const mixed = toPct(d.mixed_qty_pct ?? 0);
-            const instit = toPct(d.instit_qty_pct ?? 0);
-            const total = retail + mixed + instit;
-            const scale = total > 0 ? 100 / total : 0;
-            return {
-              month: d.month,
-              Retail: retail * scale,
-              Mixed: mixed * scale,
-              Institutional: instit * scale,
-              totalQty: d.total_quantity,
-            };
-          })
-      : null;
+  const compositionCards = BUCKET_META.map((bucket) => ({
+    ...bucket,
+    value: composition[bucket.key],
+  }));
 
-  const currency = activeSnapshot?.currency || tcAny?.currency || 'HKD';
-  const currencyPrefix = currency === 'HKD' ? 'HK$' : currency === 'CNY' ? 'CN¥' : `${currency} `;
-
-  const totalTrades = activeSnapshot?.n_trades ?? tcAny?.n_trades ?? (trader_composition as any)?.trade_stats?.total_trades ?? 0;
-  const avgTradeSize = activeSnapshot?.trade_size?.avg ?? tcAny?.trade_size?.avg ?? (trader_composition as any)?.trade_stats?.avg_size ?? 0;
-  const medianTradeSize = activeSnapshot?.trade_size?.median ?? tcAny?.trade_size?.median ?? (trader_composition as any)?.trade_stats?.median_size ?? 0;
-  const periodDays = activeSnapshot?.period_days ?? tcAny?.period_days ?? (trader_composition as any)?.trade_stats?.period_days ?? 0;
-
-  const fmtTradeSize = (v: number) => {
-    if (!Number.isFinite(v)) return '—';
-    if (v >= 1000) return `${(v / 1000).toFixed(1)}K`;
-    return `${Math.round(v).toLocaleString()}`;
-  };
-
-  const selectedPeriodLabel = selectedPeriod ? periodLabel(selectedPeriod) : 'Current';
+  const tradeConfidenceRows = confidenceRows(tradeConfidence, tradeConfidenceCounts);
+  const runConfidenceRows = confidenceRows(confidence, confidenceCounts);
+  const tradeCountRows = bucketRows(activeSnapshot?.counts?.trades);
+  const runCountRows = bucketRows(activeSnapshot?.counts?.runs);
+  const recentTrades = Array.isArray(activeSnapshot?.recent_trades) ? activeSnapshot.recent_trades : [];
 
   return (
-    <TooltipProvider>
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="space-y-6"
-      >
-        <motion.div variants={itemVariants} className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center">
-              <Users className="w-5 h-5 text-pink-400" />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                {labels.trader_composition_title}
-                <MethodologyTooltip methodKey="trader_composition" size="md" />
-              </h2>
-              <p className="text-sm text-muted-foreground">{labels.trader_composition_subtitle}</p>
-            </div>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-100px' }}
+      className="space-y-6"
+    >
+      <motion.div variants={itemVariants} className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-pink-500/10">
+            <Users className="h-5 w-5 text-pink-400" />
           </div>
-        </motion.div>
+          <div>
+            <h2 className="flex items-center gap-2 text-xl font-bold text-foreground">
+              {labels.trader_composition_title}
+              <SectionTooltip sectionKey="traders" size="md" />
+            </h2>
+            <p className="text-sm text-muted-foreground">{labels.trader_composition_subtitle}</p>
+          </div>
+        </div>
+      </motion.div>
 
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-            <div className="flex items-center gap-3">
-              <h3 className="text-sm font-semibold text-foreground">Current Composition</h3>
-              <div className="text-xs text-muted-foreground">Window: <span className="font-semibold text-foreground">{selectedPeriodLabel}</span></div>
+      <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+              Current persona mix
+              <MethodologyTooltip methodKey="trader_composition" />
             </div>
-            <div className="flex flex-wrap items-center gap-2">
-              {periodKeys.length > 1 ? (
-                <Tabs value={selectedPeriod} onValueChange={setSelectedPeriod} className="w-auto">
-                  <TabsList>
-                    {periodKeys.map((k) => (
-                      <TabsTrigger key={k} value={k}>{periodLabel(k)}</TabsTrigger>
-                    ))}
-                  </TabsList>
-                </Tabs>
-              ) : null}
-              <Tabs value={mode} onValueChange={(v) => setMode(v as ViewMode)} className="w-auto">
+            <p className="mt-1 text-xs text-muted-foreground">
+              Window: <span className="font-semibold text-foreground">{selectedPeriodLabel}</span>
+              {method?.name ? ` • Method: ${method.name}` : ''}
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {periodKeys.length > 1 ? (
+              <Tabs value={selectedPeriod} onValueChange={setSelectedPeriod} className="w-auto">
                 <TabsList>
-                  {availableModes.map((m) => (
-                    <TabsTrigger key={m.id} value={m.id}>
-                      {m.label}
-                    </TabsTrigger>
+                  {periodKeys.map((key) => (
+                    <TabsTrigger key={key} value={key}>{periodLabel(key)}</TabsTrigger>
                   ))}
                 </TabsList>
               </Tabs>
-            </div>
-          </div>
-
-          {hasQty ? (
-            <div className="mb-4 rounded-lg border border-border/60 bg-card/50 p-3">
-              <p className="text-xs text-muted-foreground">
-                <span className="font-semibold text-foreground">Reality check:</span> retail can be ~{compTrades.retail.toFixed(1)}% of trades
-                but only ~{compShares!.retail.toFixed(1)}% of volume. Institutions often look small by trade count, yet dominate volume.
-              </p>
-            </div>
-          ) : null}
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="rounded-lg border border-border/50 bg-card/30 p-4">
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-sky-600 dark:text-sky-400 font-medium">Retail</span>
-                  <UITooltip>
-                    <TooltipTrigger asChild>
-                      <button className="text-slate-600 hover:text-slate-400">
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border border-slate-700">
-                      <p className="text-xs text-slate-300">{labels.trader_retail_threshold}</p>
-                    </TooltipContent>
-                  </UITooltip>
-                </div>
-                <span className="text-xl font-bold text-sky-600 dark:text-sky-400">{compCurrent.retail.toFixed(1)}%</span>
-              </div>
-              <div className="h-2.5 bg-muted rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${compCurrent.retail}%` }}
-                  transition={{ duration: 0.9 }}
-                  className="h-full rounded-full bg-sky-500"
-                />
-              </div>
-              {hasQty ? (
-                <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                  <span className="rounded-full bg-muted px-2 py-0.5">Trades: {compTrades.retail.toFixed(1)}%</span>
-                  <span className="rounded-full bg-muted px-2 py-0.5">Volume: {compShares!.retail.toFixed(1)}%</span>
-                </div>
-              ) : null}
-            </div>
-
-            <div className="rounded-lg border border-border/50 bg-card/30 p-4">
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-slate-400 font-medium">Mixed</span>
-                  <UITooltip>
-                    <TooltipTrigger asChild>
-                      <button className="text-slate-600 hover:text-slate-400">
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border border-slate-700">
-                      <p className="text-xs text-slate-300">{labels.trader_mixed_threshold}</p>
-                    </TooltipContent>
-                  </UITooltip>
-                </div>
-                <span className="text-xl font-bold text-slate-300">{compCurrent.mixed.toFixed(1)}%</span>
-              </div>
-              <div className="h-2.5 bg-muted rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${compCurrent.mixed}%` }}
-                  transition={{ duration: 0.9, delay: 0.05 }}
-                  className="h-full rounded-full bg-slate-500"
-                />
-              </div>
-              {hasQty ? (
-                <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                  <span className="rounded-full bg-muted px-2 py-0.5">Trades: {compTrades.mixed.toFixed(1)}%</span>
-                  <span className="rounded-full bg-muted px-2 py-0.5">Volume: {compShares!.mixed.toFixed(1)}%</span>
-                </div>
-              ) : null}
-            </div>
-
-            <div className="rounded-lg border border-border/50 bg-card/30 p-4">
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-medium">Institutional</span>
-                  <UITooltip>
-                    <TooltipTrigger asChild>
-                      <button className="text-slate-600 hover:text-slate-400">
-                        <HelpCircle className="w-3.5 h-3.5" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border border-slate-700">
-                      <p className="text-xs text-slate-300">{labels.trader_instit_threshold}</p>
-                    </TooltipContent>
-                  </UITooltip>
-                </div>
-                <span className="text-xl font-bold text-emerald-600 dark:text-emerald-400">{compCurrent.instit.toFixed(1)}%</span>
-              </div>
-              <div className="h-2.5 bg-muted rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${compCurrent.instit}%` }}
-                  transition={{ duration: 0.9, delay: 0.1 }}
-                  className="h-full rounded-full bg-emerald-500"
-                />
-              </div>
-              {hasQty ? (
-                <div className="mt-2 flex flex-wrap gap-2 text-xs text-muted-foreground">
-                  <span className="rounded-full bg-muted px-2 py-0.5">Trades: {compTrades.instit.toFixed(1)}%</span>
-                  <span className="rounded-full bg-muted px-2 py-0.5">Volume: {compShares!.instit.toFixed(1)}%</span>
-                </div>
-              ) : null}
-            </div>
-          </div>
-
-          <div className="mt-4 pt-4 border-t border-border/50 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <p className="text-xs text-muted-foreground">Total Trades ({selectedPeriodLabel} • {periodDays}D)</p>
-              <p className="text-lg font-bold text-foreground">{Number(totalTrades || 0).toLocaleString()}</p>
-            </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Avg Trade Size</p>
-              <p className="text-lg font-bold text-foreground">
-                {currencyPrefix}
-                {fmtTradeSize(avgTradeSize)}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-muted-foreground">Median Trade Size</p>
-              <p className="text-lg font-bold text-foreground">
-                {currencyPrefix}
-                {fmtTradeSize(medianTradeSize)}
-              </p>
-            </div>
-            <div className="hidden md:block">
-              <p className="text-xs text-muted-foreground">Mode</p>
-              <p className="text-lg font-bold text-foreground">{mode === 'shares' ? 'Volume %' : 'Trades %'}</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-semibold text-foreground">Composition Over Time</h3>
-            {hasQty ? (
-              <div className="text-xs text-muted-foreground">
-                Tip: switch to <span className="font-semibold text-foreground">Volume</span> to see who actually moves volume.
-              </div>
             ) : null}
+            <Tabs value={mode} onValueChange={(value) => setMode(value as ViewMode)} className="w-auto">
+              <TabsList>
+                {modes.map((entry) => (
+                  <TabsTrigger key={entry.id} value={entry.id}>{entry.label}</TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
           </div>
-          <div className="h-56">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={mode === 'shares' && timeSeriesDataByQty ? timeSeriesDataByQty : timeSeriesData}
-                margin={{ top: 10, right: 20, left: 0, bottom: 20 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
-                <XAxis
-                  dataKey="month"
-                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
-                  axisLine={{ stroke: chartTheme.axisLineStroke }}
-                  tickLine={false}
-                />
-                <YAxis
-                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
-                  axisLine={false}
-                  tickLine={false}
-                  domain={[0, 100]}
-                  allowDecimals={false}
-                  tickFormatter={(v) => `${Math.round(Number(v))}%`}
-                />
-                <Tooltip contentStyle={chartTheme.tooltipContentStyle} />
-                <Legend iconType="square" wrapperStyle={{ paddingTop: '10px' }} />
-                <Bar dataKey="Retail" stackId="a" fill={chartTheme.barPrimary} radius={[0, 0, 0, 0]} />
-                <Bar dataKey="Mixed" stackId="a" fill={chartTheme.barSecondary} radius={[0, 0, 0, 0]} />
-                <Bar dataKey="Institutional" stackId="a" fill="#10b981" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
+        </div>
 
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-pink-500/50">
-          <h4 className="text-sm font-semibold text-foreground mb-3">Key Insights</h4>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground leading-relaxed">{safeText(traderInsights.overall)}</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">{safeText(traderInsights.retail_heavy)}</p>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
+          <div className="rounded-xl border border-border/60 bg-card/40 p-4">
+            <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
+              <Users className="h-4 w-4" /> Dominant persona
+              <MethodologyTooltip methodKey="trader_dominant_persona" />
             </div>
-            <div className="space-y-2">
-              <p className="text-sm text-muted-foreground leading-relaxed">{safeText(traderInsights.institutional_gap)}</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">{safeText(traderInsights.peer_comparison)}</p>
+            <div className="text-2xl font-semibold text-foreground">{dominant || 'Unavailable'}</div>
+            <p className="mt-2 text-sm text-muted-foreground">Largest run share: {dominantShare}</p>
+          </div>
+          <div className="rounded-xl border border-border/60 bg-card/40 p-4">
+            <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
+              <Activity className="h-4 w-4" /> Classified flow
+              <MethodologyTooltip methodKey="trader_classified_flow" />
+            </div>
+            <div className="text-2xl font-semibold text-foreground">{fmtCount(activeSnapshot?.n_trades)} trades</div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {fmtCount(activeSnapshot?.n_runs)} runs across {fmtCount(activeSnapshot?.n_trade_days)} trading day{Number(activeSnapshot?.n_trade_days || 0) === 1 ? '' : 's'}
+            </p>
+          </div>
+          <div className="rounded-xl border border-border/60 bg-card/40 p-4">
+            <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
+              <ShieldCheck className="h-4 w-4" /> Trade confidence
+              <MethodologyTooltip methodKey="trader_trade_confidence" />
+            </div>
+            <div className="space-y-1 text-sm text-foreground">
+              {tradeConfidenceRows.map((row) => (
+                <div key={row.key} className="flex items-center justify-between gap-3">
+                  <span className="text-muted-foreground">{row.label}</span>
+                  <span>{fmtPct(row.pct)} ({fmtCount(row.count)} trades)</span>
+                </div>
+              ))}
             </div>
           </div>
-        </motion.div>
+          <div className="rounded-xl border border-border/60 bg-card/40 p-4">
+            <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
+              <ShieldCheck className="h-4 w-4" /> Run confidence
+              <MethodologyTooltip methodKey="trader_run_confidence" />
+            </div>
+            <div className="space-y-1 text-sm text-foreground">
+              {runConfidenceRows.map((row) => (
+                <div key={row.key} className="flex items-center justify-between gap-3">
+                  <span className="text-muted-foreground">{row.label}</span>
+                  <span>{fmtPct(row.pct)} ({fmtCount(row.count)} trades)</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-xl border border-border/60 bg-card/40 p-4">
+            <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
+              <BarChart3 className="h-4 w-4" /> Typical size
+              <MethodologyTooltip methodKey="trader_typical_size" />
+            </div>
+            <div className="text-2xl font-semibold text-foreground">{fmtMoney(activeSnapshot?.trade_size?.avg, currency)}</div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Avg trade value • Avg run {fmtMoney(activeSnapshot?.run_size?.avg, currency)}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-5 rounded-xl border border-border/60 bg-card/30 p-4">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">Current mix by {mode}</h3>
+              <p className="text-xs text-muted-foreground">
+                Persona shares combine retail-like, mixed, institution-like, and unclear flow.
+              </p>
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Observable runs: <span className="font-semibold text-foreground">{fmtPct(observability.observable_run_pct ?? 0)}</span>
+            </div>
+          </div>
+          <div className="mb-4 flex h-4 overflow-hidden rounded-full bg-slate-900/70">
+            {compositionCards.map((bucket) => (
+              <div
+                key={bucket.key}
+                className="h-full"
+                style={{ width: `${Math.max(bucket.value, 0)}%`, backgroundColor: bucket.color }}
+              />
+            ))}
+          </div>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
+            {compositionCards.map((bucket) => (
+              <div key={bucket.key} className="rounded-lg border border-border/60 bg-background/40 p-3">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: bucket.color }} />
+                  {bucket.label}
+                </div>
+                <div className="mt-2 text-2xl font-semibold text-foreground">{bucket.value.toFixed(1)}%</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </motion.div>
-    </TooltipProvider>
+
+      <motion.div variants={itemVariants} className="grid grid-cols-1 gap-6 xl:grid-cols-[1.2fr_1fr]">
+        <div className="glass-panel rounded-xl p-5">
+          <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
+            <ListChecks className="h-4 w-4 text-sky-400" />
+            Classification detail for {selectedPeriodLabel}
+          </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="rounded-xl border border-border/60 bg-card/30 p-4">
+              <div className="mb-3 text-sm font-semibold text-foreground">Trade counts by bucket</div>
+              <div className="space-y-2 text-sm">
+                {tradeCountRows.map((row) => (
+                  <div key={row.key} className="flex items-center justify-between gap-3 text-muted-foreground">
+                    <span>{row.label}</span>
+                    <span className="font-semibold text-foreground">{fmtCount(row.count)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-xl border border-border/60 bg-card/30 p-4">
+              <div className="mb-3 text-sm font-semibold text-foreground">Run counts by bucket</div>
+              <div className="space-y-2 text-sm">
+                {runCountRows.map((row) => (
+                  <div key={row.key} className="flex items-center justify-between gap-3 text-muted-foreground">
+                    <span>{row.label}</span>
+                    <span className="font-semibold text-foreground">{fmtCount(row.count)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-panel rounded-xl p-5">
+          <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
+            <MethodologyTooltip methodKey="trader_recent_trades" />
+            Recent classified trades
+          </div>
+          <p className="mb-3 text-xs text-muted-foreground">
+            Recent trades in the selected window, with the method's bucket and confidence tag.
+          </p>
+          <div className="max-h-[320px] overflow-auto rounded-xl border border-border/60 bg-card/20">
+            <table className="min-w-full text-sm">
+              <thead className="sticky top-0 bg-background/95 backdrop-blur">
+                <tr className="border-b border-border">
+                  <th className="px-3 py-2 text-left font-medium text-muted-foreground">Date/Time ({timeSettings.label})</th>
+                  <th className="px-3 py-2 text-left font-medium text-muted-foreground">Value</th>
+                  <th className="px-3 py-2 text-left font-medium text-muted-foreground">Bucket</th>
+                  <th className="px-3 py-2 text-left font-medium text-muted-foreground">Confidence</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentTrades.length ? recentTrades.map((trade: any, index: number) => (
+                  <tr key={`${trade.trade_id || trade.timestamp || index}`} className="border-b border-border/60 last:border-b-0">
+                    <td className="px-3 py-2 text-muted-foreground">{fmtMarketTime(trade.timestamp, meta?.market)}</td>
+                    <td className="px-3 py-2 text-foreground">{fmtMoney(trade.notional, currency)}</td>
+                    <td className="px-3 py-2 text-foreground">{bucketLabel(trade.bucket)}</td>
+                    <td className="px-3 py-2">
+                      <span className={`inline-flex rounded-full border px-2 py-0.5 text-xs ${confidenceBadgeClass(trade.confidence)}`}>
+                        {String(trade.confidence || 'NA')}
+                      </span>
+                    </td>
+                  </tr>
+                )) : (
+                  <tr>
+                    <td colSpan={4} className="px-3 py-6 text-center text-sm text-muted-foreground">
+                      No classified trades available for this window.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <div>
+            <h3 className="text-sm font-semibold text-foreground">How the persona mix changed over time</h3>
+            <p className="text-xs text-muted-foreground">
+              Monthly view using the same behavioral persona method. Switch modes to compare trade count, volume, value, or runs.
+            </p>
+          </div>
+        </div>
+        <div className="h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={timeSeriesData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
+              <XAxis
+                dataKey="month"
+                tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                axisLine={{ stroke: chartTheme.axisLineStroke }}
+                tickLine={false}
+              />
+              <YAxis
+                tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                axisLine={false}
+                tickLine={false}
+                domain={[0, 100]}
+                tickFormatter={(value) => `${value}%`}
+              />
+              <Tooltip contentStyle={chartTheme.tooltipContentStyle} formatter={(value: number) => `${value.toFixed(1)}%`} />
+              <Legend />
+              <Bar dataKey="Retail-like" stackId="a" fill="#38bdf8" radius={[0, 0, 0, 0]} />
+              <Bar dataKey="Mixed" stackId="a" fill="#64748b" radius={[0, 0, 0, 0]} />
+              <Bar dataKey="Institution-like" stackId="a" fill="#34d399" radius={[0, 0, 0, 0]} />
+              <Bar dataKey="Unclear" stackId="a" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </motion.div>
+
+      <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5 border-l-2 border-pink-500/50">
+        <h4 className="mb-3 text-sm font-semibold text-foreground">Key Insights</h4>
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          {[safeText(traderInsights.overall), safeText(traderInsights.retail_heavy), safeText(traderInsights.institutional_gap), safeText(traderInsights.peer_comparison)]
+            .filter(Boolean)
+            .map((text, index) => (
+              <p key={index} className="text-sm leading-relaxed text-muted-foreground">{text}</p>
+            ))}
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }

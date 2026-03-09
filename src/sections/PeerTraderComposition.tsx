@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { Users } from 'lucide-react';
+import { SectionTooltip } from '@/components/SectionTooltip';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
+import { useChartTheme } from '@/hooks/useChartTheme';
 import * as React from 'react';
 import {
   BarChart,
@@ -12,6 +14,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
+  Legend,
 } from 'recharts';
 import {
   Table,
@@ -27,16 +30,25 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-  }
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+  },
 };
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const PERIOD_ORDER = ['1d', '1w', '2w', '30d', '3m', '6m', 'max'];
+type ViewMode = 'trades' | 'volume' | 'notional' | 'runs';
+
+const toPct = (value: unknown): number => {
+  const num = typeof value === 'number' ? value : Number(value ?? 0);
+  if (!Number.isFinite(num)) return 0;
+  return num <= 1 ? num * 100 : num;
+};
+
+const fmtPct = (value: unknown, digits = 1) => `${toPct(value).toFixed(digits)}%`;
 
 const periodLabel = (key: string) => {
   const map: Record<string, string> = {
@@ -46,122 +58,138 @@ const periodLabel = (key: string) => {
     '30d': '1M',
     '3m': '3M',
     '6m': '6M',
-    'max': 'MAX',
+    max: 'MAX',
   };
   return map[key] || key.toUpperCase();
 };
 
+const unclearFromRow = (row: Record<string, any>, prefix: '' | '_qty' | '_notional') => {
+  const directKey = prefix ? `unclear${prefix}_pct` : 'unclear_pct';
+  if (row[directKey] != null) return toPct(row[directKey]);
+  const ambiguousKey = prefix ? `ambiguous${prefix}_pct` : 'ambiguous_pct';
+  const unobservableKey = prefix ? `unobservable${prefix}_pct` : 'unobservable_pct';
+  return toPct(row[ambiguousKey]) + toPct(row[unobservableKey]);
+};
+
+const rowBreakdown = (row: any, mode: ViewMode) => {
+  if (mode === 'volume') {
+    return {
+      retail: toPct(row.retail_qty_pct),
+      mixed: toPct(row.mixed_qty_pct),
+      instit: toPct(row.instit_qty_pct),
+      unclear: unclearFromRow(row, '_qty'),
+    };
+  }
+  if (mode === 'notional') {
+    return {
+      retail: toPct(row.retail_notional_pct),
+      mixed: toPct(row.mixed_notional_pct),
+      instit: toPct(row.instit_notional_pct),
+      unclear: unclearFromRow(row, '_notional'),
+    };
+  }
+  if (mode === 'runs') {
+    return {
+      retail: toPct(row.run_retail_pct),
+      mixed: toPct(row.run_mixed_pct),
+      instit: toPct(row.run_instit_pct),
+      unclear: toPct(row.run_unclear_pct),
+    };
+  }
+  return {
+    retail: toPct(row.retail_pct),
+    mixed: toPct(row.mixed_pct),
+    instit: toPct(row.instit_pct),
+    unclear: unclearFromRow(row, ''),
+  };
+};
+
+const confidenceText = (row: any) => {
+  const values = [
+    `H ${fmtPct(row.high_confidence_pct ?? 0)}`,
+    `M ${fmtPct(row.medium_confidence_pct ?? 0)}`,
+    `L ${fmtPct(row.low_confidence_pct ?? 0)}`,
+    `N ${fmtPct(row.na_confidence_pct ?? 0)}`,
+  ];
+  return values.join(' • ');
+};
+
 export function PeerTraderComposition() {
   const { labels, meta, series } = useReport();
-  const { trader_composition } = series;
-  const tcAny = trader_composition as any;
+  const chartTheme = useChartTheme();
+  const traderComposition = series.trader_composition as any;
 
   const periodPeerMap = React.useMemo(() => {
     const out: Record<string, any[]> = {};
-    const m1 = tcAny?.peer_comparison_periods;
-    if (m1 && typeof m1 === 'object') {
-      for (const [k, v] of Object.entries(m1)) {
-        if (Array.isArray(v)) out[k] = v as any[];
+    if (traderComposition?.peer_comparison_periods && typeof traderComposition.peer_comparison_periods === 'object') {
+      for (const [key, value] of Object.entries(traderComposition.peer_comparison_periods)) {
+        if (Array.isArray(value)) out[key] = value as any[];
       }
     }
-    const m2 = tcAny?.periods;
-    if (m2 && typeof m2 === 'object') {
-      for (const [k, v] of Object.entries(m2 as Record<string, any>)) {
-        if (!out[k] && Array.isArray((v as any)?.peer_comparison)) {
-          out[k] = (v as any).peer_comparison;
+    if (traderComposition?.periods && typeof traderComposition.periods === 'object') {
+      for (const [key, value] of Object.entries(traderComposition.periods)) {
+        if (!out[key] && Array.isArray((value as any)?.peer_comparison)) {
+          out[key] = (value as any).peer_comparison;
         }
       }
     }
     return out;
-  }, [tcAny]);
+  }, [traderComposition]);
 
   const periodKeys = React.useMemo(() => {
-    const keys = Object.keys(periodPeerMap).filter((k) => Array.isArray(periodPeerMap[k]));
+    const keys = Object.keys(periodPeerMap).filter((key) => Array.isArray(periodPeerMap[key]));
     return [
-      ...PERIOD_ORDER.filter((k) => keys.includes(k)),
-      ...keys.filter((k) => !PERIOD_ORDER.includes(k)),
+      ...PERIOD_ORDER.filter((key) => keys.includes(key)),
+      ...keys.filter((key) => !PERIOD_ORDER.includes(key)),
     ];
   }, [periodPeerMap]);
 
   const primaryPeriod = React.useMemo(() => {
-    const raw = String(tcAny?.primary_period || '').trim();
+    const raw = String(traderComposition?.primary_period || '').trim();
     if (raw && periodKeys.includes(raw)) return raw;
-    const pref = [...periodKeys].reverse().find((k) => k !== '1d');
-    return pref || periodKeys[0] || '';
-  }, [tcAny?.primary_period, periodKeys]);
+    const preferred = [...periodKeys].reverse().find((key) => key !== '1d');
+    return preferred || periodKeys[0] || '';
+  }, [traderComposition?.primary_period, periodKeys]);
 
-  const [selectedPeriod, setSelectedPeriod] = React.useState<string>(primaryPeriod);
-
-  React.useEffect(() => {
-    if (primaryPeriod && selectedPeriod !== primaryPeriod && !periodKeys.includes(selectedPeriod)) {
-      setSelectedPeriod(primaryPeriod);
-    } else if (!selectedPeriod && primaryPeriod) {
-      setSelectedPeriod(primaryPeriod);
-    }
-  }, [primaryPeriod, selectedPeriod, periodKeys]);
-
-  const peerData = React.useMemo(() => {
-    if (selectedPeriod && Array.isArray(periodPeerMap[selectedPeriod])) {
-      return periodPeerMap[selectedPeriod];
-    }
-    return Array.isArray(tcAny?.peer_comparison) ? tcAny.peer_comparison : [];
-  }, [selectedPeriod, periodPeerMap, tcAny]);
-
-  const toPct = (v: number) => (v <= 1 ? v * 100 : v);
-
-  const currencyPrefix = (currency: string) =>
-    currency === 'HKD' ? 'HK$' : currency === 'CNY' ? 'CN¥' : `${currency} `;
-
-  const hasQty = peerData.some((p: any) => p && (p.retail_qty_pct != null || p.mixed_qty_pct != null || p.instit_qty_pct != null));
-
-  type ViewMode = 'trades' | 'shares';
-  const modes: { id: ViewMode; label: string; available: boolean }[] = [
-    { id: 'trades', label: 'Trades', available: true },
-    { id: 'shares', label: 'Volume', available: !!hasQty },
-  ];
-  const availableModes = modes.filter((m) => m.available);
-  const defaultMode: ViewMode = availableModes[0]?.id ?? 'trades';
-  const [mode, setMode] = React.useState<ViewMode>(defaultMode);
+  const [selectedPeriod, setSelectedPeriod] = React.useState(primaryPeriod);
 
   React.useEffect(() => {
-    if (mode === 'shares' && !hasQty) {
-      setMode('trades');
+    if (primaryPeriod && (!selectedPeriod || !periodKeys.includes(selectedPeriod))) {
+      setSelectedPeriod(primaryPeriod);
     }
-  }, [mode, hasQty]);
+  }, [primaryPeriod, periodKeys, selectedPeriod]);
 
-  const pctFor = (p: any, m: ViewMode) => {
-    if (m === 'shares' && hasQty) {
-      return {
-        retail: toPct(p.retail_qty_pct ?? 0),
-        mixed: toPct(p.mixed_qty_pct ?? 0),
-        instit: toPct(p.instit_qty_pct ?? 0),
-      };
+  const peerRows = React.useMemo(() => {
+    if (selectedPeriod && Array.isArray(periodPeerMap[selectedPeriod])) return periodPeerMap[selectedPeriod];
+    return Array.isArray(traderComposition?.peer_comparison) ? traderComposition.peer_comparison : [];
+  }, [periodPeerMap, selectedPeriod, traderComposition]);
+
+  const hasVolume = peerRows.some((row: any) => row?.retail_qty_pct != null);
+
+  const modes = [
+    { id: 'volume' as ViewMode, label: 'Volume', available: hasVolume },
+    { id: 'trades' as ViewMode, label: 'Trades', available: true },
+  ].filter((entry) => entry.available);
+
+  const [mode, setMode] = React.useState<ViewMode>(modes[0]?.id || 'trades');
+
+  React.useEffect(() => {
+    if (!modes.some((entry) => entry.id === mode)) {
+      setMode(modes[0]?.id || 'trades');
     }
-    return {
-      retail: toPct(p.retail_pct ?? 0),
-      mixed: toPct(p.mixed_pct ?? 0),
-      instit: toPct(p.instit_pct ?? 0),
-    };
-  };
+  }, [mode, modes]);
 
-  const chartData = peerData.map((p: any) => {
-    const v = pctFor(p, mode);
+  const chartData = peerRows.map((row: any) => {
+    const breakdown = rowBreakdown(row, mode);
     return {
-      ticker: p.ticker,
-      Retail: v.retail,
-      Mixed: v.mixed,
-      Institutional: v.instit,
-      isTarget: p.is_target,
+      ticker: row.ticker,
+      'Retail-like': breakdown.retail,
+      Mixed: breakdown.mixed,
+      'Institution-like': breakdown.instit,
+      Unclear: breakdown.unclear,
+      isTarget: !!row.is_target,
     };
   });
-
-  const labelForMode = (m: ViewMode) => (m === 'shares' ? 'Volume' : 'by trades');
-  const typeIcon = (p: any) => {
-    const v = pctFor(p, mode);
-    if (v.retail > 70) return '🏠';
-    if (v.instit > 20) return '🏦';
-    return '⚖️';
-  };
 
   const selectedPeriodLabel = selectedPeriod ? periodLabel(selectedPeriod) : 'Current';
 
@@ -170,18 +198,18 @@ export function PeerTraderComposition() {
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: '-100px' }}
       className="space-y-6"
     >
-      <motion.div variants={itemVariants} className="flex items-center justify-between">
+      <motion.div variants={itemVariants} className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center">
-            <Users className="w-5 h-5 text-rose-400" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-500/10">
+            <Users className="h-5 w-5 text-rose-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <h2 className="flex items-center gap-2 text-xl font-bold text-foreground">
               {labels.peer_trader_title}
-              <MethodologyTooltip methodKey="peer_traders" size="md" />
+              <SectionTooltip sectionKey="peer-traders" size="md" />
             </h2>
             <p className="text-sm text-muted-foreground">{labels.peer_trader_subtitle}</p>
           </div>
@@ -189,121 +217,105 @@ export function PeerTraderComposition() {
       </motion.div>
 
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-          <div className="text-sm font-semibold text-foreground">Peer composition ({labelForMode(mode)}) • Window: {selectedPeriodLabel}</div>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+              Peer persona mix
+              <MethodologyTooltip methodKey="peer_traders" />
+            </div>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Window: <span className="font-semibold text-foreground">{selectedPeriodLabel}</span> • {meta.peers_count} peers
+            </p>
+          </div>
           <div className="flex flex-wrap items-center gap-2">
             {periodKeys.length > 1 ? (
               <Tabs value={selectedPeriod} onValueChange={setSelectedPeriod} className="w-auto">
                 <TabsList>
-                  {periodKeys.map((k) => (
-                    <TabsTrigger key={k} value={k}>{periodLabel(k)}</TabsTrigger>
+                  {periodKeys.map((key) => (
+                    <TabsTrigger key={key} value={key}>{periodLabel(key)}</TabsTrigger>
                   ))}
                 </TabsList>
               </Tabs>
             ) : null}
-            <Tabs value={mode} onValueChange={(v) => setMode(v as ViewMode)} className="w-auto">
+            <Tabs value={mode} onValueChange={(value) => setMode(value as ViewMode)} className="w-auto">
               <TabsList>
-                {availableModes.map((m) => (
-                  <TabsTrigger key={m.id} value={m.id}>
-                    {m.label}
-                  </TabsTrigger>
+                {modes.map((entry) => (
+                  <TabsTrigger key={entry.id} value={entry.id}>{entry.label}</TabsTrigger>
                 ))}
               </TabsList>
             </Tabs>
           </div>
         </div>
-        <div className="h-64">
+
+        <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
               <XAxis
                 dataKey="ticker"
-                tick={{ fill: '#64748b', fontSize: 11 }}
-                axisLine={{ stroke: '#334155' }}
+                tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                axisLine={{ stroke: chartTheme.axisLineStroke }}
                 tickLine={false}
               />
               <YAxis
-                tick={{ fill: '#64748b', fontSize: 11 }}
+                tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
                 domain={[0, 100]}
-                tickFormatter={(v) => `${v}%`}
+                tickFormatter={(value) => `${value}%`}
               />
-              <Tooltip
-                contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.95)', border: '1px solid rgba(71, 85, 105, 0.5)', borderRadius: '8px' }}
-              />
-              <Bar dataKey="Retail" stackId="a" fill="#0ea5e9" radius={[0, 0, 0, 0]} maxBarSize={42}>
-                {chartData.map((entry: any, idx: number) => (
-                  <Cell key={`cell-retail-${idx}`} fillOpacity={entry.isTarget ? 1 : 0.6} />
-                ))}
-              </Bar>
-              <Bar dataKey="Mixed" stackId="a" fill="#64748b" radius={[0, 0, 0, 0]} maxBarSize={42}>
-                {chartData.map((entry: any, idx: number) => (
-                  <Cell key={`cell-mixed-${idx}`} fillOpacity={entry.isTarget ? 1 : 0.6} />
-                ))}
-              </Bar>
-              <Bar dataKey="Institutional" stackId="a" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={42}>
-                {chartData.map((entry: any, idx: number) => (
-                  <Cell key={`cell-instit-${idx}`} fillOpacity={entry.isTarget ? 1 : 0.6} />
-                ))}
-              </Bar>
+              <Tooltip contentStyle={chartTheme.tooltipContentStyle} formatter={(value: number) => `${value.toFixed(1)}%`} />
+              <Legend />
+              {['Retail-like', 'Mixed', 'Institution-like', 'Unclear'].map((key, idx) => {
+                const colors = ['#38bdf8', '#64748b', '#34d399', '#f59e0b'];
+                const radius: [number, number, number, number] = idx === 3 ? [4, 4, 0, 0] : [0, 0, 0, 0];
+                return (
+                  <Bar key={key} dataKey={key} stackId="a" fill={colors[idx]} radius={radius} maxBarSize={42}>
+                    {chartData.map((entry: any, i: number) => (
+                      <Cell key={`${key}-${i}`} fillOpacity={entry.isTarget ? 1 : 0.6} />
+                    ))}
+                  </Bar>
+                );
+              })}
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="mt-4 flex items-center justify-center gap-6 text-xs">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded bg-sky-500" />
-            <span className="text-muted-foreground">{meta.ticker} (You)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded bg-slate-600" />
-            <span className="text-muted-foreground">Peers</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-muted-foreground">🏠 = Retail-heavy (&gt;70%)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-muted-foreground">⚖️ = Mixed</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-muted-foreground">🏦 = Institutional (&gt;20%)</span>
-          </div>
-        </div>
-      </motion.div>
 
-      <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-        <div className="overflow-x-auto">
+        <div className="mt-5 rounded-xl border border-border/60 bg-card/30 p-4">
           <Table>
             <TableHeader>
-              <TableRow className="border-slate-800 hover:bg-transparent">
-                <TableHead className="text-muted-foreground text-xs">Ticker</TableHead>
-                <TableHead className="text-muted-foreground text-xs text-right">Retail %</TableHead>
-                <TableHead className="text-muted-foreground text-xs text-right">Mixed %</TableHead>
-                <TableHead className="text-muted-foreground text-xs text-right">Institutional %</TableHead>
-                <TableHead className="text-muted-foreground text-xs text-right">Avg Trade Size</TableHead>
-                <TableHead className="text-muted-foreground text-xs">Type</TableHead>
+              <TableRow className="border-border hover:bg-transparent">
+                <TableHead>Ticker</TableHead>
+                <TableHead>Dominant Read</TableHead>
+                <TableHead className="text-right">Retail-like</TableHead>
+                <TableHead className="text-right">Institution-like</TableHead>
+                <TableHead className="text-right">Unclear</TableHead>
+                <TableHead className="text-right">Observable Runs</TableHead>
+                <TableHead className="text-right">Run Confidence (H/M/L/N)</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {peerData.map((row: any) => (
-                <TableRow key={row.ticker} className="border-slate-800">
-                  <TableCell className="text-foreground font-medium text-sm">
-                    {row.ticker}
-                    {row.is_target && (
-                      <span className="ml-2 text-xs px-2 py-0.5 bg-sky-500/20 text-sky-300 rounded-full">
-                        YOU
-                      </span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right text-muted-foreground text-sm">{pctFor(row, mode).retail.toFixed(1)}%</TableCell>
-                  <TableCell className="text-right text-muted-foreground text-sm">{pctFor(row, mode).mixed.toFixed(1)}%</TableCell>
-                  <TableCell className="text-right text-muted-foreground text-sm">{pctFor(row, mode).instit.toFixed(1)}%</TableCell>
-                  <TableCell className="text-right text-muted-foreground text-sm">
-                    {currencyPrefix(row.currency)}{((row.avg_trade_size ?? 0) / 1000).toFixed(1)}K
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">{typeIcon(row)}</TableCell>
-                </TableRow>
-              ))}
+              {peerRows.map((row: any) => {
+                const breakdown = rowBreakdown(row, mode);
+                return (
+                  <TableRow key={row.ticker} className="border-border">
+                    <TableCell className="font-medium text-foreground">
+                      <div className="flex items-center gap-2">
+                        <span>{row.ticker}</span>
+                        {row.is_target ? (
+                          <span className="rounded-full bg-sky-500/15 px-2 py-0.5 text-[11px] font-medium text-sky-400">YOU</span>
+                        ) : null}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">{row.dominant_label || '—'}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.retail)}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.instit)}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.unclear)}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{fmtPct(row.observable_run_pct ?? 0)}</TableCell>
+                    <TableCell className="text-right text-xs text-muted-foreground">{confidenceText(row)}</TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </div>

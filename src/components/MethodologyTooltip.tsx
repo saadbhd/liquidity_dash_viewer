@@ -1,3 +1,8 @@
+// ============================================================================
+// LAYER 2 — Metric-level tooltip (? next to individual metrics)
+// Shows formula/body, insight, and a "See more →" link to Layer 3.
+// ============================================================================
+
 import { HelpCircle } from "lucide-react";
 import {
   Tooltip,
@@ -5,6 +10,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { METHODOLOGY } from "@/data/methodology";
+import { useHelp } from "@/context/HelpContext";
 
 interface Props {
   methodKey: string;
@@ -13,6 +19,8 @@ interface Props {
 
 export function MethodologyTooltip({ methodKey, size = "sm" }: Props) {
   const entry = METHODOLOGY[methodKey];
+  const { openHelp } = useHelp();
+
   if (!entry) return null;
 
   const iconSize = size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4";
@@ -34,6 +42,17 @@ export function MethodologyTooltip({ methodKey, size = "sm" }: Props) {
         <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
           {entry.body}
         </p>
+        {entry.glossaryKey && (
+          <button
+            className="text-xs text-sky-500 hover:text-sky-400 mt-2 font-medium transition-colors inline-flex items-center gap-1"
+            onClick={(e) => {
+              e.stopPropagation();
+              openHelp(entry.glossaryKey);
+            }}
+          >
+            See more →
+          </button>
+        )}
       </TooltipContent>
     </Tooltip>
   );

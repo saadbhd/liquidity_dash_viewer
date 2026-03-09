@@ -231,13 +231,87 @@ export interface TraderCompositionMix {
   retail_pct: number;
   mixed_pct: number;
   instit_pct: number;
+  ambiguous_pct?: number;
+  unobservable_pct?: number;
+  unclear_pct?: number;
   // Optional (v3): composition by total shares and notional (fractions 0-1).
   retail_qty_pct?: number;
   mixed_qty_pct?: number;
   instit_qty_pct?: number;
+  ambiguous_qty_pct?: number;
+  unobservable_qty_pct?: number;
+  unclear_qty_pct?: number;
   retail_notional_pct?: number;
   mixed_notional_pct?: number;
   instit_notional_pct?: number;
+  ambiguous_notional_pct?: number;
+  unobservable_notional_pct?: number;
+  unclear_notional_pct?: number;
+}
+
+export interface TraderRunComposition {
+  retail_pct?: number;
+  mixed_pct?: number;
+  instit_pct?: number;
+  ambiguous_pct?: number;
+  unobservable_pct?: number;
+  unclear_pct?: number;
+}
+
+export interface TraderMethodMeta {
+  key?: string;
+  name?: string;
+  version?: string;
+  unit_of_classification?: string;
+}
+
+export interface TraderConfidenceMix {
+  high?: number;
+  medium?: number;
+  low?: number;
+  na?: number;
+}
+
+export interface TraderConfidenceCounts {
+  high?: number;
+  medium?: number;
+  low?: number;
+  na?: number;
+}
+
+export interface TraderObservability {
+  avg_feature_coverage?: number;
+  observable_run_pct?: number;
+  ambiguous_run_pct?: number;
+  unobservable_run_pct?: number;
+}
+
+export interface TraderBucketCounts {
+  retail: number;
+  mixed: number;
+  institutional: number;
+  ambiguous: number;
+  unobservable: number;
+  unclear: number;
+}
+
+export interface TraderCountSummary {
+  trades: TraderBucketCounts;
+  runs: TraderBucketCounts;
+}
+
+export interface TraderRecentTrade {
+  trade_id?: string | null;
+  timestamp?: string | null;
+  price?: number | null;
+  size?: number | null;
+  notional?: number | null;
+  bucket?: string | null;
+  confidence?: string | null;
+  run_id?: string | number | null;
+  d1?: string | null;
+  d2?: string | null;
+  d3?: string | null;
 }
 
 // Legacy (v1) shape kept for backward compatibility with older report files.
@@ -269,13 +343,35 @@ export interface TraderPeerCompositionRow {
   retail_pct: number;
   mixed_pct: number;
   instit_pct: number;
+  ambiguous_pct?: number;
+  unobservable_pct?: number;
+  unclear_pct?: number;
   retail_qty_pct?: number;
   mixed_qty_pct?: number;
   instit_qty_pct?: number;
+  ambiguous_qty_pct?: number;
+  unobservable_qty_pct?: number;
+  unclear_qty_pct?: number;
   retail_notional_pct?: number;
   mixed_notional_pct?: number;
   instit_notional_pct?: number;
+  ambiguous_notional_pct?: number;
+  unobservable_notional_pct?: number;
+  unclear_notional_pct?: number;
+  run_retail_pct?: number;
+  run_mixed_pct?: number;
+  run_instit_pct?: number;
+  run_unclear_pct?: number;
   avg_trade_size: number;
+  avg_run_notional?: number;
+  dominant_bucket?: string;
+  dominant_label?: string;
+  high_confidence_pct?: number;
+  medium_confidence_pct?: number;
+  low_confidence_pct?: number;
+  na_confidence_pct?: number;
+  observable_run_pct?: number;
+  avg_feature_coverage?: number;
   thresholds: TraderCompositionThresholds;
 }
 
@@ -283,12 +379,28 @@ export interface TraderCompositionPeriodSnapshot {
   valid: boolean;
   currency: string;
   n_trades: number;
+  n_runs?: number;
+  n_trade_days?: number;
   first_trade_date: string;
   last_trade_date: string;
   period_days: number;
+  method?: TraderMethodMeta;
   thresholds: TraderCompositionThresholds;
   composition: TraderCompositionMix;
+  run_composition?: TraderRunComposition;
+  confidence?: TraderConfidenceMix;
+  confidence_counts?: TraderConfidenceCounts;
+  trade_confidence?: TraderConfidenceMix;
+  trade_confidence_counts?: TraderConfidenceCounts;
+  counts?: TraderCountSummary;
+  observability?: TraderObservability;
+  dominant_bucket?: string;
+  dominant_label?: string;
+  dominant_share?: number;
+  dominance_gap?: number;
   trade_size: { avg: number; median: number };
+  run_size?: { avg?: number; median?: number; avg_length?: number };
+  recent_trades?: TraderRecentTrade[];
   peer_comparison?: TraderPeerCompositionRow[];
 }
 
@@ -300,12 +412,28 @@ export interface TraderCompositionV2 {
   valid: boolean;
   currency: string;
   n_trades: number;
+  n_runs?: number;
+  n_trade_days?: number;
   first_trade_date: string;
   last_trade_date: string;
   period_days: number;
+  method?: TraderMethodMeta;
   thresholds: TraderCompositionThresholds;
   composition: TraderCompositionMix;
+  run_composition?: TraderRunComposition;
+  confidence?: TraderConfidenceMix;
+  confidence_counts?: TraderConfidenceCounts;
+  trade_confidence?: TraderConfidenceMix;
+  trade_confidence_counts?: TraderConfidenceCounts;
+  counts?: TraderCountSummary;
+  observability?: TraderObservability;
+  dominant_bucket?: string;
+  dominant_label?: string;
+  dominant_share?: number;
+  dominance_gap?: number;
   trade_size: { avg: number; median: number };
+  run_size?: { avg?: number; median?: number; avg_length?: number };
+  recent_trades?: TraderRecentTrade[];
   over_time: {
     valid: boolean;
     periods: {
@@ -315,10 +443,33 @@ export interface TraderCompositionV2 {
       mixed_pct: number;
       instit_pct: number;
       avg_trade_size: number;
+      ambiguous_pct?: number;
+      unobservable_pct?: number;
+      unclear_pct?: number;
       // Optional (v3): monthly composition by total shares (fractions 0-1).
       retail_qty_pct?: number;
       mixed_qty_pct?: number;
       instit_qty_pct?: number;
+      ambiguous_qty_pct?: number;
+      unobservable_qty_pct?: number;
+      unclear_qty_pct?: number;
+      retail_notional_pct?: number;
+      mixed_notional_pct?: number;
+      instit_notional_pct?: number;
+      ambiguous_notional_pct?: number;
+      unobservable_notional_pct?: number;
+      unclear_notional_pct?: number;
+      run_retail_pct?: number;
+      run_mixed_pct?: number;
+      run_instit_pct?: number;
+      run_ambiguous_pct?: number;
+      run_unobservable_pct?: number;
+      run_unclear_pct?: number;
+      high_confidence_pct?: number;
+      medium_confidence_pct?: number;
+      low_confidence_pct?: number;
+      na_confidence_pct?: number;
+      avg_feature_coverage?: number;
       total_quantity?: number;
     }[];
   };
@@ -587,6 +738,18 @@ export interface Q01 {
   >;
 }
 
+export interface Q02Interval {
+  median?: number | null;
+  low?: number | null;
+  high?: number | null;
+}
+
+export interface Q02LeadSignal {
+  lead_factor?: string | null;
+  lead_confidence?: number | null;
+  lead_horizon_days?: number | null;
+}
+
 export interface Q02RegimeMetricsMedian {
   [key: string]: number | null | undefined;
 }
@@ -596,6 +759,11 @@ export interface Q02RegimeItem {
   label: string;
   pct_time: number;
   n_days?: number;
+  current_probability?: number | null;
+  dominant_driver?: string | null;
+  dominant_driver_probability?: number | null;
+  expected_duration_days?: number | null;
+  lead_signal?: Q02LeadSignal | null;
   liquidity_score?: number | null;
   mean_ret_pct?: number | null;
   volatility_pct?: number | null;
@@ -605,6 +773,15 @@ export interface Q02RegimeItem {
   l2_updates?: number | null;
   l3_events?: number | null;
   l3_executed_events?: number | null;
+  shares?: {
+    market?: Q02Interval | null;
+    sector?: Q02Interval | null;
+    company?: Q02Interval | null;
+  };
+  sensitivities?: {
+    beta_market?: Q02Interval | null;
+    beta_sector?: Q02Interval | null;
+  };
   metrics_median?: Q02RegimeMetricsMedian;
 }
 
@@ -628,7 +805,33 @@ export interface Q02RegimeSwitching {
   methodology?: Q02RegimeMethodology;
 }
 
+export interface Q02DriverModel {
+  valid?: boolean;
+  model_method?: string;
+  estimation_window_days?: number | null;
+  reporting_window_days?: number | null;
+  n_regimes?: number | null;
+  current_regime?: number | null;
+  current_regime_label?: string | null;
+  current_regime_probability?: number | null;
+  current_driver_mix?: {
+    market_share?: Q02Interval | null;
+    sector_share?: Q02Interval | null;
+    company_share?: Q02Interval | null;
+  };
+  current_sensitivities?: {
+    beta_market?: Q02Interval | null;
+    beta_sector?: Q02Interval | null;
+  };
+  current_stay_probability?: number | null;
+  current_expected_duration_days?: number | null;
+  current_lead_signal?: Q02LeadSignal | null;
+  regimes?: Q02RegimeItem[];
+  transitions?: { mean?: number[][] | null } | null;
+}
+
 export interface Q02 {
+  driver_model?: Q02DriverModel;
   regime_switching?: Q02RegimeSwitching;
   methodology?: {
     regime_window_days?: number;
@@ -815,6 +1018,7 @@ export interface Series {
   };
   peer_capacity: PeerCapacity;
   trader_composition: TraderComposition;
+  execution_dynamic?: any;
   price_moving_trades: PriceMovingTrades;
   short_selling?: ShortSelling;
   intraday: Intraday;

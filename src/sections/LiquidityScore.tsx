@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { BarChart3, Droplets, TrendingUp, Users } from 'lucide-react';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
+import { SectionTooltip } from '@/components/SectionTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import type { Q01PeriodData, Q01PeriodKey, ReportData } from '@/types/report';
@@ -436,10 +437,10 @@ export function LiquidityScore() {
     ? selectedMetric.key === 'spread_pct'
       ? `${selectedMetric.label}: stock ${selectedMetric.format(selectedMetric.company)} (${formatNumber(period.liquidity.spread_ticks, 2)} ticks), peers ${selectedMetric.format(selectedMetric.peers?.median)} (${formatNumber(period.peer_summary.peer_median_spread_ticks, 2)} ticks), sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(selectedMetric.market?.median)}.`
       : `${selectedMetric.label}: stock ${selectedMetric.format(selectedMetric.company)}, peers ${selectedMetric.format(
-          selectedMetric.peers?.median
-        )}, sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(
-          selectedMetric.market?.median
-        )}.`
+        selectedMetric.peers?.median
+      )}, sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(
+        selectedMetric.market?.median
+      )}.`
     : null;
 
   const metricFallbackVsMarket = selectedMetric
@@ -478,11 +479,11 @@ export function LiquidityScore() {
   const returnsMax = returnsBarData.length > 0 ? Math.max(...returnsBarData.map((m) => m.value as number)) : null;
   const returnsStockIsFavorable =
     marketReturns.stock !== null &&
-    marketReturns.stock !== undefined &&
-    Number.isFinite(marketReturns.stock) &&
-    marketReturns.peers !== null &&
-    marketReturns.peers !== undefined &&
-    Number.isFinite(marketReturns.peers)
+      marketReturns.stock !== undefined &&
+      Number.isFinite(marketReturns.stock) &&
+      marketReturns.peers !== null &&
+      marketReturns.peers !== undefined &&
+      Number.isFinite(marketReturns.peers)
       ? (marketReturns.stock as number) >= (marketReturns.peers as number)
       : null;
 
@@ -502,7 +503,7 @@ export function LiquidityScore() {
           <div>
             <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
               {report.labels.liq_title}
-              <MethodologyTooltip methodKey="liquidity_score" size="md" />
+              <SectionTooltip sectionKey="liquidity" size="md" />
             </h2>
             <p className="text-sm text-muted-foreground">
               {report.labels.liq_subtitle} • Window: {period.window_days}D
@@ -522,8 +523,8 @@ export function LiquidityScore() {
             key={periodKey}
             onClick={() => setActivePeriod(periodKey)}
             className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activePeriod === periodKey
-                ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
-                : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
+              ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
+              : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
               }`}
           >
             {PERIOD_LABELS[periodKey] ?? periodKey.toUpperCase()}
@@ -538,7 +539,7 @@ export function LiquidityScore() {
 
       <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-1">Score (Percentile)</p>
+          <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Score (Percentile) <MethodologyTooltip methodKey="pca_score" /></p>
           <p className="text-2xl font-bold text-foreground">{scorePcaPercentile.toFixed(1)}</p>
           <p className="text-xs text-slate-500 mt-1">
             Rank {rankPca}/{totalPca}
@@ -555,7 +556,7 @@ export function LiquidityScore() {
           <p className="text-xs text-slate-500 mt-1">{formatNumber(period.liquidity.spread_ticks, 2)} ticks</p>
         </div>
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-1">Trades</p>
+          <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Trades <MethodologyTooltip methodKey="trades" /></p>
           <p className="text-2xl font-bold text-foreground">{formatCount(period.liquidity.trades)}</p>
           <p className="text-xs text-slate-500 mt-1">Median daily</p>
         </div>
@@ -567,7 +568,7 @@ export function LiquidityScore() {
         <div className="glass-panel rounded-xl p-4">
           <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Volatility <MethodologyTooltip methodKey="volatility" /></p>
           <p className="text-2xl font-bold text-foreground">{formatPct(period.liquidity.volatility)}</p>
-          <p className="text-xs text-slate-500 mt-1">Daily</p>
+          <p className="text-xs text-slate-500 mt-1">Annualized</p>
         </div>
         <div className="glass-panel rounded-xl p-4">
           <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Price Impact <MethodologyTooltip methodKey="price_impact" /></p>
@@ -579,7 +580,7 @@ export function LiquidityScore() {
           <p className="text-xs text-slate-500 mt-1">Price impact proxy</p>
         </div>
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-1">Peer Median Score</p>
+          <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Peer Median Score <MethodologyTooltip methodKey="pca_score" /></p>
           <p className="text-2xl font-bold text-foreground">{formatNumber(period.peer_summary.peer_median_score_pca, 1)}</p>
           <p className="text-xs text-slate-500 mt-1">{period.peer_summary.n_peers} peers</p>
         </div>
@@ -591,6 +592,7 @@ export function LiquidityScore() {
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
               <Users className="w-4 h-4 text-slate-500" />
               Peer Liquidity Score Comparison
+              <MethodologyTooltip methodKey="pca_score" />
             </h3>
             <span className="text-xs text-slate-500">PCA score</span>
           </div>
@@ -664,8 +666,8 @@ export function LiquidityScore() {
                   key={`mc-period-${periodKey}`}
                   onClick={() => setActivePeriod(periodKey)}
                   className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activePeriod === periodKey
-                      ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
-                      : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
+                    ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
+                    : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
                     }`}
                 >
                   {PERIOD_LABELS[periodKey] ?? periodKey.toUpperCase()}
@@ -679,8 +681,8 @@ export function LiquidityScore() {
           <button
             onClick={() => setActiveMarketTab('returns')}
             className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activeMarketTab === 'returns'
-                ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
-                : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
+              ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
+              : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
               }`}
           >
             Returns
@@ -690,8 +692,8 @@ export function LiquidityScore() {
               key={metric.key}
               onClick={() => setActiveMarketTab(metric.key)}
               className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activeMarketTab === metric.key
-                  ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
-                  : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
+                ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
+                : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
                 }`}
             >
               {metric.tabLabel}
@@ -735,12 +737,12 @@ export function LiquidityScore() {
                           <div className="w-28 shrink-0 flex items-center gap-2">
                             <span
                               className={`w-2.5 h-2.5 rounded-full shrink-0 ${marker.key === 'stock'
-                                  ? returnsStockIsFavorable === true
-                                    ? 'bg-emerald-500'
-                                    : returnsStockIsFavorable === false
-                                      ? 'bg-red-400'
-                                      : marker.cls
-                                  : marker.cls
+                                ? returnsStockIsFavorable === true
+                                  ? 'bg-emerald-500'
+                                  : returnsStockIsFavorable === false
+                                    ? 'bg-red-400'
+                                    : marker.cls
+                                : marker.cls
                                 }`}
                             />
                             <span className="text-xs text-slate-400 truncate">{marker.label}</span>

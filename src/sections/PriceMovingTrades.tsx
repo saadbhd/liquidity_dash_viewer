@@ -55,6 +55,8 @@ export function PriceMovingTrades() {
   const { labels, insights, series, meta } = useReport();
   const chartTheme = useChartTheme();
   const priceMovingTrades = series.price_moving_trades as any;
+  const eligibleTrades = Number(priceMovingTrades?.eligible_trades ?? priceMovingTrades?.total_trades ?? 0);
+  const rawTrades = Number(priceMovingTrades?.raw_trades ?? 0);
   const priceInsights = insights.price_moving || {};
   const currencySymbol = meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'S$' : '';
 
@@ -114,7 +116,7 @@ export function PriceMovingTrades() {
             <span className="text-3xl font-bold text-foreground">{fmtPct(priceMovingTrades?.pct_price_moving)}</span>
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            {Number(priceMovingTrades?.price_moving_trades ?? 0).toLocaleString()} of {Number(priceMovingTrades?.total_trades ?? 0).toLocaleString()} trades moved price
+            {Number(priceMovingTrades?.price_moving_trades ?? 0).toLocaleString()} of {eligibleTrades.toLocaleString()} eligible trades moved price{rawTrades ? ` (${rawTrades.toLocaleString()} total prints)` : ''}
           </p>
         </div>
 

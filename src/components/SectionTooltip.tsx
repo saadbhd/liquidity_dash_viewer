@@ -10,6 +10,7 @@ import {
     TooltipContent,
 } from "@/components/ui/tooltip";
 import { SECTION_TOOLTIPS } from "@/data/sectionTooltips";
+import { useHelp } from "@/context/HelpContext";
 
 interface Props {
     sectionKey: string;
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export function SectionTooltip({ sectionKey, size = "md" }: Props) {
+    const { openHelp } = useHelp();
     const entry = SECTION_TOOLTIPS[sectionKey];
     if (!entry) return null;
 
@@ -39,6 +41,17 @@ export function SectionTooltip({ sectionKey, size = "md" }: Props) {
                 <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
                     {entry.description}
                 </p>
+                {entry.glossaryKey ? (
+                    <button
+                        className="text-xs text-sky-500 hover:text-sky-400 mt-2 font-medium transition-colors inline-flex items-center gap-1"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            openHelp(entry.glossaryKey);
+                        }}
+                    >
+                        See more →
+                    </button>
+                ) : null}
             </TooltipContent>
         </Tooltip>
     );

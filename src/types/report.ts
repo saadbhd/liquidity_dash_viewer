@@ -179,6 +179,26 @@ export interface RollingData {
   idio: number[];
 }
 
+export interface DriverMonthlyHistory {
+  month_key?: string;
+  month_label?: string;
+  month_short_label?: string;
+  period_label?: string;
+  n_obs?: number | null;
+  partial_month?: boolean;
+  dominant_driver?: string | null;
+  dominant_driver_label?: string | null;
+  regime_label?: string | null;
+  summary?: string | null;
+  share_market?: number | null;
+  share_sector?: number | null;
+  share_company?: number | null;
+  share_market_display?: string | null;
+  share_sector_display?: string | null;
+  share_company_display?: string | null;
+  dominant_share_display?: string | null;
+}
+
 export interface RollingWindowEntry {
   valid: boolean;
   period_label?: string;
@@ -742,6 +762,15 @@ export interface Q02Interval {
   median?: number | null;
   low?: number | null;
   high?: number | null;
+  range_collapsed?: boolean;
+  display_value?: string | null;
+  display_range?: string | null;
+  display_text?: string | null;
+  is_point_estimate?: boolean;
+  point_estimate_note?: string | null;
+  uncertainty_note?: string | null;
+  plain_english?: string | null;
+  strength_label?: string | null;
 }
 
 export interface Q02LeadSignal {
@@ -805,16 +834,55 @@ export interface Q02RegimeSwitching {
   methodology?: Q02RegimeMethodology;
 }
 
+export interface Q02MonthlyHistoryItem {
+  month_key?: string;
+  month_label?: string;
+  month_short_label?: string;
+  period_label?: string;
+  n_obs?: number | null;
+  partial_month?: boolean;
+  dominant_driver?: string | null;
+  dominant_driver_label?: string | null;
+  regime_label?: string | null;
+  summary?: string | null;
+  dominant_share?: Q02Interval | null;
+  shares?: {
+    market_share?: Q02Interval | null;
+    sector_share?: Q02Interval | null;
+    company_share?: Q02Interval | null;
+  };
+}
+
 export interface Q02DriverModel {
   valid?: boolean;
   model_method?: string;
   estimation_window_days?: number | null;
   reporting_window_days?: number | null;
+  available_history_days?: number | null;
   n_regimes?: number | null;
   current_regime?: number | null;
   current_regime_label?: string | null;
   current_regime_probability?: number | null;
+  current_summary?: {
+    regime_label?: string | null;
+    dominant_driver?: string | null;
+    dominant_driver_label?: string | null;
+    driver_share_pct?: number | null;
+    driver_share_display?: string | null;
+    confidence_label?: string | null;
+    confidence_pct?: number | null;
+    display_confidence_pct?: number | null;
+    confidence_note?: string | null;
+    history_days?: number | null;
+    history_limited?: boolean;
+    expected_duration_days?: number | null;
+  };
   current_driver_mix?: {
+    market_share?: Q02Interval | null;
+    sector_share?: Q02Interval | null;
+    company_share?: Q02Interval | null;
+  };
+  reporting_window_driver_mix?: {
     market_share?: Q02Interval | null;
     sector_share?: Q02Interval | null;
     company_share?: Q02Interval | null;
@@ -822,10 +890,15 @@ export interface Q02DriverModel {
   current_sensitivities?: {
     beta_market?: Q02Interval | null;
     beta_sector?: Q02Interval | null;
+    beta_market_lag?: Q02Interval | null;
+    beta_sector_lag?: Q02Interval | null;
+    posterior_source?: string | null;
+    intervals_collapsed?: boolean;
   };
   current_stay_probability?: number | null;
   current_expected_duration_days?: number | null;
   current_lead_signal?: Q02LeadSignal | null;
+  monthly_history?: Q02MonthlyHistoryItem[];
   regimes?: Q02RegimeItem[];
   transitions?: { mean?: number[][] | null } | null;
 }
@@ -1004,6 +1077,7 @@ export interface Drivers {
   lead_lag: LeadLag;
   rolling: RollingData;
   rolling_windows?: RollingWindows;
+  monthly_history?: DriverMonthlyHistory[];
   regime: Regime;
 }
 

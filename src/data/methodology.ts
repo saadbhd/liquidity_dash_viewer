@@ -26,7 +26,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   execution: {
     title: "Execution Impact Simulation",
-    body: "Shows trading cost from three views: the latest displayed book, large trade sizes seen over the last year, and large sell-side orders observed during the day. The current view uses the top 10 price levels on the bid side and ask side of the order book. Results are shown as approximate price move in percent.",
+    body: "Shows trading cost from three views: the latest displayed book, large trade sizes from the stock's available history up to one year, and large sell-side orders observed during the day. The current view uses the top 10 price levels on the bid side and ask side of the order book. Results are shown as approximate price move in percent.",
     glossaryKey: "execution",
   },
   intraday: {
@@ -51,7 +51,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   trader_classified_flow: {
     title: "Classified Flow",
-    body: "Shows how much trading the model was able to classify in the selected window. Trades are individual prints. Runs are short sequences of nearby trades grouped into one broader action.",
+    body: "Shows how much trading the model was able to classify in the selected window. Trades are individual prints. Runs are short sequences of nearby trades grouped into one broader action. If there is any continuous-session activity, the headline counts focus on continuous trading (auctions are excluded) so the mix reflects normal intraday flow rather than auction prints.",
     glossaryKey: "trader_classified_flow",
   },
   trader_trade_confidence: {
@@ -76,7 +76,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   price_moving_trades: {
     title: "Price-Moving Trades",
-    body: "Counts how often individual trades actually move the price. It also shows which trader personas sit behind those price-moving trades. A higher share means the price is more sensitive to each trade, which usually points to thinner trading conditions.",
+    body: "Counts how often individual trades actually move the price. It also shows which trader personas sit behind those price-moving trades. A higher share means the price is more sensitive to each trade, which usually points to thinner trading conditions. The denominator counts trades with a previous print to compare against (the first trade of a window has no prior price). If continuous trading exists, auctions are excluded to keep the universe consistent with the persona mix.",
     glossaryKey: "price_moving_trades",
   },
   short_selling: {
@@ -136,12 +136,12 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   beta_market: {
     title: "Market Link",
-    body: "Shows how strongly the stock tends to move with the broader market in the current regime. The dashboard also shows a range, so you can see whether that link looks firm or uncertain.",
+    body: "Shows how strongly the stock tends to move with the broader market in the current regime. If you only see one number, the run produced a point estimate rather than a wider uncertainty range.",
     glossaryKey: "beta_market",
   },
   beta_sector: {
     title: "Sector Link",
-    body: "Shows how strongly the stock tends to move with its sector or industry in the current regime. The range around the number helps show whether that sector link is stable or less certain.",
+    body: "Shows how strongly the stock tends to move with its sector or industry in the current regime. If the range collapses to one value, treat it as a point estimate from limited or highly stable inputs.",
     glossaryKey: "beta_sector",
   },
   share_of_moves: {
@@ -201,7 +201,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   historical_trade_scenarios: {
     title: "Historical Trade Stress Test",
-    body: "Uses the stock's own trade sizes over roughly the last year. It takes large real trade sizes from that history and asks what would happen if those sizes were sold into today's displayed book.",
+    body: "Uses the stock's own trade sizes over available history up to one year. It takes large real trade sizes from that history and asks what would happen if those sizes were sold into today's displayed book.",
     glossaryKey: "historical_trade_scenarios",
   },
   l3_sell_orders: {
@@ -211,7 +211,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   intraday_book_profile: {
     title: "Spread & Depth Through The Day",
-    body: "Shows how spread and visible depth changed during the day. This helps identify when trading conditions were tighter, wider, deeper, or thinner.",
+    body: "Shows how spread and visible depth changed during the day in local market time, using bucket-start labels. This helps identify when trading conditions were tighter, wider, deeper, or thinner.",
     glossaryKey: "intraday_book_profile",
   },
   adv_execution: {

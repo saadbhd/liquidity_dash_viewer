@@ -4,7 +4,12 @@ import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { SectionTooltip } from '@/components/SectionTooltip';
-import type { Q02Interval, Q02LeadSignal, Q02RegimeItem, Q02RegimeSwitching } from '@/types/report';
+import type {
+  DriverMonthlyHistory,
+  Q02Interval,
+  Q02RegimeItem,
+  Q02RegimeSwitching,
+} from '@/types/report';
 import {
   PieChart,
   Pie,
@@ -63,6 +68,7 @@ const formatNumber = (value: number | null | undefined, digits = 2) => {
 
 const formatInterval = (interval?: Q02Interval | null, kind: 'pct' | 'num' = 'pct', digits = 1) => {
   if (!interval) return 'Not available';
+  if (typeof interval.display_text === 'string' && interval.display_text.trim()) return interval.display_text;
   const formatter = kind === 'pct' ? formatPct : (v: number | null | undefined) => formatNumber(v, digits);
   const median = formatter(interval.median, digits);
   const low = formatter(interval.low, digits);
@@ -71,6 +77,9 @@ const formatInterval = (interval?: Q02Interval | null, kind: 'pct' | 'num' = 'pc
   if (low === 'Not available' || high === 'Not available') return median;
   return `${median} (${low} to ${high})`;
 };
+
+const intervalNarrative = (interval?: Q02Interval | null) =>
+  interval?.plain_english || interval?.point_estimate_note || interval?.uncertainty_note || null;
 
 const driverLabel = (value?: string | null) => {
   if (!value) return 'Not available';
@@ -81,12 +90,6 @@ const driverLabel = (value?: string | null) => {
   return value;
 };
 
-const formatLeadSignal = (lead?: Q02LeadSignal | null) => {
-  if (!lead || !lead.lead_factor || lead.lead_factor === 'none') return 'No stable external lead';
-  const horizon = lead.lead_horizon_days ? ` (${lead.lead_horizon_days}d)` : '';
-  const confidence = lead.lead_confidence != null ? ` • ${formatPct(lead.lead_confidence, 0)}` : '';
-  return `${driverLabel(lead.lead_factor)} leads${horizon}${confidence}`;
-};
 
 export function DriversAnalysis() {
   const report = useReport();
@@ -95,6 +98,8 @@ export function DriversAnalysis() {
   const { drivers } = series;
 
   const driverModel = q02?.driver_model?.valid ? q02.driver_model : null;
+  const marketSensitivity = driverModel?.current_sensitivities?.beta_market ?? null;
+  const sectorSensitivity = driverModel?.current_sensitivities?.beta_sector ?? null;
 
   const pieData = [
     { name: 'Market', value: drivers.share_market ?? 0, color: chartTheme.barSecondary },
@@ -139,6 +144,25 @@ export function DriversAnalysis() {
     }));
   })();
 
+  const monthlyHistory = (Array.isArray(drivers.monthly_history) ? drivers.monthly_history : [])
+    .filter((item): item is DriverMonthlyHistory =>
+      item != null &&
+      Number.isFinite(item.share_market ?? Number.NaN) &&
+      Number.isFinite(item.share_sector ?? Number.NaN) &&
+      Number.isFinite(item.share_company ?? Number.NaN),
+    );
+
+  const evolutionData = monthlyHistory.length
+    ? monthlyHistory.map((item) => ({
+      period: item.month_short_label || item.month_label || item.month_key || 'Month',
+      fullPeriod: item.month_label || item.month_key || item.period_label || 'Month',
+      Market: (item.share_market ?? 0) * 100,
+      Sector: (item.share_sector ?? 0) * 100,
+      'Company-Specific': (item.share_company ?? 0) * 100,
+      summary: item.summary || '',
+    }))
+    : rollingData;
+
   const fallbackRegimeSwitching: Q02RegimeSwitching = {
     valid: true,
     regime_method: 'legacy_regime',
@@ -170,21 +194,19 @@ export function DriversAnalysis() {
     ? `Current state: ${currentRegime.label}${badgeProb}.`
     : 'Shows which type of driver regime the stock is most likely in, and how stable that state appears to be.');
 
-  const topCards = [
-    { title: 'Current state', value: currentRegime?.label ?? 'Not available', note: 'Most likely driver regime now' },
-    { title: 'State confidence', value: formatPct(currentProbability), note: 'Probability of current regime' },
-    { title: 'Main driver', value: driverLabel(currentRegime?.dominant_driver), note: 'Largest contributor in current regime' },
-    { title: 'Stay probability', value: formatPct(currentStayProb), note: 'Chance current state persists next period' },
-    { title: 'Expected duration', value: formatDays(currentRegime?.expected_duration_days), note: 'Typical run length of this state' },
-    { title: 'Lead signal', value: formatLeadSignal(currentRegime?.lead_signal), note: 'Who tends to move first in this state' },
-  ];
-
   const transitionNote = currentRegime
     ? `${currentRegime.label} is the current state. Probability of staying in the same state next period: ${formatPct(currentStayProb)}.`
     : 'Rows sum to 100%. Each row shows the probability of moving from one state to another.';
 
   const strips = Array.isArray(labels.drivers_strip) ? labels.drivers_strip : [];
   const takeaways = Array.isArray(labels.drivers_wtd_list) ? labels.drivers_wtd_list.filter(Boolean) : [];
+  const sensitivityNote =
+    marketSensitivity?.point_estimate_note ||
+    sectorSensitivity?.point_estimate_note ||
+    'Ranges show uncertainty when the model has enough data.';
+  const combinedCurrentRead = [insights?.regime?.current || transitionNote, insights?.drivers?.beta]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <TooltipProvider>
@@ -214,7 +236,10 @@ export function DriversAnalysis() {
         </motion.div>
 
         {strips.length ? (
-          <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <motion.div
+            variants={itemVariants}
+            className={`grid grid-cols-1 ${strips.length >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4`}
+          >
             {strips.map((item) => (
               <div key={`${item.title}-${item.text}`} className="glass-panel rounded-xl p-4">
                 <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-2">{item.title}</p>
@@ -223,16 +248,6 @@ export function DriversAnalysis() {
             ))}
           </motion.div>
         ) : null}
-
-        <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
-          {topCards.map((card) => (
-            <div key={card.title} className="glass-panel rounded-xl p-4">
-              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">{card.title}</p>
-              <p className="text-base font-semibold text-foreground leading-snug">{card.value}</p>
-              <p className="text-xs text-muted-foreground mt-2">{card.note}</p>
-            </div>
-          ))}
-        </motion.div>
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
@@ -305,29 +320,43 @@ export function DriversAnalysis() {
               <h3 className="text-sm font-semibold text-foreground flex items-center gap-1">
                 Current Sensitivities <MethodologyTooltip methodKey="beta_market" />
               </h3>
-              <span className="text-xs text-muted-foreground">Ranges show uncertainty, not just one point.</span>
+              <span className="text-xs text-muted-foreground">{sensitivityNote}</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-lg border border-border bg-muted/40 p-4">
-                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Market link</p>
-                <p className="text-lg font-semibold text-foreground">{formatInterval(driverModel?.current_sensitivities?.beta_market, 'num', 2)}</p>
-                <p className="text-xs text-muted-foreground mt-2">How strongly the stock tends to move with the market in the current state.</p>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                  {marketSensitivity?.strength_label
+                    ? `${marketSensitivity.strength_label} market link`
+                    : 'Market link'}
+                </p>
+                <p className="text-2xl font-semibold text-foreground">
+                  {formatInterval(marketSensitivity, 'num', 2)}
+                </p>
+                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                  {intervalNarrative(marketSensitivity)
+                    || 'How strongly the stock tends to move with the market in the current state.'}
+                </p>
               </div>
               <div className="rounded-lg border border-border bg-muted/40 p-4">
-                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Sector link</p>
-                <p className="text-lg font-semibold text-foreground">{formatInterval(driverModel?.current_sensitivities?.beta_sector, 'num', 2)}</p>
-                <p className="text-xs text-muted-foreground mt-2">How strongly the stock tends to move with its sector in the current state.</p>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                  {sectorSensitivity?.strength_label
+                    ? `${sectorSensitivity.strength_label} sector link`
+                    : 'Sector link'}
+                </p>
+                <p className="text-2xl font-semibold text-foreground">
+                  {formatInterval(sectorSensitivity, 'num', 2)}
+                </p>
+                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                  {intervalNarrative(sectorSensitivity)
+                    || 'How strongly the stock tends to move with its sector in the current state.'}
+                </p>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div className="rounded-lg border border-border bg-muted/30 p-4">
-                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Driver stability</p>
-                <p className="text-sm text-foreground leading-relaxed">{insights?.regime?.current || transitionNote}</p>
-              </div>
-              <div className="rounded-lg border border-border bg-muted/30 p-4">
-                <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Sensitivity read</p>
-                <p className="text-sm text-foreground leading-relaxed">{insights?.drivers?.beta || 'Ranges show whether the current market and sector links look firm or uncertain.'}</p>
-              </div>
+            <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2">What this means now</p>
+              <p className="text-sm text-foreground leading-relaxed">
+                {combinedCurrentRead || 'Market and sector links summarize how much outside moves are carrying into the stock right now.'}
+              </p>
             </div>
           </motion.div>
         </div>
@@ -342,14 +371,13 @@ export function DriversAnalysis() {
           </div>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={rollingData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
+              <BarChart data={evolutionData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
                 <XAxis
                   dataKey="period"
                   tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                   axisLine={{ stroke: chartTheme.axisLineStroke }}
                   tickLine={false}
-                  orientation="top"
                 />
                 <YAxis
                   tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
@@ -368,6 +396,25 @@ export function DriversAnalysis() {
           </div>
           {insights?.drivers?.rolling_change ? (
             <p className="text-sm text-muted-foreground mt-3">{insights.drivers.rolling_change}</p>
+          ) : null}
+          {monthlyHistory.length ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+              {monthlyHistory.slice(-6).map((item) => (
+                <div key={`${item.month_key}-${item.period_label}`} className="rounded-lg border border-border bg-muted/30 p-4">
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                      {item.month_label || item.month_key || 'Month'}
+                    </p>
+                    <span className="text-[11px] text-muted-foreground">
+                      {item.dominant_driver_label || 'Mixed'}
+                    </span>
+                  </div>
+                  <p className="text-sm text-foreground leading-relaxed">
+                    {item.summary || 'Monthly driver summary not available.'}
+                  </p>
+                </div>
+              ))}
+            </div>
           ) : null}
         </motion.div>
 
@@ -408,7 +455,6 @@ export function DriversAnalysis() {
                   <div className="space-y-1.5 text-xs text-muted-foreground">
                     <p>Dominant driver: <span className="text-foreground">{driverLabel(r.dominant_driver)}</span></p>
                     <p>Driver confidence: <span className="text-foreground">{formatPct(r.dominant_driver_probability)}</span></p>
-                    <p>Lead signal: <span className="text-foreground">{formatLeadSignal(r.lead_signal)}</span></p>
                     <p>Expected duration: <span className="text-foreground">{formatDays(r.expected_duration_days)}</span></p>
                     <p>Market / Sector / Company: <span className="text-foreground">{formatPct(r.shares?.market?.median)} / {formatPct(r.shares?.sector?.median)} / {formatPct(r.shares?.company?.median)}</span></p>
                     <p>Market beta / Sector beta: <span className="text-foreground">{formatNumber(r.sensitivities?.beta_market?.median)} / {formatNumber(r.sensitivities?.beta_sector?.median)}</span></p>

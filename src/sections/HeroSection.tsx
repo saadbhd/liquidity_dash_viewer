@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, Minus, Activity, DollarSign, BarChart3, PieChart, HelpCircle } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, Activity, DollarSign, BarChart3, PieChart } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import {
   Tooltip,
   TooltipContent,
@@ -40,6 +41,16 @@ export function HeroSection() {
     'Average Traded Volume': advLabel,
     'Price Moves: Company vs Market': driversLabel
   };
+
+  const methodKeyForMetricTitle = (rawTitle: string): string | null => {
+    const t = String(rawTitle || '').trim();
+    if (t === 'Liquidity Score (PCA)' || t === 'Liquidity Score') return 'pca_score';
+    if (t === 'Trading Cost (Spread)') return 'spread';
+    if (t === 'Capacity (ADV)' || t === 'Average Traded Volume') return 'adv';
+    if (t === 'Price Moves: Company vs Market') return 'drivers';
+    return null;
+  };
+
 
   const isDriversMetric = (m: (typeof metrics)[0]) =>
     (titleMap[m.title] ?? m.title) === driversLabel;
@@ -117,19 +128,21 @@ export function HeroSection() {
                     <span className="text-xs text-slate-500 uppercase tracking-wider">
                       {titleMap[metric.title] || metric.title}
                     </span>
-                    {metric.tooltip && (
+                    {methodKeyForMetricTitle(metric.title) ? (
+                      <MethodologyTooltip methodKey={methodKeyForMetricTitle(metric.title)!} size="sm" />
+                    ) : metric.tooltip ? (
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <button className="text-slate-600 hover:text-slate-400 transition-colors">
-                            <HelpCircle className="w-3.5 h-3.5" />
+                            <span className="sr-only">Help\</span>
                           </button>
                         </TooltipTrigger>
                         <TooltipContent side="top" className="max-w-xs bg-slate-900 border border-slate-700">
-                          <p className="font-semibold text-sky-400 text-sm">{metric.tooltip.title}</p>
-                          <p className="text-xs text-slate-300 mt-1">{metric.tooltip.body}</p>
+                          <p className="font-semibold text-sky-400 text-sm">{metric.tooltip.title}\</p>
+                          <p className="text-xs text-slate-300 mt-1">{metric.tooltip.body}\</p>
                         </TooltipContent>
                       </Tooltip>
-                    )}
+                    ) : null}
                   </div>
                     <div className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium ${getTrendColor(metric.interpretation?.cls || '')} bg-current/10`}>
                     {getTrendIcon(metric.interpretation?.text || '')}

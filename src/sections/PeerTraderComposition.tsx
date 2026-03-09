@@ -104,6 +104,23 @@ const rowBreakdown = (row: any, mode: ViewMode) => {
   };
 };
 
+const normalizeMix = (breakdown: { retail: number; mixed: number; instit: number; unclear: number }) => {
+  const clamp = (x: number) => Math.max(0, Math.min(100, x));
+  const retail = Number.isFinite(breakdown.retail) ? breakdown.retail : 0;
+  const mixed = Number.isFinite(breakdown.mixed) ? breakdown.mixed : 0;
+  const instit = Number.isFinite(breakdown.instit) ? breakdown.instit : 0;
+  const unclear = Number.isFinite(breakdown.unclear) ? breakdown.unclear : 0;
+  const sum = retail + mixed + instit + unclear;
+  if (sum <= 0) return { retail: 0, mixed: 0, instit: 0, unclear: 0 };
+  const scale = 100 / sum;
+  return {
+    retail: clamp(retail * scale),
+    mixed: clamp(mixed * scale),
+    instit: clamp(instit * scale),
+    unclear: clamp(unclear * scale),
+  };
+};
+
 const confidenceText = (row: any) => {
   const values = [
     `H ${fmtPct(row.high_confidence_pct ?? 0)}`,
@@ -167,11 +184,11 @@ export function PeerTraderComposition() {
   const hasVolume = peerRows.some((row: any) => row?.retail_qty_pct != null);
 
   const modes = [
-    { id: 'volume' as ViewMode, label: 'Volume', available: hasVolume },
     { id: 'trades' as ViewMode, label: 'Trades', available: true },
+    { id: 'volume' as ViewMode, label: 'Volume', available: hasVolume },
   ].filter((entry) => entry.available);
 
-  const [mode, setMode] = React.useState<ViewMode>(modes[0]?.id || 'trades');
+  const [mode, setMode] = React.useState<ViewMode>('trades');
 
   React.useEffect(() => {
     if (!modes.some((entry) => entry.id === mode)) {
@@ -180,7 +197,7 @@ export function PeerTraderComposition() {
   }, [mode, modes]);
 
   const chartData = peerRows.map((row: any) => {
-    const breakdown = rowBreakdown(row, mode);
+    const breakdown = normalizeMix(rowBreakdown(row, mode));
     return {
       ticker: row.ticker,
       'Retail-like': breakdown.retail,
@@ -262,7 +279,8 @@ export function PeerTraderComposition() {
                 axisLine={false}
                 tickLine={false}
                 domain={[0, 100]}
-                tickFormatter={(value) => `${value}%`}
+                ticks={[0, 20, 40, 60, 80, 100]}
+                tickFormatter={(value) => `${Number(value).toFixed(0)}%`}
               />
               <Tooltip contentStyle={chartTheme.tooltipContentStyle} formatter={(value: number) => `${value.toFixed(1)}%`} />
               <Legend />
@@ -290,13 +308,12 @@ export function PeerTraderComposition() {
                 <TableHead className="text-right">Retail-like</TableHead>
                 <TableHead className="text-right">Institution-like</TableHead>
                 <TableHead className="text-right">Unclear</TableHead>
-                <TableHead className="text-right">Observable Runs</TableHead>
                 <TableHead className="text-right">Run Confidence (H/M/L/N)</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {peerRows.map((row: any) => {
-                const breakdown = rowBreakdown(row, mode);
+                const breakdown = normalizeMix(rowBreakdown(row, mode));
                 return (
                   <TableRow key={row.ticker} className="border-border">
                     <TableCell className="font-medium text-foreground">
@@ -311,7 +328,6 @@ export function PeerTraderComposition() {
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.retail)}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.instit)}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.unclear)}</TableCell>
-                    <TableCell className="text-right text-muted-foreground">{fmtPct(row.observable_run_pct ?? 0)}</TableCell>
                     <TableCell className="text-right text-xs text-muted-foreground">{confidenceText(row)}</TableCell>
                   </TableRow>
                 );

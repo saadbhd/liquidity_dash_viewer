@@ -2235,7 +2235,7 @@ export const REPORT_DATA: ReportData = {
     "impact_summary_subtitle": "Modeled sell impact is ≈-1.03% across the tested sizes; crossing the spread is an additional cost not included in this impact estimate.",
     "exec_check_insight": "Current spread is 2.06% (2.5 ticks) and displayed buying depth is lighter than selling depth; larger sell sizes observed historically and intraday concentrate meaningful demand consumption into the top-10 bid.",
     "trader_composition_title": "Who's Trading Your Stock?",
-    "trader_composition_subtitle": "Behavioral personas built from runs of trading (persona_v3_2b); mix shown by trades, notional, and run share.",
+    "trader_composition_subtitle": "Behavioral mix of retail-like, mixed, institution-like, and unclear trading.",
     "trader_retail_threshold": "Retail-like: smaller, bursty runs; often higher run share than notional share.",
     "trader_mixed_threshold": "Mixed: behavior not consistently retail-like or institution-like across runs.",
     "trader_instit_threshold": "Institution-like: run patterns consistent with systematic/large-firm style participation.",

@@ -36,6 +36,18 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
             "We combine the main parts of liquidity into one number so you can compare this stock with peers and with its own history.",
     },
 
+    pca_score: {
+        term: "Liquidity Score (PCA)",
+        section: "Liquidity Health",
+        explanation:
+            "The same liquidity score, shown as a percentile rank, built from multiple liquidity features.",
+        methodology:
+            "This is the same PCA-based liquidity score described in Liquidity Score. " +
+            "Some parts of the dashboard label it as PCA Score to emphasize that it is a composite, not a single raw metric.",
+        plainLanguage:
+            "A single score that summarizes how easy the stock is to trade, built from several liquidity signals.",
+    },
+
     spread: {
         term: "Bid-Ask Spread",
         section: "Liquidity Health",
@@ -128,6 +140,18 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
             "Values are typically very small (scientific notation, e.g., 1.23e-08) — the relative ranking matters more than the absolute value.",
         plainLanguage:
             "If even a small trade moves the price a lot, liquidity is weak. This number captures that effect.",
+    },
+
+    price_impact: {
+        term: "Price Impact",
+        section: "Liquidity Health",
+        explanation:
+            "A measure of how much the price tends to move when trading happens. Higher values mean weaker liquidity.",
+        methodology:
+            "This is the same concept as the Amihud-style price impact metric. " +
+            "We summarize it over the selected window using robust statistics (median), and treat higher impact as worse liquidity.",
+        plainLanguage:
+            "If small trades move the price a lot, liquidity is weaker. This number captures that effect.",
     },
 
     peer_selection: {
@@ -261,7 +285,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         explanation:
             "Brings together the latest displayed book, large trade sizes from history, large sell-side orders seen today, and intraday spread/depth conditions.",
         methodology:
-            "This section now has three main checks. First, it reads the latest displayed L2 book using the top 10 bid and top 10 ask levels. Second, it takes large real trade sizes from about the last year and asks what would happen if those sizes had to be sold into today's displayed book. Third, it looks at the largest sell-side orders observed in L3 during the day and estimates the same hypothetical impact. Spread and displayed depth are also tracked through the day in 30-minute buckets. Full orderbook coverage is not yet included.",
+            "This section now has three main checks. First, it reads the latest displayed L2 book using the top 10 bid and top 10 ask levels. Second, it takes large real trade sizes from the stock's available history, up to one year, and asks what would happen if those sizes had to be sold into today's displayed book. Third, it looks at the largest sell-side orders observed in L3 during the day and estimates the same hypothetical impact. Spread and displayed depth are also tracked through the day in 30-minute buckets in local market time. Full orderbook coverage is not yet included.",
         plainLanguage:
             "It shows what the visible market looks like now, how today's book compares with large trades already seen in this stock, and whether conditions changed during the day.",
     },
@@ -283,7 +307,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         explanation:
             "Uses the stock's own large historical trade sizes and asks what they would do to the current displayed book.",
         methodology:
-            "Take about the last year of available trades for the stock, build the trade-notional distribution, and select large reference sizes such as the 90th, 95th, and 99.99th percentiles. Each size is then replayed as a hypothetical market sell against the latest displayed L2 book. The output shows estimated price impact, expected fill rate, share of current bid depth, and share of ADV.",
+            "Take the stock's available trade history, up to one year, build the trade-notional distribution, and select large reference sizes such as the 90th, 95th, and 99.99th percentiles. Each size is then replayed as a hypothetical market sell against the latest displayed L2 book. When the stock is newly listed, the calibration window is shorter and the dashboard should show that exact range instead of implying a full year. The output shows estimated price impact, expected fill rate, share of current bid depth, and share of ADV.",
         plainLanguage:
             "It answers: if a trade size that has happened before needed to be sold now, how much pressure would today's visible buyers absorb?",
     },
@@ -305,7 +329,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         explanation:
             "Shows how spread and visible depth changed during the session.",
         methodology:
-            "L2 snapshots are sampled through the day in 30-minute buckets. For each bucket, the model measures spread as a percent, spread in ticks, displayed bid depth, and displayed ask depth. The summary highlights the tightest and widest spread buckets, plus the deepest and thinnest bid-depth buckets.",
+            "L2 snapshots are sampled through the day in 30-minute buckets, shown in local market time and labeled by bucket start. For each bucket, the model measures spread as a percent, spread in ticks, displayed bid depth, and displayed ask depth. The summary highlights the tightest and widest spread buckets, plus the deepest and thinnest bid-depth buckets. Buckets focus on the continuous trading session (auctions excluded) when available.",
         plainLanguage:
             "It shows whether trading conditions were steady all day or if some time windows were clearly tighter or thinner than others.",
     },
@@ -445,6 +469,78 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
             "This shows what kind of trading behavior the market currently looks like, and how strong that read is.",
     },
 
+    trader_dominant_persona: {
+        term: "Dominant Persona",
+        section: "Trading Activity",
+        explanation:
+            "The main trading style in the selected window, based on the share of runs (not just raw trade count).",
+        methodology:
+            "We compute persona shares at the run level (run_composition). " +
+            "The dominant persona is the bucket with the highest run share; the dashboard also shows that share and the gap to the next bucket.",
+        plainLanguage:
+            "This tells you which trading style shows up most often as a run pattern in the recent window.",
+    },
+
+    trader_classified_flow: {
+        term: "Classified Flow",
+        section: "Trading Activity",
+        explanation:
+            "How much trading the model could classify into personas, shown as trades and runs.",
+        methodology:
+            "Trades are individual prints. Runs are short sequences of nearby trades grouped into one action. " +
+            "We report counts for both, and exclude auction prints when the analysis is focused on continuous trading.",
+        plainLanguage:
+            "This shows how much activity was analyzed and grouped into behavior buckets.",
+    },
+
+    trader_typical_size: {
+        term: "Typical Size",
+        section: "Trading Activity",
+        explanation:
+            "Average trade value and average run value in the selected window.",
+        methodology:
+            "Average trade value is the mean traded notional per trade. " +
+            "Average run value is the mean summed notional per run; it is usually larger because runs bundle nearby trades.",
+        plainLanguage:
+            "A quick sense of how big trades and trade-runs typically are.",
+    },
+
+    trader_trade_confidence: {
+        term: "Trade Confidence",
+        section: "Trading Activity",
+        explanation:
+            "How strong the model's evidence is at the individual trade level.",
+        methodology:
+            "For each trade we assign a confidence bucket based on how separated the retail vs institutional score is after calibration. " +
+            "MIXED/AMBIGUOUS/UNOBSERVABLE trades are labeled NA by design. The dashboard shows both % and counts.",
+        plainLanguage:
+            "Higher confidence means the model had clearer evidence for that trade's persona label.",
+    },
+
+    trader_run_confidence: {
+        term: "Run Confidence",
+        section: "Trading Activity",
+        explanation:
+            "How strong the model's evidence is after grouping nearby trades into runs.",
+        methodology:
+            "Confidence is computed for runs that are classified as RETAIL or INSTITUTIONAL. " +
+            "Runs labeled MIXED/AMBIGUOUS/UNOBSERVABLE are reported as NA confidence by design.",
+        plainLanguage:
+            "This shows how clear the model's read is once trades are grouped into short sequences.",
+    },
+
+    trader_recent_trades: {
+        term: "Recent Classified Trades",
+        section: "Trading Activity",
+        explanation:
+            "A small recent sample of trades with their persona bucket and confidence label.",
+        methodology:
+            "We show the most recent classified trades (local market time) with their run id, persona bucket, and confidence tag. " +
+            "This is a diagnostic view to sanity-check what the model is labeling in the latest prints.",
+        plainLanguage:
+            "A quick inspection window into the latest classifications.",
+    },
+
     peer_traders: {
         term: "Peer Trader Comparison",
         section: "Trading Activity",
@@ -524,7 +620,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         explanation:
             "Distribution of traded volume across 30-minute time buckets throughout the day.",
         methodology:
-            "Time buckets in SGT (UTC+8), labeled by start time (e.g., 09:00, 09:30, ...). " +
+            "Time buckets in local market time, labeled by bucket start. " +
             "Share per bucket = bucket_volume / total_day_volume for each day. " +
             "Across days, the median share per bucket is reported (not mean). " +
             "Median is preferred because single anomalous days (e.g., block trades) can distort the mean.",

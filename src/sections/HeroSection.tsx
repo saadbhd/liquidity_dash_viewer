@@ -27,6 +27,9 @@ export function HeroSection() {
   const metrics = Array.isArray(content.exec_metrics) ? content.exec_metrics : [];
   const takeaways = Array.isArray(content.exec_takeaways) ? content.exec_takeaways : [];
   const liqTiles = Array.isArray(content.liq_tiles) ? content.liq_tiles : [];
+  const executiveSubtitle =
+    String(labels.exec_subtitle || '').trim() ||
+    `Trading snapshot for ${meta.company} (${meta.ticker}) as of ${meta.asof_date}.`;
   const liquidityScoreLabel = labels.metric_liquidity_score || 'Liquidity Score';
   const spreadLabel = labels.metric_spread || 'Trading Cost (Spread)';
   const advLabel = labels.metric_adv || 'Average Traded Volume';
@@ -34,7 +37,6 @@ export function HeroSection() {
 
   // Map metrics to user-friendly titles
   const titleMap: Record<string, string> = {
-    'Liquidity Score (PCA)': liquidityScoreLabel,
     'Liquidity Score': liquidityScoreLabel,
     'Trading Cost (Spread)': spreadLabel,
     'Capacity (ADV)': advLabel,
@@ -42,9 +44,15 @@ export function HeroSection() {
     'Price Moves: Company vs Market': driversLabel
   };
 
+  const displayTitleForMetric = (rawTitle: string) => {
+    const t = String(rawTitle || '').trim();
+    if (t.startsWith('Liquidity Score')) return liquidityScoreLabel;
+    return titleMap[t] ?? t;
+  };
+
   const methodKeyForMetricTitle = (rawTitle: string): string | null => {
     const t = String(rawTitle || '').trim();
-    if (t === 'Liquidity Score (PCA)' || t === 'Liquidity Score') return 'pca_score';
+    if (t.startsWith('Liquidity Score')) return 'liquidity_score';
     if (t === 'Trading Cost (Spread)') return 'spread';
     if (t === 'Capacity (ADV)' || t === 'Average Traded Volume') return 'adv';
     if (t === 'Price Moves: Company vs Market') return 'drivers';
@@ -53,7 +61,7 @@ export function HeroSection() {
 
 
   const isDriversMetric = (m: (typeof metrics)[0]) =>
-    (titleMap[m.title] ?? m.title) === driversLabel;
+    displayTitleForMetric(m.title) === driversLabel;
   const driversLabelFromSuffix = (suffix: string) => {
     if (suffix.includes('company')) return 'company';
     if (suffix.includes('market')) return 'market';
@@ -62,7 +70,7 @@ export function HeroSection() {
   };
 
   const liquidityMetric =
-    metrics.find((m) => (titleMap[m.title] ?? m.title) === liquidityScoreLabel) ?? metrics[0] ?? null;
+    metrics.find((m) => displayTitleForMetric(m.title) === liquidityScoreLabel) ?? metrics[0] ?? null;
   const rankMatch = liquidityMetric?.subtext?.match(/Rank\s+(\d+)\s*\/\s*(\d+)/i);
   const universeRank = rankMatch ? `#${rankMatch[1]}/${rankMatch[2]}` : `—/${meta.universe_total}`;
 
@@ -103,10 +111,7 @@ export function HeroSection() {
             <span className="section-title">Executive Summary</span>
             <div className="h-px flex-1 bg-gradient-to-r from-slate-700 to-transparent" />
           </div>
-          <p className="text-muted-foreground max-w-2xl">
-            {(labels.exec_subtitle || 'Trading snapshot')} for {meta.company} ({meta.ticker}).
-            Data as of {meta.asof_date}.
-          </p>
+          <p className="text-muted-foreground max-w-2xl">{executiveSubtitle}</p>
         </motion.div>
 
 
@@ -125,8 +130,8 @@ export function HeroSection() {
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-500 uppercase tracking-wider">
-                      {titleMap[metric.title] || metric.title}
+                      <span className="text-xs text-slate-500 uppercase tracking-wider">
+                      {displayTitleForMetric(metric.title)}
                     </span>
                     {methodKeyForMetricTitle(metric.title) ? (
                       <MethodologyTooltip methodKey={methodKeyForMetricTitle(metric.title)!} size="sm" />

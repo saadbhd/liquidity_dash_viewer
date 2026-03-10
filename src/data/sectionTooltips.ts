@@ -24,7 +24,7 @@ export const SECTION_TOOLTIPS: Record<string, SectionTooltipEntry> = {
         title: "Drivers of Moves & Sensitivity",
         description:
             "Shows what has been driving the share price lately. " +
-            "It separates market, sector, and company-specific effects, and also shows the current driver state and how confident that read is.",
+            "It separates market, sector, and company-specific effects, and also shows the current volatility state and how stable that read is.",
     },
     execution: {
         glossaryKey: "execution",

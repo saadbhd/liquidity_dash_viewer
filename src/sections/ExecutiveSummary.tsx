@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/tooltip';
 
 const iconMap: Record<string, React.ReactNode> = {
-  'Liquidity Score (PCA)': <TrendingUp className="w-4 h-4" />,
+  'Liquidity Score': <TrendingUp className="w-4 h-4" />,
   'Trading Cost (Spread)': <DollarSign className="w-4 h-4" />,
   'Capacity (ADV)': <Activity className="w-4 h-4" />,
   'Price Moves: Company vs Market': <Puzzle className="w-4 h-4" />,
@@ -19,6 +19,12 @@ const iconMap: Record<string, React.ReactNode> = {
 export function ExecutiveSummary() {
   const { labels, content } = useReport();
   const [animatedBars, setAnimatedBars] = useState(false);
+
+  const displayMetricTitle = (rawTitle: string) => {
+    const title = String(rawTitle || '').trim();
+    if (title.startsWith('Liquidity Score')) return 'Liquidity Score';
+    return title;
+  };
 
   setTimeout(() => setAnimatedBars(true), 300);
 
@@ -73,8 +79,8 @@ export function ExecutiveSummary() {
               {/* Card Header */}
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2 text-xs uppercase text-slate-400 tracking-wider font-medium">
-                  {iconMap[metric.title]}
-                  {metric.title}
+                  {iconMap[displayMetricTitle(metric.title)]}
+                  {displayMetricTitle(metric.title)}
                 </div>
                 {metric.tooltip && (
                   <Tooltip>

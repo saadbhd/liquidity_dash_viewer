@@ -94,7 +94,7 @@ export function LiquidityHealth() {
 
       {/* Peer Comparison Chart */}
       <div className="bg-slate-900/30 rounded-xl p-4 border border-slate-700/50">
-        <h4 className="text-sm font-semibold text-slate-300 mb-4">Liquidity Score vs Peers (PCA)</h4>
+        <h4 className="text-sm font-semibold text-slate-300 mb-4">Liquidity Score vs Peers</h4>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>

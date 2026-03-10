@@ -788,14 +788,17 @@ export interface Q02RegimeItem {
   label: string;
   pct_time: number;
   n_days?: number;
+  n_days_effective?: number | null;
   current_probability?: number | null;
   dominant_driver?: string | null;
   dominant_driver_probability?: number | null;
+  dominant_driver_label?: string | null;
   expected_duration_days?: number | null;
   lead_signal?: Q02LeadSignal | null;
   liquidity_score?: number | null;
   mean_ret_pct?: number | null;
   volatility_pct?: number | null;
+  volatility_label?: string | null;
   activity_score?: number | null;
   spread_mode_ticks?: number | null;
   l2_depth_notional_top4?: number | null;
@@ -810,6 +813,9 @@ export interface Q02RegimeItem {
   sensitivities?: {
     beta_market?: Q02Interval | null;
     beta_sector?: Q02Interval | null;
+    beta_market_lag?: Q02Interval | null;
+    beta_sector_lag?: Q02Interval | null;
+    beta_stock_lag?: Q02Interval | null;
   };
   metrics_median?: Q02RegimeMetricsMedian;
 }
@@ -841,6 +847,7 @@ export interface Q02MonthlyHistoryItem {
   period_label?: string;
   n_obs?: number | null;
   partial_month?: boolean;
+  regime_id?: number | null;
   dominant_driver?: string | null;
   dominant_driver_label?: string | null;
   regime_label?: string | null;
@@ -875,6 +882,12 @@ export interface Q02DriverModel {
     confidence_note?: string | null;
     history_days?: number | null;
     history_limited?: boolean;
+    volatility_label?: string | null;
+    lead_signal_text?: string | null;
+    state_term?: string | null;
+    stay_probability?: number | null;
+    effective_days?: number | null;
+    persistence_note?: string | null;
     expected_duration_days?: number | null;
   };
   current_driver_mix?: {
@@ -890,10 +903,13 @@ export interface Q02DriverModel {
   current_sensitivities?: {
     beta_market?: Q02Interval | null;
     beta_sector?: Q02Interval | null;
+    beta_stock_lag?: Q02Interval | null;
     beta_market_lag?: Q02Interval | null;
     beta_sector_lag?: Q02Interval | null;
     posterior_source?: string | null;
     intervals_collapsed?: boolean;
+    confidence_label?: string | null;
+    confidence_note?: string | null;
   };
   current_stay_probability?: number | null;
   current_expected_duration_days?: number | null;

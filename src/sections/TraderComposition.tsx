@@ -35,7 +35,7 @@ const BUCKET_META = [
   { key: 'retail', label: 'Retail-like', color: '#38bdf8' },
   { key: 'mixed', label: 'Mixed', color: '#64748b' },
   { key: 'instit', label: 'Institution-like', color: '#34d399' },
-  { key: 'unclear', label: 'Unclear', color: '#f59e0b' },
+  { key: 'unclear', label: 'Unclassified', color: '#f59e0b' },
 ] as const;
 
 type ViewMode = 'trades' | 'volume' | 'notional' | 'runs';
@@ -55,8 +55,6 @@ const toPct = (value: unknown): number => {
   if (!Number.isFinite(num)) return 0;
   return num <= 1 ? num * 100 : num;
 };
-
-const fmtPct = (value: unknown, digits = 1): string => `${toPct(value).toFixed(digits)}%`;
 
 const fmtCount = (value: unknown): string => {
   const num = Number(value ?? 0);
@@ -136,14 +134,25 @@ const getComposition = (snapshot: any, mode: ViewMode) => {
   };
 };
 
+const dominantLabelFromKey = (key: (typeof BUCKET_META)[number]['key']) => {
+  if (key === 'retail') return 'Retail-led';
+  if (key === 'instit') return 'Institution-led';
+  if (key === 'mixed') return 'Mixed';
+  return 'Unclassified';
+};
+
 const dominantFromBreakdown = (breakdown: ReturnType<typeof getComposition>) => {
-  const ranked = [
-    { label: 'Retail-like', value: breakdown.retail },
-    { label: 'Mixed', value: breakdown.mixed },
-    { label: 'Institution-like', value: breakdown.instit },
-    { label: 'Unclear', value: breakdown.unclear },
-  ].sort((a, b) => b.value - a.value);
-  return ranked[0] || { label: 'Unavailable', value: 0 };
+  const ranked = (
+    [
+      { key: 'retail' as const, value: breakdown.retail },
+      { key: 'mixed' as const, value: breakdown.mixed },
+      { key: 'instit' as const, value: breakdown.instit },
+      { key: 'unclear' as const, value: breakdown.unclear },
+    ] satisfies Array<{ key: (typeof BUCKET_META)[number]['key']; value: number }>
+  ).sort((a, b) => b.value - a.value);
+  const top = ranked[0];
+  if (!top) return { label: 'Unavailable', value: 0 };
+  return { label: dominantLabelFromKey(top.key), value: top.value };
 };
 
 export function TraderComposition() {
@@ -201,8 +210,7 @@ export function TraderComposition() {
   }, [mode, modes]);
 
   const composition = getComposition(activeSnapshot, mode);
-  const dominant = activeSnapshot?.dominant_label || dominantFromBreakdown(composition).label;
-  const dominantShare = activeSnapshot?.dominant_share != null ? fmtPct(activeSnapshot.dominant_share) : fmtPct(dominantFromBreakdown(composition).value);
+  const dominant = dominantFromBreakdown(composition).label;
   const currency = activeSnapshot?.currency || traderComposition?.currency || 'USD';
   const selectedPeriodLabel = selectedPeriod ? periodLabel(selectedPeriod) : 'Current';
 
@@ -247,9 +255,11 @@ export function TraderComposition() {
         'Retail-like': breakdown.retail,
         Mixed: breakdown.mixed,
         'Institution-like': breakdown.instit,
-        Unclear: breakdown.unclear,
+        Unclassified: breakdown.unclear,
       };
     });
+
+  const overTimeNote = timeSeriesData.length < 3 ? ' Limited history: only a few months are available.' : '';
 
   const tradeCounts = activeSnapshot?.counts?.trades || {};
   const bucketTradeCount = (bucketKey: (typeof BUCKET_META)[number]['key']) => {
@@ -328,7 +338,6 @@ export function TraderComposition() {
               <MethodologyTooltip methodKey="trader_dominant_persona" />
             </div>
             <div className="text-2xl font-semibold text-foreground">{dominant || 'Unavailable'}</div>
-            <p className="mt-2 text-sm text-muted-foreground">Largest run share: {dominantShare}</p>
           </div>
           <div className="rounded-xl border border-border/60 bg-card/40 p-4">
             <div className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
@@ -357,7 +366,7 @@ export function TraderComposition() {
             <div>
               <h3 className="text-sm font-semibold text-foreground">Current mix by {activeModeLabel.toLowerCase()}</h3>
               <p className="text-xs text-muted-foreground">
-                Persona shares combine retail-like, mixed, institution-like, and unclear flow.
+                Persona shares combine retail-like, mixed, institution-like, and unclassified flow.
               </p>
             </div>
           </div>
@@ -392,7 +401,7 @@ export function TraderComposition() {
           <div>
             <h3 className="text-sm font-semibold text-foreground">How the persona mix changed over time</h3>
             <p className="text-xs text-muted-foreground">
-              Monthly persona shares. Use the view switch to compare trade share and volume share.
+              Monthly persona shares (months shown depend on available history). Use the view switch to compare trade share and volume share.{overTimeNote}
             </p>
           </div>
           {modes.length > 1 ? (
@@ -427,7 +436,7 @@ export function TraderComposition() {
               <Bar dataKey="Retail-like" stackId="a" fill="#38bdf8" radius={[0, 0, 0, 0]} />
               <Bar dataKey="Mixed" stackId="a" fill="#64748b" radius={[0, 0, 0, 0]} />
               <Bar dataKey="Institution-like" stackId="a" fill="#34d399" radius={[0, 0, 0, 0]} />
-              <Bar dataKey="Unclear" stackId="a" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Unclassified" stackId="a" fill="#f59e0b" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -48,6 +48,14 @@ const toPct = (value: unknown): number => {
   return num <= 1 ? num * 100 : num;
 };
 
+const normalizeDominantLabel = (value: unknown): string => {
+  const text = typeof value === 'string' ? value : '';
+  return text
+    .replace(/Unclear Flow/g, 'Unclassified Flow')
+    .replace(/mostly unclear/g, 'mostly unclassified')
+    .replace(/\bUnclear\b/g, 'Unclassified');
+};
+
 const fmtPct = (value: unknown, digits = 1) => `${toPct(value).toFixed(digits)}%`;
 
 const periodLabel = (key: string) => {
@@ -203,7 +211,7 @@ export function PeerTraderComposition() {
       'Retail-like': breakdown.retail,
       Mixed: breakdown.mixed,
       'Institution-like': breakdown.instit,
-      Unclear: breakdown.unclear,
+      Unclassified: breakdown.unclear,
       isTarget: !!row.is_target,
     };
   });
@@ -284,7 +292,7 @@ export function PeerTraderComposition() {
               />
               <Tooltip contentStyle={chartTheme.tooltipContentStyle} formatter={(value: number) => `${value.toFixed(1)}%`} />
               <Legend />
-              {['Retail-like', 'Mixed', 'Institution-like', 'Unclear'].map((key, idx) => {
+              {['Retail-like', 'Mixed', 'Institution-like', 'Unclassified'].map((key, idx) => {
                 const colors = ['#38bdf8', '#64748b', '#34d399', '#f59e0b'];
                 const radius: [number, number, number, number] = idx === 3 ? [4, 4, 0, 0] : [0, 0, 0, 0];
                 return (
@@ -306,8 +314,9 @@ export function PeerTraderComposition() {
                 <TableHead>Ticker</TableHead>
                 <TableHead>Dominant Read</TableHead>
                 <TableHead className="text-right">Retail-like</TableHead>
+                <TableHead className="text-right">Mixed</TableHead>
                 <TableHead className="text-right">Institution-like</TableHead>
-                <TableHead className="text-right">Unclear</TableHead>
+                <TableHead className="text-right">Unclassified</TableHead>
                 <TableHead className="text-right">Run Confidence (H/M/L/N)</TableHead>
               </TableRow>
             </TableHeader>
@@ -324,8 +333,9 @@ export function PeerTraderComposition() {
                         ) : null}
                       </div>
                     </TableCell>
-                    <TableCell className="text-muted-foreground">{row.dominant_label || '—'}</TableCell>
+                    <TableCell className="text-muted-foreground">{normalizeDominantLabel(row.dominant_label) || '—'}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.retail)}</TableCell>
+                    <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.mixed)}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.instit)}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.unclear)}</TableCell>
                     <TableCell className="text-right text-xs text-muted-foreground">{confidenceText(row)}</TableCell>

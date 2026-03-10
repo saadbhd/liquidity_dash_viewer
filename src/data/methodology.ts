@@ -11,17 +11,17 @@ export interface MethodologyEntry {
 export const METHODOLOGY: Record<string, MethodologyEntry> = {
   liquidity_score: {
     title: "Liquidity Score",
-    body: "A single score that sums up how easy this stock is to trade. It combines trading value, trading activity, spread, price impact, turnover, and price stability over the selected period. Higher score means better liquidity.",
+    body: "A percentile score from 0 to 100 that sums up how easy this stock is to trade. It combines trading value, trading activity, spread, price impact, turnover, and price stability over the selected period. Higher score means better liquidity.",
     glossaryKey: "liquidity_score",
   },
   drivers: {
     title: "Drivers of Moves",
-    body: "Shows what has been driving the share price lately: the wider market, the sector, or the company's own story. It also shows the current driver regime and how confident the model is in that read.",
+    body: "Shows whether the stock has recently been moving mainly with the broader market, its sector, or more on its own company-specific story. It also shows the current state, its volatility bucket, and whether market, sector, or company-specific moves tend to lead by about 1 day.",
     glossaryKey: "drivers",
   },
   regime_switching: {
     title: "Price Driver Regimes",
-    body: "Groups past trading days into a small number of driver states, such as market-led, sector-led, or company-led phases. It helps show what is leading the stock now, how stable that state has been, and how likely it is to change.",
+    body: "Groups past trading days into a small number of volatility states, such as low-, medium-, or high-volatility phases. It helps show what is leading the stock now, how stable that state has been, and how likely it is to change. If expected duration is only around 1 day, read it as a short-lived pattern rather than a durable regime. Volatility is shown as a simple state bucket such as low, medium, or high volatility.",
     glossaryKey: "regime_switching",
   },
   execution: {
@@ -36,7 +36,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   trader_composition: {
     title: "Trader Persona Classification",
-    body: "Estimates whether trading behavior looks more like retail flow, institutional flow, a mixed style, or an unclear pattern. The method reads how trades are grouped, how much visible depth they consume, and how price reacts around them. The dashboard now also shows how many trades and runs fall in each bucket, plus the confidence mix behind those classifications.",
+    body: "Estimates whether trading behavior looks more like retail flow, institutional flow, a mixed style, or an unclassified pattern. The method reads how trades are grouped, how much visible depth they consume, and how price reacts around them. The dashboard now also shows how many trades and runs fall in each bucket, plus the confidence mix behind those classifications.",
     glossaryKey: "trader_composition",
   },
   peer_traders: {
@@ -84,11 +84,6 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
     body: "Shows how much trading is coming from short sellers, whether short activity has spiked, and how much stock is available to borrow. It helps you see whether short interest is low, normal, or unusually high.",
     glossaryKey: "short_selling",
   },
-  pca_score: {
-    title: "Liquidity Score",
-    body: "This is the main score used to summarize how easy the stock is to trade. It blends trading value, trading activity, spread, price impact, turnover, and price stability into one number. Higher score means better liquidity.",
-    glossaryKey: "pca_score",
-  },
   spread: {
     title: "Bid-Ask Spread",
     body: "Spread is the gap between the best buy price and the best sell price. We show it as a percent, and in some places also in ticks. Lower spread usually means lower trading cost.",
@@ -108,6 +103,11 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
     title: "Average Daily Trading Value",
     body: "The typical daily trading value over the selected period. It is shown in money terms, such as S$ or HK$. Higher ADV usually means more liquidity is available.",
     glossaryKey: "adv",
+  },
+  trades: {
+    title: "Daily Trade Count",
+    body: "The typical number of trades per day over the selected period. Higher trade count usually means more activity and easier entry or exit.",
+    glossaryKey: "trades",
   },
   turnover: {
     title: "Turnover Ratio",

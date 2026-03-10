@@ -281,6 +281,9 @@ export function LiquidityScore() {
     : 0;
   const rankPca = Number.isFinite(period.liquidity?.rank_pca) ? period.liquidity.rank_pca : 0;
   const totalPca = Number.isFinite(period.liquidity?.total) ? period.liquidity.total : 0;
+  const liquidityTitle = String(report.labels.liq_title || '').trim() || 'Liquidity Health & Peer Comparison';
+  const liquiditySubtitle = String(report.labels.liq_subtitle || '').trim();
+  const selectedWindowLabel = `Window: ${period.window_days}D`;
 
   const peerRows = period.peer_liquidity ?? [];
   const targetPeer = peerRows.find((row) => row.is_target) ?? peerRows.find((row) => row.ticker === report.meta.ticker);
@@ -500,14 +503,15 @@ export function LiquidityScore() {
           <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
             <Droplets className="w-5 h-5 text-sky-500" />
           </div>
-          <div>
+          <div className="space-y-1">
             <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-              {report.labels.liq_title}
+              {liquidityTitle}
               <SectionTooltip sectionKey="liquidity" size="md" />
             </h2>
-            <p className="text-sm text-muted-foreground">
-              {report.labels.liq_subtitle} • Window: {period.window_days}D
-            </p>
+            {liquiditySubtitle ? (
+              <p className="text-sm text-muted-foreground">{liquiditySubtitle}</p>
+            ) : null}
+            <p className="text-xs uppercase tracking-[0.18em] text-slate-500">{selectedWindowLabel}</p>
           </div>
         </div>
         <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
@@ -539,7 +543,7 @@ export function LiquidityScore() {
 
       <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Score (Percentile) <MethodologyTooltip methodKey="pca_score" /></p>
+          <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Score (Percentile) <MethodologyTooltip methodKey="liquidity_score" /></p>
           <p className="text-2xl font-bold text-foreground">{scorePcaPercentile.toFixed(1)}</p>
           <p className="text-xs text-slate-500 mt-1">
             Rank {rankPca}/{totalPca}
@@ -580,7 +584,7 @@ export function LiquidityScore() {
           <p className="text-xs text-slate-500 mt-1">Price impact proxy</p>
         </div>
         <div className="glass-panel rounded-xl p-4">
-          <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Peer Median Score <MethodologyTooltip methodKey="pca_score" /></p>
+          <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Peer Median Score <MethodologyTooltip methodKey="liquidity_score" /></p>
           <p className="text-2xl font-bold text-foreground">{formatNumber(period.peer_summary.peer_median_score_pca, 1)}</p>
           <p className="text-xs text-slate-500 mt-1">{period.peer_summary.n_peers} peers</p>
         </div>
@@ -592,9 +596,9 @@ export function LiquidityScore() {
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
               <Users className="w-4 h-4 text-slate-500" />
               Peer Liquidity Score Comparison
-              <MethodologyTooltip methodKey="pca_score" />
+              <MethodologyTooltip methodKey="liquidity_score" />
             </h3>
-            <span className="text-xs text-slate-500">PCA score</span>
+            <span className="text-xs text-slate-500">Liquidity score</span>
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">

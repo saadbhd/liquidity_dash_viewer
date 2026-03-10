@@ -145,7 +145,7 @@ export function PriceMovingTrades() {
         <div className="glass-panel rounded-xl p-5">
           <div className="mb-2 flex items-center gap-2">
             <Activity className="h-4 w-4 text-amber-500" />
-            <span className="text-xs uppercase tracking-wider text-muted-foreground">Unclear share</span>
+            <span className="text-xs uppercase tracking-wider text-muted-foreground">Unclassified share</span>
           </div>
           <div className="text-3xl font-bold text-foreground">{fmtPct(unclearShareAll)}</div>
           <p className="mt-2 text-xs text-muted-foreground">
@@ -193,7 +193,7 @@ export function PriceMovingTrades() {
                 <TableHead className="text-right">Retail-like</TableHead>
                 <TableHead className="text-right">Mixed</TableHead>
                 <TableHead className="text-right">Institution-like</TableHead>
-                <TableHead className="text-right">Unclear</TableHead>
+                <TableHead className="text-right">Unclassified</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

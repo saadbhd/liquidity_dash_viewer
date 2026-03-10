@@ -31,21 +31,9 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
             "Component loadings (weights) determine each feature's contribution. " +
             "The raw score is oriented so that higher = more liquid (negative features like spread are sign-flipped before PCA). " +
             "Final scores are converted to percentile ranks (0–100) within the exchange universe. " +
-            "Variance explained by PC1 is typically 40–60%, diagnostics are reported in the PCA section.",
+            "Variance explained by PC1 and the loadings remain available as diagnostics, but the dashboard exposes a single Liquidity Score rather than a separate PCA metric.",
         plainLanguage:
             "We combine the main parts of liquidity into one number so you can compare this stock with peers and with its own history.",
-    },
-
-    pca_score: {
-        term: "Liquidity Score (PCA)",
-        section: "Liquidity Health",
-        explanation:
-            "The same liquidity score, shown as a percentile rank, built from multiple liquidity features.",
-        methodology:
-            "This is the same PCA-based liquidity score described in Liquidity Score. " +
-            "Some parts of the dashboard label it as PCA Score to emphasize that it is a composite, not a single raw metric.",
-        plainLanguage:
-            "A single score that summarizes how easy the stock is to trade, built from several liquidity signals.",
     },
 
     spread: {
@@ -60,7 +48,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
             "Spread in ticks is also reported using Spread_AbsMeanTicks (absolute spread / tick size). " +
             "Tick size is sourced from market_info.tick_size_rule. " +
             "Lower spread → lower implicit round-trip cost → better liquidity. " +
-            "Enters the PCA score with a negative sign (wider = worse).",
+            "Enters the composite liquidity score with a negative sign (wider = worse).",
         plainLanguage:
             "This is the built-in trading cost you face before market movement is even considered.",
     },
@@ -85,12 +73,12 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Turnover Ratio",
         section: "Liquidity Health",
         explanation:
-            "Daily volume divided by shares outstanding (or free float), medianed over the period. Shows how actively the stock trades relative to its size.",
+            "Median daily volume divided by free-float shares when available, with shares outstanding as fallback. Shows how actively the stock trades relative to its size.",
         methodology:
-            "Turnover = volume_t / shares_outstanding (or free_float_shares if available). " +
-            "Trailing median over the analysis window. " +
+            "Turnover ratio = median(volume_t) / free_float_shares when free float is available and non-zero; otherwise median(volume_t) / shares_outstanding. " +
+            "The share-count denominator is static over the window, so this matches the implemented median-volume-over-shares approach. " +
             "Higher turnover implies more active trading relative to the stock's capitalization. " +
-            "Enters the PCA score as log(turnover_ratio). " +
+            "Enters the composite liquidity score as log(turnover_ratio). " +
             "Free float data is sourced from market_info when available; otherwise total shares outstanding is used.",
         plainLanguage:
             "This shows how actively the stock trades relative to the company size.",
@@ -102,9 +90,9 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         explanation:
             "The number of individual trades executed per day, medianed over the analysis period.",
         methodology:
-            "trades_t = count of matched transactions on day t (from daily_metrics_bmll_wide). " +
+            "trades_t comes from market.ohlcv_bmll.trade_count for day t. " +
             "Trailing median is taken over the selected analysis window (e.g., 1M = 21 days). " +
-            "Enters the PCA score as log(trades) alongside other liquidity features. " +
+            "Enters the composite liquidity score as log(trades) alongside other liquidity features. " +
             "More trades generally correlate with tighter spreads and lower price impact.",
         plainLanguage:
             "More trades usually mean a more active market and easier entry or exit.",
@@ -120,7 +108,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
             "Daily return_t = close_t / close_(t-1) − 1. " +
             "We use the sample standard deviation (Bessel's correction, ddof=1) over the selected analysis window. " +
             "The result is scaled by √252 to represent the expected price variation over a one-year horizon. " +
-            "Enters the PCA score inversely: higher volatility reduces the liquidity score (via sign flip: −volatility). " +
+            "Enters the composite liquidity score inversely: higher volatility reduces the liquidity score (via sign flip: −volatility). " +
             "Typical range: 10–30% for large-caps, 40–100%+ for high-growth or small-cap stocks.",
         plainLanguage:
             "This shows how jumpy or calm the price movements are, scaled to a yearly percentage.",
@@ -136,7 +124,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
             "Where notional_t = close_t × volume_t. " +
             "Higher values mean that even small trades move the price significantly. " +
             "The median (not mean) is used for robustness against outlier days with extremely low volume. " +
-            "Enters the PCA score inversely (higher price impact = worse liquidity). " +
+            "Enters the composite liquidity score inversely (higher price impact = worse liquidity). " +
             "Values are typically very small (scientific notation, e.g., 1.23e-08) — the relative ranking matters more than the absolute value.",
         plainLanguage:
             "If even a small trade moves the price a lot, liquidity is weak. This number captures that effect.",
@@ -180,15 +168,14 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Drivers of Moves",
         section: "Drivers & Sensitivity",
         explanation:
-            "Shows whether recent price moves were driven more by the market, the sector, or company-specific factors.",
+            "Shows whether recent price moves have been driven more by the broader market, the sector, or by company-specific factors, and which volatility state is active now.",
         methodology:
-            "The current Q02 model uses a hybrid regime-aware approach. First, a Markov regression is fitted on daily stock returns versus market and sector returns to infer hidden driver states over a target 252-trading-day window; if less history exists, the model uses all available history. " +
-            "Second, PyMC weighted regressions are fitted for each inferred state to estimate uncertainty around the sensitivities and contribution shares. " +
-            "The stock return model includes same-day market and sector effects plus one-day lags for the stock, market, and sector. " +
-            "The dashboard then reports the latest 63-trading-day driver mix as low / median / high ranges rather than as one fixed point only. " +
-            "Legacy rolling 63-day windows are still shown to preserve trend context.",
+            "The current Q02 model uses a simpler Markov regression on daily stock returns with market return, sector return, the stock's own one-day lag, and one-day lags for market and sector. " +
+            "It then compares a 2-state and 3-state version and keeps the one with the better fit after penalizing tiny unstable states. " +
+            "The states are labelled only by volatility bucket, such as low, medium, or high volatility. " +
+            "Within the active state, the dashboard shows the split between market-, sector-, and company-specific moves, plus whether market, sector, or company-specific moves tend to lead by about 1 day.",
         plainLanguage:
-            "This shows what has really been moving the stock lately, and how certain that reading looks.",
+            "This shows what has really been moving the stock lately, what volatility state it is in, and how stable that read looks.",
     },
 
     beta_market: {
@@ -225,12 +212,11 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         explanation:
             "Shows how much of the recent move came from the market, the sector, or the company's own story.",
         methodology:
-            "For each posterior draw, the model measures absolute market, sector, and company-specific contributions day by day, then adds them over the latest 63 trading days. " +
-            "Market contribution uses the market beta and market lag terms; sector contribution uses the sector beta and sector lag terms; company contribution is the remaining unexplained move. " +
-            "Each contribution is divided by the total so the three shares sum to 100%. " +
-            "The dashboard shows the median share plus a low / high range, which is more informative than a single point estimate.",
+            "Inside the active state, the model compares the absolute size of the fitted market effect, the fitted sector effect, and the remaining company-specific move. " +
+            "Those contributions are normalized so the three shares sum to 100%. " +
+            "In the dashboard, the main read is the active-state split, because that is more relevant than a full-window average when the stock has recently changed state.",
         plainLanguage:
-            "This is the split of recent moves into market, sector, and company-specific parts, with a range to show uncertainty.",
+            "This is the split of recent moves into market, sector, and company-specific parts.",
     },
 
     r_squared: {
@@ -239,9 +225,8 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         explanation:
             "A background fit check from the simpler market-plus-sector model.",
         methodology:
-            "This comes from the older static two-factor regression that is still kept in the report for comparison and rolling history. " +
-            "It shows how much of the move that simpler model could explain over the recent window. " +
-            "In the new Q02 design, it is secondary: the main read comes from regime probabilities, driver-share ranges, and regime-specific sensitivities.",
+            "This comes from an older static market-plus-sector regression that is still kept as background context in some reports. " +
+            "It is not the main Q02 read anymore. The primary interpretation now comes from the active Markov state, the current market/sector/company split, and the state's persistence.",
         plainLanguage:
             "Treat this as background context, not as the main answer to what is moving the stock.",
     },
@@ -250,15 +235,13 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Price Driver Regimes",
         section: "Drivers & Sensitivity",
         explanation:
-            "Groups past days into a small number of driver states, such as market-led, sector-led, or company-led phases.",
+            "Groups past days into a small number of volatility states, such as low-, medium-, or high-volatility phases.",
         methodology:
-            "The model first fits a Markov regression to daily stock returns using market and sector returns as explanatory series. " +
-            "That produces hidden states and a day-by-day probability of being in each state. " +
-            "For each state, a PyMC weighted regression is then fitted to estimate uncertainty around market sensitivity, sector sensitivity, lagged leadership effects, and the share of moves attributed to each driver. " +
-            "The default estimation target is 252 trading days, but if a stock is newly listed the model uses all available history and may collapse to fewer regimes. " +
-            "Each regime is labelled by its dominant driver, transition probabilities are estimated between consecutive days, and expected duration is derived from the probability of staying in the same regime.",
+            "The model fits hidden Markov states directly on stock returns and allows each state to have its own volatility level. " +
+            "The dashboard chooses 2 or 3 states based on fit quality and then orders them from lower to higher volatility. " +
+            "Expected duration comes from the probability of staying in the same state. If duration is only about 1 day, treat it as a short-lived pattern rather than a durable regime.",
         plainLanguage:
-            "This shows the stock's main behaviour states, how likely the current state is, and how easily that state could change.",
+            "This shows whether the stock is in a calmer or more volatile trading state, and how easily that state could change.",
     },
 
     granger: {
@@ -476,7 +459,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
             "The main trading style in the selected window, based on the share of runs (not just raw trade count).",
         methodology:
             "We compute persona shares at the run level (run_composition). " +
-            "The dominant persona is the bucket with the highest run share; the dashboard also shows that share and the gap to the next bucket.",
+            "The dominant persona is the bucket with the highest share in the selected view (trades, volume, notional, or runs).",
         plainLanguage:
             "This tells you which trading style shows up most often as a run pattern in the recent window.",
     },
@@ -562,7 +545,7 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         methodology:
             "A trade is treated as price-moving when its price differs from the previous trade. " +
             "The dashboard then breaks those trades down by the same persona labels used in trader composition. " +
-            "This shows whether price changes are mostly tied to retail-like flow, institution-like flow, mixed flow, or unclear flow.",
+            "This shows whether price changes are mostly tied to retail-like flow, institution-like flow, mixed flow, or unclassified flow.",
         plainLanguage:
             "This shows how sensitive the share price is to individual trades, and what kind of flow tends to move it.",
     },

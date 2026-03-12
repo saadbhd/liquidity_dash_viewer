@@ -1135,6 +1135,7 @@ export interface Labels {
   metric_spread: string;
   metric_adv: string;
   metric_drivers: string;
+  metric_period_note?: string;
   action_plan_title: string;
   action_plan_subtitle: string;
   action_plan_icon: string;

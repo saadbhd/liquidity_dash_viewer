@@ -87,13 +87,6 @@ const buildShiftPointFromLegacy = (item: DriverMonthlyHistory): ShiftPoint => ({
   regimeLabel: item.regime_label || '',
 });
 
-const monthlyShiftStripText = (points: ShiftPoint[]) => {
-  if (!points.length) return 'Monthly driver shift is not available in this report.';
-  return points.slice(-3).map((point) => {
-    const dominantShare = Math.max(point.market, point.sector, point.company);
-    return `${point.period} was ${point.dominantLabel.toLowerCase()} at ${dominantShare.toFixed(1)}%`;
-  }).join(', then ');
-};
 
 export function DriversAnalysis() {
   const report = useReport();

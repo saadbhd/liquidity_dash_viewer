@@ -456,21 +456,21 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Dominant Persona",
         section: "Trading Activity",
         explanation:
-            "The main trading style in the selected window, based on the share of runs (not just raw trade count).",
+            "The main trading style in the selected window, based on the share of grouped trades (not just raw trade count).",
         methodology:
-            "We compute persona shares at the run level (run_composition). " +
-            "The dominant persona is the bucket with the highest share in the selected view (trades, volume, notional, or runs).",
+            "We compute persona shares at the grouped-trade level. " +
+            "The dominant persona is the bucket with the highest share in the selected view (trades, volume, value, or grouped trades).",
         plainLanguage:
-            "This tells you which trading style shows up most often as a run pattern in the recent window.",
+            "This tells you which trading style shows up most often in the recent window.",
     },
 
     trader_classified_flow: {
         term: "Classified Flow",
         section: "Trading Activity",
         explanation:
-            "How much trading the model could classify into personas, shown as trades and runs.",
+            "How much trading the model could classify into personas, shown as individual trades and grouped trades.",
         methodology:
-            "Trades are individual prints. Runs are short sequences of nearby trades grouped into one action. " +
+            "Trades are individual prints. Grouped trades are short sequences of nearby trades that belong to the same broader action. " +
             "We report counts for both, and exclude auction prints when the analysis is focused on continuous trading.",
         plainLanguage:
             "This shows how much activity was analyzed and grouped into behavior buckets.",
@@ -480,12 +480,12 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Typical Size",
         section: "Trading Activity",
         explanation:
-            "Average trade value and average run value in the selected window.",
+            "Average trade value and average grouped-trade value in the selected window.",
         methodology:
-            "Average trade value is the mean traded notional per trade. " +
-            "Average run value is the mean summed notional per run; it is usually larger because runs bundle nearby trades.",
+            "Average trade value is the mean value per trade. " +
+            "Average grouped-trade value is the mean value per group of nearby trades; it is usually larger because groups bundle nearby trades together.",
         plainLanguage:
-            "A quick sense of how big trades and trade-runs typically are.",
+            "A quick sense of how big individual trades and grouped trades typically are.",
     },
 
     trader_trade_confidence: {
@@ -504,12 +504,12 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Run Confidence",
         section: "Trading Activity",
         explanation:
-            "How strong the model's evidence is after grouping nearby trades into runs.",
+            "How strong the model's evidence is after grouping nearby trades together.",
         methodology:
-            "Confidence is computed for runs that are classified as RETAIL or INSTITUTIONAL. " +
-            "Runs labeled MIXED/AMBIGUOUS/UNOBSERVABLE are reported as NA confidence by design.",
+            "Confidence is computed for grouped trades classified as RETAIL or INSTITUTIONAL. " +
+            "Groups labeled MIXED/AMBIGUOUS/UNOBSERVABLE are reported as NA confidence by design.",
         plainLanguage:
-            "This shows how clear the model's read is once trades are grouped into short sequences.",
+            "This shows how clear the model's read is once nearby trades are grouped together.",
     },
 
     trader_recent_trades: {

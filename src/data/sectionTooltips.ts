@@ -44,7 +44,7 @@ export const SECTION_TOOLTIPS: Record<string, SectionTooltipEntry> = {
         glossaryKey: "trader_composition",
         title: "Trader Type Composition",
         description:
-            "Shows the stock's trading persona using behavioral evidence from trade runs, visible depth use, and price reaction. " +
+            "Shows the stock's trading persona using behavioral evidence from trade patterns, visible depth use, and price reaction. " +
             "It includes the latest mix, confidence of the read, and how that mix has changed over time.",
     },
     "peer-traders": {

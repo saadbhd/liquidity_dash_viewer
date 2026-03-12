@@ -38,6 +38,15 @@ const BUCKET_META = [
   { key: 'unclear', label: 'Unclassified', color: '#f59e0b' },
 ] as const;
 
+type ControlledViewMode = 'trades' | 'volume';
+
+type TraderCompositionProps = {
+  selectedPeriod?: string;
+  onSelectedPeriodChange?: (period: string) => void;
+  mode?: ControlledViewMode;
+  onModeChange?: (mode: ControlledViewMode) => void;
+};
+
 type ViewMode = 'trades' | 'volume' | 'notional' | 'runs';
 
 const safeText = (v: unknown): string => {
@@ -155,7 +164,7 @@ const dominantFromBreakdown = (breakdown: ReturnType<typeof getComposition>) => 
   return { label: dominantLabelFromKey(top.key), value: top.value };
 };
 
-export function TraderComposition() {
+export function TraderComposition({ selectedPeriod: controlledSelectedPeriod, onSelectedPeriodChange, mode: controlledMode, onModeChange }: TraderCompositionProps) {
   const { labels, insights, series } = useReport();
   const chartTheme = useChartTheme();
   const traderComposition = series.trader_composition as any;
@@ -181,13 +190,18 @@ export function TraderComposition() {
     return preferred || periodKeys[0] || '';
   }, [traderComposition?.primary_period, periodKeys]);
 
-  const [selectedPeriod, setSelectedPeriod] = React.useState(primaryPeriod);
+  const [localSelectedPeriod, setLocalSelectedPeriod] = React.useState(primaryPeriod);
+  const selectedPeriod = controlledSelectedPeriod ?? localSelectedPeriod;
+  const setSelectedPeriod = React.useCallback((period: string) => {
+    onSelectedPeriodChange?.(period);
+    if (controlledSelectedPeriod === undefined) setLocalSelectedPeriod(period);
+  }, [controlledSelectedPeriod, onSelectedPeriodChange]);
 
   React.useEffect(() => {
     if (primaryPeriod && (!selectedPeriod || !periodKeys.includes(selectedPeriod))) {
       setSelectedPeriod(primaryPeriod);
     }
-  }, [primaryPeriod, periodKeys, selectedPeriod]);
+  }, [primaryPeriod, periodKeys, selectedPeriod, setSelectedPeriod]);
 
   const activeSnapshot = (selectedPeriod && periodSnapshots[selectedPeriod]) || traderComposition || {};
 
@@ -201,13 +215,18 @@ export function TraderComposition() {
     { id: 'volume' as ViewMode, label: 'Volume', available: hasVolume },
   ].filter((mode) => mode.available);
 
-  const [mode, setMode] = React.useState<ViewMode>(modes.some((entry) => entry.id === 'trades') ? 'trades' : (modes[0]?.id || 'trades'));
+  const [localMode, setLocalMode] = React.useState<ViewMode>(modes.some((entry) => entry.id === 'trades') ? 'trades' : (modes[0]?.id || 'trades'));
+  const mode = controlledMode ?? localMode;
+  const setMode = React.useCallback((nextMode: ViewMode) => {
+    onModeChange?.(nextMode as ControlledViewMode);
+    if (controlledMode === undefined) setLocalMode(nextMode);
+  }, [controlledMode, onModeChange]);
 
   React.useEffect(() => {
     if (!modes.some((entry) => entry.id === mode)) {
       setMode(modes[0]?.id || 'trades');
     }
-  }, [mode, modes]);
+  }, [mode, modes, setMode]);
 
   const composition = getComposition(activeSnapshot, mode);
   const dominant = dominantFromBreakdown(composition).label;
@@ -346,7 +365,7 @@ export function TraderComposition() {
             </div>
             <div className="text-2xl font-semibold text-foreground">{fmtCount(activeSnapshot?.n_trades)} trades</div>
             <p className="mt-2 text-sm text-muted-foreground">
-              {fmtCount(activeSnapshot?.n_runs)} runs across {fmtCount(activeSnapshot?.n_trade_days)} trading day{Number(activeSnapshot?.n_trade_days || 0) === 1 ? '' : 's'}
+              {fmtCount(activeSnapshot?.n_runs)} grouped trades across {fmtCount(activeSnapshot?.n_trade_days)} trading day{Number(activeSnapshot?.n_trade_days || 0) === 1 ? '' : 's'}
             </p>
           </div>
           <div className="rounded-xl border border-border/60 bg-card/40 p-4">
@@ -356,7 +375,7 @@ export function TraderComposition() {
             </div>
             <div className="text-2xl font-semibold text-foreground">{fmtMoney(activeSnapshot?.trade_size?.avg, currency)}</div>
             <p className="mt-2 text-sm text-muted-foreground">
-              Avg trade value • Avg run {fmtMoney(activeSnapshot?.run_size?.avg, currency)}
+              Avg trade value • Avg group {fmtMoney(activeSnapshot?.run_size?.avg, currency)}
             </p>
           </div>
         </div>

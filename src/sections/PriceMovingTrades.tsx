@@ -217,7 +217,7 @@ export function PriceMovingTrades() {
 
       <motion.div variants={itemVariants} className="glass-panel rounded-xl border-l-2 border-orange-500/50 p-5">
         <h4 className="mb-3 text-sm font-semibold text-foreground">Key Finding</h4>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="space-y-3">
           {[safeText(priceInsights.overall), safeText(priceInsights.by_trader_type), safeText(priceInsights.interpretation), safeText(priceInsights.asymmetry)]
             .filter(Boolean)
             .map((text, index) => (

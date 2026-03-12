@@ -51,7 +51,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   trader_classified_flow: {
     title: "Classified Flow",
-    body: "Shows how much trading the model was able to classify in the selected window. Trades are individual prints. Runs are short sequences of nearby trades grouped into one broader action. If there is any continuous-session activity, the headline counts focus on continuous trading (auctions are excluded) so the mix reflects normal intraday flow rather than auction prints.",
+    body: "Shows how much trading the model was able to classify in the selected window. Trades are individual prints. Grouped trades are short sequences of nearby trades that belong to the same broader action. If there is any continuous-session activity, the headline counts focus on continuous trading (auctions are excluded) so the mix reflects normal intraday flow rather than auction prints.",
     glossaryKey: "trader_classified_flow",
   },
   trader_trade_confidence: {

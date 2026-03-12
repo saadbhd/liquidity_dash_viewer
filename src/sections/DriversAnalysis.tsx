@@ -4,14 +4,7 @@ import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { SectionTooltip } from '@/components/SectionTooltip';
-import type {
-  DriverMonthlyHistory,
-  Q02Interval,
-  Q02LeadSignal,
-  Q02MonthlyHistoryItem,
-  Q02RegimeItem,
-  Q02RegimeSwitching,
-} from '@/types/report';
+import type { DriverMonthlyHistory, Q02Interval, Q02MonthlyHistoryItem } from '@/types/report';
 import {
   PieChart,
   Pie,
@@ -25,14 +18,6 @@ import {
   BarChart,
   Bar,
 } from 'recharts';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 import { TooltipProvider } from '@/components/ui/tooltip';
 
 const containerVariants = {
@@ -71,11 +56,6 @@ const formatPct = (value: number | null | undefined, digits = 1) => {
   return pct === null ? 'Not available' : `${pct.toFixed(digits)}%`;
 };
 
-const formatDays = (value: number | null | undefined) => {
-  if (value === null || value === undefined || !Number.isFinite(value)) return 'Not available';
-  return `${value.toFixed(1)} days`;
-};
-
 const driverLabel = (value?: string | null) => {
   if (!value) return 'Not available';
   if (value === 'company') return 'Company-specific';
@@ -83,18 +63,6 @@ const driverLabel = (value?: string | null) => {
   if (value === 'sector') return 'Sector';
   if (value === 'none') return 'No stable lead';
   return value;
-};
-
-const buildLeadSignalText = (leadSignal?: Q02LeadSignal | null, fallback?: string | null) => {
-  if (fallback) return fallback;
-  if (!leadSignal || !leadSignal.lead_factor || leadSignal.lead_factor === 'none') {
-    return 'No stable lead signal in the current state.';
-  }
-  const factor = driverLabel(leadSignal.lead_factor);
-  const horizon = leadSignal.lead_horizon_days && Number.isFinite(leadSignal.lead_horizon_days)
-    ? ` by about ${leadSignal.lead_horizon_days.toFixed(0)} day${leadSignal.lead_horizon_days === 1 ? '' : 's'}`
-    : '';
-  return `${factor} moves tend to lead${horizon}.`;
 };
 
 const buildShiftPointFromQ02 = (item: Q02MonthlyHistoryItem): ShiftPoint => ({
@@ -216,71 +184,35 @@ export function DriversAnalysis() {
       ? legacyMonthlyHistory.map(buildShiftPointFromLegacy)
       : rollingFallback;
 
-  const fallbackRegimeSwitching: Q02RegimeSwitching = {
-    valid: true,
-    regime_method: 'legacy_regime',
-    regimes:
-      drivers.regime?.regimes?.map((regime): Q02RegimeItem => ({
-        id: regime.id,
-        label: regime.label,
-        pct_time: regime.pct_time,
-      })) ?? [],
-    transitions: drivers.regime?.transitions ?? [],
-    current_regime: drivers.regime?.current_regime ?? 0,
-  };
-
-  const regimeSwitching =
-    q02?.regime_switching && Array.isArray(q02.regime_switching.regimes)
-      ? q02.regime_switching
-      : fallbackRegimeSwitching;
-
-  const regimes = Array.isArray(regimeSwitching.regimes) ? regimeSwitching.regimes : [];
-  const currentRegime = regimes.find((regime) => regime.id === regimeSwitching.current_regime) ?? regimes[0] ?? null;
-  const hasRegimeCards = regimes.length > 0 && currentRegime;
-  const currentProbability = driverModel?.current_regime_probability ?? currentRegime?.current_probability ?? null;
-
-  const regimeIndexById = new Map(regimes.map((regime, index) => [regime.id, index]));
-  const stayProbabilityForRegime = (regimeId: number) => {
-    const idx = regimeIndexById.get(regimeId);
-    return idx === undefined ? null : regimeSwitching.transitions?.[idx]?.[idx] ?? null;
-  };
-
-  const currentStayProb = currentRegime ? stayProbabilityForRegime(currentRegime.id) : null;
-  const badgeText = currentRegime?.label ?? driverModel?.current_regime_label ?? labels.regime_badge_text ?? 'Current state';
-  const driversSubtitle = currentSummary
-    ? `${currentSummary.regime_label || badgeText} now; ${currentSummary.dominant_driver_label || driverLabel(currentSummary.dominant_driver)} moves drive ${currentSummary.driver_share_display || 'the active state'}.`
-    : labels.drivers_subtitle;
-  const regimeTitle = labels.regime_title || 'Current Market State';
-  const regimeSubtitle = currentRegime
-    ? `${regimes.length} volatility state${regimes.length === 1 ? '' : 's'} visible. Current state: ${currentRegime.label}.`
-    : 'Volatility states show how noisy the stock has recently been and how quickly that pattern can change.';
-  const transitionNote = currentSummary?.persistence_note || (currentRegime
-    ? `${currentRegime.label} is the current ${currentSummary?.state_term || 'state'}. Probability of staying in the same state next period: ${formatPct(currentStayProb)}.`
-    : 'Rows sum to 100%. Each row shows the probability of moving from one state to another.');
-  const leadNote = buildLeadSignalText(driverModel?.current_lead_signal, currentSummary?.lead_signal_text) || labels.lead_lag_note;
+  const maxShare = Math.max(currentMarketShare, currentSectorShare, currentCompanyShare);
+  const dominantDriver = currentSummary?.dominant_driver_label
+    || (maxShare === currentCompanyShare ? 'Company-specific' : maxShare === currentSectorShare ? 'Sector' : 'Market');
+  const driverShareDisplay = currentSummary?.driver_share_display || `${maxShare.toFixed(1)}%`;
+  const driversSubtitle = labels.drivers_subtitle || `Recent price action is mainly ${String(dominantDriver || 'mixed').toLowerCase()}, with ${driverShareDisplay} of current moves tied to that source.`;
+  const badgeText = dominantDriver || 'Mixed';
+  const driverMixText = labels.drivers_pie_note || `Current mix is market ${formatPct(currentMarketShare)}, sector ${formatPct(currentSectorShare)}, and company-specific ${formatPct(currentCompanyShare)}.`;
 
   const generatedStrips = [
     {
       title: 'Current Driver',
       text: currentSummary
         ? `${currentSummary.dominant_driver_label || driverLabel(currentSummary.dominant_driver)} moves dominate now at ${currentSummary.driver_share_display || 'Not available'}; market is ${formatPct(currentMarketShare)}, sector ${formatPct(currentSectorShare)}, and company-specific ${formatPct(currentCompanyShare)}.`
-        : labels.drivers_pie_note,
+        : driverMixText,
     },
     {
-      title: 'Market Regime',
-      text: `${badgeText} is active now. ${leadNote} ${currentSummary?.confidence_note || ''}`.trim(),
-    },
-    {
-      title: 'Monthly Driver Shift',
-      text: monthlyShiftStripText(shiftData),
+      title: 'Driver Mix',
+      text: driverMixText,
     },
   ];
-  const strips = Array.isArray(labels.drivers_strip) && labels.drivers_strip.some((item) => item.title === 'Monthly Driver Shift')
-    ? labels.drivers_strip
+  const suppliedStrips = Array.isArray(labels.drivers_strip) ? labels.drivers_strip.filter(Boolean) : [];
+  const strips = suppliedStrips.length > 0 && !suppliedStrips.some((item) => item.title === 'Market Regime')
+    ? suppliedStrips
     : generatedStrips;
   const takeaways = Array.isArray(labels.drivers_wtd_list) ? labels.drivers_wtd_list.filter(Boolean) : [];
   const monthlyCards = shiftData.slice(-3);
-  const bottomLine = labels.drivers_bottom_line || insights?.drivers?.overall || '';
+  const rawBottomLine = labels.drivers_bottom_line || insights?.drivers?.overall || '';
+  const danglingEndings = / (has|have|had|is|are|was|were|been|will|would|could|should|may|might|can|and|but|or|so|in|of|to|for|with|by|as|than|from|because|which|that|while)\s*\.?$/i;
+  const bottomLine = rawBottomLine && !danglingEndings.test(rawBottomLine.trim()) ? rawBottomLine : '';
 
   return (
     <TooltipProvider>
@@ -364,7 +296,7 @@ export function DriversAnalysis() {
                 </ResponsiveContainer>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">{labels.drivers_pie_note}</p>
+            <p className="text-xs text-muted-foreground mt-1">{driverMixText}</p>
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
               <div className="rounded-lg border border-border bg-muted/30 p-3">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Market</p>
@@ -377,16 +309,6 @@ export function DriversAnalysis() {
               <div className="rounded-lg border border-border bg-muted/30 p-3">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Company-Specific</p>
                 <p className="text-base font-semibold text-foreground">{formatPct(currentCompanyShare)}</p>
-              </div>
-            </div>
-            <div className="mt-3 grid grid-cols-1 gap-3">
-              <div className="rounded-lg border border-border bg-muted/20 p-3">
-                <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">{labels.lead_lag_title || 'Lead signal'}</p>
-                <p className="text-xs text-foreground leading-relaxed">{leadNote}</p>
-              </div>
-              <div className="rounded-lg border border-border bg-muted/20 p-3">
-                <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">State persistence</p>
-                <p className="text-xs text-foreground leading-relaxed">{transitionNote}</p>
               </div>
             </div>
           </motion.div>
@@ -434,7 +356,7 @@ export function DriversAnalysis() {
                   <div key={`${item.period}-${item.fullPeriod}`} className="rounded-lg border border-border bg-muted/20 p-3">
                     <div className="flex items-center justify-between gap-3 mb-2">
                       <p className="text-[11px] uppercase tracking-wider text-muted-foreground">{item.period}</p>
-                      <span className="text-[11px] text-muted-foreground">{item.regimeLabel || item.dominantLabel}</span>
+                      <span className="text-[11px] text-muted-foreground">{item.dominantLabel}</span>
                     </div>
                     <p className="text-xs text-foreground leading-relaxed">{item.summary || 'Monthly driver summary not available.'}</p>
                   </div>
@@ -444,171 +366,19 @@ export function DriversAnalysis() {
           </motion.div>
         </div>
 
-        {hasRegimeCards ? (
-          <motion.div variants={itemVariants} className="glass-panel rounded-xl p-4 border-l-2 border-amber-500/50">
-            <div className="flex items-center justify-between mb-4 gap-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-                </div>
-                <div>
-                  <h3 className="text-base font-semibold text-foreground flex items-center gap-2">
-                    {regimeTitle}
-                    <MethodologyTooltip methodKey="regime_switching" />
-                  </h3>
-                  <p className="text-xs text-muted-foreground">{regimeSubtitle}</p>
-                </div>
-              </div>
-              <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-                <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
-                  Current: {currentRegime?.label ?? 'Not available'}
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 mb-5">
-              {regimes.map((regime) => {
-                const stayProbability = stayProbabilityForRegime(regime.id);
-                const isCurrent = regime.id === regimeSwitching.current_regime;
-                return (
-                  <div
-                    key={regime.id}
-                    className={`rounded-xl border p-4 ${isCurrent ? 'bg-emerald-500/10 border-emerald-500/30' : 'bg-muted/30 border-border'}`}
-                  >
-                    <div className="flex items-start justify-between gap-3 mb-3">
-                      <div>
-                        <p className={`text-sm font-semibold ${isCurrent ? 'text-emerald-600 dark:text-emerald-400' : 'text-foreground'}`}>
-                          {regime.label ?? `State ${regime.id + 1}`}
-                        </p>
-                        <p className="text-[11px] text-muted-foreground">{formatPct(regime.pct_time)} of sample</p>
-                      </div>
-                      {isCurrent ? (
-                        <span className="text-[11px] px-2 py-0.5 bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 rounded-full">
-                          NOW
-                        </span>
-                      ) : null}
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3 text-xs">
-                      <div>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Driver</p>
-                        <p className="text-foreground">{driverLabel(regime.dominant_driver)}</p>
-                      </div>
-                      <div>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Expected duration</p>
-                        <p className="text-foreground">{formatDays(regime.expected_duration_days)}</p>
-                      </div>
-                      <div>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Market</p>
-                        <p className="text-foreground">{formatPct(intervalPctValue(regime.shares?.market))}</p>
-                      </div>
-                      <div>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Sector</p>
-                        <p className="text-foreground">{formatPct(intervalPctValue(regime.shares?.sector))}</p>
-                      </div>
-                      <div>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Company-Specific</p>
-                        <p className="text-foreground">{formatPct(intervalPctValue(regime.shares?.company))}</p>
-                      </div>
-                      <div>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Effective days</p>
-                        <p className="text-foreground">{formatDays(regime.n_days_effective)}</p>
-                      </div>
-                      <div>
-                        <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Stay next day</p>
-                        <p className="text-foreground">{formatPct(stayProbability)}</p>
-                      </div>
-                    </div>
-
-                    <div className="mt-3 rounded-lg border border-border bg-muted/20 p-3">
-                      <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Lead signal</p>
-                      <p className="text-xs text-foreground leading-relaxed">{buildLeadSignalText(regime.lead_signal)}</p>
-                    </div>
-
-                    {isCurrent ? (
-                      <p className="mt-3 text-[11px] text-muted-foreground">
-                        Current probability {formatPct(regime.current_probability ?? currentProbability)}
-                      </p>
-                    ) : null}
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 items-start">
-              <div className="overflow-x-auto">
-                <h4 className="text-sm font-semibold text-foreground mb-3">{labels.transition_title || 'State Persistence'}</h4>
-                <Table>
-                  <TableHeader>
-                    <TableRow className="border-border hover:bg-transparent">
-                      {['From \\ To', ...regimes.map((regime) => regime.label ?? `State ${regime.id + 1}`)].map((column) => (
-                        <TableHead key={column} className="text-muted-foreground text-xs">
-                          {column}
-                        </TableHead>
-                      ))}
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {regimes.map((fromRegime, fromIndex) => (
-                      <TableRow key={fromRegime.id} className="border-border">
-                        <TableCell className="text-foreground/80 font-medium text-sm">
-                          {fromRegime.label ?? `State ${fromRegime.id + 1}`}
-                          {fromRegime.id === regimeSwitching.current_regime ? (
-                            <span className="ml-2 text-[11px] px-2 py-0.5 bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 rounded-full">
-                              NOW
-                            </span>
-                          ) : null}
-                        </TableCell>
-                        {regimes.map((toRegime, toIndex) => {
-                          const prob = regimeSwitching.transitions?.[fromIndex]?.[toIndex];
-                          return (
-                            <TableCell key={`${fromRegime.id}-${toRegime.id}`} className="text-muted-foreground text-sm">
-                              <span className={fromIndex === toIndex ? 'text-emerald-600 dark:text-emerald-400 font-medium' : ''}>
-                                {formatPct(prob)}
-                              </span>
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-                <p className="text-xs text-muted-foreground mt-3">{transitionNote}</p>
-              </div>
-
-              <div className="space-y-3">
-                <div className="rounded-lg border border-border bg-muted/20 p-3">
-                  <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Current state</p>
-                  <p className="text-xs text-foreground leading-relaxed">{insights?.regime?.current || transitionNote}</p>
-                </div>
-                <div className="rounded-lg border border-border bg-muted/20 p-3">
-                  <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Why it matters</p>
-                  <p className="text-xs text-foreground leading-relaxed">
-                    {insights?.regime?.overall || bottomLine || 'Volatility states separate calmer trading from stress periods so the current driver read has better context.'}
-                  </p>
-                </div>
-              </div>
+        {bottomLine ? (
+          <motion.div variants={itemVariants} className="glass-panel rounded-xl p-4">
+            <div className="flex items-start gap-2">
+              <TrendingUp className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />
+              <p className="text-sm text-foreground leading-relaxed">{bottomLine}</p>
             </div>
           </motion.div>
-        ) : (
-          <motion.div variants={itemVariants} className="glass-panel rounded-xl p-4 border-l-2 border-amber-500/50">
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-              </div>
-              <div>
-                <h3 className="text-base font-semibold text-foreground">{regimeTitle}</h3>
-                <p className="text-xs text-muted-foreground">{regimeSubtitle}</p>
-              </div>
-            </div>
-            <p className="text-xs text-slate-400">State analysis is not available for this report.</p>
-          </motion.div>
-        )}
+        ) : null}
 
         {takeaways.length ? (
           <motion.div variants={itemVariants} className="glass-panel rounded-xl p-4">
             <h3 className="text-sm font-semibold text-foreground mb-3">{labels.drivers_wtd_title}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {takeaways.map((item, index) => (
                 <div key={`${index}-${item}`} className="rounded-lg border border-border bg-muted/20 p-3">
                   <p className="text-xs text-foreground leading-relaxed">{item}</p>

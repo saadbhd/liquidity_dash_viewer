@@ -87,6 +87,13 @@ function toSafeText(value: string | null | undefined): string | null {
   return trimmed.length > 0 ? trimmed : null;
 }
 
+function toUsableNarrativeText(value: string | null | undefined): string | null {
+  const safe = toSafeText(value);
+  if (!safe) return null;
+  if (/\b(?:secto|marke|pee)%/i.test(safe)) return null;
+  return safe;
+}
+
 function relativeLabel(
   company: number | null | undefined,
   benchmark: number | null | undefined,
@@ -101,6 +108,116 @@ function relativeLabel(
 
   const better = direction === 'higher_is_better' ? company > benchmark : company < benchmark;
   return better ? 'Better' : 'Worse';
+}
+
+
+type ComparisonOutcome = 'positive' | 'negative' | 'mixed' | 'neutral' | 'unavailable';
+
+function joinLabels(labels: string[]): string {
+  if (labels.length === 0) return '';
+  if (labels.length === 1) return labels[0];
+  if (labels.length === 2) return `${labels[0]} and ${labels[1]}`;
+  return `${labels.slice(0, -1).join(', ')}, and ${labels[labels.length - 1]}`;
+}
+
+function buildComparisonCluster(
+  company: number | null | undefined,
+  benchmarks: Array<{ label: string; value: number | null | undefined }>,
+  direction: 'higher_is_better' | 'lower_is_better'
+): { outcome: ComparisonOutcome; phrase: string } {
+  const better: string[] = [];
+  const worse: string[] = [];
+  const inLine: string[] = [];
+
+  benchmarks.forEach(({ label, value }) => {
+    const verdict = relativeLabel(company, value, direction);
+    if (verdict === 'Better') better.push(label);
+    else if (verdict === 'Worse') worse.push(label);
+    else if (verdict === 'In line') inLine.push(label);
+  });
+
+  if (better.length > 0 && worse.length === 0) {
+    return { outcome: 'positive', phrase: `better than ${joinLabels(better)}` };
+  }
+  if (worse.length > 0 && better.length === 0) {
+    return { outcome: 'negative', phrase: `worse than ${joinLabels(worse)}` };
+  }
+  if (better.length > 0 && worse.length > 0) {
+    return { outcome: 'mixed', phrase: `better than ${joinLabels(better)}, but worse than ${joinLabels(worse)}` };
+  }
+  if (inLine.length > 0) {
+    return { outcome: 'neutral', phrase: `broadly in line with ${joinLabels(inLine)}` };
+  }
+  return { outcome: 'unavailable', phrase: 'comparison unavailable' };
+}
+
+function buildComparatorText(
+  company: number | null | undefined,
+  benchmark: number | null | undefined,
+  label: string,
+  direction: 'higher_is_better' | 'lower_is_better',
+  format: (value: number | null | undefined) => string
+): string | null {
+  const verdict = relativeLabel(company, benchmark, direction);
+  if (verdict === 'Not available') return null;
+  const prefix = verdict === 'In line' ? 'In line with' : verdict === 'Better' ? 'Better than' : 'Worse than';
+  return `${prefix} ${label}: ${format(company)} vs ${label.toLowerCase()} ${format(benchmark)}.`;
+}
+
+function buildMetricMeaning(metricKey: MarketTabKey, outcome: ComparisonOutcome): string {
+  const meaning: Record<MarketTabKey, Record<ComparisonOutcome, string>> = {
+    returns: {
+      positive: 'points to stronger price performance than comparable names',
+      negative: 'points to weaker price performance than comparable names',
+      mixed: 'shows price performance is mixed across comparison groups',
+      neutral: 'suggests price performance is broadly in line with comparison groups',
+      unavailable: 'leaves the relative performance read incomplete',
+    },
+    adv: {
+      positive: 'supports stronger day-to-day trading size than comparable names',
+      negative: 'points to smaller day-to-day trading size than comparable names',
+      mixed: 'shows trading size is uneven across comparison groups',
+      neutral: 'suggests day-to-day trading size is broadly typical for the group',
+      unavailable: 'leaves the trading-size comparison incomplete',
+    },
+    spread_pct: {
+      positive: 'keeps trading costs more competitive than comparable names',
+      negative: 'suggests trading costs are heavier than comparable names',
+      mixed: 'shows execution cost is mixed across comparison groups',
+      neutral: 'suggests trading costs are broadly in line with the group',
+      unavailable: 'leaves the cost comparison incomplete',
+    },
+    turnover_ratio: {
+      positive: 'shows a more active free-float turnover profile than comparable names',
+      negative: 'shows a lighter free-float turnover profile than comparable names',
+      mixed: 'shows turnover is mixed across comparison groups',
+      neutral: 'suggests turnover is broadly typical for the group',
+      unavailable: 'leaves the turnover comparison incomplete',
+    },
+    trades: {
+      positive: 'supports more dependable day-to-day activity than comparable names',
+      negative: 'suggests activity is thinner than comparable names',
+      mixed: 'shows trading frequency is mixed across comparison groups',
+      neutral: 'suggests trading frequency is broadly typical for the group',
+      unavailable: 'leaves the trading-frequency comparison incomplete',
+    },
+    volatility: {
+      positive: 'suggests day-to-day price swings are more contained than comparable names',
+      negative: 'suggests day-to-day price swings are heavier than comparable names',
+      mixed: 'shows price variability is mixed across comparison groups',
+      neutral: 'suggests price variability is broadly in line with the group',
+      unavailable: 'leaves the volatility comparison incomplete',
+    },
+    amihud: {
+      positive: 'suggests trades move price less than comparable names',
+      negative: 'suggests trades move price more than comparable names',
+      mixed: 'shows price impact is mixed across comparison groups',
+      neutral: 'suggests price impact is broadly in line with the group',
+      unavailable: 'leaves the price-impact comparison incomplete',
+    },
+  };
+
+  return meaning[metricKey][outcome];
 }
 
 function buildLegacyQ01(report: ReportData): Q01PeriodData {
@@ -413,7 +530,6 @@ export function LiquidityScore() {
 
   const useNarrativeInsights = activePeriod === q01View.primaryKey;
   const periodInsights = report.q01?.period_insights?.[activePeriod];
-  const periodMarketComparisonInsight = toSafeText(periodInsights?.market_comparison);
   const liquidityOverviewFallback = `Liquidity score ${formatNumber(period.liquidity.score_pca_percentile, 1)} (${period.liquidity.rank_pca}/${period.liquidity.total}), ADV ${formatMoney(
     period.liquidity.adv_notional_sgd,
     report.meta.market
@@ -424,50 +540,105 @@ export function LiquidityScore() {
     liquidityOverviewFallback;
 
   const staticMarketInsights = {
+    returns: report.insights?.market_comparison?.returns,
     adv: report.insights?.market_comparison?.adv,
     spread_pct: report.insights?.market_comparison?.spread,
-    turnover_ratio: undefined,
+    turnover_ratio: report.insights?.market_comparison?.turnover_ratio,
     trades: report.insights?.market_comparison?.trades,
     volatility: report.insights?.market_comparison?.volatility,
-    amihud: undefined,
+    amihud: report.insights?.market_comparison?.amihud,
   } as const;
+
+  const returnsCluster = buildComparisonCluster(
+    marketReturns.stock,
+    [
+      { label: 'market', value: marketReturns.market },
+      { label: 'sector', value: marketReturns.sector },
+      { label: 'peers', value: marketReturns.peers },
+    ],
+    'higher_is_better'
+  );
+  const returnsFallbackSummary =
+    marketReturns.stock !== null && marketReturns.stock !== undefined && Number.isFinite(marketReturns.stock)
+      ? `${PERIOD_LABELS[activePeriod] ?? activePeriod.toUpperCase()} return is ${formatSignedPct(marketReturns.stock)}, ${returnsCluster.phrase}, which ${buildMetricMeaning(
+        'returns',
+        returnsCluster.outcome
+      )}.`
+      : null;
+  const returnsFallbackVsMarket = buildComparatorText(
+    marketReturns.stock,
+    marketReturns.market,
+    'Market',
+    'higher_is_better',
+    (value) => formatSignedPct(value)
+  );
+  const returnsFallbackVsSector = buildComparatorText(
+    marketReturns.stock,
+    marketReturns.sector,
+    'Sector',
+    'higher_is_better',
+    (value) => formatSignedPct(value)
+  );
+  const returnsFallbackVsPeers = buildComparatorText(
+    marketReturns.stock,
+    marketReturns.peers,
+    'Peers',
+    'higher_is_better',
+    (value) => formatSignedPct(value)
+  );
 
   const metricInsight = useNarrativeInsights && selectedMetric
     ? staticMarketInsights[selectedMetric.key]
     : undefined;
+  const metricCluster = selectedMetric
+    ? buildComparisonCluster(
+      selectedMetric.company,
+      [
+        { label: 'market', value: selectedMetric.market?.median },
+        { label: 'sector', value: selectedMetric.sector?.median },
+        { label: 'peers', value: selectedMetric.peers?.median },
+      ],
+      selectedMetric.direction
+    )
+    : null;
 
   const metricFallbackSummary = selectedMetric
-    ? selectedMetric.key === 'spread_pct'
-      ? `${selectedMetric.label}: stock ${selectedMetric.format(selectedMetric.company)} (${formatNumber(period.liquidity.spread_ticks, 2)} ticks), peers ${selectedMetric.format(selectedMetric.peers?.median)} (${formatNumber(period.peer_summary.peer_median_spread_ticks, 2)} ticks), sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(selectedMetric.market?.median)}.`
-      : `${selectedMetric.label}: stock ${selectedMetric.format(selectedMetric.company)}, peers ${selectedMetric.format(
-        selectedMetric.peers?.median
-      )}, sector ${selectedMetric.format(selectedMetric.sector?.median)}, market ${selectedMetric.format(
-        selectedMetric.market?.median
+    ? selectedMetric.company !== null && selectedMetric.company !== undefined && Number.isFinite(selectedMetric.company)
+      ? `${selectedMetric.label} is ${selectedMetric.format(selectedMetric.company)}, ${metricCluster?.phrase ?? 'comparison unavailable'}, which ${buildMetricMeaning(
+        selectedMetric.key,
+        metricCluster?.outcome ?? 'unavailable'
       )}.`
+      : `${selectedMetric.label} is not available for this period.`
     : null;
 
   const metricFallbackVsMarket = selectedMetric
-    ? `${relativeLabel(
+    ? buildComparatorText(
       selectedMetric.company,
       selectedMetric.market?.median,
-      selectedMetric.market?.direction
-    )}: ${selectedMetric.format(selectedMetric.company)} vs market ${selectedMetric.format(selectedMetric.market?.median)}`
+      'Market',
+      selectedMetric.direction,
+      selectedMetric.format
+    )
     : null;
 
   const metricFallbackVsSector = selectedMetric
-    ? `${relativeLabel(
+    ? buildComparatorText(
       selectedMetric.company,
       selectedMetric.sector?.median,
-      selectedMetric.market?.direction
-    )}: ${selectedMetric.format(selectedMetric.company)} vs sector ${selectedMetric.format(selectedMetric.sector?.median)}`
+      'Sector',
+      selectedMetric.direction,
+      selectedMetric.format
+    )
     : null;
 
   const metricFallbackVsPeers = selectedMetric
-    ? `${relativeLabel(
+    ? buildComparatorText(
       selectedMetric.company,
       selectedMetric.peers?.median,
-      selectedMetric.market?.direction
-    )}: ${selectedMetric.format(selectedMetric.company)} vs peers ${selectedMetric.format(selectedMetric.peers?.median)}`
+      'Peers',
+      selectedMetric.direction,
+      selectedMetric.format
+    )
     : null;
 
   const returnsMarkers = [
@@ -709,7 +880,7 @@ export function LiquidityScore() {
           <div className="pt-1">
             <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-slate-500" />
-              Returns (Frequency-Matched)
+              Returns
             </h4>
             <div className="bg-slate-900/30 rounded-xl p-4 border border-slate-800">
               {returnsBarData.length > 0 ? (
@@ -792,6 +963,18 @@ export function LiquidityScore() {
               <div className="bg-slate-900/40 rounded-lg p-3">
                 <p className="text-xs text-slate-500">vs Peers</p>
                 <p className="text-sm font-medium text-slate-300">{formatSignedPct(marketReturns.vs_peers)}</p>
+              </div>
+            </div>
+
+            <div className="mt-4 pt-4 border-t border-slate-800">
+              <p className="text-xs uppercase tracking-wide text-slate-500 mb-2">Insight</p>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                {toUsableNarrativeText(staticMarketInsights.returns?.insight) ?? returnsFallbackSummary ?? 'Not available'}
+              </p>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 mt-3">
+                <div className="bg-slate-900/40 rounded-lg p-2 text-xs text-slate-400">{toUsableNarrativeText(staticMarketInsights.returns?.vs_market) ?? returnsFallbackVsMarket ?? 'Not available'}</div>
+                <div className="bg-slate-900/40 rounded-lg p-2 text-xs text-slate-400">{toUsableNarrativeText(staticMarketInsights.returns?.vs_sector) ?? returnsFallbackVsSector ?? 'Not available'}</div>
+                <div className="bg-slate-900/40 rounded-lg p-2 text-xs text-slate-400">{toUsableNarrativeText(staticMarketInsights.returns?.vs_peers) ?? returnsFallbackVsPeers ?? 'Not available'}</div>
               </div>
             </div>
           </div>
@@ -901,17 +1084,17 @@ export function LiquidityScore() {
                   <div className="mt-4 pt-4 border-t border-slate-800">
                     <p className="text-xs uppercase tracking-wide text-slate-500 mb-2">Insight</p>
                     <p className="text-sm text-slate-300 leading-relaxed">
-                      {toSafeText(metricInsight?.insight) ?? periodMarketComparisonInsight ?? metricFallbackSummary ?? 'Not available'}
+                      {toUsableNarrativeText(metricInsight?.insight) ?? metricFallbackSummary ?? 'Not available'}
                     </p>
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 mt-3">
                       <div className="bg-slate-900/40 rounded-lg p-2 text-xs text-slate-400">
-                        {toSafeText(metricInsight?.vs_market) ?? metricFallbackVsMarket ?? 'Not available'}
+                        {toUsableNarrativeText(metricInsight?.vs_market) ?? metricFallbackVsMarket ?? 'Not available'}
                       </div>
                       <div className="bg-slate-900/40 rounded-lg p-2 text-xs text-slate-400">
-                        {toSafeText(metricInsight?.vs_sector) ?? metricFallbackVsSector ?? 'Not available'}
+                        {toUsableNarrativeText(metricInsight?.vs_sector) ?? metricFallbackVsSector ?? 'Not available'}
                       </div>
                       <div className="bg-slate-900/40 rounded-lg p-2 text-xs text-slate-400">
-                        {toSafeText(metricInsight?.vs_peers) ?? metricFallbackVsPeers ?? 'Not available'}
+                        {toUsableNarrativeText(metricInsight?.vs_peers) ?? metricFallbackVsPeers ?? 'Not available'}
                       </div>
                     </div>
                   </div>

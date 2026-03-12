@@ -9,6 +9,7 @@ import {
     LayoutDashboard,
     TrendingDown,
     Activity,
+    TrendingUp,
     Clock,
     X,
     Target,
@@ -27,6 +28,7 @@ import { FloatingHelp } from '@/components/FloatingHelp';
 import { HeroSection } from '@/sections/HeroSection';
 import { LiquidityScore } from '@/sections/LiquidityScore';
 import { DriversAnalysis } from '@/sections/DriversAnalysis';
+import { MarketStateAnalysis } from '@/sections/MarketStateAnalysis';
 import { ExecutionPanel } from '@/sections/ExecutionPanel';
 import { TraderComposition } from '@/sections/TraderComposition';
 import { PeerTraderComposition } from '@/sections/PeerTraderComposition';
@@ -36,6 +38,7 @@ import { ShortSellingAndLending } from '@/sections/ShortSellingAndLending';
 import type { ReportData } from '@/types/report';
 
 type SubSection = { id: string; label: string; icon: React.ElementType };
+type TraderPersonaViewMode = 'trades' | 'volume';
 
 type TabDef = {
     id: string;
@@ -54,6 +57,7 @@ function buildTabs(report: ReportData): TabDef[] {
             subSections: [
                 { id: 'liquidity', label: 'Liquidity & Market', icon: Activity },
                 { id: 'drivers', label: 'What Drives Price', icon: PieChart },
+                { id: 'market-state', label: 'Market State', icon: TrendingUp },
                 { id: 'execution', label: 'Trading Costs', icon: Target },
                 ...(showShort ? [{ id: 'short', label: 'Short Selling', icon: TrendingDown }] : []),
             ],
@@ -80,6 +84,8 @@ export function ReportViewer() {
     const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState('overview');
     const [activeSubSection, setActiveSubSection] = useState<string | null>(null);
+    const [traderPersonaPeriod, setTraderPersonaPeriod] = useState<string>('');
+    const [traderPersonaMode, setTraderPersonaMode] = useState<TraderPersonaViewMode>('trades');
     const contentRef = useRef<HTMLDivElement>(null);
 
     const tabs = useMemo(() => reportData ? buildTabs(reportData) : [], [reportData]);
@@ -300,6 +306,9 @@ export function ReportViewer() {
                                     <section id="drivers">
                                         <DriversAnalysis />
                                     </section>
+                                    <section id="market-state">
+                                        <MarketStateAnalysis />
+                                    </section>
                                     <section id="execution">
                                         <ExecutionPanel />
                                     </section>
@@ -314,10 +323,20 @@ export function ReportViewer() {
                             {activeTab === 'trading-activity' && (
                                 <>
                                     <section id="traders">
-                                        <TraderComposition />
+                                        <TraderComposition
+                                            selectedPeriod={traderPersonaPeriod}
+                                            onSelectedPeriodChange={setTraderPersonaPeriod}
+                                            mode={traderPersonaMode}
+                                            onModeChange={setTraderPersonaMode}
+                                        />
                                     </section>
                                     <section id="peer-traders">
-                                        <PeerTraderComposition />
+                                        <PeerTraderComposition
+                                            selectedPeriod={traderPersonaPeriod}
+                                            onSelectedPeriodChange={setTraderPersonaPeriod}
+                                            mode={traderPersonaMode}
+                                            onModeChange={setTraderPersonaMode}
+                                        />
                                     </section>
                                     <section id="price-moving">
                                         <PriceMovingTrades />

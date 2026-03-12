@@ -980,10 +980,13 @@ export interface MarketComparisonInsight {
 }
 
 export interface MarketComparisonInsights {
+  returns?: MarketComparisonInsight;
   adv: MarketComparisonInsight;
   spread: MarketComparisonInsight;
+  turnover_ratio?: MarketComparisonInsight;
   volatility: MarketComparisonInsight;
   trades: MarketComparisonInsight;
+  amihud?: MarketComparisonInsight;
 }
 
 export interface PerformancePeriodInsight {
@@ -1158,6 +1161,7 @@ export interface Labels {
   regime_title: string;
   regime_subtitle: string;
   regime_badge_text: string;
+  market_state_strip?: DriverStrip[];
   regime_pie_title: string;
   transition_title: string;
   transition_cols: string[];

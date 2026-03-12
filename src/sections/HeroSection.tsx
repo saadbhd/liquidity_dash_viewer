@@ -30,6 +30,7 @@ export function HeroSection() {
   const executiveSubtitle =
     String(labels.exec_subtitle || '').trim() ||
     `Trading snapshot for ${meta.company} (${meta.ticker}) as of ${meta.asof_date}.`;
+  const periodNote = labels.metric_period_note || '';
   const liquidityScoreLabel = labels.metric_liquidity_score || 'Liquidity Score';
   const spreadLabel = labels.metric_spread || 'Trading Cost (Spread)';
   const advLabel = labels.metric_adv || 'Average Traded Volume';
@@ -112,6 +113,9 @@ export function HeroSection() {
             <div className="h-px flex-1 bg-gradient-to-r from-slate-700 to-transparent" />
           </div>
           <p className="text-muted-foreground max-w-2xl">{executiveSubtitle}</p>
+          {periodNote && (
+            <p className="text-xs text-slate-500 mt-1">{periodNote}</p>
+          )}
         </motion.div>
 
 
@@ -155,20 +159,18 @@ export function HeroSection() {
                   </div>
                 </div>
 
-                {/* Value — drivers card: big % then label on next line, separator, then Market/Sector (like other companies) */}
+                {/* Value — drivers card: big % with a small inline driver label, then bar, then supporting mix text */}
                 {isDriversMetric(metric) && driversLabelFromSuffix(metric.suffix ?? '') ? (
                   <>
-                    <div className="space-y-0.5">
+                    <div className="flex items-end gap-2.5">
                       <span className={`text-2xl lg:text-4xl font-bold tracking-tight ${metric.color_value}`}>
                         {metric.value}%
                       </span>
-                      <p className="text-sm text-slate-500 capitalize">
+                      <p className="text-sm text-slate-500 capitalize leading-none pb-1">
                         {driversLabelFromSuffix(metric.suffix ?? '')}
                       </p>
                     </div>
-                    <div className="mt-3 border-t border-slate-700/60 pt-3" />
-                    <p className="mt-2 text-xs text-slate-500 leading-relaxed">{metric.subtext}</p>
-                    <div className="mt-4">
+                    <div className="mt-5">
                       <div className="h-1 bg-muted rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
@@ -178,6 +180,7 @@ export function HeroSection() {
                         />
                       </div>
                     </div>
+                    <p className="mt-4 text-xs text-slate-500 leading-relaxed">{metric.subtext}</p>
                   </>
                 ) : (
                   <>

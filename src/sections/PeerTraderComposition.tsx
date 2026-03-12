@@ -41,6 +41,14 @@ const itemVariants = {
 
 const PERIOD_ORDER = ['1d', '1w', '2w', '30d', '3m', '6m', 'max'];
 type ViewMode = 'trades' | 'volume' | 'notional' | 'runs';
+type ControlledViewMode = 'trades' | 'volume';
+
+type PeerTraderCompositionProps = {
+  selectedPeriod?: string;
+  onSelectedPeriodChange?: (period: string) => void;
+  mode?: ControlledViewMode;
+  onModeChange?: (mode: ControlledViewMode) => void;
+};
 
 const toPct = (value: unknown): number => {
   const num = typeof value === 'number' ? value : Number(value ?? 0);
@@ -139,7 +147,25 @@ const confidenceText = (row: any) => {
   return values.join(' • ');
 };
 
-export function PeerTraderComposition() {
+const dominantLabelFromKey = (key: 'retail' | 'mixed' | 'instit' | 'unclear') => {
+  if (key === 'retail') return 'Retail-led';
+  if (key === 'instit') return 'Institution-led';
+  if (key === 'mixed') return 'Mixed';
+  return 'Unclassified';
+};
+
+const dominantFromBreakdown = (breakdown: ReturnType<typeof normalizeMix>) => {
+  const ranked = [
+    { key: 'retail' as const, value: breakdown.retail },
+    { key: 'mixed' as const, value: breakdown.mixed },
+    { key: 'instit' as const, value: breakdown.instit },
+    { key: 'unclear' as const, value: breakdown.unclear },
+  ].sort((a, b) => b.value - a.value);
+  const top = ranked[0];
+  return top ? dominantLabelFromKey(top.key) : 'Unavailable';
+};
+
+export function PeerTraderComposition({ selectedPeriod: controlledSelectedPeriod, onSelectedPeriodChange, mode: controlledMode, onModeChange }: PeerTraderCompositionProps) {
   const { labels, meta, series } = useReport();
   const chartTheme = useChartTheme();
   const traderComposition = series.trader_composition as any;
@@ -176,13 +202,18 @@ export function PeerTraderComposition() {
     return preferred || periodKeys[0] || '';
   }, [traderComposition?.primary_period, periodKeys]);
 
-  const [selectedPeriod, setSelectedPeriod] = React.useState(primaryPeriod);
+  const [localSelectedPeriod, setLocalSelectedPeriod] = React.useState(primaryPeriod);
+  const selectedPeriod = controlledSelectedPeriod ?? localSelectedPeriod;
+  const setSelectedPeriod = React.useCallback((period: string) => {
+    onSelectedPeriodChange?.(period);
+    if (controlledSelectedPeriod === undefined) setLocalSelectedPeriod(period);
+  }, [controlledSelectedPeriod, onSelectedPeriodChange]);
 
   React.useEffect(() => {
     if (primaryPeriod && (!selectedPeriod || !periodKeys.includes(selectedPeriod))) {
       setSelectedPeriod(primaryPeriod);
     }
-  }, [primaryPeriod, periodKeys, selectedPeriod]);
+  }, [primaryPeriod, periodKeys, selectedPeriod, setSelectedPeriod]);
 
   const peerRows = React.useMemo(() => {
     if (selectedPeriod && Array.isArray(periodPeerMap[selectedPeriod])) return periodPeerMap[selectedPeriod];
@@ -196,13 +227,18 @@ export function PeerTraderComposition() {
     { id: 'volume' as ViewMode, label: 'Volume', available: hasVolume },
   ].filter((entry) => entry.available);
 
-  const [mode, setMode] = React.useState<ViewMode>('trades');
+  const [localMode, setLocalMode] = React.useState<ViewMode>('trades');
+  const mode = controlledMode ?? localMode;
+  const setMode = React.useCallback((nextMode: ViewMode) => {
+    onModeChange?.(nextMode as ControlledViewMode);
+    if (controlledMode === undefined) setLocalMode(nextMode);
+  }, [controlledMode, onModeChange]);
 
   React.useEffect(() => {
     if (!modes.some((entry) => entry.id === mode)) {
       setMode(modes[0]?.id || 'trades');
     }
-  }, [mode, modes]);
+  }, [mode, modes, setMode]);
 
   const chartData = peerRows.map((row: any) => {
     const breakdown = normalizeMix(rowBreakdown(row, mode));
@@ -333,7 +369,7 @@ export function PeerTraderComposition() {
                         ) : null}
                       </div>
                     </TableCell>
-                    <TableCell className="text-muted-foreground">{normalizeDominantLabel(row.dominant_label) || '—'}</TableCell>
+                    <TableCell className="text-muted-foreground">{normalizeDominantLabel(dominantFromBreakdown(breakdown)) || '—'}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.retail)}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.mixed)}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.instit)}</TableCell>

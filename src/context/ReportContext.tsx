@@ -65,6 +65,7 @@ function ensureReportShape(input: ReportData): ReportData {
     if (!Array.isArray(labels.header_meta_line2_tokens)) labels.header_meta_line2_tokens = [];
     if (!Array.isArray(labels.drivers_strip)) labels.drivers_strip = [];
     if (!Array.isArray(labels.drivers_wtd_list)) labels.drivers_wtd_list = [];
+    if (!Array.isArray(labels.market_state_strip)) labels.market_state_strip = [];
     if (!Array.isArray(labels.transition_cols)) labels.transition_cols = [];
     if (!Array.isArray(labels.peers_hhi_cols)) labels.peers_hhi_cols = [];
     if (!Array.isArray(labels.ofi_tiles)) labels.ofi_tiles = [];

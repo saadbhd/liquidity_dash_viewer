@@ -41,15 +41,6 @@ const formatDays = (value: number | null | undefined) => {
   return `${value.toFixed(1)} days`;
 };
 
-const intervalPctValue = (interval?: { median?: number | null } | null) => normalizePct(interval?.median);
-
-const driverLabel = (value?: string | null) => {
-  if (!value) return 'Not available';
-  if (value === 'company') return 'Company-specific';
-  if (value === 'market') return 'Market';
-  if (value === 'sector') return 'Sector';
-  return value;
-};
 
 export function MarketStateAnalysis() {
   const report = useReport();

@@ -170,10 +170,10 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         explanation:
             "Shows whether recent price moves have been driven more by the broader market, the sector, or by company-specific factors, and which volatility state is active now.",
         methodology:
-            "The current Q02 model uses a simpler Markov regression on daily stock returns with market return, sector return, the stock's own one-day lag, and one-day lags for market and sector. " +
-            "It then compares a 2-state and 3-state version and keeps the one with the better fit after penalizing tiny unstable states. " +
-            "The states are labelled only by volatility bucket, such as low, medium, or high volatility. " +
-            "Within the active state, the dashboard shows the split between market-, sector-, and company-specific moves, plus whether market, sector, or company-specific moves tend to lead by about 1 day.",
+            "The Q02 model uses OLS regression on daily stock returns with market return, sector return, the stock's own one-day lag, and one-day lags for market and sector. " +
+            "It compares the absolute contribution of each factor to split moves into market-driven, sector-driven, and company-specific. " +
+            "Volatility regimes are detected by comparing rolling 10-day price volatility against its median (above median = High Volatility, below = Low Volatility). " +
+            "The dashboard shows the split between market-, sector-, and company-specific moves over the last 5 trading days, plus whether market, sector, or company-specific moves tend to lead by about 1 day.",
         plainLanguage:
             "This shows what has really been moving the stock lately, what volatility state it is in, and how stable that read looks.",
     },
@@ -182,28 +182,29 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Market Link",
         section: "Drivers & Sensitivity",
         explanation:
-            "Shows how strongly the stock tends to move with the wider market in the current regime.",
+            "Shows how strongly the stock tends to move with the wider market, based on OLS regression.",
         methodology:
-            "This number comes from the regime-specific return model, not from a single constant beta over the whole period. " +
-            "The model estimates a market sensitivity for each hidden state, then the dashboard highlights the sensitivity of the current most-likely state together with a low / median / high range from the PyMC posterior. " +
-            "A higher positive value means the stock usually reacts more when the market moves in that state. " +
-            "A value near zero means broad market moves matter less in that state.",
+            "This number comes from an OLS regression on daily returns over the recent estimation window. " +
+            "The model regresses stock returns on market return, sector return, and one-day lags for each. " +
+            "The market beta is the coefficient on the market return term. " +
+            "A higher positive value means the stock usually reacts more when the market moves. " +
+            "A value near zero means broad market moves matter less.",
         plainLanguage:
-            "This shows how tightly the stock is linked to the wider market right now, with a range to show confidence.",
+            "This shows how tightly the stock is linked to the wider market right now.",
     },
 
     beta_sector: {
         term: "Sector Link",
         section: "Drivers & Sensitivity",
         explanation:
-            "Shows how strongly the stock tends to move with its sector or industry in the current regime.",
+            "Shows how strongly the stock tends to move with its sector or industry, based on OLS regression.",
         methodology:
-            "This is estimated alongside the market link inside the regime-aware return model. " +
+            "This is estimated alongside the market link in the OLS return model. " +
             "The sector benchmark is built from sector or industry median returns when enough names exist. " +
-            "The dashboard reports the current regime's sector sensitivity together with a low / median / high range. " +
-            "Higher values mean sector moves matter more for the stock in that state.",
+            "The sector beta is the coefficient on the sector return term. " +
+            "Higher values mean sector moves matter more for the stock.",
         plainLanguage:
-            "This shows how much sector trends matter to the stock right now, with a range to show confidence.",
+            "This shows how much sector trends matter to the stock right now.",
     },
 
     share_of_moves: {
@@ -212,9 +213,9 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         explanation:
             "Shows how much of the recent move came from the market, the sector, or the company's own story.",
         methodology:
-            "Inside the active state, the model compares the absolute size of the fitted market effect, the fitted sector effect, and the remaining company-specific move. " +
+            "The model runs OLS on the last 5 trading days and compares the absolute size of the fitted market effect, the fitted sector effect, and the remaining company-specific move. " +
             "Those contributions are normalized so the three shares sum to 100%. " +
-            "In the dashboard, the main read is the active-state split, because that is more relevant than a full-window average when the stock has recently changed state.",
+            "Market share = |β_mkt × r_mkt| + |γ_mkt × r_mkt_lag|; sector and company follow the same logic.",
         plainLanguage:
             "This is the split of recent moves into market, sector, and company-specific parts.",
     },
@@ -223,23 +224,27 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Base Model Fit",
         section: "Drivers & Sensitivity",
         explanation:
-            "A background fit check from the simpler market-plus-sector model.",
+            "Shows how much of the stock's daily price moves can be explained by market and sector returns.",
         methodology:
-            "This comes from an older static market-plus-sector regression that is still kept as background context in some reports. " +
-            "It is not the main Q02 read anymore. The primary interpretation now comes from the active Markov state, the current market/sector/company split, and the state's persistence.",
+            "R² from the OLS regression of stock returns on market return, sector return, and one-day lags. " +
+            "A low value means the stock moves mostly on its own story. " +
+            "A high value means market and sector conditions explain most of its moves. " +
+            "Useful as background context alongside the driver split.",
         plainLanguage:
-            "Treat this as background context, not as the main answer to what is moving the stock.",
+            "Treat this as background context — the main read comes from the market/sector/company split.",
     },
 
     regime_switching: {
-        term: "Price Driver Regimes",
+        term: "Volatility Regimes",
         section: "Drivers & Sensitivity",
         explanation:
-            "Groups past days into a small number of volatility states, such as low-, medium-, or high-volatility phases.",
+            "Groups past days into volatility states (low or high) based on rolling 10-day price volatility.",
         methodology:
-            "The model fits hidden Markov states directly on stock returns and allows each state to have its own volatility level. " +
-            "The dashboard chooses 2 or 3 states based on fit quality and then orders them from lower to higher volatility. " +
-            "Expected duration comes from the probability of staying in the same state. If duration is only about 1 day, treat it as a short-lived pattern rather than a durable regime.",
+            "Rolling 10-day standard deviation of daily returns is computed. " +
+            "The median of this rolling volatility is used as the threshold: days above median = High Volatility, below = Low Volatility. " +
+            "This is a simple threshold-based classification, not a Markov or hidden-state model. " +
+            "Expected duration is the average run length of consecutive days in each state. " +
+            "If duration is only about 1 day, treat it as a short-lived pattern rather than a durable regime.",
         plainLanguage:
             "This shows whether the stock is in a calmer or more volatile trading state, and how easily that state could change.",
     },

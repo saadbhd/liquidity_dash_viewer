@@ -21,7 +21,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   regime_switching: {
     title: "Volatility Regimes",
-    body: "Groups past trading days into volatility regimes (e.g. low or high volatility) based on rolling 10-day price volatility. It shows the current volatility environment and how much of the time has been spent in each regime.",
+    body: "Groups past trading days into volatility regimes (e.g. low or high volatility) based on rolling 10-day price volatility. It helps show the current volatility environment and how much of the time has been spent in each regime.",
     glossaryKey: "regime_switching",
   },
   execution: {
@@ -51,7 +51,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   trader_classified_flow: {
     title: "Classified Flow",
-    body: "Shows how much trading the model was able to classify in the selected window. Trades are individual prints. Grouped trades are short sequences of nearby trades that belong to the same broader action. If there is any continuous-session activity, the headline counts focus on continuous trading (auctions are excluded) so the mix reflects normal intraday flow rather than auction prints.",
+    body: "Shows how much trading the model was able to classify in the selected window. Trades are individual prints. Runs are short sequences of nearby trades grouped into one broader action. If there is any continuous-session activity, the headline counts focus on continuous trading (auctions are excluded) so the mix reflects normal intraday flow rather than auction prints.",
     glossaryKey: "trader_classified_flow",
   },
   trader_trade_confidence: {
@@ -136,12 +136,12 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   beta_market: {
     title: "Market Link",
-    body: "Shows how strongly the stock tends to move with the broader market in the current regime. If you only see one number, the run produced a point estimate rather than a wider uncertainty range.",
+    body: "Shows how strongly the stock tends to move with the broader market, based on an OLS regression over the recent estimation window. A value of 1.0 means the stock moves one-for-one with the market.",
     glossaryKey: "beta_market",
   },
   beta_sector: {
     title: "Sector Link",
-    body: "Shows how strongly the stock tends to move with its sector or industry in the current regime. If the range collapses to one value, treat it as a point estimate from limited or highly stable inputs.",
+    body: "Shows how strongly the stock tends to move with its sector or industry, based on an OLS regression over the recent estimation window. A value near zero means the sector has little additional explanatory power beyond the market.",
     glossaryKey: "beta_sector",
   },
   share_of_moves: {
@@ -151,7 +151,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   r_squared: {
     title: "Base Model Fit",
-    body: "A background check from the simpler market-plus-sector model. Useful for context, but the main Q02 reading now comes from regime probabilities and driver ranges.",
+    body: "Shows how much of the stock's daily price moves can be explained by market and sector returns. A low value means the stock moves mostly on its own story. A high value means market and sector conditions explain most of its moves.",
     glossaryKey: "r_squared",
   },
   short_ratio: {

@@ -183,13 +183,13 @@ export function DriversAnalysis() {
   const driverShareDisplay = currentSummary?.driver_share_display || `${maxShare.toFixed(1)}%`;
   const driversSubtitle = labels.drivers_subtitle || `Recent price action is mainly ${String(dominantDriver || 'mixed').toLowerCase()}, with ${driverShareDisplay} of current moves tied to that source.`;
   const badgeText = dominantDriver || 'Mixed';
-  const driverMixText = labels.drivers_pie_note || `Current mix is market ${formatPct(currentMarketShare)}, sector ${formatPct(currentSectorShare)}, and company-specific ${formatPct(currentCompanyShare)}.`;
+  const driverMixText = labels.drivers_pie_note || `Based on the last 5 trading days, current mix is market ${formatPct(currentMarketShare)}, sector ${formatPct(currentSectorShare)}, and company-specific ${formatPct(currentCompanyShare)}.`;
 
   const generatedStrips = [
     {
-      title: 'Current Driver',
+      title: 'Current Driver (Last 5 Days)',
       text: currentSummary
-        ? `${currentSummary.dominant_driver_label || driverLabel(currentSummary.dominant_driver)} moves dominate now at ${currentSummary.driver_share_display || 'Not available'}; market is ${formatPct(currentMarketShare)}, sector ${formatPct(currentSectorShare)}, and company-specific ${formatPct(currentCompanyShare)}.`
+        ? `Over the last 5 trading days, ${currentSummary.dominant_driver_label || driverLabel(currentSummary.dominant_driver)} moves dominate at ${currentSummary.driver_share_display || 'Not available'}; market is ${formatPct(currentMarketShare)}, sector ${formatPct(currentSectorShare)}, and company-specific ${formatPct(currentCompanyShare)}.`
         : driverMixText,
     },
     {

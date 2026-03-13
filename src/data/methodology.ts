@@ -16,12 +16,12 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   drivers: {
     title: "Drivers of Moves",
-    body: "Shows whether the stock has recently been moving mainly with the broader market, its sector, or more on its own company-specific story. It also shows the current state, its volatility bucket, and whether market, sector, or company-specific moves tend to lead by about 1 day.",
+    body: "Shows whether the stock has recently been moving mainly with the broader market, its sector, or more on its own company-specific story. The current driver mix is based on the last 5 trading days. It also shows the current volatility regime and monthly driver trends.",
     glossaryKey: "drivers",
   },
   regime_switching: {
-    title: "Price Driver Regimes",
-    body: "Groups past trading days into a small number of volatility states, such as low-, medium-, or high-volatility phases. It helps show what is leading the stock now, how stable that state has been, and how likely it is to change. If expected duration is only around 1 day, read it as a short-lived pattern rather than a durable regime. Volatility is shown as a simple state bucket such as low, medium, or high volatility.",
+    title: "Volatility Regimes",
+    body: "Groups past trading days into volatility regimes (e.g. low or high volatility) based on rolling 10-day price volatility. It shows the current volatility environment and how much of the time has been spent in each regime.",
     glossaryKey: "regime_switching",
   },
   execution: {
@@ -146,7 +146,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   share_of_moves: {
     title: "Share of Moves",
-    body: "Splits recent price moves into three buckets: market-driven, sector-driven, and company-driven. A high company share means the stock has recently been moving more on its own story than on wider market moves.",
+    body: "Splits price moves over the last 5 trading days into three buckets: market-driven, sector-driven, and company-driven (using OLS regression). A high company share means the stock has recently been moving more on its own story than on wider market moves.",
     glossaryKey: "share_of_moves",
   },
   r_squared: {

@@ -141,7 +141,7 @@ export function MarketStateAnalysis() {
                             <p className={`text-base font-semibold ${isCurrent ? 'text-emerald-600 dark:text-emerald-400' : 'text-foreground'}`}>
                               {regime.label ?? `State ${regime.id + 1}`}
                             </p>
-                            <p className="text-xs text-muted-foreground">{formatPct(regime.pct_time)} of sample</p>
+                            <p className="text-xs text-muted-foreground">{formatPct(regime.pct_time)} of the time</p>
                           </div>
                           {isCurrent ? (
                             <span className="text-[11px] px-2.5 py-1 bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 rounded-full">
@@ -152,24 +152,8 @@ export function MarketStateAnalysis() {
 
                         <div className="grid grid-cols-2 gap-3">
                           <div className="rounded-lg border border-border/50 bg-background/30 p-3">
-                            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-1">Driver</p>
-                            <p className="text-sm font-medium text-foreground">{driverLabel(regime.dominant_driver)}</p>
-                          </div>
-                          <div className="rounded-lg border border-border/50 bg-background/30 p-3">
-                            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-1">Duration</p>
+                            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-1">Avg Duration</p>
                             <p className="text-sm font-medium text-foreground">{formatDays(regime.expected_duration_days)}</p>
-                          </div>
-                          <div className="rounded-lg border border-border/50 bg-background/30 p-3">
-                            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-1">Market</p>
-                            <p className="text-sm font-medium text-foreground">{formatPct(intervalPctValue(regime.shares?.market))}</p>
-                          </div>
-                          <div className="rounded-lg border border-border/50 bg-background/30 p-3">
-                            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-1">Sector</p>
-                            <p className="text-sm font-medium text-foreground">{formatPct(intervalPctValue(regime.shares?.sector))}</p>
-                          </div>
-                          <div className="rounded-lg border border-border/50 bg-background/30 p-3">
-                            <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-1">Company</p>
-                            <p className="text-sm font-medium text-foreground">{formatPct(intervalPctValue(regime.shares?.company))}</p>
                           </div>
                           <div className="rounded-lg border border-border/50 bg-background/30 p-3">
                             <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-1">Effective days</p>

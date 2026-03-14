@@ -51,11 +51,6 @@ const normalizePct = (value: number | null | undefined) => {
 
 const intervalPctValue = (interval?: Q02Interval | null) => normalizePct(interval?.median);
 
-const formatPct = (value: number | null | undefined, digits = 1) => {
-  const pct = normalizePct(value);
-  return pct === null ? 'Not available' : `${pct.toFixed(digits)}%`;
-};
-
 /** Formats a value already in 0-100 percent scale (from intervalPctValue). Avoids double-normalization. */
 const formatPctDisplay = (value: number | null | undefined, digits = 1) => {
   if (value === null || value === undefined || !Number.isFinite(value)) return 'Not available';

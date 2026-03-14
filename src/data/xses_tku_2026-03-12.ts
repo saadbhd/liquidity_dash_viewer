@@ -1667,19 +1667,19 @@ export const REPORT_DATA: ReportData = {
     },
     "period_insights": {
       "1d": {
-        "liquidity": "Liquidity looks strong on the day, but this is only a snapshot, so day-to-day access can still vary.",
-        "market_comparison": "Return 6.4% vs peers 0.0%."
+        "liquidity": "Liquidity looks strong on the day, but this is only a snapshot and buy-side depth is lighter than sell-side depth, which can make access feel less even intraday.",
+        "market_comparison": "The stock outperformed peers on the day, which can help keep attention on the name but may also make the tape more reactive."
       },
       "1w": {
-        "liquidity": "Liquidity is still solid over the week, but average volume has dropped 54.0% from the 1M average, so access is weaker than the monthly picture implies.",
-        "market_comparison": "The stock outperformed peers over the week, which matters because stronger returns can help keep trading interest above peer levels."
+        "liquidity": "Liquidity is still solid over the week, but trading activity has dropped sharply from the monthly average, so access is weaker than the broader trend implies.",
+        "market_comparison": "Return 13.6% vs peers -3.7%."
       },
       "2w": {
-        "liquidity": "Liquidity appears solid over two weeks, though recent conditions are less consistent than the broader monthly view.",
-        "market_comparison": "The stock held up better than peers over two weeks, which matters because relative resilience can help sustain tradability."
+        "liquidity": "Liquidity looks healthy over two weeks, although the recent slowdown means conditions are not fully stable.",
+        "market_comparison": "Returns held up better than peers over two weeks, which matters because relative resilience can help sustain tradability."
       },
       "30d": {
-        "liquidity": "Liquidity is strong over the month, with a score of 73.7 compared with a peer median of 47.9, so the name looks accessible relative to similar stocks.",
+        "liquidity": "Liquidity is strong over the month, with a clear lead over peers, so the name screens as accessible for its size.",
         "market_comparison": "Return 13.6% vs peers -6.3%."
       }
     }
@@ -2268,14 +2268,14 @@ export const REPORT_DATA: ReportData = {
     "action_plan_subtitle": "Observational summary only; no execution instructions.",
     "action_plan_icon": "",
     "liq_title": "Liquidity Health & Peer Comparison",
-    "liq_subtitle": "Liquidity still screens well for the stock’s size, but recent volume has dropped and near-term access looks less robust than the monthly picture.",
+    "liq_subtitle": "Monthly liquidity still screens well relative to peers, although recent volume has dropped.",
     "market_comparison_title": "How You Compare to the Market",
     "market_comparison_subtitle": "Context relative to market, sector, and peer medians.",
     "perf_title": "Stock Performance",
-    "perf_subtitle": "Recent performance is strong, with the stock up 13.6% over 1M while peers fell 6.3% and the market fell 2.1%.",
-    "perf_insight": "The return backdrop is firm, with 1M performance at +13.6% compared with peers at -6.3% and the market at -2.1%. Liquidity still looks strong for size, with a 1M score of 73.7 compared with a peer median of 47.9, but 1W average volume is 54.0% below the 1M average. Sector explains 44.6% of the tape, which means the move is being shaped meaningfully by the broader group.",
+    "perf_subtitle": "Recent returns are well ahead of peers and the market, giving the stock a firmer price backdrop.",
+    "perf_insight": "The stock rose 13.6% over 1M, compared with peers at -6.3% and the market at -2.1%. Liquidity still looks strong for size on a 1M score of 73.7 compared with a peer median of 47.9, although 1W average volume is 54.0% below the 1M average.",
     "drivers_title": "What Moves Your Stock Price?",
-    "drivers_subtitle": "Sector is the main driver at 44.6%, so the stock is moving meaningfully with the broader group rather than on company news alone.",
+    "drivers_subtitle": "Sector moves are the main external influence on the tape, accounting for 44.6% of current trading.",
     "drivers_strip": [
       {
         "title": "Current Driver (Last 5 Days)",
@@ -2297,14 +2297,14 @@ export const REPORT_DATA: ReportData = {
     "rolling_title": "Monthly Driver Shift",
     "rolling_latest_label": "Latest: {period}",
     "rolling_note": "Each bar shows the monthly split between market-, sector-, and company-driven moves.",
-    "drivers_bottom_line": "That matters because sector-led trading can dominate the tape while recent average volume is 54.0% below the 1M average. The monthly liquidity picture is still strong for size, but day-to-day access can feel thinner.",
+    "drivers_bottom_line": "This matters because broader market moves still explain a meaningful share of trading, while recent volume is running below the monthly average.",
     "drivers_wtd_title": "Key Reads",
     "drivers_wtd_list": [
       "Main driver now: sector moves are leading, accounting for 44.6% of recent price action.",
-      "Monthly change: the pattern has shifted from company-driven in February to more market-led in March, although history is limited."
+      "Monthly change: the pattern has shifted, from mostly sector in February to mostly market-driven in March."
     ],
     "regime_title": "Market State",
-    "regime_subtitle": "Recent price action is being driven meaningfully by the sector, while trading activity has pulled back from the monthly average.",
+    "regime_subtitle": "Recent conditions look mixed, with strong returns but lighter day-to-day trading activity.",
     "regime_badge_text": "High Volatility",
     "regime_pie_title": "State Mix",
     "transition_title": "State Transitions",
@@ -2323,7 +2323,7 @@ export const REPORT_DATA: ReportData = {
     "peer_capacity_note": "Immediate buy-side depth is lighter than the monthly baseline, so day-to-day access may feel weaker than the 1M score",
     "impact_summary_title": "Estimated Price Impact (Sell Orders)",
     "impact_summary_subtitle": "Approximate price impact (%) for sell orders.",
-    "exec_check_insight": "Immediate buy-side support looks lighter, with top-10 bid depth at 0.71x ask depth even though the spread is 1 tick. That means the stronger monthly liquidity picture is not fully reflected in the displayed book.",
+    "exec_check_insight": "The book is bid-light, with top-10 bid depth at 0.71x ask depth and a 1 tick",
     "trader_composition_title": "Who's Trading Your Stock?",
     "trader_composition_subtitle": "Shows whether trading is mostly retail-like, institution-like, mixed, or unclassified.",
     "trader_retail_threshold": "Retail-like flow",
@@ -2334,7 +2334,7 @@ export const REPORT_DATA: ReportData = {
     "price_moving_title": "Which Trades Move the Price?",
     "price_moving_subtitle": "Price-moving trades are 16.2% of total trades.",
     "intraday_title": "When Does Trading Happen?",
-    "intraday_subtitle": "History is limited for trade-size context, and the near-term read is better anchored on volume, depth, and spread.",
+    "intraday_subtitle": "Recent trading activity is lighter than the monthly baseline.",
     "session_dist_title": "Trading by Session",
     "session_period_label": "Period:",
     "session_dist_note": "Shows the share of volume in the opening, continuous, and closing sessions.",
@@ -2350,7 +2350,7 @@ export const REPORT_DATA: ReportData = {
       "Interpretation"
     ],
     "peers_hhi_note": "Peer comparison uses auction share and concentration score.",
-    "intraday_insight": "Session split is open 1.3%, continuous 96.5%, and close 1.7%. Current trading concentration score is 0.213.",
+    "intraday_insight": "1W average volume is down 54.0% from the 1M average. Trade-size history is limited to Jan 22, 2026 to Mar 12, 2026, so recent conditions carry more weight in the read.",
     "short_title": "Short Selling & Lending",
     "short_subtitle": "Snapshot unavailable.",
     "footer": "Liquidity Analysis Report • Generated by Deltablock",
@@ -2372,7 +2372,7 @@ export const REPORT_DATA: ReportData = {
       "Peers: {peers}"
     ],
     "exec_title": "Executive Summary",
-    "exec_subtitle": "Trading access is strong for the company’s size, but recent activity is thinner and immediate buy-side depth is lighter.",
+    "exec_subtitle": "Liquidity is strong for the stock’s size, but recent trading activity is lighter.",
     "exec_takeaways_title": "Key Takeaways:",
     "metric_liquidity_score": "Liquidity Score",
     "metric_spread": "Trading Cost (Spread)",
@@ -2457,7 +2457,7 @@ export const REPORT_DATA: ReportData = {
         }
       }
     ],
-    "liq_insight": "Liquidity remains strong for the stock’s size, with a 1M score of 73.7 compared with a peer median of 47.9. Recent activity has dropped, with 1W average volume 54.0% below the 1M average, so near-term access looks weaker than the monthly picture. The displayed book also looks lighter on the buy side, with top-10 bid depth at 0.71x ask depth and a 1 tick spread, which can make day-to-day execution feel thinner.",
+    "liq_insight": "Liquidity still looks strong for the stock’s size, with a 1M score of 73.7 compared with a peer median of 47.9. The near-term picture is weaker, as 1W average volume is down 54.0% from the 1M average, which suggests thinner day-to-day access than the monthly standing implies. Trade-size history is limited, so the recent slowdown matters more in the current read.",
     "perf_badge": "Context",
     "exec_check_tiles": [
       {
@@ -2579,8 +2579,8 @@ export const REPORT_DATA: ReportData = {
     ],
     "exec_takeaways": [
       "Structural liquidity remains strong for the stock’s size, with a 1M score of 73.7 compared with a peer median of 47.9. That keeps the name looking accessible relative to peers.",
-      "Recent trading activity has dropped sharply, with 1W average volume 54.0% below the 1M",
-      "The return backdrop is strong, but the tape needs a balanced read. The stock is up 13.6% over 1M compared with peers at -6.3% and the market at -2.1%, while sector explains 44.6% of trading and top-10 bid depth is only 0.71x ask depth."
+      "Recent trading activity has dropped, with 1W average volume 54.0% below the 1M",
+      "Price performance is strong, with a 1M return of 13.6% compared with peers at -6.3% and the market at -2.1%. Sector moves still account for 44.6% of the tape, while top-10 bid depth is only 0.71x ask depth, so day-to-day trading can still be shaped by broader flows and thinner buy-side support."
     ],
     "ofi_tiles_interpretations": [
       {
@@ -2653,48 +2653,48 @@ export const REPORT_DATA: ReportData = {
       }
     },
     "performance": {
-      "overall": "Returns are strong relative to peers and the market, but the liquidity read is mixed. The stock gained 13.6% over 1M while peers fell 6.3% and the market fell 2.1%, which suggests clear outperformance. That move is supported by a 1M liquidity score of 73.7 compared with a 47.9 peer median, but recent participation has pulled back with 1W average volume down 54.0% from the 1M average, so near-term trading conditions are not fully confirming the strength of the move.",
-      "conclusion": "The move looks stronger than the market and peers, with mixed liquidity confirmation, and it appears meaningfully sector-linked."
+      "overall": "The stock outperformed over 1M, up 13.6% versus peers down 6.3% and the market down 2.1%. Liquidity still looks strong for its size, with a 1M score of 73.7 versus a peer median of 47.9, but recent trading has softened, with 1W average volume 54.0% below 1M. Buy-side depth is also lighter, with top-10 bid depth at 0.71x ask depth, while the spread is 1 tick. Sector moves remain a meaningful driver at 44.6%.",
+      "conclusion": "The move looks stronger than peers, with mixed liquidity confirmation, and it appears meaningfully sector-linked rather than purely company-specific."
     },
     "drivers": {
-      "overall": "Sector moves are the main force in the stock right now, with 44.6% of recent price action tied to the sector. That matters because the name is reacting to broader group moves rather than trading mainly on company-specific news, even as its 1M return of +13.6% is stronger than peers at -6.3% and the market at -2.1%.",
-      "beta": "The current read is more tied to the broader tape than to stock-specific news, and the signal is mixed rather than fully settled. Recent average volume is down 54.0% from the 1M average, so the sector-led pattern is playing out in thinner trading conditions.",
-      "rolling_change": "The monthly pattern has not been stable. January was mostly market-driven on only five trading days, February turned mostly sector, and March has moved back to a more market-driven profile, so the recent shift looks real but still based on limited history."
+      "overall": "Sector moves are driving the stock now, with 44.6% of recent price action linked to the sector. That means the tape is being shaped more by broader group moves than by company-specific news, which matters because the stock's 1M return of +13.6% is well ahead of peers at -6.3% and the market at -2.1%.",
+      "beta": "The current read is mixed rather than fully settled, because sector influence is meaningful but recent trading activity has dropped. 1W average volume is down 54.0% from the 1M average, which matters because price moves can feel less well supported day to day even though monthly liquidity remains strong for size.",
+      "rolling_change": "The monthly pattern has not been stable. January was mostly market-driven on limited history, February turned mostly sector, and March has moved back to mostly market-driven, so the current sector-led read looks more like a recent shift than a deeply established regime."
     },
     "regime": {
-      "overall": "High volatility is the key feature of the tape, and that matters because trading conditions can feel less steady even when the stock remains accessible for its size. The state has typically lasted about 3.0 days, while recent average volume is down 54.0% from the 1M average, which leaves less room for volatility to be absorbed smoothly.",
-      "current": "High volatility is in place now, with sector moves still explaining a meaningful share of trading at 44.6%. That points to a market backdrop driven more by broader conditions than by a single company-specific move.",
-      "transitions": "The state looks moderately persistent rather than short-lived, with a typical run length of about 3.0 days, although evidence is mixed. History is limited, so the backdrop looks changeable even if it is not purely one-day noise.",
-      "trading_implications": "This state looks more persistent, with a typical run length of about 3.0 days."
+      "overall": "Short expected duration points to a short-lived state rather than a durable market backdrop.",
+      "current": "The stock is currently in a high-volatility state, with sector moves still explaining 44.6% of trading, so the tape is being driven by broader market conditions as much as stock-specific activity.",
+      "transitions": "This state looks more persistent than fleeting, with a typical run length of about 3.0 days, although the read is mixed rather than fully settled.",
+      "trading_implications": "Trading conditions are likely to be less consistent in the near term because volatility is elevated while recent average volume has pulled back sharply compared with the monthly average."
     },
     "execution": {
-      "overall": "Displayed liquidity looks mixed and currently bid-light because the spread is 1 tick but top-10 bid depth is only 0.71x ask depth. That matters because access is still visible on screen, yet buy-side support is thinner than the headline liquidity profile implies.",
-      "concern": "Trade-size percentiles use available history from Jan 22, 2026 to Mar 12, 2026 (34 trading days • 9,273 trades), not a full year.",
-      "peer_context": "The broader liquidity profile still screens well, with a 1M score of 73.7 compared with a peer median of 47.9, but the current book is less supportive than that ranking suggests. The recent picture is also weaker, with 1W average volume down 54.0% from 1M, and trade-size history is limited to 34 trading days, so historical size context is less settled."
+      "overall": "The current book reads as bid-light. The spread is 1 tick, but top-10 bid depth is only 0.71x ask depth, which means displayed liquidity is present yet not balanced evenly on the buy side.",
+      "concern": "The clearest stress point is thinner buy-side support. That imbalance matters more with 1W average volume down 54.0% from 1M, because lighter recent activity can make the weaker bid side more noticeable day to day.",
+      "peer_context": "The broader picture still points to solid liquidity for size, with a 1M score of 73.7 compared with a peer median of 47.9, but the current book gives mixed visible support to that view. History is limited for trade-size context, so the displayed bid-light balance matters more than percentile framing in judging immediate access."
     },
     "trader_composition": {
       "overall": "By trade count and value, flow looks mainly institution-like.",
-      "retail_heavy": "Retail-like activity is present in count but much lighter in value. Retail-like trades make up 28.4% of count but only 7.1% of value, which matters because the tape is not being driven mainly by lower-value tickets.",
-      "institutional_gap": "The read is not fully clean because unclear flow accounts for 18.4% of trade count. That matters because the institution-like skew is visible, but not decisive across the full tape.",
-      "peer_comparison": "The mix looks institution-like in this stock, while peer comparison is available in the report tables. That matters because the relative standing may be read with some caution rather than as a clear outlier call."
+      "retail_heavy": "Retail-like activity is present in trade count but much lighter in trade value. Retail-like trades make up 28.4% of count but only 7.1% of value, while institution-like trades lead on both measures, so the tape does not read as retail-heavy.",
+      "institutional_gap": "The institution-like lead is clearer in value than in count. Institution-like trades are 37.3% of count against 28.4% for retail-like, but the wider gap is in value at 49.8% against 7.1%, which strengthens the institutional read even as 18.4% of count remains unclear.",
+      "peer_comparison": "The mix looks more institution-like than retail-like on the observed count and value split, while peer comparison is available in the report tables. That matters because the current flow profile appears supported by larger trade value rather than broad small-ticket participation."
     },
     "price_moving": {
-      "overall": "Evidence on price-moving flow is mixed. The institution-like skew in count and value suggests larger tickets matter, but the signal is not fully clean. Ambiguous or unclear flow is 18.4% of trade count, so the read is not fully clean. Asymmetry in positive and negative price-moving trades is available in the report tables. For now, the cleaner conclusion is that the signal is mixed rather than one-sided.",
+      "overall": "Price-moving activity is present but not dominant, with 16.2% of total trades moving price. That suggests the tape is active without showing an unusually large share of immediately disruptive trades. The signal is mixed because 18.4% of trade count is ambiguous or unclear. That matters because the read on who is driving price is directionally useful, but not fully clean. The direction of price-moving imbalance is available in the report tables.",
       "interpretation": "",
       "asymmetry": ""
     },
     "short_selling": {
-      "overall": "Short activity looks low and does not appear material to the current trading picture, with a 1M average short ratio of 0.75%. That matters because the recent backdrop is better explained by strong 1M share price performance, up 13.6% while peers fell 6.3%, than by short pressure.",
+      "overall": "Short activity looks low, with a 1M average short ratio of 0.75%, so it does not appear to be a material driver of current trading conditions. Evidence is mixed, but the stronger share-price performance compared with peers and the market points to a firmer backdrop than a short-led one.",
       "level": "Low short interest",
       "correlation": "Moderate negative - shorts somewhat predict drops",
-      "trend": "Short positioning has fallen sharply, with shorts covering by 92% month on month. That points away from rising short pressure as a driver of current trading conditions, although the read is mixed because recent history is limited.",
+      "trend": "Short positioning has dropped sharply, with shorts covering by 92% month on month, which further reduces the chance that short activity is shaping the near-term picture. History is limited, so the signal may be read as directional rather than definitive.",
       "peaks": "0 notable peak days identified."
     },
     "intraday": {
       "overall": "Session split is open 1.3%, continuous 96.5%, and close 1.7%. Current trading concentration score is 0.213.",
-      "hhi_interpretation": "The concentration score of 0.213 suggests activity is not heavily concentrated into a narrow part of the session. That matters because liquidity looks reasonably distributed once continuous trading begins.",
-      "best_times": "The continuous session is the clearest source of liquidity. With only 1.3% at the open and 1.7% at the close, the best access appears during the main body of the day.",
-      "peer_ranking": "Peer concentration score comparison is available in this report."
+      "hhi_interpretation": "Intraday concentration looks relatively low, with a trading concentration score of 0.213. That matters because activity appears reasonably distributed through the session rather than confined to a narrow window.",
+      "best_times": "Peak buckets show where activity clusters through the day.",
+      "peer_ranking": "Peer intraday concentration comparison is available in the report tables. On the current reading, the stock shows a broad continuous-session profile rather than a day shaped mainly by the open or close."
     },
     "ofi": {
       "overall": "Order flow imbalance data not available.",

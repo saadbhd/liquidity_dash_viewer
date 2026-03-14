@@ -56,6 +56,12 @@ const formatPct = (value: number | null | undefined, digits = 1) => {
   return pct === null ? 'Not available' : `${pct.toFixed(digits)}%`;
 };
 
+/** Formats a value already in 0-100 percent scale (from intervalPctValue). Avoids double-normalization. */
+const formatPctDisplay = (value: number | null | undefined, digits = 1) => {
+  if (value === null || value === undefined || !Number.isFinite(value)) return 'Not available';
+  return `${value.toFixed(digits)}%`;
+};
+
 const driverLabel = (value?: string | null) => {
   if (!value) return 'Not available';
   if (value === 'company') return 'Company-specific';
@@ -183,13 +189,13 @@ export function DriversAnalysis() {
   const driverShareDisplay = currentSummary?.driver_share_display || `${maxShare.toFixed(1)}%`;
   const driversSubtitle = labels.drivers_subtitle || `Recent price action is mainly ${String(dominantDriver || 'mixed').toLowerCase()}, with ${driverShareDisplay} of current moves tied to that source.`;
   const badgeText = dominantDriver || 'Mixed';
-  const driverMixText = labels.drivers_pie_note || `Based on the last 5 trading days, current mix is market ${formatPct(currentMarketShare)}, sector ${formatPct(currentSectorShare)}, and company-specific ${formatPct(currentCompanyShare)}.`;
+  const driverMixText = labels.drivers_pie_note || `Based on the last 5 trading days, current mix is market ${formatPctDisplay(currentMarketShare)}, sector ${formatPctDisplay(currentSectorShare)}, and company-specific ${formatPctDisplay(currentCompanyShare)}.`;
 
   const generatedStrips = [
     {
       title: 'Current Driver (Last 5 Days)',
       text: currentSummary
-        ? `Over the last 5 trading days, ${currentSummary.dominant_driver_label || driverLabel(currentSummary.dominant_driver)} moves dominate at ${currentSummary.driver_share_display || 'Not available'}; market is ${formatPct(currentMarketShare)}, sector ${formatPct(currentSectorShare)}, and company-specific ${formatPct(currentCompanyShare)}.`
+        ? `Over the last 5 trading days, ${currentSummary.dominant_driver_label || driverLabel(currentSummary.dominant_driver)} moves dominate at ${currentSummary.driver_share_display || 'Not available'}; market is ${formatPctDisplay(currentMarketShare)}, sector ${formatPctDisplay(currentSectorShare)}, and company-specific ${formatPctDisplay(currentCompanyShare)}.`
         : driverMixText,
     },
     {
@@ -293,15 +299,15 @@ export function DriversAnalysis() {
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
               <div className="rounded-lg border border-border bg-muted/30 p-3">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Market</p>
-                <p className="text-base font-semibold text-foreground">{formatPct(currentMarketShare)}</p>
+                <p className="text-base font-semibold text-foreground">{formatPctDisplay(currentMarketShare)}</p>
               </div>
               <div className="rounded-lg border border-border bg-muted/30 p-3">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Sector</p>
-                <p className="text-base font-semibold text-foreground">{formatPct(currentSectorShare)}</p>
+                <p className="text-base font-semibold text-foreground">{formatPctDisplay(currentSectorShare)}</p>
               </div>
               <div className="rounded-lg border border-border bg-muted/30 p-3">
                 <p className="text-[11px] uppercase tracking-wider text-muted-foreground mb-1">Company-Specific</p>
-                <p className="text-base font-semibold text-foreground">{formatPct(currentCompanyShare)}</p>
+                <p className="text-base font-semibold text-foreground">{formatPctDisplay(currentCompanyShare)}</p>
               </div>
             </div>
           </motion.div>

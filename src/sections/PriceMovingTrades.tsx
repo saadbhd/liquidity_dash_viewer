@@ -4,6 +4,7 @@ import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { SectionTooltip } from '@/components/SectionTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
+import { formatCompactMoney, getCurrencyCodeLabel, resolveReportCurrency } from '@/lib/currency';
 import {
   BarChart,
   Bar,
@@ -52,13 +53,15 @@ const fmtPct = (value: unknown, digits = 1): string => {
 };
 
 export function PriceMovingTrades() {
-  const { labels, insights, series, meta } = useReport();
+  const report = useReport();
+  const { labels, insights, series } = report;
   const chartTheme = useChartTheme();
   const priceMovingTrades = series.price_moving_trades as any;
   const eligibleTrades = Number(priceMovingTrades?.eligible_trades ?? priceMovingTrades?.total_trades ?? 0);
   const rawTrades = Number(priceMovingTrades?.raw_trades ?? 0);
   const priceInsights = insights.price_moving || {};
-  const currencySymbol = meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'S$' : '';
+  const reportCurrency = resolveReportCurrency(report);
+  const currencyLabel = getCurrencyCodeLabel(reportCurrency);
 
   const hasBreakdown =
     typeof priceMovingTrades?.positive_movers?.retail_count === 'number' &&
@@ -127,7 +130,7 @@ export function PriceMovingTrades() {
           </div>
           <div className="text-3xl font-bold text-emerald-500">{Number(priceMovingTrades?.positive_movers?.count ?? 0).toLocaleString()}</div>
           <p className="mt-2 text-xs text-muted-foreground">
-            Avg trade value: {currencySymbol}{(Number(priceMovingTrades?.positive_movers?.avg_size ?? 0) / 1000).toFixed(1)}K
+            Avg trade value: {formatCompactMoney(Number(priceMovingTrades?.positive_movers?.avg_size ?? 0), reportCurrency)}
           </p>
         </div>
 
@@ -138,7 +141,7 @@ export function PriceMovingTrades() {
           </div>
           <div className="text-3xl font-bold text-red-500">{Number(priceMovingTrades?.negative_movers?.count ?? 0).toLocaleString()}</div>
           <p className="mt-2 text-xs text-muted-foreground">
-            Avg trade value: {currencySymbol}{(Number(priceMovingTrades?.negative_movers?.avg_size ?? 0) / 1000).toFixed(1)}K
+            Avg trade value: {formatCompactMoney(Number(priceMovingTrades?.negative_movers?.avg_size ?? 0), reportCurrency)}
           </p>
         </div>
 
@@ -171,11 +174,11 @@ export function PriceMovingTrades() {
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(value) => `${value}K`}
-                label={{ value: `Avg Trade Value (${currencySymbol}K)`, angle: -90, position: 'insideLeft', fill: chartTheme.labelFill, fontSize: 11 }}
+                label={{ value: currencyLabel ? `Avg Trade Value (${currencyLabel} K)` : 'Avg Trade Value (K)', angle: -90, position: 'insideLeft', fill: chartTheme.labelFill, fontSize: 11 }}
               />
               <Tooltip
                 contentStyle={chartTheme.tooltipContentStyle}
-                formatter={(value: number) => [`${currencySymbol}${value.toFixed(1)}K`, 'Avg size']}
+                formatter={(value: number) => [formatCompactMoney(value * 1000, reportCurrency), 'Avg size']}
               />
               <Bar dataKey="avgSize" radius={[4, 4, 0, 0]} maxBarSize={60} fill={chartTheme.barPrimary} />
             </BarChart>

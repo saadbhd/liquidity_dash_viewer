@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Droplets, CheckCircle, Info } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { formatCompactMoney, resolveReportCurrency } from '@/lib/currency';
 import {
   BarChart,
   Bar,
@@ -13,8 +14,10 @@ import {
 } from 'recharts';
 
 export function LiquidityHealth() {
-  const { labels, content, theme, series } = useReport();
+  const report = useReport();
+  const { labels, content, theme, series } = report;
   const { peers_liquidity } = series;
+  const reportCurrency = resolveReportCurrency(report);
 
   // Prepare chart data
   const chartData = peers_liquidity.labels.map((label, index) => ({
@@ -25,10 +28,7 @@ export function LiquidityHealth() {
   }));
 
   const formatMoney = (value: number) => {
-    if (value >= 1e9) return `S$${(value / 1e9).toFixed(1)}B`;
-    if (value >= 1e6) return `S$${(value / 1e6).toFixed(1)}M`;
-    if (value >= 1e3) return `S$${(value / 1e3).toFixed(0)}K`;
-    return `S$${value.toFixed(0)}`;
+    return formatCompactMoney(value, reportCurrency);
   };
 
   const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: any[] }) => {

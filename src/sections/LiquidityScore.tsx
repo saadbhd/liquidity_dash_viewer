@@ -5,6 +5,7 @@ import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { SectionTooltip } from '@/components/SectionTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
+import { formatCompactMoney, resolveReportCurrency } from '@/lib/currency';
 import type { Q01PeriodData, Q01PeriodKey, ReportData } from '@/types/report';
 import {
   BarChart,
@@ -67,13 +68,8 @@ function formatCount(value: number | null | undefined): string {
   return value.toFixed(0);
 }
 
-function formatMoney(value: number | null | undefined, market: string): string {
-  if (value === null || value === undefined || !Number.isFinite(value)) return 'N/A';
-  const prefix = market === 'XHKG' ? 'HK$' : market === 'XSES' ? 'S$' : '';
-  if (value >= 1e9) return `${prefix}${(value / 1e9).toFixed(1)}B`;
-  if (value >= 1e6) return `${prefix}${(value / 1e6).toFixed(1)}M`;
-  if (value >= 1e3) return `${prefix}${(value / 1e3).toFixed(1)}K`;
-  return `${prefix}${value.toFixed(0)}`;
+function formatMoney(value: number | null | undefined, currency: string): string {
+  return formatCompactMoney(value, currency);
 }
 
 function normalizeReturn(value: number | null | undefined): number | null {
@@ -345,6 +341,7 @@ function getQ01Periods(report: ReportData): {
 export function LiquidityScore() {
   const report = useReport();
   const chartTheme = useChartTheme();
+  const reportCurrency = resolveReportCurrency(report);
 
   const q01View = useMemo(() => getQ01Periods(report), [report]);
   const [activePeriod, setActivePeriod] = useState<Q01PeriodKey>(q01View.primaryKey);
@@ -421,7 +418,7 @@ export function LiquidityScore() {
       market: marketComparison.market.adv,
       sector: marketComparison.sector.adv,
       peers: marketComparison.peers.adv,
-      format: (v: number | null | undefined) => formatMoney(v, report.meta.market),
+      format: (v: number | null | undefined) => formatMoney(v, reportCurrency),
     },
     {
       key: 'spread_pct',
@@ -532,7 +529,7 @@ export function LiquidityScore() {
   const periodInsights = report.q01?.period_insights?.[activePeriod];
   const liquidityOverviewFallback = `Liquidity score ${formatNumber(period.liquidity.score_pca_percentile, 1)} (${period.liquidity.rank_pca}/${period.liquidity.total}), ADV ${formatMoney(
     period.liquidity.adv_notional_sgd,
-    report.meta.market
+    reportCurrency
   )}, spread ${formatPct(period.liquidity.spread_pct)}, trades ${formatCount(period.liquidity.trades)} for ${period.window_days}D.`;
   const liquidityOverviewInsight =
     toSafeText(periodInsights?.liquidity) ??
@@ -722,7 +719,7 @@ export function LiquidityScore() {
         </div>
         <div className="glass-panel rounded-xl p-4">
           <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">ADV <MethodologyTooltip methodKey="adv" /></p>
-          <p className="text-2xl font-bold text-foreground">{formatMoney(period.liquidity.adv_notional_sgd, report.meta.market)}</p>
+          <p className="text-2xl font-bold text-foreground">{formatMoney(period.liquidity.adv_notional_sgd, reportCurrency)}</p>
           <p className="text-xs text-slate-500 mt-1">Window median</p>
         </div>
         <div className="glass-panel rounded-xl p-4">
@@ -790,7 +787,7 @@ export function LiquidityScore() {
                       <div className="chart-tooltip">
                         <p className="font-semibold text-foreground">{p.ticker}</p>
                         <p className="text-sm text-sky-400">Score: {p.score.toFixed(1)}</p>
-                        <p className="text-sm text-slate-400">ADV: {formatMoney(p.adv, report.meta.market)}</p>
+                        <p className="text-sm text-slate-400">ADV: {formatMoney(p.adv, reportCurrency)}</p>
                       </div>
                     );
                   }}

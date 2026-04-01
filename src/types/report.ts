@@ -4,6 +4,7 @@
 
 export interface Meta {
   market: string;
+  currency?: string;
   ticker: string;
   company: string;
   asof_date: string;
@@ -55,6 +56,7 @@ export interface ExecMetric {
   title: string;
   tooltip?: Tooltip;
   value: string;
+  value_prefix?: string;
   suffix?: string;
   bar_pct: number;
   color_value: string;

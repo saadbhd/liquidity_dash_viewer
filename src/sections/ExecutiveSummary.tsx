@@ -8,6 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { formatCompactMoney, resolveReportCurrency, splitCompactMoney } from '@/lib/currency';
 
 const iconMap: Record<string, React.ReactNode> = {
   'Liquidity Score': <TrendingUp className="w-4 h-4" />,
@@ -17,8 +18,10 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export function ExecutiveSummary() {
-  const { labels, content } = useReport();
+  const report = useReport();
+  const { labels, content, q01 } = report;
   const [animatedBars, setAnimatedBars] = useState(false);
+  const reportCurrency = resolveReportCurrency(report);
 
   const displayMetricTitle = (rawTitle: string) => {
     const title = String(rawTitle || '').trim();
@@ -42,6 +45,39 @@ export function ExecutiveSummary() {
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  const primaryKey = q01?.primary_liquidity_period;
+  const primaryPeriod =
+    (primaryKey && q01?.periods?.[primaryKey]) ||
+    Object.values(q01?.periods ?? {}).find(Boolean);
+  const primaryLiquidity = primaryPeriod?.liquidity;
+  const primaryPeerSummary = primaryPeriod?.peer_summary;
+
+  const getMetricDisplay = (metric: typeof content.exec_metrics[number]) => {
+    if (displayMetricTitle(metric.title) !== 'Average Traded Volume') {
+      return {
+        valuePrefix: metric.value_prefix ?? '',
+        value: metric.value,
+        suffix: metric.suffix ?? '',
+        subtext: metric.subtext,
+      };
+    }
+
+    const parts =
+      primaryLiquidity?.adv_notional_sgd != null
+        ? splitCompactMoney(primaryLiquidity.adv_notional_sgd, reportCurrency)
+        : { prefix: metric.value_prefix ?? '', compact: metric.value };
+
+    return {
+      valuePrefix: parts.prefix,
+      value: parts.compact,
+      suffix: '',
+      subtext:
+        primaryPeerSummary?.peer_median_adv != null
+          ? `Peer median ${formatCompactMoney(primaryPeerSummary.peer_median_adv, reportCurrency)}`
+          : metric.subtext,
+    };
   };
 
   return (
@@ -70,12 +106,14 @@ export function ExecutiveSummary() {
           animate="visible"
           className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5"
         >
-          {content.exec_metrics.map((metric) => (
-            <motion.div
-              key={metric.title}
-              variants={cardVariants}
-              className="metric-card bg-gradient-to-br from-slate-800/80 to-slate-900/80 p-5 rounded-xl shadow-lg border border-slate-700/50"
-            >
+          {content.exec_metrics.map((metric) => {
+            const metricDisplay = getMetricDisplay(metric);
+            return (
+              <motion.div
+                key={metric.title}
+                variants={cardVariants}
+                className="metric-card bg-gradient-to-br from-slate-800/80 to-slate-900/80 p-5 rounded-xl shadow-lg border border-slate-700/50"
+              >
               {/* Card Header */}
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2 text-xs uppercase text-slate-400 tracking-wider font-medium">
@@ -100,9 +138,14 @@ export function ExecutiveSummary() {
               </div>
 
               {/* Value */}
-              <div className={`number-lg ${metric.color_value} mb-2`}>
-                {metric.value}
-                <span className="text-lg font-medium ml-1">{metric.suffix}</span>
+              <div className={`number-lg ${metric.color_value} mb-2 flex items-end gap-1`}>
+                {metricDisplay.valuePrefix ? (
+                  <span className="text-lg font-semibold leading-none mb-1">{metricDisplay.valuePrefix}</span>
+                ) : null}
+                <span>{metricDisplay.value}</span>
+                {metricDisplay.suffix ? (
+                  <span className="text-lg font-medium leading-none mb-1">{metricDisplay.suffix}</span>
+                ) : null}
               </div>
 
               {/* Progress Bar */}
@@ -118,15 +161,16 @@ export function ExecutiveSummary() {
               </div>
 
               {/* Subtext */}
-              <p className="text-xs text-slate-500 leading-relaxed mb-2">{metric.subtext}</p>
+              <p className="text-xs text-slate-500 leading-relaxed mb-2">{metricDisplay.subtext}</p>
 
               {/* Interpretation Badge */}
               <div className={metric.interpretation.cls}>
                 <span>{metric.interpretation.icon}</span>
                 <span>{metric.interpretation.text}</span>
               </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         {/* Takeaways */}

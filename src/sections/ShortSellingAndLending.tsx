@@ -4,6 +4,7 @@ import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { SectionTooltip } from '@/components/SectionTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
+import { getCurrencyCodeLabel, resolveReportCurrency } from '@/lib/currency';
 import {
   LineChart,
   Line,
@@ -46,8 +47,10 @@ const safeText = (v: unknown): string => {
 };
 
 export function ShortSellingAndLending() {
-  const { labels, theme, insights, series, meta } = useReport();
+  const report = useReport();
+  const { labels, theme, insights, series, meta } = report;
   const chartTheme = useChartTheme();
+  const reportCurrency = resolveReportCurrency(report);
 
   // Only show for Singapore (XSES) reports *with* short selling data.
   const short = series.short_selling;
@@ -89,7 +92,8 @@ export function ShortSellingAndLending() {
     shortPct: ratioToPct(r.short_ratio),
     ...(r.close != null ? { price: r.close } : {}),
   }));
-  const priceAxisLabel = `Close Price${meta.market === 'XSES' ? ' (SGD)' : meta.market === 'XHKG' ? ' (HKD)' : ''}`;
+  const currencyLabel = getCurrencyCodeLabel(reportCurrency);
+  const priceAxisLabel = `Close Price${currencyLabel ? ` (${currencyLabel})` : ''}`;
 
   const priceRange = hasPrice
     ? (() => {

@@ -4,6 +4,7 @@ import { SectionTooltip } from '@/components/SectionTooltip';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
+import { formatCompactMoney } from '@/lib/currency';
 import * as React from 'react';
 import {
   BarChart,
@@ -74,10 +75,7 @@ const fmtCount = (value: unknown): string => {
 const fmtMoney = (value: unknown, currency = 'USD'): string => {
   const num = Number(value ?? 0);
   if (!Number.isFinite(num) || num <= 0) return '—';
-  const prefix = currency === 'HKD' ? 'HK$' : currency === 'SGD' ? 'S$' : `${currency} `;
-  if (num >= 1_000_000) return `${prefix}${(num / 1_000_000).toFixed(2)}M`;
-  if (num >= 1_000) return `${prefix}${(num / 1_000).toFixed(1)}K`;
-  return `${prefix}${num.toFixed(0)}`;
+  return formatCompactMoney(num, currency);
 };
 
 const periodLabel = (key: string) => {

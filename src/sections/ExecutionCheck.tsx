@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Target, TrendingDown, DollarSign, Activity, AlertTriangle } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
+import { formatCompactMoney, getCurrencyCodeLabel, resolveReportCurrency } from '@/lib/currency';
 import {
   LineChart,
   Line,
@@ -16,11 +17,11 @@ import {
 } from 'recharts';
 
 export function ExecutionCheck() {
-  const { labels, content, theme, series, meta } = useReport();
+  const report = useReport();
+  const { labels, content, theme, series } = report;
   const { order_book, peer_capacity } = series;
-
-  const currencySymbol = meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'S$' : '';
-  const currencyLabel = meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'SGD' : '';
+  const reportCurrency = resolveReportCurrency(report);
+  const currencyLabel = getCurrencyCodeLabel(reportCurrency);
 
   // Prepare order book data: bids and asks each have their own prices (from report/book_snapshot).
   // Build merged price axis (all unique bid + ask prices, sorted) and cumulative depth with carry-forward.
@@ -55,9 +56,7 @@ export function ExecutionCheck() {
   ];
 
   const formatMoney = (value: number) => {
-    if (value >= 1e6) return `${currencySymbol}${(value / 1e6).toFixed(1)}M`;
-    if (value >= 1e3) return `${currencySymbol}${(value / 1e3).toFixed(0)}K`;
-    return `${currencySymbol}${value.toFixed(0)}`;
+    return formatCompactMoney(value, reportCurrency);
   };
 
   const OrderBookTooltip = ({ active, payload, label }: { active?: boolean; payload?: any[]; label?: string }) => {

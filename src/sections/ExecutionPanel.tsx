@@ -11,6 +11,7 @@ import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { SectionTooltip } from '@/components/SectionTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
+import { formatCompactMoney, resolveReportCurrency } from '@/lib/currency';
 import {
   Bar,
   BarChart,
@@ -69,25 +70,20 @@ type IntradayRow = {
 };
 
 export function ExecutionPanel() {
-  const { labels, content, series, meta, insights } = useReport();
+  const report = useReport();
+  const { labels, content, series, meta, insights } = report;
   const chartTheme = useChartTheme();
   const { order_book } = series;
   const execution = series.execution_dynamic;
+  const reportCurrency = resolveReportCurrency(report);
 
   const snapshot = execution?.snapshot;
   const historical = execution?.historical_trade_scenarios;
   const l3Orders = execution?.l3_sell_order_scenarios;
   const intraday = execution?.intraday_liquidity_profile;
 
-  const currencySymbol =
-    meta.market === 'XHKG' ? 'HK$' : meta.market === 'XSES' ? 'S$' : '';
-
   const formatMoney = (value?: number | null) => {
-    if (value == null || !Number.isFinite(value)) return 'N/A';
-    if (Math.abs(value) >= 1e9) return `${currencySymbol}${(value / 1e9).toFixed(2)}B`;
-    if (Math.abs(value) >= 1e6) return `${currencySymbol}${(value / 1e6).toFixed(2)}M`;
-    if (Math.abs(value) >= 1e3) return `${currencySymbol}${(value / 1e3).toFixed(1)}K`;
-    return `${currencySymbol}${value.toFixed(0)}`;
+    return formatCompactMoney(value, reportCurrency);
   };
 
   const formatPercent = (value?: number | null, digits = 2) => {

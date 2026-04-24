@@ -1,0 +1,10728 @@
+// @ts-nocheck
+import type { ReportData } from '@/types/report';
+
+export const PEER_METHODOLOGY = {
+  "title": "How We Select Peers",
+  "steps": [
+    "Peers are selected based on sector and industry similarity.",
+    "Market capitalization proximity is used for closer comparison.",
+    "Final peer group includes companies with closest ADV to the target."
+  ],
+  "peers": [
+    {
+      "ticker": "TKU",
+      "name": "Toku Ltd",
+      "marketCap": 148262726.3,
+      "sector": "Software - Application",
+      "industry": "Technology"
+    },
+    {
+      "ticker": "KUX",
+      "name": "OIO",
+      "marketCap": 12923886.515999999,
+      "sector": "Software - Application",
+      "industry": "Technology"
+    },
+    {
+      "ticker": "532",
+      "name": "DISA",
+      "marketCap": 14089803.417,
+      "sector": "Software - Application",
+      "industry": "Technology"
+    },
+    {
+      "ticker": "U77",
+      "name": "Sarine Tech",
+      "marketCap": 66737813.212000005,
+      "sector": "Software - Application",
+      "industry": "Technology"
+    },
+    {
+      "ticker": "J03",
+      "name": "Jadason",
+      "marketCap": 25257480.0,
+      "sector": "Electronic Components",
+      "industry": "Technology"
+    },
+    {
+      "ticker": "NXR",
+      "name": "iWOW Tech",
+      "marketCap": 102908899.2,
+      "sector": "Software - Application",
+      "industry": "Technology"
+    },
+    {
+      "ticker": "42F",
+      "name": "Totm Tech",
+      "marketCap": 40499746.632,
+      "sector": "Software - Infrastructure",
+      "industry": "Technology"
+    },
+    {
+      "ticker": "LVR",
+      "name": "17LIVE GROUP",
+      "marketCap": 163696403.145,
+      "sector": "Software - Application",
+      "industry": "Technology"
+    },
+    {
+      "ticker": "ITS",
+      "name": "Info-Tech",
+      "marketCap": 281220000.0,
+      "sector": "Software - Application",
+      "industry": "Technology"
+    }
+  ]
+};
+
+export const REPORT_DATA: ReportData = {
+  "meta": {
+    "market": "XSES",
+    "currency": "SGD",
+    "ticker": "TKU",
+    "company": "Toku Ltd",
+    "asof_date": "2026-04-22",
+    "industry": "Technology",
+    "sector": "Software - Application",
+    "market_cap_display": "148.3M",
+    "market_cap_category": "small",
+    "universe_total": 558,
+    "peers_count": 8,
+    "page_title_template": "Liquidity Analysis Report — {market}/{ticker} — {asof}"
+  },
+  "q01": {
+    "primary_liquidity_period": "30d",
+    "periods": {
+      "1d": {
+        "label": "1D",
+        "window_days": 1,
+        "liquidity": {
+          "metric_aggregation": "median",
+          "metric_window_days": 1,
+          "score_pca": 82.61648745519713,
+          "score_pca_percentile": 82.61648745519713,
+          "rank_pca": 98,
+          "total": 558,
+          "adv_notional_sgd": 1423968.0,
+          "adv_volume_shares": 5476800.0,
+          "free_float_shares": null,
+          "turnover_ratio": 0.009604355966844244,
+          "votes": 272.0,
+          "trades": 272.0,
+          "spread_pct": 0.02093721446286387,
+          "spread_ticks": 1.0896739130434783,
+          "amihud": 1.3769862200031765e-08,
+          "volatility": 0.7337168256278114
+        },
+        "pca": {
+          "valid": true,
+          "window_days": 1,
+          "variance_explained": 0.5081374438681932,
+          "loadings": {
+            "log_adv": 0.5599047066719145,
+            "log_trades": 0.5174028716750401,
+            "log_turnover": 0.519897740713243,
+            "neg_spread": 0.36894986720064443,
+            "neg_amihud": 0.030918261282017266,
+            "neg_vol": -0.10689894125878233
+          }
+        },
+        "data_quality": {
+          "turnover_ratio": {
+            "valid": true,
+            "reason": null
+          }
+        },
+        "peer_summary": {
+          "n_peers": 8,
+          "peer_median_adv": 4297.5,
+          "peer_median_score_pca": 43.9068100358423,
+          "peer_median_trades": 4.5,
+          "peer_median_volatility": 0.22811190932021708,
+          "peer_median_spread_pct": 0.03887147335423201,
+          "peer_median_spread_ticks": 2.0303633648581383,
+          "peer_median_amihud": 8.10906892319349e-07,
+          "peer_median_turnover_ratio": 0.0004510900406981508,
+          "target_vs_peer": {
+            "score_pca_delta": 38.71,
+            "adv_delta_pct": 33034.8,
+            "trades_delta_pct": 5944.44,
+            "volatility_delta_pct": -221.65,
+            "spread_pct_delta_pct": 46.14,
+            "spread_ticks_delta_pct": -46.33,
+            "amihud_delta_pct": 98.3,
+            "turnover_ratio_delta_pct": 2029.14
+          }
+        },
+        "peer_liquidity": [
+          {
+            "ticker": "TKU",
+            "score_pca": 82.61648745519713,
+            "rank_pca": 98,
+            "adv": 1423968.0,
+            "trades": 272.0,
+            "volatility": 0.7337168256278114,
+            "spread_pct": 0.02093721446286387,
+            "spread_ticks": 1.0896739130434783,
+            "amihud": 1.3769862200031765e-08,
+            "turnover_ratio": 0.009604355966844244,
+            "is_target": true
+          },
+          {
+            "ticker": "KUX",
+            "score_pca": 45.878136200716845,
+            "rank_pca": 303,
+            "adv": 3256.7999999999997,
+            "trades": 5.0,
+            "volatility": 10.025021556239816,
+            "spread_pct": 0.7758389261744966,
+            "spread_ticks": 38.53333333333333,
+            "amihud": 0.00031763779127385455,
+            "turnover_ratio": 0.0005368523616616806,
+            "is_target": false
+          },
+          {
+            "ticker": "532",
+            "score_pca": 27.419354838709676,
+            "rank_pca": 406,
+            "adv": 3370.0,
+            "trades": 4.0,
+            "volatility": 0.0,
+            "spread_pct": 0.6666666666666666,
+            "spread_ticks": 1.0,
+            "amihud": 0.0,
+            "turnover_ratio": 0.00036532771973462106,
+            "is_target": false
+          },
+          {
+            "ticker": "U77",
+            "score_pca": 41.935483870967744,
+            "rank_pca": 325,
+            "adv": 3920.0,
+            "trades": 4.0,
+            "volatility": 0.19260480449945006,
+            "spread_pct": 0.017821518818991904,
+            "spread_ticks": 3.526315789473684,
+            "amihud": 5.102040816326535e-06,
+            "turnover_ratio": 6.194348425161246e-05,
+            "is_target": false
+          },
+          {
+            "ticker": "J03",
+            "score_pca": 82.97491039426524,
+            "rank_pca": 96,
+            "adv": 537892.8,
+            "trades": 183.0,
+            "volatility": 1.6622178165059922,
+            "spread_pct": 0.04450877510403476,
+            "spread_ticks": 1.020746887966805,
+            "amihud": 2.6558664264913527e-07,
+            "turnover_ratio": 0.03832121396145294,
+            "is_target": false
+          },
+          {
+            "ticker": "NXR",
+            "score_pca": 21.863799283154123,
+            "rank_pca": 437,
+            "adv": 0.0,
+            "trades": 0.0,
+            "volatility": 0.0,
+            "spread_pct": 0.04137931034482763,
+            "spread_ticks": 3.0,
+            "amihud": null,
+            "turnover_ratio": 0.0,
+            "is_target": false
+          },
+          {
+            "ticker": "42F",
+            "score_pca": 58.96057347670251,
+            "rank_pca": 230,
+            "adv": 44042.4,
+            "trades": 20.0,
+            "volatility": 0.3467150657358996,
+            "spread_pct": 0.03636363636363639,
+            "spread_ticks": 1.0,
+            "amihud": 8.10906892319349e-07,
+            "turnover_ratio": 0.001989159446848317,
+            "is_target": false
+          },
+          {
+            "ticker": "LVR",
+            "score_pca": 39.247311827956985,
+            "rank_pca": 340,
+            "adv": 4675.0,
+            "trades": 3.0,
+            "volatility": 0.05111869385882378,
+            "spread_pct": 0.02073005858494819,
+            "spread_ticks": 3.8333333333333335,
+            "amihud": 1.1500201253521925e-06,
+            "turnover_ratio": 3.4565356234328974e-05,
+            "is_target": false
+          },
+          {
+            "ticker": "ITS",
+            "score_pca": 86.02150537634408,
+            "rank_pca": 79,
+            "adv": 1027979.0000000001,
+            "trades": 882.0,
+            "volatility": 0.2636190141409841,
+            "spread_pct": 0.009794436337312858,
+            "spread_ticks": 1.0607267297162768,
+            "amihud": 8.843477435734727e-09,
+            "turnover_ratio": 0.013968002891055206,
+            "is_target": false
+          }
+        ],
+        "market_comparison": {
+          "sector_name": "Software - Application",
+          "sector_count": 8,
+          "market_count": 558,
+          "market": {
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 0.31694019970444953,
+              "median": 0.1297110289777006,
+              "min": 0.0,
+              "max": 10.025021556239816,
+              "p5": 0.0,
+              "p95": 1.189258443237123,
+              "count": 558
+            },
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 3583519.9836286213,
+              "median": 19551.35,
+              "min": 0.0,
+              "max": 255589391.20000002,
+              "p5": 0.0,
+              "p95": 18268858.818040315,
+              "count": 558
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.10935471772383583,
+              "median": 0.027562238215492463,
+              "min": 0.00019851775911168494,
+              "max": 1.2605042016806725,
+              "p5": 0.003258120054827317,
+              "p95": 0.5726492177898828,
+              "count": 556
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.017464862308950096,
+              "median": 0.00036778028976088733,
+              "min": 0.0,
+              "max": 4.365217661180873,
+              "p5": 0.0,
+              "p95": 0.021538958870622384,
+              "count": 551
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 0.00025596190241705484,
+              "median": 2.1845310781464287e-08,
+              "min": 0.0,
+              "max": 0.07246376811594203,
+              "p5": 0.0,
+              "p95": 4.879762526821346e-05,
+              "count": 417
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 506.0698924731183,
+              "median": 9.0,
+              "min": 0.0,
+              "max": 14935.0,
+              "p5": 0.0,
+              "p95": 2811.3499999999995,
+              "count": 558
+            }
+          },
+          "sector": {
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 1.424473990418073,
+              "median": 0.16115791673857482,
+              "min": 0.0,
+              "max": 10.025021556239816,
+              "p5": 0.0,
+              "p95": 6.773064900525609,
+              "count": 8
+            },
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 1836356.1,
+              "median": 4297.5,
+              "min": 0.0,
+              "max": 12223680.0,
+              "p5": 1139.88,
+              "p95": 8443780.799999993,
+              "count": 8
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.19429099999229235,
+              "median": 0.020833636523906032,
+              "min": 0.00115986854823118,
+              "max": 0.7758389261744966,
+              "p5": 0.0041819672744097675,
+              "p95": 0.737628635346756,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.00400444978960215,
+              "median": 0.0004510900406981508,
+              "min": 0.0,
+              "max": 0.013968002891055206,
+              "p5": 1.2097874682015143e-05,
+              "p95": 0.012440726467581367,
+              "count": 8
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 4.627325826426163e-05,
+              "median": 1.3769862200031765e-08,
+              "min": 0.0,
+              "max": 0.00031763779127385455,
+              "p5": 1.0268839870832674e-10,
+              "p95": 0.0002238770661365959,
+              "count": 7
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 465.125,
+              "median": 4.5,
+              "min": 0.0,
+              "max": 2551.0,
+              "p5": 1.05,
+              "p95": 1966.849999999999,
+              "count": 8
+            }
+          },
+          "peers": {
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 203142.00000000003,
+              "median": 4297.5,
+              "min": 0.0,
+              "max": 1027979.0000000001,
+              "p5": 1139.88,
+              "p95": 856448.8299999998,
+              "count": 8
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 137.625,
+              "median": 4.5,
+              "min": 0.0,
+              "max": 882.0,
+              "p5": 1.05,
+              "p95": 637.3499999999997,
+              "count": 8
+            },
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 1.5676621188726205,
+              "median": 0.22811190932021708,
+              "min": 0.0,
+              "max": 10.025021556239816,
+              "p5": 0.0,
+              "p95": 7.098040247332973,
+              "count": 8
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.20163791604936435,
+              "median": 0.03887147335423201,
+              "min": 0.009794436337312858,
+              "max": 0.7758389261744966,
+              "p5": 0.012603915205900524,
+              "p95": 0.737628635346756,
+              "count": 8
+            },
+            "spread_ticks": {
+              "direction": "neutral",
+              "mean": 6.621807009227929,
+              "median": 2.0303633648581383,
+              "min": 1.0,
+              "max": 38.53333333333333,
+              "p5": 1.0,
+              "p95": 26.388333333333314,
+              "count": 8
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 4.64250270325625e-05,
+              "median": 8.10906892319349e-07,
+              "min": 0.0,
+              "max": 0.00031763779127385455,
+              "p5": 2.6530432307204184e-09,
+              "p95": 0.0002238770661365959,
+              "count": 7
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.0069096331526548385,
+              "median": 0.0004510900406981508,
+              "min": 0.0,
+              "max": 0.03832121396145294,
+              "p5": 1.2097874682015143e-05,
+              "p95": 0.029797590086813718,
+              "count": 8
+            }
+          },
+          "returns": {
+            "window_days": 1,
+            "n_obs": 1,
+            "stock": 0.019607843137254832,
+            "market": -0.0024406468225245392,
+            "sector": 0.0020920502092049986,
+            "peers": 0.0,
+            "vs_market": 0.02204848995977937,
+            "vs_sector": 0.017515792928049834,
+            "vs_peers": 0.019607843137254832
+          }
+        }
+      },
+      "1w": {
+        "label": "1W",
+        "window_days": 5,
+        "liquidity": {
+          "metric_aggregation": "median",
+          "metric_window_days": 5,
+          "score_pca": 79.21146953405018,
+          "score_pca_percentile": 79.21146953405018,
+          "rank_pca": 117,
+          "total": 558,
+          "adv_notional_sgd": 1423968.0,
+          "adv_volume_shares": 5476800.0,
+          "free_float_shares": null,
+          "turnover_ratio": 0.009604355966844244,
+          "votes": 128.0,
+          "trades": 128.0,
+          "spread_pct": 0.021688613477924105,
+          "spread_ticks": 1.0896739130434783,
+          "amihud": 4.255556396205265e-08,
+          "volatility": 0.8944357158754089
+        },
+        "pca": {
+          "valid": true,
+          "window_days": 5,
+          "variance_explained": 0.5144342592801934,
+          "loadings": {
+            "log_adv": 0.5540508971799223,
+            "log_trades": 0.5092269637410256,
+            "log_turnover": 0.5093721277725124,
+            "neg_spread": 0.39235226378915483,
+            "neg_amihud": 0.13720240828059435,
+            "neg_vol": 0.03861008214512404
+          }
+        },
+        "data_quality": {
+          "turnover_ratio": {
+            "valid": true,
+            "reason": null
+          }
+        },
+        "peer_summary": {
+          "n_peers": 8,
+          "peer_median_adv": 25548.25,
+          "peer_median_score_pca": 52.060931899641574,
+          "peer_median_trades": 11.5,
+          "peer_median_volatility": 0.404473048103432,
+          "peer_median_spread_pct": 0.039524975718465326,
+          "peer_median_spread_ticks": 1.6376984126984127,
+          "peer_median_amihud": 2.6558664264913527e-07,
+          "peer_median_turnover_ratio": 0.0002571569785593266,
+          "target_vs_peer": {
+            "score_pca_delta": 27.15,
+            "adv_delta_pct": 5473.6,
+            "trades_delta_pct": 1013.04,
+            "volatility_delta_pct": -121.14,
+            "spread_pct_delta_pct": 45.13,
+            "spread_ticks_delta_pct": -33.46,
+            "amihud_delta_pct": 83.98,
+            "turnover_ratio_delta_pct": 3634.82
+          }
+        },
+        "peer_liquidity": [
+          {
+            "ticker": "TKU",
+            "score_pca": 79.21146953405018,
+            "rank_pca": 117,
+            "adv": 1423968.0,
+            "trades": 128.0,
+            "volatility": 0.8944357158754089,
+            "spread_pct": 0.021688613477924105,
+            "spread_ticks": 1.0896739130434783,
+            "amihud": 4.255556396205265e-08,
+            "turnover_ratio": 0.009604355966844244,
+            "is_target": true
+          },
+          {
+            "ticker": "KUX",
+            "score_pca": 20.60931899641577,
+            "rank_pca": 444,
+            "adv": 116.0,
+            "trades": 2.0,
+            "volatility": 7.7768139401879965,
+            "spread_pct": 0.652232746955345,
+            "spread_ticks": 30.125,
+            "amihud": 0.00031763779127385455,
+            "turnover_ratio": 3.890234504794787e-05,
+            "is_target": false
+          },
+          {
+            "ticker": "532",
+            "score_pca": 10.931899641577061,
+            "rank_pca": 498,
+            "adv": 3.0,
+            "trades": 1.0,
+            "volatility": 0.0,
+            "spread_pct": 0.6666666666666666,
+            "spread_ticks": 1.0,
+            "amihud": 0.0,
+            "turnover_ratio": 3.252175546599001e-07,
+            "is_target": false
+          },
+          {
+            "ticker": "U77",
+            "score_pca": 50.358422939068106,
+            "rank_pca": 278,
+            "adv": 15784.999999999998,
+            "trades": 10.0,
+            "volatility": 0.40791050408554036,
+            "spread_pct": 0.017821518818991904,
+            "spread_ticks": 2.2,
+            "amihud": 5.27264709853314e-07,
+            "turnover_ratio": 0.00023848241436870792,
+            "is_target": false
+          },
+          {
+            "ticker": "J03",
+            "score_pca": 76.34408602150538,
+            "rank_pca": 133,
+            "adv": 345664.7,
+            "trades": 93.0,
+            "volatility": 1.703568908150095,
+            "spread_pct": 0.047171620325982704,
+            "spread_ticks": 1.0753968253968254,
+            "amihud": 2.6558664264913527e-07,
+            "turnover_ratio": 0.025696972742759748,
+            "is_target": false
+          },
+          {
+            "ticker": "NXR",
+            "score_pca": 23.835125448028673,
+            "rank_pca": 426,
+            "adv": 0.0,
+            "trades": 0.0,
+            "volatility": 0.0,
+            "spread_pct": 0.04137931034482763,
+            "spread_ticks": 3.0,
+            "amihud": null,
+            "turnover_ratio": 0.0,
+            "is_target": false
+          },
+          {
+            "ticker": "42F",
+            "score_pca": 72.58064516129032,
+            "rank_pca": 154,
+            "adv": 223662.6,
+            "trades": 47.0,
+            "volatility": 0.4899275577306135,
+            "spread_pct": 0.037670641092103024,
+            "spread_ticks": 1.0379746835443038,
+            "amihud": 7.338955501652384e-08,
+            "turnover_ratio": 0.010101642365008637,
+            "is_target": false
+          },
+          {
+            "ticker": "LVR",
+            "score_pca": 53.76344086021505,
+            "rank_pca": 259,
+            "adv": 35311.5,
+            "trades": 13.0,
+            "volatility": 0.40103559212132367,
+            "spread_pct": 0.015331480077499801,
+            "spread_ticks": 2.757575757575758,
+            "amihud": 5.969693062261526e-07,
+            "turnover_ratio": 0.00027583154274994523,
+            "is_target": false
+          },
+          {
+            "ticker": "ITS",
+            "score_pca": 87.81362007168458,
+            "rank_pca": 69,
+            "adv": 1795400.0,
+            "trades": 738.0,
+            "volatility": 0.3710569209337817,
+            "spread_pct": 0.009794436337312858,
+            "spread_ticks": 1.0607267297162768,
+            "amihud": 1.4057264723185525e-08,
+            "turnover_ratio": 0.02659119116806332,
+            "is_target": false
+          }
+        ],
+        "market_comparison": {
+          "sector_name": "Software - Application",
+          "sector_count": 8,
+          "market_count": 558,
+          "market": {
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 0.494466218862494,
+              "median": 0.25730176553524864,
+              "min": 0.0,
+              "max": 8.897020062481449,
+              "p5": 0.0,
+              "p95": 1.7213523511589812,
+              "count": 558
+            },
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 3384120.9028840195,
+              "median": 19045.5,
+              "min": 0.0,
+              "max": 255589391.20000002,
+              "p5": 0.0,
+              "p95": 15342278.999999998,
+              "count": 558
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.10761402889747768,
+              "median": 0.02692248721129589,
+              "min": 0.00023213750933499092,
+              "max": 1.2394366197183098,
+              "p5": 0.00325176534273087,
+              "p95": 0.548876225879821,
+              "count": 556
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.011209428990157057,
+              "median": 0.00033292379903425976,
+              "min": 0.0,
+              "max": 3.7543619847653016,
+              "p5": 0.0,
+              "p95": 0.01621449100205582,
+              "count": 551
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 6.834728376448453e-05,
+              "median": 4.482259625662905e-08,
+              "min": 0.0,
+              "max": 0.009890109890109893,
+              "p5": 0.0,
+              "p95": 9.881464938204429e-05,
+              "count": 506
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 485.56810035842295,
+              "median": 9.0,
+              "min": 0.0,
+              "max": 14462.0,
+              "p5": 0.0,
+              "p95": 2977.449999999999,
+              "count": 558
+            }
+          },
+          "sector": {
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 1.2641790557779693,
+              "median": 0.38604625652755264,
+              "min": 0.0,
+              "max": 7.7768139401879965,
+              "p5": 0.0,
+              "p95": 5.3679815616785875,
+              "count": 8
+            },
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 2129481.6875,
+              "median": 25548.25,
+              "min": 0.0,
+              "max": 13765269.999999998,
+              "p5": 1.05,
+              "p95": 9575815.499999993,
+              "count": 8
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.17826587472751163,
+              "median": 0.019755066148458005,
+              "min": 0.0012122251415249295,
+              "max": 0.6666666666666666,
+              "p5": 0.004215999060050705,
+              "p95": 0.661614794767704,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.005633546518008912,
+              "median": 0.0002571569785593266,
+              "min": 0.0,
+              "max": 0.02659119116806332,
+              "p5": 1.1382614413096504e-07,
+              "p95": 0.020645798847636634,
+              "count": 8
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 4.5545597317848814e-05,
+              "median": 4.255556396205265e-08,
+              "min": 0.0,
+              "max": 0.00031763779127385455,
+              "p5": 1.6293189672959223e-10,
+              "p95": 0.00022252554468356583,
+              "count": 7
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 560.375,
+              "median": 11.5,
+              "min": 0.0,
+              "max": 3591.0,
+              "p5": 0.35000000000000003,
+              "p95": 2592.4499999999985,
+              "count": 8
+            }
+          },
+          "peers": {
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 301992.85000000003,
+              "median": 25548.25,
+              "min": 0.0,
+              "max": 1795400.0,
+              "p5": 1.05,
+              "p95": 1287992.644999999,
+              "count": 8
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 113.0,
+              "median": 11.5,
+              "min": 0.0,
+              "max": 738.0,
+              "p5": 0.35000000000000003,
+              "p95": 512.2499999999997,
+              "count": 8
+            },
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 1.3937891779011689,
+              "median": 0.404473048103432,
+              "min": 0.0,
+              "max": 7.7768139401879965,
+              "p5": 0.0,
+              "p95": 5.651178178974728,
+              "count": 8
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.1860085525773412,
+              "median": 0.039524975718465326,
+              "min": 0.009794436337312858,
+              "max": 0.6666666666666666,
+              "p5": 0.011732401646378288,
+              "p95": 0.661614794767704,
+              "count": 8
+            },
+            "spread_ticks": {
+              "direction": "neutral",
+              "mean": 5.282084249529145,
+              "median": 1.6376984126984127,
+              "min": 1.0,
+              "max": 30.125,
+              "p5": 1.0132911392405064,
+              "p95": 20.631249999999987,
+              "count": 8
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 4.5587865536046124e-05,
+              "median": 2.6558664264913527e-07,
+              "min": 0.0,
+              "max": 0.00031763779127385455,
+              "p5": 4.217179416955658e-09,
+              "p95": 0.00022252554468356583,
+              "count": 7
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.007867918474444121,
+              "median": 0.0002571569785593266,
+              "min": 0.0,
+              "max": 0.02659119116806332,
+              "p5": 1.1382614413096504e-07,
+              "p95": 0.02627821471920707,
+              "count": 8
+            }
+          },
+          "returns": {
+            "window_days": 5,
+            "n_obs": 5,
+            "stock": 0.13043478260869534,
+            "market": -0.0036803910917555527,
+            "sector": 0.017749018566909358,
+            "peers": 0.04233146661031273,
+            "vs_market": 0.1341151737004509,
+            "vs_sector": 0.11268576404178599,
+            "vs_peers": 0.08810331599838261
+          }
+        }
+      },
+      "2w": {
+        "label": "2W",
+        "window_days": 10,
+        "liquidity": {
+          "metric_aggregation": "median",
+          "metric_window_days": 10,
+          "score_pca": 68.81720430107528,
+          "score_pca_percentile": 68.81720430107528,
+          "rank_pca": 175,
+          "total": 558,
+          "adv_notional_sgd": 213905.5,
+          "adv_volume_shares": 926950.0,
+          "free_float_shares": null,
+          "turnover_ratio": 0.0016255400532183522,
+          "votes": 45.5,
+          "trades": 45.5,
+          "spread_pct": 0.02276894990788714,
+          "spread_ticks": 1.0588844100664558,
+          "amihud": 6.819356205673884e-08,
+          "volatility": 0.7130916125190112
+        },
+        "pca": {
+          "valid": true,
+          "window_days": 10,
+          "variance_explained": 0.5142285208202962,
+          "loadings": {
+            "log_adv": 0.5524649666024942,
+            "log_trades": 0.5052887836489209,
+            "log_turnover": 0.4989262808795265,
+            "neg_spread": 0.41073949500481743,
+            "neg_amihud": 0.08087875643872981,
+            "neg_vol": 0.12365260225055665
+          }
+        },
+        "data_quality": {
+          "turnover_ratio": {
+            "valid": true,
+            "reason": null
+          }
+        },
+        "peer_summary": {
+          "n_peers": 8,
+          "peer_median_adv": 18076.25,
+          "peer_median_score_pca": 51.7921146953405,
+          "peer_median_trades": 10.5,
+          "peer_median_volatility": 0.3692123896027213,
+          "peer_median_spread_pct": 0.03947678152537991,
+          "peer_median_spread_ticks": 1.8443663088281923,
+          "peer_median_amihud": 4.299582277336417e-07,
+          "peer_median_turnover_ratio": 0.0001849892985215691,
+          "target_vs_peer": {
+            "score_pca_delta": 17.03,
+            "adv_delta_pct": 1083.4,
+            "trades_delta_pct": 333.33,
+            "volatility_delta_pct": -93.14,
+            "spread_pct_delta_pct": 42.32,
+            "spread_ticks_delta_pct": -42.59,
+            "amihud_delta_pct": 84.14,
+            "turnover_ratio_delta_pct": 778.72
+          }
+        },
+        "peer_liquidity": [
+          {
+            "ticker": "TKU",
+            "score_pca": 68.81720430107528,
+            "rank_pca": 175,
+            "adv": 213905.5,
+            "trades": 45.5,
+            "volatility": 0.7130916125190112,
+            "spread_pct": 0.02276894990788714,
+            "spread_ticks": 1.0588844100664558,
+            "amihud": 6.819356205673884e-08,
+            "turnover_ratio": 0.0016255400532183522,
+            "is_target": true
+          },
+          {
+            "ticker": "KUX",
+            "score_pca": 1.971326164874552,
+            "rank_pca": 548,
+            "adv": 0.0,
+            "trades": 0.0,
+            "volatility": 5.793223264863945,
+            "spread_pct": 0.5508967404583882,
+            "spread_ticks": 22.761904761904763,
+            "amihud": 0.00036013640690511566,
+            "turnover_ratio": 0.0,
+            "is_target": false
+          },
+          {
+            "ticker": "532",
+            "score_pca": 7.706093189964158,
+            "rank_pca": 516,
+            "adv": 1.5,
+            "trades": 0.5,
+            "volatility": 0.0,
+            "spread_pct": 0.6666666666666666,
+            "spread_ticks": 1.0,
+            "amihud": 0.0,
+            "turnover_ratio": 1.6260877732995005e-07,
+            "is_target": false
+          },
+          {
+            "ticker": "U77",
+            "score_pca": 48.028673835125446,
+            "rank_pca": 291,
+            "adv": 8122.0,
+            "trades": 7.0,
+            "volatility": 0.3275036876046574,
+            "spread_pct": 0.01724906184330761,
+            "spread_ticks": 2.769565217391304,
+            "amihud": 5.27264709853314e-07,
+            "turnover_ratio": 0.00012698414271580553,
+            "is_target": false
+          },
+          {
+            "ticker": "J03",
+            "score_pca": 69.71326164874552,
+            "rank_pca": 170,
+            "adv": 210665.65000000002,
+            "trades": 79.0,
+            "volatility": 2.101236217816128,
+            "spread_pct": 0.05114030148141731,
+            "spread_ticks": 1.0228734439834024,
+            "amihud": 3.326517456139694e-07,
+            "turnover_ratio": 0.0167754695370338,
+            "is_target": false
+          },
+          {
+            "ticker": "NXR",
+            "score_pca": 22.22222222222222,
+            "rank_pca": 435,
+            "adv": 0.0,
+            "trades": 0.0,
+            "volatility": 0.06876657752334894,
+            "spread_pct": 0.0409552037398492,
+            "spread_ticks": 2.95,
+            "amihud": 3.39663529307869e-06,
+            "turnover_ratio": 0.0,
+            "is_target": false
+          },
+          {
+            "ticker": "42F",
+            "score_pca": 71.86379928315412,
+            "rank_pca": 158,
+            "adv": 183390.75,
+            "trades": 39.5,
+            "volatility": 0.3923401963132003,
+            "spread_pct": 0.03799835931091061,
+            "spread_ticks": 1.0430258033106135,
+            "amihud": 0.0,
+            "turnover_ratio": 0.008282778477719152,
+            "is_target": false
+          },
+          {
+            "ticker": "LVR",
+            "score_pca": 55.55555555555556,
+            "rank_pca": 249,
+            "adv": 28030.5,
+            "trades": 14.0,
+            "volatility": 0.36674538458313116,
+            "spread_pct": 0.015195638163657628,
+            "spread_ticks": 2.6060606060606064,
+            "amihud": 5.95028728458992e-07,
+            "turnover_ratio": 0.00024299445432733268,
+            "is_target": false
+          },
+          {
+            "ticker": "ITS",
+            "score_pca": 84.40860215053763,
+            "rank_pca": 88,
+            "adv": 1061219.5,
+            "trades": 419.5,
+            "volatility": 0.3716793946223114,
+            "spread_pct": 0.010156663472072301,
+            "spread_ticks": 1.0826720115957782,
+            "amihud": 1.547280959473988e-08,
+            "turnover_ratio": 0.014929960040640653,
+            "is_target": false
+          }
+        ],
+        "market_comparison": {
+          "sector_name": "Software - Application",
+          "sector_count": 8,
+          "market_count": 558,
+          "market": {
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 0.5882600019761903,
+              "median": 0.31139518398325616,
+              "min": 0.0,
+              "max": 8.197560612767678,
+              "p5": 0.0,
+              "p95": 2.0222540702301854,
+              "count": 558
+            },
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 3185893.7858968414,
+              "median": 16889.25,
+              "min": 0.0,
+              "max": 247948295.60000002,
+              "p5": 0.0,
+              "p95": 13334941.29999999,
+              "count": 558
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.10538741689235807,
+              "median": 0.029117020992114426,
+              "min": 0.00023243376314381508,
+              "max": 1.2394366197183098,
+              "p5": 0.0032497396389484,
+              "p95": 0.5169367165470841,
+              "count": 556
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.00952499975780321,
+              "median": 0.00034947514041089875,
+              "min": 0.0,
+              "max": 3.1247797589682147,
+              "p5": 0.0,
+              "p95": 0.013846972504395406,
+              "count": 551
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 0.00046689189693964266,
+              "median": 7.385835060988388e-08,
+              "min": 0.0,
+              "max": 0.22222222222222224,
+              "p5": 0.0,
+              "p95": 8.537772792367368e-05,
+              "count": 532
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 478.13440860215053,
+              "median": 8.0,
+              "min": 0.0,
+              "max": 12441.5,
+              "p5": 0.0,
+              "p95": 2815.075,
+              "count": 558
+            }
+          },
+          "sector": {
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 0.9781682262472655,
+              "median": 0.34712453609389426,
+              "min": 0.0,
+              "max": 5.793223264863945,
+              "p5": 0.024068302133172133,
+              "p95": 4.015177186543216,
+              "count": 8
+            },
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 2008082.75,
+              "median": 18076.25,
+              "min": 0.0,
+              "max": 14753383.0,
+              "p5": 0.0,
+              "p95": 9961125.774999993,
+              "count": 8
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.16564097836673924,
+              "median": 0.020009005875597376,
+              "min": 0.0012389026820855136,
+              "max": 0.6666666666666666,
+              "p5": 0.00436011895858089,
+              "p95": 0.6261471924937692,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.00323897111418919,
+              "median": 0.0001849892985215691,
+              "min": 0.0,
+              "max": 0.014929960040640653,
+              "p5": 0.0,
+              "p95": 0.012849618691258337,
+              "count": 8
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 4.559242454550226e-05,
+              "median": 2.977291359550264e-07,
+              "min": 0.0,
+              "max": 0.00036013640690511566,
+              "p5": 1.3802455099119759e-10,
+              "p95": 0.00023527748684090254,
+              "count": 8
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 530.0625,
+              "median": 10.5,
+              "min": 0.0,
+              "max": 3754.0,
+              "p5": 0.0,
+              "p95": 2586.9249999999984,
+              "count": 8
+            }
+          },
+          "peers": {
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 186428.7375,
+              "median": 18076.25,
+              "min": 0.0,
+              "max": 1061219.5,
+              "p5": 0.0,
+              "p95": 763525.6524999996,
+              "count": 8
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 69.9375,
+              "median": 10.5,
+              "min": 0.0,
+              "max": 419.5,
+              "p5": 0.0,
+              "p95": 300.3249999999998,
+              "count": 8
+            },
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 1.1776868404158403,
+              "median": 0.3692123896027213,
+              "min": 0.0,
+              "max": 5.793223264863945,
+              "p5": 0.024068302133172133,
+              "p95": 4.501027798397207,
+              "count": 8
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.1737823293920337,
+              "median": 0.03947678152537991,
+              "min": 0.010156663472072301,
+              "max": 0.6666666666666666,
+              "p5": 0.011920304614127165,
+              "p95": 0.6261471924937692,
+              "count": 8
+            },
+            "spread_ticks": {
+              "direction": "neutral",
+              "mean": 4.404512730530809,
+              "median": 1.8443663088281923,
+              "min": 1.0,
+              "max": 22.761904761904763,
+              "p5": 1.0080057053941909,
+              "p95": 15.827738095238086,
+              "count": 8
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 4.5625432523964416e-05,
+              "median": 4.299582277336417e-07,
+              "min": 0.0,
+              "max": 0.00036013640690511566,
+              "p5": 0.0,
+              "p95": 0.00023527748684090254,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.005044793657651759,
+              "median": 0.0001849892985215691,
+              "min": 0.0,
+              "max": 0.0167754695370338,
+              "p5": 0.0,
+              "p95": 0.016129541213296197,
+              "count": 8
+            }
+          },
+          "returns": {
+            "window_days": 10,
+            "n_obs": 10,
+            "stock": 0.15555555555555522,
+            "market": 0.001335136841508655,
+            "sector": 0.03134440390861326,
+            "peers": 0.04432625890136821,
+            "vs_market": 0.15422041871404657,
+            "vs_sector": 0.12421115164694196,
+            "vs_peers": 0.11122929665418702
+          }
+        }
+      },
+      "30d": {
+        "label": "1M",
+        "window_days": 21,
+        "liquidity": {
+          "metric_aggregation": "median",
+          "metric_window_days": 21,
+          "score_pca": 69.71326164874552,
+          "score_pca_percentile": 69.71326164874552,
+          "rank_pca": 170,
+          "total": 558,
+          "adv_notional_sgd": 160644.0,
+          "adv_volume_shares": 730200.0,
+          "free_float_shares": null,
+          "turnover_ratio": 0.001280510649830132,
+          "votes": 42.0,
+          "trades": 42.0,
+          "spread_pct": 0.023904382470119483,
+          "spread_ticks": 1.1048951048951048,
+          "amihud": 6.348843558145879e-08,
+          "volatility": 0.5631713894043848
+        },
+        "pca": {
+          "valid": true,
+          "window_days": 21,
+          "variance_explained": 0.5308897370130169,
+          "loadings": {
+            "log_adv": 0.5411250557119529,
+            "log_trades": 0.49501224759058915,
+            "log_turnover": 0.4921053059515126,
+            "neg_spread": 0.4148176069977428,
+            "neg_amihud": 0.08652983699262848,
+            "neg_vol": 0.20104192822670722
+          }
+        },
+        "data_quality": {
+          "turnover_ratio": {
+            "valid": true,
+            "reason": null
+          }
+        },
+        "peer_summary": {
+          "n_peers": 8,
+          "peer_median_adv": 7114.15,
+          "peer_median_score_pca": 48.74551971326165,
+          "peer_median_trades": 6.5,
+          "peer_median_volatility": 0.36419660815024135,
+          "peer_median_spread_pct": 0.03738530514680312,
+          "peer_median_spread_ticks": 1.8176836861768368,
+          "peer_median_amihud": 9.920520960047204e-07,
+          "peer_median_turnover_ratio": 7.505535199067655e-05,
+          "target_vs_peer": {
+            "score_pca_delta": 20.97,
+            "adv_delta_pct": 2158.1,
+            "trades_delta_pct": 546.15,
+            "volatility_delta_pct": -54.63,
+            "spread_pct_delta_pct": 36.06,
+            "spread_ticks_delta_pct": -39.21,
+            "amihud_delta_pct": 93.6,
+            "turnover_ratio_delta_pct": 1606.09
+          }
+        },
+        "peer_liquidity": [
+          {
+            "ticker": "TKU",
+            "score_pca": 69.71326164874552,
+            "rank_pca": 170,
+            "adv": 160644.0,
+            "trades": 42.0,
+            "volatility": 0.5631713894043848,
+            "spread_pct": 0.023904382470119483,
+            "spread_ticks": 1.1048951048951048,
+            "amihud": 6.348843558145879e-08,
+            "turnover_ratio": 0.001280510649830132,
+            "is_target": true
+          },
+          {
+            "ticker": "KUX",
+            "score_pca": 2.3297491039426523,
+            "rank_pca": 546,
+            "adv": 0.0,
+            "trades": 0.0,
+            "volatility": 3.9100437565874655,
+            "spread_pct": 0.5116279069767442,
+            "spread_ticks": 22.142857142857142,
+            "amihud": 0.00036013640690511566,
+            "turnover_ratio": 0.0,
+            "is_target": false
+          },
+          {
+            "ticker": "532",
+            "score_pca": 3.853046594982079,
+            "rank_pca": 537,
+            "adv": 0.0,
+            "trades": 0.0,
+            "volatility": 0.0,
+            "spread_pct": 0.6666666666666666,
+            "spread_ticks": 1.0,
+            "amihud": 0.0,
+            "turnover_ratio": 0.0,
+            "is_target": false
+          },
+          {
+            "ticker": "U77",
+            "score_pca": 46.59498207885305,
+            "rank_pca": 299,
+            "adv": 5114.3,
+            "trades": 4.0,
+            "volatility": 0.3647335369793544,
+            "spread_pct": 0.015800974953773757,
+            "spread_ticks": 2.739130434782609,
+            "amihud": 2.244263145050405e-06,
+            "turnover_ratio": 7.9597377263322e-05,
+            "is_target": false
+          },
+          {
+            "ticker": "J03",
+            "score_pca": 62.18637992831542,
+            "rank_pca": 212,
+            "adv": 56710.4,
+            "trades": 46.0,
+            "volatility": 1.5883354628108992,
+            "spread_pct": 0.06305367378843153,
+            "spread_ticks": 1.0168067226890756,
+            "amihud": 4.7080121851160084e-07,
+            "turnover_ratio": 0.006060347077260322,
+            "is_target": false
+          },
+          {
+            "ticker": "NXR",
+            "score_pca": 26.16487455197133,
+            "rank_pca": 413,
+            "adv": 0.0,
+            "trades": 0.0,
+            "volatility": 0.1667182328355285,
+            "spread_pct": 0.034843205574912925,
+            "spread_ticks": 2.5,
+            "amihud": 2.012072434607639e-06,
+            "turnover_ratio": 0.0,
+            "is_target": false
+          },
+          {
+            "ticker": "42F",
+            "score_pca": 72.75985663082437,
+            "rank_pca": 153,
+            "adv": 175013.8,
+            "trades": 41.0,
+            "volatility": 0.4662277977776726,
+            "spread_pct": 0.03992740471869332,
+            "spread_ticks": 1.075,
+            "amihud": 0.0,
+            "turnover_ratio": 0.008208453276465225,
+            "is_target": false
+          },
+          {
+            "ticker": "LVR",
+            "score_pca": 50.89605734767025,
+            "rank_pca": 275,
+            "adv": 9114.0,
+            "trades": 9.0,
+            "volatility": 0.36365967932112836,
+            "spread_pct": 0.015331480077499801,
+            "spread_ticks": 2.4545454545454546,
+            "amihud": 1.51330297349784e-06,
+            "turnover_ratio": 7.051332671803111e-05,
+            "is_target": false
+          },
+          {
+            "ticker": "ITS",
+            "score_pca": 83.87096774193549,
+            "rank_pca": 91,
+            "adv": 657712.0,
+            "trades": 358.0,
+            "volatility": 0.33680043191378345,
+            "spread_pct": 0.010269651223321194,
+            "spread_ticks": 1.180821917808219,
+            "amihud": 1.7855362634975453e-08,
+            "turnover_ratio": 0.009644749743033771,
+            "is_target": false
+          }
+        ],
+        "market_comparison": {
+          "sector_name": "Software - Application",
+          "sector_count": 8,
+          "market_count": 558,
+          "market": {
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 0.6546032144529433,
+              "median": 0.3644102249269763,
+              "min": 0.0,
+              "max": 9.165151389911681,
+              "p5": 0.034641016151377484,
+              "p95": 2.1032251853534554,
+              "count": 558
+            },
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 3071860.842191335,
+              "median": 12682.0,
+              "min": 0.0,
+              "max": 255589391.20000002,
+              "p5": 0.0,
+              "p95": 12714416.099999962,
+              "count": 558
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.10804473253907534,
+              "median": 0.032305052955585445,
+              "min": 0.00024245657871967925,
+              "max": 1.2394366197183098,
+              "p5": 0.0033102788450015434,
+              "p95": 0.4878147774548017,
+              "count": 556
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.0038737584668733314,
+              "median": 0.00021428318677128654,
+              "min": 0.0,
+              "max": 0.659152330103487,
+              "p5": 0.0,
+              "p95": 0.011497368421794506,
+              "count": 551
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 0.0003353171486950857,
+              "median": 1.2973969211239899e-07,
+              "min": 0.0,
+              "max": 0.11111111111111112,
+              "p5": 0.0,
+              "p95": 0.00011077719705768502,
+              "count": 544
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 464.3046594982079,
+              "median": 6.0,
+              "min": 0.0,
+              "max": 10918.0,
+              "p5": 0.0,
+              "p95": 2735.899999999996,
+              "count": 558
+            }
+          },
+          "sector": {
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 0.7495914087317586,
+              "median": 0.3502300556174559,
+              "min": 0.0,
+              "max": 3.9100437565874655,
+              "p5": 0.05835138149243498,
+              "p95": 2.7386384280733855,
+              "count": 8
+            },
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 1868217.2875000003,
+              "median": 7114.15,
+              "min": 0.0,
+              "max": 14113154.000000002,
+              "p5": 0.0,
+              "p95": 9403749.299999993,
+              "count": 8
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.15997413462743282,
+              "median": 0.01985267871194662,
+              "min": 0.0013488090764248568,
+              "max": 0.6666666666666666,
+              "p5": 0.004471103827838575,
+              "p95": 0.6124031007751937,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.0025171770436820235,
+              "median": 7.505535199067655e-05,
+              "min": 0.0,
+              "max": 0.009644749743033771,
+              "p5": 0.0,
+              "p95": 0.009440803171385776,
+              "count": 8
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 4.574853698245026e-05,
+              "median": 7.883957045396495e-07,
+              "min": 0.0,
+              "max": 0.00036013640690511566,
+              "p5": 3.1731108995151906e-10,
+              "p95": 0.00023487415658909262,
+              "count": 8
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 500.5,
+              "median": 6.5,
+              "min": 0.0,
+              "max": 3591.0,
+              "p5": 0.0,
+              "p95": 2459.449999999998,
+              "count": 8
+            }
+          },
+          "peers": {
+            "adv": {
+              "direction": "higher_is_better",
+              "mean": 112958.0625,
+              "median": 7114.15,
+              "min": 0.0,
+              "max": 657712.0,
+              "p5": 0.0,
+              "p95": 488767.6299999998,
+              "count": 8
+            },
+            "trades": {
+              "direction": "higher_is_better",
+              "mean": 57.25,
+              "median": 6.5,
+              "min": 0.0,
+              "max": 358.0,
+              "p5": 0.0,
+              "p95": 248.79999999999984,
+              "count": 8
+            },
+            "volatility": {
+              "direction": "lower_is_better",
+              "mean": 0.899564862278229,
+              "median": 0.36419660815024135,
+              "min": 0.0,
+              "max": 3.9100437565874655,
+              "p5": 0.05835138149243498,
+              "p95": 3.097445853765666,
+              "count": 8
+            },
+            "spread_pct": {
+              "direction": "lower_is_better",
+              "mean": 0.1696901204975054,
+              "median": 0.03738530514680312,
+              "min": 0.010269651223321194,
+              "max": 0.6666666666666666,
+              "p5": 0.012041291322283708,
+              "p95": 0.6124031007751937,
+              "count": 8
+            },
+            "spread_ticks": {
+              "direction": "neutral",
+              "mean": 4.263645209085313,
+              "median": 1.8176836861768368,
+              "min": 1.0,
+              "max": 22.142857142857142,
+              "p5": 1.0058823529411764,
+              "p95": 15.351552795031045,
+              "count": 8
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 4.5799337754927264e-05,
+              "median": 9.920520960047204e-07,
+              "min": 0.0,
+              "max": 0.00036013640690511566,
+              "p5": 0.0,
+              "p95": 0.00023487415658909262,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.0030079576000925836,
+              "median": 7.505535199067655e-05,
+              "min": 0.0,
+              "max": 0.009644749743033771,
+              "p5": 0.0,
+              "p95": 0.009142045979734779,
+              "count": 8
+            }
+          },
+          "returns": {
+            "window_days": 21,
+            "n_obs": 21,
+            "stock": 0.15555555555555456,
+            "market": 0.03334237016264918,
+            "sector": 0.04826026267411643,
+            "peers": 0.048781832701115135,
+            "vs_market": 0.12221318539290538,
+            "vs_sector": 0.10729529288143813,
+            "vs_peers": 0.10677372285443942
+          }
+        }
+      }
+    },
+    "period_insights": {
+      "1d": {
+        "liquidity": "Tradability looks strong on the day, with a 1D score of 82.6 compared with a peer median of 43.9, though the bid side is lighter than the ask.",
+        "market_comparison": "Return 2.0% vs peers 0.0%."
+      },
+      "1w": {
+        "liquidity": "Liquidity remains strong over the week, with a 1W score of 79.2 compared with a peer median of 52.1, pointing to solid access relative to similar names.",
+        "market_comparison": "The stock gained 13.0% compared with 4.2% for peers, which matters because stronger momentum often comes with firmer trading conditions."
+      },
+      "2w": {
+        "liquidity": "Tradability is still strong over two weeks, with a 2W score of 68.8 compared with a peer median of 51.8, showing access has held above the peer group.",
+        "market_comparison": "The stock returned 15.6% compared with 4.4% for peers, which matters because outperformance can keep turnover and attention elevated."
+      },
+      "30d": {
+        "liquidity": "Monthly liquidity is strong for the company’s size, with a 1M score of 69.7 compared with a peer median of 48.7, supporting good accessibility.",
+        "market_comparison": "The stock returned 15.6% compared with 4.9% for peers and 3.3% for the market, which matters because the return backdrop has been firmer than the main comparison groups."
+      }
+    }
+  },
+  "q02": {
+    "driver_model": {
+      "valid": true,
+      "model_method": "ols_with_volatility_regimes",
+      "estimation_window_days": 60,
+      "reporting_window_days": 60,
+      "available_history_days": 60,
+      "n_regimes": 2,
+      "current_regime": 1,
+      "current_regime_label": "High Volatility",
+      "current_regime_probability": 1.0,
+      "current_driver_mix": {
+        "market_share": {
+          "median": 0.6329529687263611,
+          "low": null,
+          "high": null,
+          "range_collapsed": false,
+          "display_value": "63.3%",
+          "display_range": null,
+          "display_text": "63.3%",
+          "is_point_estimate": true,
+          "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+          "kind": "share_pct",
+          "value_pct": 63.3,
+          "plain_english": "Market explains about 63.3% of price moves in the current state."
+        },
+        "sector_share": {
+          "median": 0.33512517002963865,
+          "low": null,
+          "high": null,
+          "range_collapsed": false,
+          "display_value": "33.5%",
+          "display_range": null,
+          "display_text": "33.5%",
+          "is_point_estimate": true,
+          "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+          "kind": "share_pct",
+          "value_pct": 33.5,
+          "plain_english": "Sector explains about 33.5% of price moves in the current state."
+        },
+        "company_share": {
+          "median": 0.03192186124400018,
+          "low": null,
+          "high": null,
+          "range_collapsed": false,
+          "display_value": "3.2%",
+          "display_range": null,
+          "display_text": "3.2%",
+          "is_point_estimate": true,
+          "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+          "kind": "share_pct",
+          "value_pct": 3.2,
+          "plain_english": "Company-specific explains about 3.2% of price moves in the current state."
+        },
+        "basis": "current_state"
+      },
+      "current_sensitivities": {
+        "beta_market": {
+          "median": 21.767781646429857,
+          "low": null,
+          "high": null,
+          "range_collapsed": false,
+          "display_value": "21.77",
+          "display_range": null,
+          "display_text": "21.77",
+          "is_point_estimate": true,
+          "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+          "kind": "beta",
+          "strength_label": "Very high",
+          "plain_english": "Very high market link: a 1% market move has lined up with about a 21.77% stock move in the same direction in this state. The multiplier is unusually large and comes from only 60 trading days of history.",
+          "value_num": 21.77
+        },
+        "beta_stock_lag": {
+          "median": 0.07696709205505757,
+          "low": null,
+          "high": null,
+          "range_collapsed": false,
+          "display_value": "0.08",
+          "display_range": null,
+          "display_text": "0.08",
+          "is_point_estimate": true,
+          "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+          "kind": "lag_beta",
+          "value_num": 0.08
+        },
+        "beta_sector": {
+          "median": 1.6175720463540832,
+          "low": null,
+          "high": null,
+          "range_collapsed": false,
+          "display_value": "1.62",
+          "display_range": null,
+          "display_text": "1.62",
+          "is_point_estimate": true,
+          "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+          "kind": "beta",
+          "strength_label": "High",
+          "plain_english": "High sector link: a 1% sector move has lined up with about a 1.62% stock move in the same direction in this state.",
+          "value_num": 1.62
+        },
+        "beta_market_lag": {
+          "median": 11.869478691978268,
+          "low": null,
+          "high": null,
+          "range_collapsed": false,
+          "display_value": "11.87",
+          "display_range": null,
+          "display_text": "11.87",
+          "is_point_estimate": true,
+          "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+          "kind": "lag_beta",
+          "value_num": 11.87
+        },
+        "beta_sector_lag": {
+          "median": -1.8794356305843314,
+          "low": null,
+          "high": null,
+          "range_collapsed": false,
+          "display_value": "-1.88",
+          "display_range": null,
+          "display_text": "-1.88",
+          "is_point_estimate": true,
+          "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+          "kind": "lag_beta",
+          "value_num": -1.88
+        },
+        "posterior_source": null,
+        "intervals_collapsed": false,
+        "confidence_label": "High, limited history",
+        "confidence_note": "Based on 60 trading days relative to the 252-day target."
+      },
+      "rolling_windows": {},
+      "monthly_history": [
+        {
+          "month_key": "2026-01",
+          "month_label": "January 2026",
+          "month_short_label": "Jan",
+          "period_label": "2026-01-26 to 2026-01-30",
+          "n_obs": 5,
+          "partial_month": true,
+          "dominant_driver": "market",
+          "dominant_driver_label": "Market",
+          "regime_id": null,
+          "regime_label": null,
+          "dominant_share": {
+            "median": 0.47931948471963925,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "47.9%",
+            "display_range": null,
+            "display_text": "47.9%",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 5 trading days.",
+            "kind": "share_pct",
+            "value_pct": 47.9,
+            "plain_english": "Market explains about 47.9% of price moves in the current state."
+          },
+          "shares": {
+            "market_share": {
+              "median": 0.47931948471963925,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "47.9%",
+              "display_range": null,
+              "display_text": "47.9%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 5 trading days.",
+              "kind": "share_pct",
+              "value_pct": 47.9,
+              "plain_english": "Market explains about 47.9% of price moves in the current state."
+            },
+            "sector_share": {
+              "median": 0.2984396411024003,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "29.8%",
+              "display_range": null,
+              "display_text": "29.8%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 5 trading days.",
+              "kind": "share_pct",
+              "value_pct": 29.8,
+              "plain_english": "Sector explains about 29.8% of price moves in the current state."
+            },
+            "company_share": {
+              "median": 0.22224087417796046,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "22.2%",
+              "display_range": null,
+              "display_text": "22.2%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 5 trading days.",
+              "kind": "share_pct",
+              "value_pct": 22.2,
+              "plain_english": "Company-specific explains about 22.2% of price moves in the current state."
+            }
+          },
+          "summary": "Jan: Mostly market-driven, though based on only 5 trading days."
+        },
+        {
+          "month_key": "2026-02",
+          "month_label": "February 2026",
+          "month_short_label": "Feb",
+          "period_label": "2026-02-02 to 2026-02-27",
+          "n_obs": 18,
+          "partial_month": false,
+          "dominant_driver": "company",
+          "dominant_driver_label": "Company-specific",
+          "regime_id": null,
+          "regime_label": null,
+          "dominant_share": {
+            "median": 0.5656898926629687,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "56.6%",
+            "display_range": null,
+            "display_text": "56.6%",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 18 trading days.",
+            "kind": "share_pct",
+            "value_pct": 56.6,
+            "plain_english": "Company-specific explains about 56.6% of price moves in the current state."
+          },
+          "shares": {
+            "market_share": {
+              "median": 0.2647931795787311,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "26.5%",
+              "display_range": null,
+              "display_text": "26.5%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 18 trading days.",
+              "kind": "share_pct",
+              "value_pct": 26.5,
+              "plain_english": "Market explains about 26.5% of price moves in the current state."
+            },
+            "sector_share": {
+              "median": 0.1695169277583002,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "17.0%",
+              "display_range": null,
+              "display_text": "17.0%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 18 trading days.",
+              "kind": "share_pct",
+              "value_pct": 17.0,
+              "plain_english": "Sector explains about 17.0% of price moves in the current state."
+            },
+            "company_share": {
+              "median": 0.5656898926629687,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "56.6%",
+              "display_range": null,
+              "display_text": "56.6%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 18 trading days.",
+              "kind": "share_pct",
+              "value_pct": 56.6,
+              "plain_english": "Company-specific explains about 56.6% of price moves in the current state."
+            }
+          },
+          "summary": "Feb: Mostly company-driven."
+        },
+        {
+          "month_key": "2026-03",
+          "month_label": "March 2026",
+          "month_short_label": "Mar",
+          "period_label": "2026-03-02 to 2026-03-31",
+          "n_obs": 22,
+          "partial_month": false,
+          "dominant_driver": "company",
+          "dominant_driver_label": "Company-specific",
+          "regime_id": null,
+          "regime_label": null,
+          "dominant_share": {
+            "median": 0.5379214653603349,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "53.8%",
+            "display_range": null,
+            "display_text": "53.8%",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 22 trading days.",
+            "kind": "share_pct",
+            "value_pct": 53.8,
+            "plain_english": "Company-specific explains about 53.8% of price moves in the current state."
+          },
+          "shares": {
+            "market_share": {
+              "median": 0.22982068067655406,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "23.0%",
+              "display_range": null,
+              "display_text": "23.0%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 22 trading days.",
+              "kind": "share_pct",
+              "value_pct": 23.0,
+              "plain_english": "Market explains about 23.0% of price moves in the current state."
+            },
+            "sector_share": {
+              "median": 0.23225785396311108,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "23.2%",
+              "display_range": null,
+              "display_text": "23.2%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 22 trading days.",
+              "kind": "share_pct",
+              "value_pct": 23.2,
+              "plain_english": "Sector explains about 23.2% of price moves in the current state."
+            },
+            "company_share": {
+              "median": 0.5379214653603349,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "53.8%",
+              "display_range": null,
+              "display_text": "53.8%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 22 trading days.",
+              "kind": "share_pct",
+              "value_pct": 53.8,
+              "plain_english": "Company-specific explains about 53.8% of price moves in the current state."
+            }
+          },
+          "summary": "Mar: Mostly company-driven."
+        },
+        {
+          "month_key": "2026-04",
+          "month_label": "April 2026",
+          "month_short_label": "Apr",
+          "period_label": "2026-04-01 to 2026-04-22",
+          "n_obs": 15,
+          "partial_month": false,
+          "dominant_driver": "company",
+          "dominant_driver_label": "Company-specific",
+          "regime_id": null,
+          "regime_label": null,
+          "dominant_share": {
+            "median": 0.6160532575881597,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "61.6%",
+            "display_range": null,
+            "display_text": "61.6%",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+            "kind": "share_pct",
+            "value_pct": 61.6,
+            "plain_english": "Company-specific explains about 61.6% of price moves in the current state."
+          },
+          "shares": {
+            "market_share": {
+              "median": 0.13623844054353712,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "13.6%",
+              "display_range": null,
+              "display_text": "13.6%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+              "kind": "share_pct",
+              "value_pct": 13.6,
+              "plain_english": "Market explains about 13.6% of price moves in the current state."
+            },
+            "sector_share": {
+              "median": 0.24770830186830312,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "24.8%",
+              "display_range": null,
+              "display_text": "24.8%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+              "kind": "share_pct",
+              "value_pct": 24.8,
+              "plain_english": "Sector explains about 24.8% of price moves in the current state."
+            },
+            "company_share": {
+              "median": 0.6160532575881597,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "61.6%",
+              "display_range": null,
+              "display_text": "61.6%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+              "kind": "share_pct",
+              "value_pct": 61.6,
+              "plain_english": "Company-specific explains about 61.6% of price moves in the current state."
+            }
+          },
+          "summary": "Apr: Still clearly company-driven."
+        }
+      ],
+      "regimes": [
+        {
+          "id": 0,
+          "label": "Low Volatility",
+          "pct_time": 0.5,
+          "expected_duration_days": 5.8,
+          "current_probability": 0.0,
+          "n_days_effective": 29.0,
+          "volatility": {
+            "median": 0.027609165187793168,
+            "low": 0.027609165187793168,
+            "high": 0.027609165187793168
+          },
+          "volatility_label": "Low Volatility",
+          "current_probability_display": 0.0
+        },
+        {
+          "id": 1,
+          "label": "High Volatility",
+          "pct_time": 0.5,
+          "expected_duration_days": 5.8,
+          "current_probability": 1.0,
+          "n_days_effective": 29.0,
+          "volatility": {
+            "median": 0.04225586454049286,
+            "low": 0.04225586454049286,
+            "high": 0.04225586454049286
+          },
+          "volatility_label": "High Volatility",
+          "current_probability_display": null
+        }
+      ],
+      "transitions": {
+        "mean": [
+          [
+            0.8275862068965517,
+            0.1724137931034483
+          ],
+          [
+            0.14285714285714285,
+            0.8571428571428571
+          ]
+        ],
+        "low": [],
+        "high": [],
+        "counts": [
+          [
+            24.0,
+            5.0
+          ],
+          [
+            4.0,
+            24.0
+          ]
+        ]
+      },
+      "methodology": {
+        "estimation_window_days": 60,
+        "reporting_window_days": 60,
+        "current_mix_method": "ols_last_5d",
+        "monthly_history_method": "ols_per_month",
+        "regime_inference": "volatility_kmeans",
+        "distribution": "gaussian",
+        "history_limited": true,
+        "current_driver_mix_basis": "ols_recent_window",
+        "sector_proxy_equals_market": false
+      },
+      "client_read": {
+        "market_link_display": "21.77",
+        "sector_link_display": "1.62",
+        "market_link_explainer": "Very high market link. A 1% market move has lined up with about a 21.77% stock move in the same direction in this state. This is a point estimate from 60 trading days.",
+        "sector_link_explainer": "High sector link. A 1% sector move has lined up with about a 1.62% stock move in the same direction in this state. This is a point estimate from 60 trading days.",
+        "stock_persistence_display": "0.08",
+        "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+        "history_limited_note": "Read is based on 60 trading days versus the 252-day target."
+      },
+      "current_summary": {
+        "regime_label": "High Volatility",
+        "dominant_driver": "market",
+        "dominant_driver_label": "Market",
+        "driver_share_pct": 63.3,
+        "driver_share_display": "63.3%",
+        "confidence_label": "High, limited history",
+        "confidence_pct": 100.0,
+        "display_confidence_pct": null,
+        "confidence_note": "Based on 60 trading days relative to the 252-day target.",
+        "history_days": 60,
+        "history_limited": true,
+        "volatility_label": "High Volatility",
+        "lead_signal_text": "No stable lead signal.",
+        "state_term": "state",
+        "stay_probability": 0.8571428571428571,
+        "effective_days": 29.0,
+        "persistence_note": "This state looks more persistent, with a typical run length of about 5.8 days.",
+        "expected_duration_days": 5.8
+      },
+      "display_notes": {
+        "collapsed_interval": "When only one number is shown, the run produced a point estimate instead of a wider uncertainty range."
+      }
+    },
+    "regime_switching": {
+      "valid": true,
+      "regime_method": "ols_with_volatility_regimes",
+      "n_regimes": 2,
+      "regimes": [
+        {
+          "id": 0,
+          "label": "Low Volatility",
+          "pct_time": 0.5,
+          "expected_duration_days": 5.8,
+          "current_probability": 0.0,
+          "n_days_effective": 29.0,
+          "volatility": {
+            "median": 0.027609165187793168,
+            "low": 0.027609165187793168,
+            "high": 0.027609165187793168
+          },
+          "volatility_label": "Low Volatility"
+        },
+        {
+          "id": 1,
+          "label": "High Volatility",
+          "pct_time": 0.5,
+          "expected_duration_days": 5.8,
+          "current_probability": 1.0,
+          "n_days_effective": 29.0,
+          "volatility": {
+            "median": 0.04225586454049286,
+            "low": 0.04225586454049286,
+            "high": 0.04225586454049286
+          },
+          "volatility_label": "High Volatility"
+        }
+      ],
+      "transitions": [
+        [
+          0.8275862068965517,
+          0.1724137931034483
+        ],
+        [
+          0.14285714285714285,
+          0.8571428571428571
+        ]
+      ],
+      "transition_intervals": {
+        "mean": [
+          [
+            0.8275862068965517,
+            0.1724137931034483
+          ],
+          [
+            0.14285714285714285,
+            0.8571428571428571
+          ]
+        ],
+        "low": [],
+        "high": [],
+        "counts": [
+          [
+            24.0,
+            5.0
+          ],
+          [
+            4.0,
+            24.0
+          ]
+        ]
+      },
+      "current_regime": 1,
+      "current_regime_label": "High Volatility",
+      "current_regime_probability": 1.0
+    }
+  },
+  "theme": {
+    "badges": {
+      "liq_section": {
+        "text": "Liquidity score: 69.7 — Strong",
+        "bg": "bg-emerald-500/20",
+        "textColor": "text-emerald-400"
+      },
+      "perf": {
+        "text": "Performance is strong",
+        "bg": "bg-emerald-500/20",
+        "textColor": "text-emerald-400"
+      },
+      "drivers": {
+        "text": "Drivers: N/A",
+        "bg": "bg-amber-500/20",
+        "textColor": "text-amber-400"
+      },
+      "exec_check": {
+        "text": "Execution: bid-light",
+        "bg": "bg-amber-500/20",
+        "textColor": "text-amber-400"
+      },
+      "intraday": {
+        "text": "Trading Activity",
+        "bg": "bg-red-500/20",
+        "textColor": "text-red-400"
+      },
+      "short": {
+        "text": "Low short interest",
+        "bg": "bg-emerald-500/20",
+        "textColor": "text-emerald-400"
+      },
+      "header_health": {
+        "text": "Liquidity Health: MODERATE",
+        "bg": "bg-amber-500/20",
+        "textColor": "text-amber-400",
+        "dot": "bg-amber-500"
+      },
+      "ofi": {
+        "text": "Order Flow: N/A",
+        "bg": "bg-slate-700/40",
+        "textColor": "text-slate-300"
+      },
+      "index_status": {
+        "text": "Index: N/A",
+        "bg": "bg-slate-700/40",
+        "textColor": "text-slate-300"
+      }
+    },
+    "borders": {
+      "action_plan": "border-slate-700",
+      "index": "border-slate-700"
+    },
+    "colors": {
+      "interpretation_good": "interpretation-good",
+      "interpretation_neutral": "interpretation-neutral",
+      "interpretation_bad": "interpretation-bad"
+    }
+  },
+  "labels": {
+    "action_plan_title": "Action Plan (Prioritized)",
+    "action_plan_subtitle": "Observational summary only; no execution instructions.",
+    "action_plan_icon": "",
+    "liq_title": "Liquidity Health & Peer Comparison",
+    "liq_subtitle": "Monthly liquidity stands out relative to peers, although displayed buy-side depth is thinner today.",
+    "market_comparison_title": "How You Compare to the Market",
+    "market_comparison_subtitle": "Context relative to market, sector, and peer medians.",
+    "perf_title": "Stock Performance",
+    "perf_subtitle": "Recent returns are well ahead of peers and the market, pointing to a firmer trading backdrop.",
+    "perf_insight": "Performance has been strong, with a 1M return of +15.6% compared with +4.9% for peers and +3.3% for the market. That stronger backdrop supports interest in the name, even as the current book shows lighter buy-side depth at 0.55x of ask depth.",
+    "drivers_title": "What Moves Your Stock Price?",
+    "drivers_subtitle": "Broader market moves are the main current driver, so the tape is moving more with the backdrop than on company-specific factors.",
+    "drivers_strip": [
+      {
+        "title": "Current Driver (Last 5 Days)",
+        "text": "Over the last 5 trading days, moves are mainly market-driven, accounting for about 63.3% of price changes. Other influences are sector 33.5%, and company-specific 3.2%."
+      },
+      {
+        "title": "Driver Mix",
+        "text": "Based on the last 5 trading days, current mix is market 63.3%, sector 33.5%, and company-specific 3.2%."
+      },
+      {
+        "title": "Monthly Trend",
+        "text": "The driver mix has been consistently company-driven across Feb to Apr."
+      }
+    ],
+    "drivers_pie_title": "Current Driver Mix (Last 5 Days)",
+    "drivers_pie_note": "Based on the last 5 trading days, current split is market 63.3%, sector 33.5%, and company-specific 3.2%.",
+    "lead_lag_title": "",
+    "lead_lag_note": "",
+    "rolling_title": "Monthly Driver Shift",
+    "rolling_latest_label": "Latest: {period}",
+    "rolling_note": "Each bar shows the monthly split between market-, sector-, and company-driven moves.",
+    "drivers_bottom_line": "Market factors account for 63.3% of the current driver mix. That keeps trading conditions tied closely to the wider backdrop, while the lighter bid side can make buying access feel thinner day to day.",
+    "drivers_wtd_title": "Key Reads",
+    "drivers_wtd_list": [
+      "Main driver now: broader market moves are leading, accounting for 63.3% of current price action.",
+      "Monthly change: the stock was mostly market through Feb to Apr, so the current mix looks more market-led than the recent pattern."
+    ],
+    "regime_title": "Market State",
+    "regime_subtitle": "The stock is trading with a firm return backdrop and a market-led driver mix, while the current book remains less balanced on the bid side.",
+    "regime_badge_text": "High Volatility",
+    "regime_pie_title": "State Mix",
+    "transition_title": "State Transitions",
+    "transition_cols": [
+      "From \\",
+      "Low Volatility",
+      "High Volatility"
+    ],
+    "transition_note_template": "Rows sum to 100%. Each row shows how states tend to transition across the observed sample.",
+    "market_state_strip": [],
+    "exec_check_title": "Trading Costs & Market Depth",
+    "exec_check_subtitle": "Combines the final continuous-session displayed book before close, trade-size stress tests based on available history from Jan 22, 2026 to Apr 22, 2026 (62 trading days • 11,199 trades), large sell-side orders observed today, and intraday spread/depth during the continuous trading session.",
+    "order_book_title": "Order Book Depth (Available Liquidity)",
+    "order_book_note": "Depth shown is based on top 10 bid and top 10 ask levels.",
+    "peer_capacity_title": "Peer Capacity Context",
+    "peer_capacity_note": "Immediate buy-side depth is lighter than the monthly baseline, so day-to-day access may feel weaker than the 1M score",
+    "impact_summary_title": "Estimated Price Impact (Sell Orders)",
+    "impact_summary_subtitle": "Approximate price impact (%) for sell orders.",
+    "exec_check_insight": "The main execution watchpoint is lighter buy-side depth, with top-10 bid depth at 0.55x of ask depth despite a 1 tick spread. That means the strong monthly liquidity profile is not showing up evenly on the buy side today.",
+    "trader_composition_title": "Who's Trading Your Stock?",
+    "trader_composition_subtitle": "Shows whether trading is mostly retail-like, institution-like, mixed, or unclassified.",
+    "trader_retail_threshold": "Retail-like flow",
+    "trader_mixed_threshold": "Mixed flow",
+    "trader_instit_threshold": "Institution-like flow",
+    "peer_trader_title": "Peer Comparison: Trader Mix",
+    "peer_trader_subtitle": "How the trader mix compares with peers.",
+    "price_moving_title": "Which Trades Move the Price?",
+    "price_moving_subtitle": "Price-moving trades are 9.7% of total trades.",
+    "intraday_title": "When Does Trading Happen?",
+    "intraday_subtitle": "Displayed liquidity is currently less balanced, with thinner depth on the bid side than the ask.",
+    "session_dist_title": "Trading by Session",
+    "session_period_label": "Period:",
+    "session_dist_note": "Shows the share of volume in the opening, continuous, and closing sessions.",
+    "hhi_title": "Trading Concentration (concentration score)",
+    "hhi_note_template": "Current concentration score: {value}.",
+    "intraday_intensity_title": "Trading Activity by Time of Day",
+    "intraday_intensity_note": "Peak buckets show where activity clusters through the day.",
+    "peers_hhi_title": "Peer Comparison: Trading Concentration",
+    "peers_hhi_cols": [
+      "Ticker",
+      "% Auctions",
+      "concentration score",
+      "Interpretation"
+    ],
+    "peers_hhi_note": "Peer comparison uses auction share and concentration score.",
+    "intraday_insight": "The clearest intraday signal is the book imbalance, with top-10 bid depth at 0.55x of ask depth while spread remains 1 tick. That points to buying access feeling less robust through the session than the monthly liquidity score alone would suggest.",
+    "short_title": "Short Selling & Lending",
+    "short_subtitle": "The stock’s liquidity profile remains the more important read than any short-side signal.",
+    "footer": "Liquidity Analysis Report • Generated by Deltablock",
+    "header_title": "Liquidity Analysis Report",
+    "header_meta_line1_tokens": [
+      "{company}",
+      "•",
+      "{ticker}",
+      "•",
+      "Sector: {sector}",
+      "•",
+      "Market Cap: {mcap} ({mcap_cat} cap)"
+    ],
+    "header_meta_line2_tokens": [
+      "As of: {asof}",
+      "•",
+      "Universe: {univ}",
+      "•",
+      "Peers: {peers}"
+    ],
+    "exec_title": "Executive Summary",
+    "exec_subtitle": "Trading access looks strong for the company’s size, with a lighter bid side worth watching in the current book.",
+    "exec_takeaways_title": "Key Takeaways:",
+    "metric_liquidity_score": "Liquidity Score",
+    "metric_spread": "Trading Cost (Spread)",
+    "metric_adv": "Average Traded Volume",
+    "metric_drivers": "What Drives Price Changes",
+    "metric_period_note": "The metrics shown here are based on the last 1 month of trading data, except for price driver mix which uses the last 5 trading days.",
+    "ofi_title": "Order Flow Balance",
+    "ofi_subtitle": "Order flow imbalance data is not yet available for this report.",
+    "ofi_tiles": [
+      {
+        "title": "Order Flow Imbalance",
+        "note": "Data not available"
+      },
+      {
+        "title": "OFI vs Daily Prices",
+        "note": "Data not available"
+      },
+      {
+        "title": "Short-Term Order Book Signal",
+        "note": "Data not available"
+      }
+    ],
+    "ofi_table_title": "Order Flow Summary",
+    "ofi_table_note": "Data not available for this report.",
+    "ofi_table_cols": [
+      "Period",
+      "Avg OFI",
+      "Avg |OFI|",
+      "Interpretation"
+    ],
+    "ofi_corr_note_template": "N/A",
+    "ofi_pie_title": "Day Classification",
+    "ofi_pie_stats": [
+      "Net Buying Days",
+      "Net Selling Days"
+    ],
+    "l2_compact_title": "Order Book Imbalance Analysis (Last 7 Days)",
+    "ofi_unusual_title": "Unusual Imbalance Days",
+    "ofi_unusual_cols": [
+      "Date",
+      "Direction",
+      "Return"
+    ],
+    "ofi_unusual_note": "No unusual imbalance days detected.",
+    "index_title": "Index Visibility & Eligibility",
+    "index_subtitle": "Index eligibility data is not yet available for this report."
+  },
+  "content": {
+    "action_plan": {
+      "borderClass": "border-slate-700",
+      "columns": []
+    },
+    "liq_tiles": [
+      {
+        "title": "Liquidity Score",
+        "value": "69.7/100",
+        "sub": "Peer median 48.7 (+21.0 pts)",
+        "interp": {
+          "text": "Strong",
+          "cls": "interpretation-good",
+          "icon": "◆"
+        }
+      },
+      {
+        "title": "Volume vs Peers",
+        "value": "S$160.6K",
+        "sub": "Peer median S$7.1K",
+        "interp": {
+          "text": "Strong",
+          "cls": "interpretation-good",
+          "icon": "◆"
+        }
+      },
+      {
+        "title": "Spread",
+        "value": "2.39%",
+        "sub": "1.10 ticks; peers 3.74%",
+        "interp": {
+          "text": "Tighter",
+          "cls": "interpretation-good",
+          "icon": "◆"
+        }
+      }
+    ],
+    "liq_insight": "Liquidity looks strong for the company’s size, with a 1M score of 69.7 compared with a peer median of 48.7. That points to better baseline access than the peer set. The current book is less even, because top-10 bid depth is only 0.55x of ask depth while spread remains 1 tick, so buy-side access can feel thinner than the monthly standing implies.",
+    "perf_badge": "Context",
+    "exec_check_tiles": [
+      {
+        "title": "Mid Price",
+        "value": "0.263",
+        "note": "final continuous-session displayed book before close",
+        "color": "text-white"
+      },
+      {
+        "title": "Spread",
+        "value": "1.90%",
+        "note": "1.00 ticks",
+        "color": "text-slate-300"
+      },
+      {
+        "title": "Depth",
+        "value": "0.55x",
+        "note": "Bid depth / ask depth on displayed top-10 levels",
+        "color": "text-slate-300"
+      }
+    ],
+    "impact_summary_cards": [
+      {
+        "title": "~S$100K sell",
+        "text": "Estimated impact ~-0.95% with 100.0% fill.",
+        "cls": "ok"
+      },
+      {
+        "title": "S$1.0M sell",
+        "text": "Estimated impact ~-8.52% with 96.0% fill.",
+        "cls": "warn"
+      },
+      {
+        "title": "S$2.5M sell",
+        "text": "Estimated impact ~-8.52% with 38.4% fill.",
+        "cls": "warn"
+      }
+    ],
+    "peers_hhi_header": [
+      "Ticker",
+      "% Auctions",
+      "concentration score",
+      "Interpretation"
+    ],
+    "footer": "Liquidity Analysis Report • Generated by Deltablock",
+    "exec_metrics": [
+      {
+        "title": "Liquidity Score",
+        "tooltip": {
+          "title": "Liquidity Score",
+          "body": "Overall liquidity read for the selected window."
+        },
+        "value": "70",
+        "suffix": "/100",
+        "bar_pct": 70,
+        "color_value": "text-amber-400",
+        "color_bar": "bg-amber-500",
+        "subtext": "Rank 170/558",
+        "interpretation": {
+          "text": "Moderate",
+          "cls": "interpretation-neutral",
+          "icon": "◆"
+        }
+      },
+      {
+        "title": "Trading Cost (Spread)",
+        "tooltip": {
+          "title": "Trading Cost (Spread)",
+          "body": "The gap between best buy and sell prices in the selected window."
+        },
+        "value": "2.39",
+        "suffix": "%",
+        "bar_pct": 24,
+        "color_value": "text-amber-400",
+        "color_bar": "bg-amber-500",
+        "subtext": "2.39% • 1.10 ticks vs peers 3.74%",
+        "interpretation": {
+          "text": "Moderate",
+          "cls": "interpretation-neutral",
+          "icon": "◆"
+        }
+      },
+      {
+        "title": "Average Traded Volume",
+        "tooltip": {
+          "title": "Average Traded Volume",
+          "body": "Average daily trading value in local currency for the selected window."
+        },
+        "value": "160.6K",
+        "value_prefix": "S$",
+        "suffix": "",
+        "bar_pct": 60,
+        "color_value": "text-emerald-400",
+        "color_bar": "bg-emerald-500",
+        "subtext": "Peer median S$7.1K",
+        "interpretation": {
+          "text": "Strong",
+          "cls": "interpretation-good",
+          "icon": "◆"
+        }
+      },
+      {
+        "title": "What Drives Price Changes",
+        "tooltip": {
+          "title": "What Drives Price Changes",
+          "body": "Shows whether market, sector, or company-specific factors are the main source of recent moves."
+        },
+        "value": "63.3",
+        "suffix": "market",
+        "bar_pct": 63,
+        "color_value": "text-amber-400",
+        "color_bar": "bg-amber-500",
+        "subtext": "Sector 33.5% • Company 3.2%",
+        "interpretation": {
+          "text": "Market",
+          "cls": "interpretation-neutral",
+          "icon": "◆"
+        }
+      }
+    ],
+    "exec_takeaways": [
+      "Structural liquidity is strong relative to peers, with a 1M liquidity score of 69.7 compared with a peer median of 48.7. That supports better baseline access than the peer group for a stock of this size.",
+      "Price performance is notably stronger than the main comparison groups, with a 1M return of +15.6% compared with +4.9% for peers and +3.3% for the market. That gives the tape a firmer backdrop than peers.",
+      "The main near-term watchpoint is the lighter bid side, with top-10 bid depth at 0.55x of ask depth even as spread remains 1 tick. That means day-to-day buying access can feel thinner than the monthly liquidity standing suggests, especially with market factors driving 63.3% of the tape."
+    ],
+    "ofi_tiles_interpretations": [
+      {
+        "cls": "interpretation-neutral",
+        "text": "N/A"
+      },
+      {
+        "cls": "interpretation-neutral",
+        "text": "N/A"
+      },
+      {
+        "cls": "interpretation-neutral",
+        "text": "N/A"
+      }
+    ]
+  },
+  "insights": {
+    "liquidity": {
+      "overall": "1M liquidity is strong: score 69.7 vs peer median 48.7 (+21.0 pts). Recent trend context is too limited to say whether access has changed from the 1M baseline.",
+      "strengths": [
+        "1M score 69.7 vs peer median 48.7 (+21.0 pts)."
+      ],
+      "concerns": [],
+      "peer_context": "Primary-period score gap vs peers: +21.0 pts."
+    },
+    "market_comparison": {
+      "returns": {
+        "insight": "1M return is 15.6%, better than market, sector, and peers, which suggests stronger price performance than comparable names.",
+        "vs_market": "Better than market: 15.6% vs market 3.3%.",
+        "vs_sector": "Better than sector: 15.6% vs sector 4.8%.",
+        "vs_peers": "Better than peers: 15.6% vs peers 4.9%."
+      },
+      "adv": {
+        "insight": "ADV is S$160.6K, better than market, sector, and peers, which supports stronger day-to-day trading size than comparable names.",
+        "vs_market": "Better than market: S$160.6K vs market S$12.7K.",
+        "vs_sector": "Better than sector: S$160.6K vs sector S$7.1K.",
+        "vs_peers": "Better than peers: S$160.6K vs peers S$7.1K."
+      },
+      "spread": {
+        "insight": "Spread is 2.39%, better than market and peers, but worse than sector, which shows execution cost is mixed across comparison groups.",
+        "vs_market": "Better than market: 2.39% vs market 3.23%.",
+        "vs_sector": "Worse than sector: 2.39% vs sector 1.99%.",
+        "vs_peers": "Better than peers: 2.39% vs peers 3.74%."
+      },
+      "turnover_ratio": {
+        "insight": "Turnover ratio is 0.13%, better than market, sector, and peers, which shows a more active free-float turnover profile than comparable names.",
+        "vs_market": "Better than market: 0.13% vs market 0.02%.",
+        "vs_sector": "Better than sector: 0.13% vs sector 0.01%.",
+        "vs_peers": "Better than peers: 0.13% vs peers 0.01%."
+      },
+      "volatility": {
+        "insight": "Volatility is 56.32%, worse than market, sector, and peers, which suggests day-to-day price swings are heavier than comparable names.",
+        "vs_market": "Worse than market: 56.32% vs market 36.44%.",
+        "vs_sector": "Worse than sector: 56.32% vs sector 35.02%.",
+        "vs_peers": "Worse than peers: 56.32% vs peers 36.42%."
+      },
+      "trades": {
+        "insight": "Trades is 42, better than market, sector, and peers, which supports more fully reflective of day-to-day access day-to-day activity than comparable names.",
+        "vs_market": "Better than market: 42 vs market 6.",
+        "vs_sector": "Better than sector: 42 vs sector 6.",
+        "vs_peers": "Better than peers: 42 vs peers 6."
+      },
+      "amihud": {
+        "insight": "Price impact is 6.35e-08, better than market, sector, and peers, which suggests trades move price less than comparable names.",
+        "vs_market": "Better than market: 6.35e-08 vs market 1.30e-07.",
+        "vs_sector": "Better than sector: 6.35e-08 vs sector 7.88e-07.",
+        "vs_peers": "Better than peers: 6.35e-08 vs peers 9.92e-07."
+      }
+    },
+    "performance": {
+      "overall": "Recent performance is strong and ahead of both peers and the market, with a 1M return of +15.6% compared with +4.9% for peers and +3.3% for the market. Liquidity broadly confirms that move because the 1M liquidity score of 69.7 sits 21.0 points above the peer median, which suggests the stock has had enough trading support to absorb stronger demand.",
+      "conclusion": "The move looks mainly broad-market rather than company-specific, with strong relative returns supported by above-peer liquidity but tempered by thinner buy-side depth."
+    },
+    "drivers": {
+      "overall": "The stock is trading mainly off the broader market right now, with 63.3% of current moves explained by market factors. That matters because near-term price action is being shaped more by the external backdrop than by company news, even after a strong 1M return of 15.6%.",
+      "beta": "Based on the last 5 trading days, current mix is market 63.3%, sector 33.5%, and company-specific 3.2%.",
+      "rolling_change": "The recent shift is notable because the stock was mostly market from Feb through Apr, while the current read is more market-led. That suggests the present pattern looks more like a near-term change in what is moving the tape than a continuation of the monthly driver mix."
+    },
+    "regime": {
+      "overall": "High volatility is the active backdrop, and that matters because price moves are likely to stay larger from day to day even with a strong liquidity profile for the stock's size.",
+      "current": "The stock is currently in a high-volatility state, while the 1M return of +15.6% still sits ahead of peers at +4.9% and the market at +3.3%, pointing to a firm but more forceful tape.",
+      "transitions": "This state looks fairly persistent, with a typical run length of about 5.8 days, although the read is based on a shorter available history and may be treated as mixed rather than fully settled.",
+      "trading_implications": "Trading conditions look workable but less steady, with a 1-tick spread offset by top-10 bid depth at only 0.55x of ask depth, which can make buy-side access feel thinner while volatility stays elevated."
+    },
+    "execution": {
+      "overall": "Displayed liquidity is mixed: the 1 tick spread points to orderly trading, but the book is bid-light because top-10 bid depth is only 0.55x ask depth. That matters because immediate sell-side access looks better than immediate buy-side support.",
+      "concern": "The clearest stress point is the imbalance in displayed depth, with bids at just over half of ask depth. Trade-size context may be read with some care because the percentile history covers Jan 22, 2026 to Ap, 2026, spanning 62 trading days and 11,199 trades rather than a full year.",
+      "peer_context": "The broader liquidity standing still looks strong, with a 1M score of 69.7 compared with a peer median of 48.7, but the current book does not fully match that strength. In practical terms, the stock screens well on monthly liquidity while the live book shows thinner buy-side support."
+    },
+    "trader_composition": {
+      "overall": "By trade count and value, flow looks mainly institution-like.",
+      "retail_heavy": "Institution-like trades account for 35.8% of trade count and 43.5% of trade value, compared with retail-like trades at 30.4% of count and 5.0% of value. That gap in value matters because the larger share of money traded is coming from institution-like flow.",
+      "institutional_gap": "The read is not fully clean because unclear flow still represents 24.5% of trade count. That leaves the overall mix institution-like, but with some noise in the signal.",
+      "peer_comparison": "The mix stands out as institution-leaning relative to the peer comparison shown in the report tables, which supports the view that trading support is stronger than a purely retail-driven tape."
+    },
+    "price_moving": {
+      "overall": "Price-moving trades make up 9.7% of total trades, so most activity is not aggressively shifting the price. That points to a reasonably orderly tape, although the signal is mixed because 24.5% of trade count is unclear. The result is a usable read rather than a fully clean one. The main read is balance rather than one-way pressure, with the clearer signal coming from institution-like participation by count and value.",
+      "interpretation": "",
+      "asymmetry": ""
+    },
+    "short_selling": {
+      "overall": "Short activity does not look material to the current trading picture, with a 1M average short ratio of 0.27%. That matters because the stronger 1M share price performance, up 15.6% and ahead of peers and the market, points to broader demand rather than short pressure as the clearer influence.",
+      "level": "Low short interest",
+      "correlation": "No clear relationship (correlation undefined)",
+      "trend": "Short positioning has fallen sharply, with shorts covering by 100% month on month. That reduces the case for short selling as a separate source of pressure, although the read is mixed rather than decisive.",
+      "peaks": "0 notable peak days identified."
+    },
+    "intraday": {
+      "overall": "Session split is open 0.8%, continuous 97.6%, and close 1.6%. Current trading concentration score is 0.357.",
+      "hhi_interpretation": "A trading concentration score of 0.357 indicates activity is not overly concentrated in a small part of the session. That supports a steadier intraday liquidity profile.",
+      "best_times": "The continuous session is the clearest window for liquidity because almost all trading happens there. That matters more than the open or close, where activity is much lighter.",
+      "peer_ranking": "Relative to peers, the intraday profile looks credible because activity is concentrated in the main session rather than relying on the open or close. That supports the view that liquidity is available in the part of the day where most investors need it."
+    },
+    "ofi": {
+      "overall": "Order flow imbalance data not available.",
+      "daily_vs_intraday": "N/A",
+      "l2_signal": "N/A",
+      "day_breakdown": "N/A"
+    },
+    "index": {
+      "overall": "Index eligibility data not available.",
+      "recommendation": "N/A"
+    }
+  },
+  "series": {
+    "peers_liquidity": {
+      "labels": [
+        "TKU",
+        "KUX",
+        "532",
+        "U77",
+        "J03",
+        "NXR",
+        "42F",
+        "LVR",
+        "ITS"
+      ],
+      "scores": [
+        69.71326164874552,
+        2.3297491039426523,
+        3.853046594982079,
+        46.59498207885305,
+        62.18637992831542,
+        26.16487455197133,
+        72.75985663082437,
+        50.89605734767025,
+        83.87096774193549
+      ],
+      "is_target": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "adv": [
+        160644.0,
+        0.0,
+        0.0,
+        5114.3,
+        56710.4,
+        0.0,
+        175013.8,
+        9114.0,
+        657712.0
+      ],
+      "total": 558
+    },
+    "market_comparison": {
+      "sector_name": "Software - Application",
+      "sector_count": 8,
+      "market_count": 558,
+      "company": {
+        "volatility": 0.5631713894043848,
+        "adv": 160644.0,
+        "spread_pct": 0.023904382470119483,
+        "turnover_ratio": 0.001280510649830132,
+        "amihud": 6.348843558145879e-08,
+        "trades": 42.0
+      },
+      "market": {
+        "volatility": {
+          "direction": "lower_is_better",
+          "mean": 0.6546032144529433,
+          "median": 0.3644102249269763,
+          "min": 0.0,
+          "max": 9.165151389911681,
+          "p5": 0.034641016151377484,
+          "p95": 2.1032251853534554,
+          "count": 558
+        },
+        "adv": {
+          "direction": "higher_is_better",
+          "mean": 3071860.842191335,
+          "median": 12682.0,
+          "min": 0.0,
+          "max": 255589391.20000002,
+          "p5": 0.0,
+          "p95": 12714416.099999962,
+          "count": 558
+        },
+        "spread_pct": {
+          "direction": "lower_is_better",
+          "mean": 0.10804473253907534,
+          "median": 0.032305052955585445,
+          "min": 0.00024245657871967925,
+          "max": 1.2394366197183098,
+          "p5": 0.0033102788450015434,
+          "p95": 0.4878147774548017,
+          "count": 556
+        },
+        "turnover_ratio": {
+          "direction": "higher_is_better",
+          "mean": 0.0038737584668733314,
+          "median": 0.00021428318677128654,
+          "min": 0.0,
+          "max": 0.659152330103487,
+          "p5": 0.0,
+          "p95": 0.011497368421794506,
+          "count": 551
+        },
+        "amihud": {
+          "direction": "lower_is_better",
+          "mean": 0.0003353171486950857,
+          "median": 1.2973969211239899e-07,
+          "min": 0.0,
+          "max": 0.11111111111111112,
+          "p5": 0.0,
+          "p95": 0.00011077719705768502,
+          "count": 544
+        },
+        "trades": {
+          "direction": "higher_is_better",
+          "mean": 464.3046594982079,
+          "median": 6.0,
+          "min": 0.0,
+          "max": 10918.0,
+          "p5": 0.0,
+          "p95": 2735.899999999996,
+          "count": 558
+        }
+      },
+      "sector": {
+        "volatility": {
+          "direction": "lower_is_better",
+          "mean": 0.7495914087317586,
+          "median": 0.3502300556174559,
+          "min": 0.0,
+          "max": 3.9100437565874655,
+          "p5": 0.05835138149243498,
+          "p95": 2.7386384280733855,
+          "count": 8
+        },
+        "adv": {
+          "direction": "higher_is_better",
+          "mean": 1868217.2875000003,
+          "median": 7114.15,
+          "min": 0.0,
+          "max": 14113154.000000002,
+          "p5": 0.0,
+          "p95": 9403749.299999993,
+          "count": 8
+        },
+        "spread_pct": {
+          "direction": "lower_is_better",
+          "mean": 0.15997413462743282,
+          "median": 0.01985267871194662,
+          "min": 0.0013488090764248568,
+          "max": 0.6666666666666666,
+          "p5": 0.004471103827838575,
+          "p95": 0.6124031007751937,
+          "count": 8
+        },
+        "turnover_ratio": {
+          "direction": "higher_is_better",
+          "mean": 0.0025171770436820235,
+          "median": 7.505535199067655e-05,
+          "min": 0.0,
+          "max": 0.009644749743033771,
+          "p5": 0.0,
+          "p95": 0.009440803171385776,
+          "count": 8
+        },
+        "amihud": {
+          "direction": "lower_is_better",
+          "mean": 4.574853698245026e-05,
+          "median": 7.883957045396495e-07,
+          "min": 0.0,
+          "max": 0.00036013640690511566,
+          "p5": 3.1731108995151906e-10,
+          "p95": 0.00023487415658909262,
+          "count": 8
+        },
+        "trades": {
+          "direction": "higher_is_better",
+          "mean": 500.5,
+          "median": 6.5,
+          "min": 0.0,
+          "max": 3591.0,
+          "p5": 0.0,
+          "p95": 2459.449999999998,
+          "count": 8
+        }
+      },
+      "peers": {
+        "adv": {
+          "direction": "higher_is_better",
+          "mean": 112958.0625,
+          "median": 7114.15,
+          "min": 0.0,
+          "max": 657712.0,
+          "p5": 0.0,
+          "p95": 488767.6299999998,
+          "count": 8
+        },
+        "trades": {
+          "direction": "higher_is_better",
+          "mean": 57.25,
+          "median": 6.5,
+          "min": 0.0,
+          "max": 358.0,
+          "p5": 0.0,
+          "p95": 248.79999999999984,
+          "count": 8
+        },
+        "volatility": {
+          "direction": "lower_is_better",
+          "mean": 0.899564862278229,
+          "median": 0.36419660815024135,
+          "min": 0.0,
+          "max": 3.9100437565874655,
+          "p5": 0.05835138149243498,
+          "p95": 3.097445853765666,
+          "count": 8
+        },
+        "spread_pct": {
+          "direction": "lower_is_better",
+          "mean": 0.1696901204975054,
+          "median": 0.03738530514680312,
+          "min": 0.010269651223321194,
+          "max": 0.6666666666666666,
+          "p5": 0.012041291322283708,
+          "p95": 0.6124031007751937,
+          "count": 8
+        },
+        "spread_ticks": {
+          "direction": "neutral",
+          "mean": 4.263645209085313,
+          "median": 1.8176836861768368,
+          "min": 1.0,
+          "max": 22.142857142857142,
+          "p5": 1.0058823529411764,
+          "p95": 15.351552795031045,
+          "count": 8
+        },
+        "amihud": {
+          "direction": "lower_is_better",
+          "mean": 4.5799337754927264e-05,
+          "median": 9.920520960047204e-07,
+          "min": 0.0,
+          "max": 0.00036013640690511566,
+          "p5": 0.0,
+          "p95": 0.00023487415658909262,
+          "count": 8
+        },
+        "turnover_ratio": {
+          "direction": "higher_is_better",
+          "mean": 0.0030079576000925836,
+          "median": 7.505535199067655e-05,
+          "min": 0.0,
+          "max": 0.009644749743033771,
+          "p5": 0.0,
+          "p95": 0.009142045979734779,
+          "count": 8
+        }
+      }
+    },
+    "returns": [
+      {
+        "horizon": "1W",
+        "stock": 0.13043478260869534,
+        "market": -0.0036803910917555527,
+        "sector": 0.017749018566909358,
+        "peers": 0.04233146661031273
+      },
+      {
+        "horizon": "2W",
+        "stock": 0.15555555555555522,
+        "market": 0.001335136841508655,
+        "sector": 0.03134440390861326,
+        "peers": 0.04432625890136821
+      },
+      {
+        "horizon": "1M",
+        "stock": 0.15555555555555456,
+        "market": 0.03334237016264918,
+        "sector": 0.04826026267411643,
+        "peers": 0.048781832701115135
+      },
+      {
+        "horizon": "LAST_YEAR",
+        "stock": null,
+        "market": null,
+        "sector": null,
+        "peers": null
+      }
+    ],
+    "drivers": {
+      "share_market": 0.6329529687263611,
+      "share_sector": 0.33512517002963865,
+      "share_idio": 0.03192186124400018,
+      "beta_market": 21.767781646429857,
+      "beta_sector": 1.6175720463540832,
+      "driver_model": {
+        "valid": true,
+        "model_method": "ols_with_volatility_regimes",
+        "estimation_window_days": 60,
+        "reporting_window_days": 60,
+        "available_history_days": 60,
+        "n_regimes": 2,
+        "current_regime": 1,
+        "current_regime_label": "High Volatility",
+        "current_regime_probability": 1.0,
+        "current_driver_mix": {
+          "market_share": {
+            "median": 0.6329529687263611,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "63.3%",
+            "display_range": null,
+            "display_text": "63.3%",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+            "kind": "share_pct",
+            "value_pct": 63.3,
+            "plain_english": "Market explains about 63.3% of price moves in the current state."
+          },
+          "sector_share": {
+            "median": 0.33512517002963865,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "33.5%",
+            "display_range": null,
+            "display_text": "33.5%",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+            "kind": "share_pct",
+            "value_pct": 33.5,
+            "plain_english": "Sector explains about 33.5% of price moves in the current state."
+          },
+          "company_share": {
+            "median": 0.03192186124400018,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "3.2%",
+            "display_range": null,
+            "display_text": "3.2%",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+            "kind": "share_pct",
+            "value_pct": 3.2,
+            "plain_english": "Company-specific explains about 3.2% of price moves in the current state."
+          },
+          "basis": "current_state"
+        },
+        "current_sensitivities": {
+          "beta_market": {
+            "median": 21.767781646429857,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "21.77",
+            "display_range": null,
+            "display_text": "21.77",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+            "kind": "beta",
+            "strength_label": "Very high",
+            "plain_english": "Very high market link: a 1% market move has lined up with about a 21.77% stock move in the same direction in this state. The multiplier is unusually large and comes from only 60 trading days of history.",
+            "value_num": 21.77
+          },
+          "beta_stock_lag": {
+            "median": 0.07696709205505757,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "0.08",
+            "display_range": null,
+            "display_text": "0.08",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+            "kind": "lag_beta",
+            "value_num": 0.08
+          },
+          "beta_sector": {
+            "median": 1.6175720463540832,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "1.62",
+            "display_range": null,
+            "display_text": "1.62",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+            "kind": "beta",
+            "strength_label": "High",
+            "plain_english": "High sector link: a 1% sector move has lined up with about a 1.62% stock move in the same direction in this state.",
+            "value_num": 1.62
+          },
+          "beta_market_lag": {
+            "median": 11.869478691978268,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "11.87",
+            "display_range": null,
+            "display_text": "11.87",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+            "kind": "lag_beta",
+            "value_num": 11.87
+          },
+          "beta_sector_lag": {
+            "median": -1.8794356305843314,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "-1.88",
+            "display_range": null,
+            "display_text": "-1.88",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+            "kind": "lag_beta",
+            "value_num": -1.88
+          },
+          "posterior_source": null,
+          "intervals_collapsed": false,
+          "confidence_label": "High, limited history",
+          "confidence_note": "Based on 60 trading days relative to the 252-day target."
+        },
+        "rolling_windows": {},
+        "monthly_history": [
+          {
+            "month_key": "2026-01",
+            "month_label": "January 2026",
+            "month_short_label": "Jan",
+            "period_label": "2026-01-26 to 2026-01-30",
+            "n_obs": 5,
+            "partial_month": true,
+            "dominant_driver": "market",
+            "dominant_driver_label": "Market",
+            "regime_id": null,
+            "regime_label": null,
+            "dominant_share": {
+              "median": 0.47931948471963925,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "47.9%",
+              "display_range": null,
+              "display_text": "47.9%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 5 trading days.",
+              "kind": "share_pct",
+              "value_pct": 47.9,
+              "plain_english": "Market explains about 47.9% of price moves in the current state."
+            },
+            "shares": {
+              "market_share": {
+                "median": 0.47931948471963925,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "47.9%",
+                "display_range": null,
+                "display_text": "47.9%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 5 trading days.",
+                "kind": "share_pct",
+                "value_pct": 47.9,
+                "plain_english": "Market explains about 47.9% of price moves in the current state."
+              },
+              "sector_share": {
+                "median": 0.2984396411024003,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "29.8%",
+                "display_range": null,
+                "display_text": "29.8%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 5 trading days.",
+                "kind": "share_pct",
+                "value_pct": 29.8,
+                "plain_english": "Sector explains about 29.8% of price moves in the current state."
+              },
+              "company_share": {
+                "median": 0.22224087417796046,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "22.2%",
+                "display_range": null,
+                "display_text": "22.2%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 5 trading days.",
+                "kind": "share_pct",
+                "value_pct": 22.2,
+                "plain_english": "Company-specific explains about 22.2% of price moves in the current state."
+              }
+            },
+            "summary": "Jan: Mostly market-driven, though based on only 5 trading days."
+          },
+          {
+            "month_key": "2026-02",
+            "month_label": "February 2026",
+            "month_short_label": "Feb",
+            "period_label": "2026-02-02 to 2026-02-27",
+            "n_obs": 18,
+            "partial_month": false,
+            "dominant_driver": "company",
+            "dominant_driver_label": "Company-specific",
+            "regime_id": null,
+            "regime_label": null,
+            "dominant_share": {
+              "median": 0.5656898926629687,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "56.6%",
+              "display_range": null,
+              "display_text": "56.6%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 18 trading days.",
+              "kind": "share_pct",
+              "value_pct": 56.6,
+              "plain_english": "Company-specific explains about 56.6% of price moves in the current state."
+            },
+            "shares": {
+              "market_share": {
+                "median": 0.2647931795787311,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "26.5%",
+                "display_range": null,
+                "display_text": "26.5%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 18 trading days.",
+                "kind": "share_pct",
+                "value_pct": 26.5,
+                "plain_english": "Market explains about 26.5% of price moves in the current state."
+              },
+              "sector_share": {
+                "median": 0.1695169277583002,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "17.0%",
+                "display_range": null,
+                "display_text": "17.0%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 18 trading days.",
+                "kind": "share_pct",
+                "value_pct": 17.0,
+                "plain_english": "Sector explains about 17.0% of price moves in the current state."
+              },
+              "company_share": {
+                "median": 0.5656898926629687,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "56.6%",
+                "display_range": null,
+                "display_text": "56.6%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 18 trading days.",
+                "kind": "share_pct",
+                "value_pct": 56.6,
+                "plain_english": "Company-specific explains about 56.6% of price moves in the current state."
+              }
+            },
+            "summary": "Feb: Mostly company-driven."
+          },
+          {
+            "month_key": "2026-03",
+            "month_label": "March 2026",
+            "month_short_label": "Mar",
+            "period_label": "2026-03-02 to 2026-03-31",
+            "n_obs": 22,
+            "partial_month": false,
+            "dominant_driver": "company",
+            "dominant_driver_label": "Company-specific",
+            "regime_id": null,
+            "regime_label": null,
+            "dominant_share": {
+              "median": 0.5379214653603349,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "53.8%",
+              "display_range": null,
+              "display_text": "53.8%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 22 trading days.",
+              "kind": "share_pct",
+              "value_pct": 53.8,
+              "plain_english": "Company-specific explains about 53.8% of price moves in the current state."
+            },
+            "shares": {
+              "market_share": {
+                "median": 0.22982068067655406,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "23.0%",
+                "display_range": null,
+                "display_text": "23.0%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 22 trading days.",
+                "kind": "share_pct",
+                "value_pct": 23.0,
+                "plain_english": "Market explains about 23.0% of price moves in the current state."
+              },
+              "sector_share": {
+                "median": 0.23225785396311108,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "23.2%",
+                "display_range": null,
+                "display_text": "23.2%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 22 trading days.",
+                "kind": "share_pct",
+                "value_pct": 23.2,
+                "plain_english": "Sector explains about 23.2% of price moves in the current state."
+              },
+              "company_share": {
+                "median": 0.5379214653603349,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "53.8%",
+                "display_range": null,
+                "display_text": "53.8%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 22 trading days.",
+                "kind": "share_pct",
+                "value_pct": 53.8,
+                "plain_english": "Company-specific explains about 53.8% of price moves in the current state."
+              }
+            },
+            "summary": "Mar: Mostly company-driven."
+          },
+          {
+            "month_key": "2026-04",
+            "month_label": "April 2026",
+            "month_short_label": "Apr",
+            "period_label": "2026-04-01 to 2026-04-22",
+            "n_obs": 15,
+            "partial_month": false,
+            "dominant_driver": "company",
+            "dominant_driver_label": "Company-specific",
+            "regime_id": null,
+            "regime_label": null,
+            "dominant_share": {
+              "median": 0.6160532575881597,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "61.6%",
+              "display_range": null,
+              "display_text": "61.6%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+              "kind": "share_pct",
+              "value_pct": 61.6,
+              "plain_english": "Company-specific explains about 61.6% of price moves in the current state."
+            },
+            "shares": {
+              "market_share": {
+                "median": 0.13623844054353712,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "13.6%",
+                "display_range": null,
+                "display_text": "13.6%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+                "kind": "share_pct",
+                "value_pct": 13.6,
+                "plain_english": "Market explains about 13.6% of price moves in the current state."
+              },
+              "sector_share": {
+                "median": 0.24770830186830312,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "24.8%",
+                "display_range": null,
+                "display_text": "24.8%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+                "kind": "share_pct",
+                "value_pct": 24.8,
+                "plain_english": "Sector explains about 24.8% of price moves in the current state."
+              },
+              "company_share": {
+                "median": 0.6160532575881597,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "61.6%",
+                "display_range": null,
+                "display_text": "61.6%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+                "kind": "share_pct",
+                "value_pct": 61.6,
+                "plain_english": "Company-specific explains about 61.6% of price moves in the current state."
+              }
+            },
+            "summary": "Apr: Still clearly company-driven."
+          }
+        ],
+        "regimes": [
+          {
+            "id": 0,
+            "label": "Low Volatility",
+            "pct_time": 0.5,
+            "expected_duration_days": 5.8,
+            "current_probability": 0.0,
+            "n_days_effective": 29.0,
+            "volatility": {
+              "median": 0.027609165187793168,
+              "low": 0.027609165187793168,
+              "high": 0.027609165187793168
+            },
+            "volatility_label": "Low Volatility",
+            "current_probability_display": 0.0
+          },
+          {
+            "id": 1,
+            "label": "High Volatility",
+            "pct_time": 0.5,
+            "expected_duration_days": 5.8,
+            "current_probability": 1.0,
+            "n_days_effective": 29.0,
+            "volatility": {
+              "median": 0.04225586454049286,
+              "low": 0.04225586454049286,
+              "high": 0.04225586454049286
+            },
+            "volatility_label": "High Volatility",
+            "current_probability_display": null
+          }
+        ],
+        "transitions": {
+          "mean": [
+            [
+              0.8275862068965517,
+              0.1724137931034483
+            ],
+            [
+              0.14285714285714285,
+              0.8571428571428571
+            ]
+          ],
+          "low": [],
+          "high": [],
+          "counts": [
+            [
+              24.0,
+              5.0
+            ],
+            [
+              4.0,
+              24.0
+            ]
+          ]
+        },
+        "methodology": {
+          "estimation_window_days": 60,
+          "reporting_window_days": 60,
+          "current_mix_method": "ols_last_5d",
+          "monthly_history_method": "ols_per_month",
+          "regime_inference": "volatility_kmeans",
+          "distribution": "gaussian",
+          "history_limited": true,
+          "current_driver_mix_basis": "ols_recent_window",
+          "sector_proxy_equals_market": false
+        },
+        "client_read": {
+          "market_link_display": "21.77",
+          "sector_link_display": "1.62",
+          "market_link_explainer": "Very high market link. A 1% market move has lined up with about a 21.77% stock move in the same direction in this state. This is a point estimate from 60 trading days.",
+          "sector_link_explainer": "High sector link. A 1% sector move has lined up with about a 1.62% stock move in the same direction in this state. This is a point estimate from 60 trading days.",
+          "stock_persistence_display": "0.08",
+          "point_estimate_note": "Point estimate only because the current state has 60 trading days.",
+          "history_limited_note": "Read is based on 60 trading days versus the 252-day target."
+        },
+        "current_summary": {
+          "regime_label": "High Volatility",
+          "dominant_driver": "market",
+          "dominant_driver_label": "Market",
+          "driver_share_pct": 63.3,
+          "driver_share_display": "63.3%",
+          "confidence_label": "High, limited history",
+          "confidence_pct": 100.0,
+          "display_confidence_pct": null,
+          "confidence_note": "Based on 60 trading days relative to the 252-day target.",
+          "history_days": 60,
+          "history_limited": true,
+          "volatility_label": "High Volatility",
+          "lead_signal_text": "No stable lead signal.",
+          "state_term": "state",
+          "stay_probability": 0.8571428571428571,
+          "effective_days": 29.0,
+          "persistence_note": "This state looks more persistent, with a typical run length of about 5.8 days.",
+          "expected_duration_days": 5.8
+        },
+        "display_notes": {
+          "collapsed_interval": "When only one number is shown, the run produced a point estimate instead of a wider uncertainty range."
+        }
+      },
+      "lead_lag": {
+        "lags": [],
+        "corr_market": [],
+        "corr_sector": [],
+        "best": {
+          "market": 0,
+          "sector": 0
+        }
+      },
+      "rolling_windows": {
+        "p1": {
+          "valid": false
+        },
+        "p2": {
+          "valid": false
+        },
+        "p3": {
+          "valid": false
+        },
+        "p4": {
+          "valid": false
+        },
+        "p5": {
+          "valid": false
+        },
+        "p6": {
+          "valid": false
+        }
+      },
+      "rolling": {
+        "ordered": [],
+        "market": [],
+        "sector": [],
+        "idio": []
+      },
+      "monthly_history": [
+        {
+          "month_key": "2026-01",
+          "month_label": "January 2026",
+          "month_short_label": "Jan",
+          "period_label": "2026-01-26 to 2026-01-30",
+          "n_obs": 5,
+          "partial_month": true,
+          "dominant_driver": "market",
+          "dominant_driver_label": "Market",
+          "regime_label": null,
+          "summary": "Jan: Mostly market-driven, though based on only 5 trading days.",
+          "share_market": 0.47931948471963925,
+          "share_sector": 0.2984396411024003,
+          "share_company": 0.22224087417796046,
+          "share_market_display": "47.9%",
+          "share_sector_display": "29.8%",
+          "share_company_display": "22.2%",
+          "dominant_share_display": "47.9%"
+        },
+        {
+          "month_key": "2026-02",
+          "month_label": "February 2026",
+          "month_short_label": "Feb",
+          "period_label": "2026-02-02 to 2026-02-27",
+          "n_obs": 18,
+          "partial_month": false,
+          "dominant_driver": "company",
+          "dominant_driver_label": "Company-specific",
+          "regime_label": null,
+          "summary": "Feb: Mostly company-driven.",
+          "share_market": 0.2647931795787311,
+          "share_sector": 0.1695169277583002,
+          "share_company": 0.5656898926629687,
+          "share_market_display": "26.5%",
+          "share_sector_display": "17.0%",
+          "share_company_display": "56.6%",
+          "dominant_share_display": "56.6%"
+        },
+        {
+          "month_key": "2026-03",
+          "month_label": "March 2026",
+          "month_short_label": "Mar",
+          "period_label": "2026-03-02 to 2026-03-31",
+          "n_obs": 22,
+          "partial_month": false,
+          "dominant_driver": "company",
+          "dominant_driver_label": "Company-specific",
+          "regime_label": null,
+          "summary": "Mar: Mostly company-driven.",
+          "share_market": 0.22982068067655406,
+          "share_sector": 0.23225785396311108,
+          "share_company": 0.5379214653603349,
+          "share_market_display": "23.0%",
+          "share_sector_display": "23.2%",
+          "share_company_display": "53.8%",
+          "dominant_share_display": "53.8%"
+        },
+        {
+          "month_key": "2026-04",
+          "month_label": "April 2026",
+          "month_short_label": "Apr",
+          "period_label": "2026-04-01 to 2026-04-22",
+          "n_obs": 15,
+          "partial_month": false,
+          "dominant_driver": "company",
+          "dominant_driver_label": "Company-specific",
+          "regime_label": null,
+          "summary": "Apr: Still clearly company-driven.",
+          "share_market": 0.13623844054353712,
+          "share_sector": 0.24770830186830312,
+          "share_company": 0.6160532575881597,
+          "share_market_display": "13.6%",
+          "share_sector_display": "24.8%",
+          "share_company_display": "61.6%",
+          "dominant_share_display": "61.6%"
+        }
+      ],
+      "regime": {
+        "valid": true,
+        "regime_method": "ols_with_volatility_regimes",
+        "n_regimes": 2,
+        "current_regime_label": "High Volatility",
+        "current_regime_probability": 1.0,
+        "labels": [
+          "Low Volatility",
+          "High Volatility"
+        ],
+        "pct_time": [
+          0.5,
+          0.5
+        ],
+        "current_regime": 1,
+        "regimes": [
+          {
+            "id": 0,
+            "label": "Low Volatility",
+            "pct_time": 0.5,
+            "expected_duration_days": 5.8,
+            "current_probability": 0.0,
+            "n_days_effective": 29.0,
+            "volatility": {
+              "median": 0.027609165187793168,
+              "low": 0.027609165187793168,
+              "high": 0.027609165187793168
+            },
+            "volatility_label": "Low Volatility"
+          },
+          {
+            "id": 1,
+            "label": "High Volatility",
+            "pct_time": 0.5,
+            "expected_duration_days": 5.8,
+            "current_probability": 1.0,
+            "n_days_effective": 29.0,
+            "volatility": {
+              "median": 0.04225586454049286,
+              "low": 0.04225586454049286,
+              "high": 0.04225586454049286
+            },
+            "volatility_label": "High Volatility"
+          }
+        ],
+        "transitions": [
+          [
+            0.8275862068965517,
+            0.1724137931034483
+          ],
+          [
+            0.14285714285714285,
+            0.8571428571428571
+          ]
+        ]
+      }
+    },
+    "order_book": {
+      "bids": [
+        {
+          "level": 1,
+          "price": 0.26,
+          "quantity": 471800.0,
+          "value": 122668.0
+        },
+        {
+          "level": 2,
+          "price": 0.255,
+          "quantity": 510700.0,
+          "value": 130228.5
+        },
+        {
+          "level": 3,
+          "price": 0.25,
+          "quantity": 530100.0,
+          "value": 132525.0
+        },
+        {
+          "level": 4,
+          "price": 0.245,
+          "quantity": 180000.0,
+          "value": 44100.0
+        },
+        {
+          "level": 5,
+          "price": 0.24,
+          "quantity": 329100.0,
+          "value": 78984.0
+        },
+        {
+          "level": 6,
+          "price": 0.235,
+          "quantity": 1109800.0,
+          "value": 260802.99999999997
+        },
+        {
+          "level": 7,
+          "price": 0.23,
+          "quantity": 50500.0,
+          "value": 11615.0
+        },
+        {
+          "level": 8,
+          "price": 0.225,
+          "quantity": 146000.0,
+          "value": 32850.0
+        },
+        {
+          "level": 9,
+          "price": 0.22,
+          "quantity": 430000.0,
+          "value": 94600.0
+        },
+        {
+          "level": 10,
+          "price": 0.215,
+          "quantity": 237800.0,
+          "value": 51127.0
+        }
+      ],
+      "asks": [
+        {
+          "level": 1,
+          "price": 0.265,
+          "quantity": 493300.0,
+          "value": 130724.5
+        },
+        {
+          "level": 2,
+          "price": 0.27,
+          "quantity": 1012000.0,
+          "value": 273240.0
+        },
+        {
+          "level": 3,
+          "price": 0.275,
+          "quantity": 1035400.0,
+          "value": 284735.0
+        },
+        {
+          "level": 4,
+          "price": 0.28,
+          "quantity": 835000.0,
+          "value": 233800.00000000003
+        },
+        {
+          "level": 5,
+          "price": 0.285,
+          "quantity": 604000.0,
+          "value": 172139.99999999997
+        },
+        {
+          "level": 6,
+          "price": 0.29,
+          "quantity": 376000.0,
+          "value": 109039.99999999999
+        },
+        {
+          "level": 7,
+          "price": 0.295,
+          "quantity": 261200.0,
+          "value": 77054.0
+        },
+        {
+          "level": 8,
+          "price": 0.3,
+          "quantity": 1466300.0,
+          "value": 439890.0
+        },
+        {
+          "level": 9,
+          "price": 0.305,
+          "quantity": 97000.0,
+          "value": 29585.0
+        },
+        {
+          "level": 10,
+          "price": 0.31,
+          "quantity": 5000.0,
+          "value": 1550.0
+        }
+      ]
+    },
+    "execution_dynamic": {
+      "snapshot": {
+        "valid": true,
+        "snapshot_time": "2026-04-22 08:59:57.628300",
+        "snapshot_basis": "last_continuous_session_snapshot",
+        "snapshot_label": "final continuous-session displayed book before close",
+        "snapshot_note": "Final continuous-session displayed book before close",
+        "snapshot_mic": "XSES",
+        "mid_price": 0.2625,
+        "spread_pct": 0.019047619047619063,
+        "spread_ticks": 1.0,
+        "tick_size": 0.005,
+        "bid_depth_notional_top10": 959500.5,
+        "ask_depth_notional_top10": 1751758.5,
+        "bid_ask_depth_ratio": 0.5477
+      },
+      "historical_trade_scenarios": {
+        "valid": true,
+        "requested_lookback_calendar_days": 365,
+        "lookback_calendar_days": 365,
+        "effective_calendar_days": 91,
+        "history_limited": true,
+        "trade_days_used": 62,
+        "n_trades_used": 11199,
+        "first_trade_date": "2026-01-22",
+        "last_trade_date": "2026-04-22",
+        "window_label": "Jan 22, 2026 to Apr 22, 2026",
+        "window_short_label": "Jan 22-Apr 22",
+        "trade_days_label": "62 trading days",
+        "trade_count_label": "11,199 trades",
+        "window_detail_label": "62 trading days • 11,199 trades",
+        "history_note": "Trade-size percentiles use available history from Jan 22, 2026 to Apr 22, 2026 (62 trading days • 11,199 trades), not a full year.",
+        "scenarios": [
+          {
+            "key": "p90",
+            "label": "90th percentile trade",
+            "quantile": 0.9,
+            "trade_notional": 10000.0,
+            "impact_pct": -0.009524,
+            "filled_pct": 100.0,
+            "levels_consumed": 1,
+            "pct_of_bid_depth": 1.04,
+            "pct_of_adv": 5.89
+          },
+          {
+            "key": "p95",
+            "label": "95th percentile trade",
+            "quantile": 0.95,
+            "trade_notional": 13962.3,
+            "impact_pct": -0.009524,
+            "filled_pct": 100.0,
+            "levels_consumed": 1,
+            "pct_of_bid_depth": 1.46,
+            "pct_of_adv": 8.23
+          },
+          {
+            "key": "p99_99",
+            "label": "99.99th percentile trade",
+            "quantile": 0.9999,
+            "trade_notional": 168469.82,
+            "impact_pct": -0.014776000000000001,
+            "filled_pct": 100.0,
+            "levels_consumed": 2,
+            "pct_of_bid_depth": 17.56,
+            "pct_of_adv": 99.26
+          }
+        ]
+      },
+      "l3_sell_order_scenarios": {
+        "valid": true,
+        "trade_date": "2026-04-22",
+        "selection_method": "largest_observed_ask_orders_during_day",
+        "orders": [
+          {
+            "rank": 1,
+            "order_id": "8139994092949080064",
+            "timestamp": "2026-04-22 00:30:28.586200000",
+            "local_timestamp": "2026-04-22 08:30:28",
+            "posted_price": 0.3,
+            "size_shares": 532800.0,
+            "notional": 159840.0,
+            "impact_pct": -0.01402,
+            "filled_pct": 100.0,
+            "levels_consumed": 2,
+            "pct_of_bid_depth": 16.66,
+            "price_vs_mid_pct": 14.286,
+            "executed_event_count": 0,
+            "event_count": 8
+          },
+          {
+            "rank": 2,
+            "order_id": "8138989689077102592",
+            "timestamp": "2026-04-21 22:59:01.780800000",
+            "local_timestamp": "2026-04-22 06:59:01",
+            "posted_price": 0.3,
+            "size_shares": 500000.0,
+            "notional": 150000.0,
+            "impact_pct": -0.013049999999999999,
+            "filled_pct": 100.0,
+            "levels_consumed": 2,
+            "pct_of_bid_depth": 15.63,
+            "price_vs_mid_pct": 14.286,
+            "executed_event_count": 0,
+            "event_count": 1
+          },
+          {
+            "rank": 3,
+            "order_id": "8139994092949068800",
+            "timestamp": "2026-04-22 00:30:03.813500000",
+            "local_timestamp": "2026-04-22 08:30:03",
+            "posted_price": 0.29,
+            "size_shares": 300000.0,
+            "notional": 87000.0,
+            "impact_pct": -0.009524,
+            "filled_pct": 100.0,
+            "levels_consumed": 1,
+            "pct_of_bid_depth": 9.07,
+            "price_vs_mid_pct": 10.476,
+            "executed_event_count": 0,
+            "event_count": 13
+          }
+        ]
+      },
+      "intraday_liquidity_profile": {
+        "valid": true,
+        "trade_date": "2026-04-22",
+        "bucket_minutes": 30,
+        "tick_size": 0.005,
+        "timezone": "SGT (UTC+8)",
+        "session_label": "SGX continuous trading session",
+        "bucket_label_basis": "bucket start time",
+        "display_window_label": "SGX continuous trading session",
+        "bucket_note": "Buckets cover the SGX continuous trading session (auctions excluded).",
+        "rows": [
+          {
+            "bucket": "09:00",
+            "spread_pct": 0.01980198019801982,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 605120.0,
+            "ask_depth_notional": 1636031.0,
+            "mid_price": 0.2525
+          },
+          {
+            "bucket": "09:30",
+            "spread_pct": 0.01980198019801982,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 623550.0,
+            "ask_depth_notional": 1683971.0,
+            "mid_price": 0.2525
+          },
+          {
+            "bucket": "10:00",
+            "spread_pct": 0.019417475728155355,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 631096.0,
+            "ask_depth_notional": 1597238.0,
+            "mid_price": 0.2575
+          },
+          {
+            "bucket": "10:30",
+            "spread_pct": 0.019417475728155355,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 561829.5,
+            "ask_depth_notional": 1647344.0,
+            "mid_price": 0.2575
+          },
+          {
+            "bucket": "11:00",
+            "spread_pct": 0.019417475728155355,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 607638.0,
+            "ask_depth_notional": 1700106.0,
+            "mid_price": 0.2575
+          },
+          {
+            "bucket": "11:30",
+            "spread_pct": 0.019047619047619063,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 625029.5,
+            "ask_depth_notional": 1402167.5,
+            "mid_price": 0.2625
+          },
+          {
+            "bucket": "13:00",
+            "spread_pct": 0.019047619047619063,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 886068.5,
+            "ask_depth_notional": 1504965.0,
+            "mid_price": 0.2625
+          },
+          {
+            "bucket": "13:30",
+            "spread_pct": 0.019047619047619063,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 861093.5,
+            "ask_depth_notional": 1518300.0,
+            "mid_price": 0.2625
+          },
+          {
+            "bucket": "14:00",
+            "spread_pct": 0.019047619047619063,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 928017.5,
+            "ask_depth_notional": 1563748.0,
+            "mid_price": 0.2625
+          },
+          {
+            "bucket": "14:30",
+            "spread_pct": 0.019047619047619063,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 999958.5,
+            "ask_depth_notional": 1561098.0,
+            "mid_price": 0.2625
+          },
+          {
+            "bucket": "15:00",
+            "spread_pct": 0.019047619047619063,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 950411.0,
+            "ask_depth_notional": 1594099.0,
+            "mid_price": 0.2625
+          },
+          {
+            "bucket": "15:30",
+            "spread_pct": 0.019047619047619063,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 937566.0,
+            "ask_depth_notional": 1701851.0,
+            "mid_price": 0.2625
+          },
+          {
+            "bucket": "16:00",
+            "spread_pct": 0.019047619047619063,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 949726.0,
+            "ask_depth_notional": 1694831.0,
+            "mid_price": 0.2625
+          },
+          {
+            "bucket": "16:30",
+            "spread_pct": 0.019047619047619063,
+            "spread_ticks": 1.0000000000000009,
+            "bid_depth_notional": 959500.5,
+            "ask_depth_notional": 1751758.5,
+            "mid_price": 0.2625
+          }
+        ],
+        "summary": {
+          "median_spread_pct": 0.019047619047619063,
+          "median_spread_ticks": 1.0000000000000009,
+          "median_bid_depth_notional": 873581.0,
+          "median_ask_depth_notional": 1616634.5,
+          "tightest_bucket": "11:30",
+          "widest_bucket": "09:00",
+          "deepest_bid_bucket": "14:30",
+          "thinnest_bid_bucket": "10:30"
+        }
+      }
+    },
+    "peer_capacity": {
+      "bx_ticket_pct_adv_50k": 29.5,
+      "peers": [
+        {
+          "ticker": "ITS",
+          "pct": 157.6
+        },
+        {
+          "ticker": "42F",
+          "pct": 628.7
+        },
+        {
+          "ticker": "J03",
+          "pct": 2549.0
+        },
+        {
+          "ticker": "LVR",
+          "pct": 9023.6
+        },
+        {
+          "ticker": "U77",
+          "pct": 18324.6
+        },
+        {
+          "ticker": "KUX",
+          "pct": null
+        },
+        {
+          "ticker": "532",
+          "pct": null
+        },
+        {
+          "ticker": "NXR",
+          "pct": null
+        }
+      ]
+    },
+    "trader_composition": {
+      "primary_period": "30d",
+      "periods": {
+        "1d": {
+          "valid": true,
+          "currency": "SGD",
+          "n_trades": 260,
+          "n_runs": 75,
+          "n_trade_days": 1,
+          "first_trade_date": "2026-04-22",
+          "last_trade_date": "2026-04-22",
+          "period_days": 1,
+          "method": {
+            "key": "persona_v3_2b",
+            "name": "Behavioral persona classification",
+            "version": "3.2b",
+            "unit_of_classification": "runs"
+          },
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          },
+          "composition": {
+            "retail_pct": 0.3346153846153846,
+            "mixed_pct": 0.12307692307692308,
+            "instit_pct": 0.36153846153846153,
+            "ambiguous_pct": 0.18076923076923077,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.18076923076923077,
+            "retail_qty_pct": 0.034415353631086366,
+            "mixed_qty_pct": 0.09274177625083915,
+            "instit_qty_pct": 0.6007384591083205,
+            "ambiguous_qty_pct": 0.27210441100975397,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.27210441100975397,
+            "retail_notional_pct": 0.03440692992318246,
+            "mixed_notional_pct": 0.09221458013228481,
+            "instit_notional_pct": 0.6052158057536772,
+            "ambiguous_notional_pct": 0.2681626841908556,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.2681626841908556
+          },
+          "run_composition": {
+            "retail_pct": 0.49333333333333335,
+            "mixed_pct": 0.18666666666666668,
+            "instit_pct": 0.12,
+            "ambiguous_pct": 0.2,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.2,
+            "retail_notional_pct": 0.03440692992318246,
+            "mixed_notional_pct": 0.09221458013228481,
+            "instit_notional_pct": 0.6052158057536772,
+            "unclear_notional_pct": 0.2681626841908556
+          },
+          "counts": {
+            "trades": {
+              "retail": 87,
+              "mixed": 32,
+              "institutional": 94,
+              "ambiguous": 47,
+              "unobservable": 0,
+              "unclear": 47
+            },
+            "runs": {
+              "retail": 37,
+              "mixed": 14,
+              "institutional": 9,
+              "ambiguous": 15,
+              "unobservable": 0,
+              "unclear": 15
+            }
+          },
+          "confidence": {
+            "high": 0.0,
+            "medium": 0.3333333333333333,
+            "low": 0.28,
+            "na": 0.38666666666666666
+          },
+          "confidence_counts": {
+            "high": 0,
+            "medium": 25,
+            "low": 21,
+            "na": 29
+          },
+          "trade_confidence": {
+            "high": 0.0,
+            "medium": 0.3730769230769231,
+            "low": 0.3230769230769231,
+            "na": 0.3038461538461538
+          },
+          "trade_confidence_counts": {
+            "high": 0,
+            "medium": 97,
+            "low": 84,
+            "na": 79
+          },
+          "observability": {
+            "avg_feature_coverage": 0.86,
+            "observable_run_pct": 1.0,
+            "ambiguous_run_pct": 0.2,
+            "unobservable_run_pct": 0.0
+          },
+          "dominant_bucket": "RETAIL",
+          "dominant_label": "Retail-led",
+          "dominant_share": 0.49333333333333335,
+          "dominance_gap": 0.29333333333333333,
+          "diagnostics": {
+            "d1_cluster_mechanic": {
+              "MULTI_FILL_SINGLE_PRICE": 170,
+              "SINGLE_FILL": 90
+            },
+            "d2_information": {
+              "NEUTRAL_OR_REVERSING": 168,
+              "PERSISTENT_POSITIVE_IMPACT": 71,
+              "MOMENTUM_REACTIVE": 20,
+              "SHORT_HORIZON_POSITIVE_IMPACT": 1
+            },
+            "d3_urgency": {
+              "IMMEDIATE": 69,
+              "ADAPTIVE": 6
+            },
+            "participant_confidence": {
+              "NA": 29,
+              "MEDIUM": 25,
+              "LOW": 21
+            }
+          },
+          "trade_size": {
+            "avg": 5047.675,
+            "median": 1855.0
+          },
+          "run_size": {
+            "avg": 17498.606666666667,
+            "median": 3120.0,
+            "avg_length": 1.6933333333333334
+          },
+          "recent_trades": [
+            {
+              "trade_id": "BMLL-272",
+              "timestamp": "2026-04-22T09:09:13.746800",
+              "price": 0.26,
+              "size": 12000.0,
+              "notional": 3120.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1322,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-271",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 4900.0,
+              "notional": 1274.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-270",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 11600.0,
+              "notional": 3016.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-269",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 20200.0,
+              "notional": 5252.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-268",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 5000.0,
+              "notional": 1300.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-267",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 5000.0,
+              "notional": 1300.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-266",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 16800.0,
+              "notional": 4368.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-265",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 3200.0,
+              "notional": 832.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-264",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 500.0,
+              "notional": 130.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-263",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 2500.0,
+              "notional": 650.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-262",
+              "timestamp": "2026-04-22T09:06:21.548500",
+              "price": 0.26,
+              "size": 30000.0,
+              "notional": 7800.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-261",
+              "timestamp": "2026-04-22T09:06:21.548500",
+              "price": 0.26,
+              "size": 13800.0,
+              "notional": 3588.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-260",
+              "timestamp": "2026-04-22T09:06:18.572300",
+              "price": 0.26,
+              "size": 11200.0,
+              "notional": 2912.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-259",
+              "timestamp": "2026-04-22T09:06:18.572300",
+              "price": 0.26,
+              "size": 48800.0,
+              "notional": 12688.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-258",
+              "timestamp": "2026-04-22T09:06:14.874700",
+              "price": 0.26,
+              "size": 30000.0,
+              "notional": 7800.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-249",
+              "timestamp": "2026-04-22T08:49:06.605500",
+              "price": 0.26,
+              "size": 16200.0,
+              "notional": 4212.0,
+              "bucket": "MIXED",
+              "confidence": "NA",
+              "run_id": 1320,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-248",
+              "timestamp": "2026-04-22T08:49:06.605400",
+              "price": 0.26,
+              "size": 3800.0,
+              "notional": 988.0,
+              "bucket": "MIXED",
+              "confidence": "NA",
+              "run_id": 1320,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-247",
+              "timestamp": "2026-04-22T08:34:39.395800",
+              "price": 0.26,
+              "size": 1200.0,
+              "notional": 312.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1319,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-246",
+              "timestamp": "2026-04-22T08:34:39.395800",
+              "price": 0.26,
+              "size": 8800.0,
+              "notional": 2288.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1319,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-245",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 20900.0,
+              "notional": 5538.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-244",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 9100.0,
+              "notional": 2411.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-243",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 900.0,
+              "notional": 238.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-242",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 40000.0,
+              "notional": 10600.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-241",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 14100.0,
+              "notional": 3736.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-240",
+              "timestamp": "2026-04-22T07:27:58.823600",
+              "price": 0.265,
+              "size": 5900.0,
+              "notional": 1563.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-239",
+              "timestamp": "2026-04-22T07:26:17.705900",
+              "price": 0.27,
+              "size": 1000.0,
+              "notional": 270.0,
+              "bucket": "RETAIL",
+              "confidence": "MEDIUM",
+              "run_id": 1317,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-238",
+              "timestamp": "2026-04-22T07:25:48.926500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-237",
+              "timestamp": "2026-04-22T07:25:47.241500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-236",
+              "timestamp": "2026-04-22T07:25:45.645500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-235",
+              "timestamp": "2026-04-22T07:25:43.929900",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            }
+          ],
+          "peer_comparison": [
+            {
+              "ticker": "TKU",
+              "currency": "SGD",
+              "is_target": true,
+              "retail_pct": 0.3346153846153846,
+              "mixed_pct": 0.12307692307692308,
+              "instit_pct": 0.36153846153846153,
+              "ambiguous_pct": 0.18076923076923077,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.18076923076923077,
+              "retail_qty_pct": 0.034415353631086366,
+              "mixed_qty_pct": 0.09274177625083915,
+              "instit_qty_pct": 0.6007384591083205,
+              "ambiguous_qty_pct": 0.27210441100975397,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.27210441100975397,
+              "retail_notional_pct": 0.03440692992318246,
+              "mixed_notional_pct": 0.09221458013228481,
+              "instit_notional_pct": 0.6052158057536772,
+              "ambiguous_notional_pct": 0.2681626841908556,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.2681626841908556,
+              "run_retail_pct": 0.49333333333333335,
+              "run_mixed_pct": 0.18666666666666668,
+              "run_instit_pct": 0.12,
+              "run_unclear_pct": 0.2,
+              "avg_trade_size": 5047.675,
+              "avg_run_notional": 17498.606666666667,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.3333333333333333,
+              "low_confidence_pct": 0.28,
+              "na_confidence_pct": 0.38666666666666666,
+              "avg_feature_coverage": 0.86,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "KUX",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.4,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.4,
+              "ambiguous_pct": 0.2,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.2,
+              "retail_qty_pct": 0.0036231884057971015,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.9057971014492754,
+              "ambiguous_qty_pct": 0.09057971014492754,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.09057971014492754,
+              "retail_notional_pct": 0.0022145050078010973,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.9537470431325179,
+              "ambiguous_notional_pct": 0.044038451859680916,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.044038451859680916,
+              "run_retail_pct": 0.5,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.25,
+              "run_unclear_pct": 0.25,
+              "avg_trade_size": 794.76,
+              "avg_run_notional": 993.45,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.75,
+              "na_confidence_pct": 0.25,
+              "avg_feature_coverage": 0.8125000000000001,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "J03",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.3045977011494253,
+              "mixed_pct": 0.16091954022988506,
+              "instit_pct": 0.3793103448275862,
+              "ambiguous_pct": 0.15517241379310345,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.15517241379310345,
+              "retail_qty_pct": 0.09669405607202987,
+              "mixed_qty_pct": 0.1685363443378962,
+              "instit_qty_pct": 0.5355986018593075,
+              "ambiguous_qty_pct": 0.1991709977307664,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.1991709977307664,
+              "retail_notional_pct": 0.09740737374968657,
+              "mixed_notional_pct": 0.17204249330710328,
+              "instit_notional_pct": 0.5317599151613325,
+              "ambiguous_notional_pct": 0.1987902177818777,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.1987902177818777,
+              "run_retail_pct": 0.5517241379310345,
+              "run_mixed_pct": 0.1839080459770115,
+              "run_instit_pct": 0.16091954022988506,
+              "run_unclear_pct": 0.10344827586206896,
+              "avg_trade_size": 2890.1373563218385,
+              "avg_run_notional": 5780.274712643679,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.42528735632183906,
+              "low_confidence_pct": 0.28735632183908044,
+              "na_confidence_pct": 0.28735632183908044,
+              "avg_feature_coverage": 0.8603448275862065,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "ITS",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.39903264812575573,
+              "mixed_pct": 0.31076178960096734,
+              "instit_pct": 0.2140266021765417,
+              "ambiguous_pct": 0.06892382103990327,
+              "unobservable_pct": 0.007255139056831923,
+              "unclear_pct": 0.0761789600967352,
+              "retail_qty_pct": 0.13789694797973556,
+              "mixed_qty_pct": 0.3692079574941307,
+              "instit_qty_pct": 0.364265414555789,
+              "ambiguous_qty_pct": 0.08612381070060546,
+              "unobservable_qty_pct": 0.04250586926973928,
+              "unclear_qty_pct": 0.12862967997034475,
+              "retail_notional_pct": 0.13832539935500013,
+              "mixed_notional_pct": 0.3684678910925814,
+              "instit_notional_pct": 0.3644454954538133,
+              "ambiguous_notional_pct": 0.086269590757515,
+              "unobservable_notional_pct": 0.04249162334109024,
+              "unclear_notional_pct": 0.12876121409860525,
+              "run_retail_pct": 0.7317073170731707,
+              "run_mixed_pct": 0.2039911308203991,
+              "run_instit_pct": 0.03991130820399113,
+              "run_unclear_pct": 0.024390243902439025,
+              "avg_trade_size": 1058.4631197097945,
+              "avg_run_notional": 1940.9068736141908,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.44567627494456763,
+              "medium_confidence_pct": 0.3170731707317073,
+              "low_confidence_pct": 0.008869179600886918,
+              "na_confidence_pct": 0.22838137472283815,
+              "avg_feature_coverage": 0.8770509977827049,
+              "observable_run_pct": 0.9977827050997783,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "42F",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.5454545454545454,
+              "mixed_pct": 0.45454545454545453,
+              "instit_pct": 0.0,
+              "ambiguous_pct": 0.0,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.0,
+              "retail_qty_pct": 0.014670462010072258,
+              "mixed_qty_pct": 0.9853295379899277,
+              "instit_qty_pct": 0.0,
+              "ambiguous_qty_pct": 0.0,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.0,
+              "retail_notional_pct": 0.014341140065658231,
+              "mixed_notional_pct": 0.9856588599343418,
+              "instit_notional_pct": 0.0,
+              "ambiguous_notional_pct": 0.0,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.0,
+              "run_retail_pct": 0.6,
+              "run_mixed_pct": 0.4,
+              "run_instit_pct": 0.0,
+              "run_unclear_pct": 0.0,
+              "avg_trade_size": 2315.0181818181813,
+              "avg_run_notional": 2546.5199999999995,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.6,
+              "na_confidence_pct": 0.4,
+              "avg_feature_coverage": 0.85,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "LVR",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.0,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.0,
+              "ambiguous_pct": 0.0,
+              "unobservable_pct": 1.0,
+              "unclear_pct": 1.0,
+              "retail_qty_pct": 0.0,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.0,
+              "ambiguous_qty_pct": 0.0,
+              "unobservable_qty_pct": 1.0,
+              "unclear_qty_pct": 1.0,
+              "retail_notional_pct": 0.0,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.0,
+              "ambiguous_notional_pct": 0.0,
+              "unobservable_notional_pct": 1.0,
+              "unclear_notional_pct": 1.0,
+              "run_retail_pct": 0.0,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.0,
+              "run_unclear_pct": 1.0,
+              "avg_trade_size": 932.25,
+              "avg_run_notional": 1864.5,
+              "dominant_bucket": "UNOBSERVABLE",
+              "dominant_label": "Not Observable",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.0,
+              "na_confidence_pct": 1.0,
+              "avg_feature_coverage": 0.6,
+              "observable_run_pct": 0.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "U77",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.25,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.0,
+              "ambiguous_pct": 0.25,
+              "unobservable_pct": 0.5,
+              "unclear_pct": 0.75,
+              "retail_qty_pct": 0.02,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.0,
+              "ambiguous_qty_pct": 0.48,
+              "unobservable_qty_pct": 0.5,
+              "unclear_qty_pct": 0.98,
+              "retail_notional_pct": 0.020387879405693313,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.0,
+              "ambiguous_notional_pct": 0.47952292362190674,
+              "unobservable_notional_pct": 0.5000891969723998,
+              "unclear_notional_pct": 0.9796121205943066,
+              "run_retail_pct": 0.3333333333333333,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.0,
+              "run_unclear_pct": 0.6666666666666666,
+              "avg_trade_size": 980.9750000000001,
+              "avg_run_notional": 1307.966666666667,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Mixed, leaning retail-like",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.3333333333333333,
+              "na_confidence_pct": 0.6666666666666666,
+              "avg_feature_coverage": 0.7666666666666667,
+              "observable_run_pct": 0.6666666666666667,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "532",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.0,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.0,
+              "ambiguous_pct": 0.0,
+              "unobservable_pct": 1.0,
+              "unclear_pct": 1.0,
+              "retail_qty_pct": 0.0,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.0,
+              "ambiguous_qty_pct": 0.0,
+              "unobservable_qty_pct": 1.0,
+              "unclear_qty_pct": 1.0,
+              "retail_notional_pct": 0.0,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.0,
+              "ambiguous_notional_pct": 0.0,
+              "unobservable_notional_pct": 1.0,
+              "unclear_notional_pct": 1.0,
+              "run_retail_pct": 0.0,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.0,
+              "run_unclear_pct": 1.0,
+              "avg_trade_size": 842.5,
+              "avg_run_notional": 1123.3333333333333,
+              "dominant_bucket": "UNOBSERVABLE",
+              "dominant_label": "Not Observable",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.0,
+              "na_confidence_pct": 1.0,
+              "avg_feature_coverage": 0.55,
+              "observable_run_pct": 0.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            }
+          ]
+        },
+        "1w": {
+          "valid": true,
+          "currency": "SGD",
+          "n_trades": 772,
+          "n_runs": 279,
+          "n_trade_days": 5,
+          "first_trade_date": "2026-04-16",
+          "last_trade_date": "2026-04-22",
+          "period_days": 5,
+          "method": {
+            "key": "persona_v3_2b",
+            "name": "Behavioral persona classification",
+            "version": "3.2b",
+            "unit_of_classification": "runs"
+          },
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          },
+          "composition": {
+            "retail_pct": 0.25647668393782386,
+            "mixed_pct": 0.11917098445595854,
+            "instit_pct": 0.3393782383419689,
+            "ambiguous_pct": 0.28367875647668395,
+            "unobservable_pct": 0.0012953367875647669,
+            "unclear_pct": 0.2849740932642487,
+            "retail_qty_pct": 0.039133722985359276,
+            "mixed_qty_pct": 0.11338134109349182,
+            "instit_qty_pct": 0.36728402673308835,
+            "ambiguous_qty_pct": 0.23358570289444047,
+            "unobservable_qty_pct": 0.24661520629362008,
+            "unclear_qty_pct": 0.4802009091880606,
+            "retail_notional_pct": 0.03887388171931364,
+            "mixed_notional_pct": 0.11239478699495245,
+            "instit_notional_pct": 0.37010485294462436,
+            "ambiguous_notional_pct": 0.23244563087610237,
+            "unobservable_notional_pct": 0.24618084746500715,
+            "unclear_notional_pct": 0.4786264783411095
+          },
+          "run_composition": {
+            "retail_pct": 0.4946236559139785,
+            "mixed_pct": 0.14336917562724014,
+            "instit_pct": 0.13261648745519714,
+            "ambiguous_pct": 0.22580645161290322,
+            "unobservable_pct": 0.0035842293906810036,
+            "unclear_pct": 0.22939068100358423,
+            "retail_notional_pct": 0.03887388171931364,
+            "mixed_notional_pct": 0.11239478699495245,
+            "instit_notional_pct": 0.37010485294462436,
+            "unclear_notional_pct": 0.4786264783411095
+          },
+          "counts": {
+            "trades": {
+              "retail": 198,
+              "mixed": 92,
+              "institutional": 262,
+              "ambiguous": 219,
+              "unobservable": 1,
+              "unclear": 220
+            },
+            "runs": {
+              "retail": 138,
+              "mixed": 40,
+              "institutional": 37,
+              "ambiguous": 63,
+              "unobservable": 1,
+              "unclear": 64
+            }
+          },
+          "confidence": {
+            "high": 0.07168458781362007,
+            "medium": 0.32974910394265233,
+            "low": 0.22580645161290322,
+            "na": 0.3727598566308244
+          },
+          "confidence_counts": {
+            "high": 20,
+            "medium": 92,
+            "low": 63,
+            "na": 104
+          },
+          "trade_confidence": {
+            "high": 0.03626943005181347,
+            "medium": 0.3134715025906736,
+            "low": 0.24611398963730569,
+            "na": 0.40414507772020725
+          },
+          "trade_confidence_counts": {
+            "high": 28,
+            "medium": 242,
+            "low": 190,
+            "na": 312
+          },
+          "observability": {
+            "avg_feature_coverage": 0.8532258064516127,
+            "observable_run_pct": 0.996415770609319,
+            "ambiguous_run_pct": 0.22580645161290322,
+            "unobservable_run_pct": 0.0035842293906810036
+          },
+          "dominant_bucket": "RETAIL",
+          "dominant_label": "Retail-led",
+          "dominant_share": 0.4946236559139785,
+          "dominance_gap": 0.26881720430107525,
+          "diagnostics": {
+            "d1_cluster_mechanic": {
+              "MULTI_FILL_SINGLE_PRICE": 506,
+              "SINGLE_FILL": 250,
+              "WALK_BOOK": 16
+            },
+            "d2_information": {
+              "NEUTRAL_OR_REVERSING": 538,
+              "PERSISTENT_POSITIVE_IMPACT": 154,
+              "MOMENTUM_REACTIVE": 68,
+              "SHORT_HORIZON_POSITIVE_IMPACT": 11,
+              "UNOBSERVABLE": 1
+            },
+            "d3_urgency": {
+              "IMMEDIATE": 271,
+              "ADAPTIVE": 8
+            },
+            "participant_confidence": {
+              "NA": 104,
+              "MEDIUM": 92,
+              "LOW": 63,
+              "HIGH": 20
+            }
+          },
+          "trade_size": {
+            "avg": 7734.740932642487,
+            "median": 1996.0
+          },
+          "run_size": {
+            "avg": 21402.222222222223,
+            "median": 2600.0,
+            "avg_length": 1.3189964157706093
+          },
+          "recent_trades": [
+            {
+              "trade_id": "BMLL-272",
+              "timestamp": "2026-04-22T09:09:13.746800",
+              "price": 0.26,
+              "size": 12000.0,
+              "notional": 3120.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1322,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-271",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 4900.0,
+              "notional": 1274.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-270",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 11600.0,
+              "notional": 3016.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-269",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 20200.0,
+              "notional": 5252.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-268",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 5000.0,
+              "notional": 1300.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-267",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 5000.0,
+              "notional": 1300.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-266",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 16800.0,
+              "notional": 4368.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-265",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 3200.0,
+              "notional": 832.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-264",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 500.0,
+              "notional": 130.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-263",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 2500.0,
+              "notional": 650.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-262",
+              "timestamp": "2026-04-22T09:06:21.548500",
+              "price": 0.26,
+              "size": 30000.0,
+              "notional": 7800.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-261",
+              "timestamp": "2026-04-22T09:06:21.548500",
+              "price": 0.26,
+              "size": 13800.0,
+              "notional": 3588.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-260",
+              "timestamp": "2026-04-22T09:06:18.572300",
+              "price": 0.26,
+              "size": 11200.0,
+              "notional": 2912.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-259",
+              "timestamp": "2026-04-22T09:06:18.572300",
+              "price": 0.26,
+              "size": 48800.0,
+              "notional": 12688.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-258",
+              "timestamp": "2026-04-22T09:06:14.874700",
+              "price": 0.26,
+              "size": 30000.0,
+              "notional": 7800.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-249",
+              "timestamp": "2026-04-22T08:49:06.605500",
+              "price": 0.26,
+              "size": 16200.0,
+              "notional": 4212.0,
+              "bucket": "MIXED",
+              "confidence": "NA",
+              "run_id": 1320,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-248",
+              "timestamp": "2026-04-22T08:49:06.605400",
+              "price": 0.26,
+              "size": 3800.0,
+              "notional": 988.0,
+              "bucket": "MIXED",
+              "confidence": "NA",
+              "run_id": 1320,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-247",
+              "timestamp": "2026-04-22T08:34:39.395800",
+              "price": 0.26,
+              "size": 1200.0,
+              "notional": 312.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1319,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-246",
+              "timestamp": "2026-04-22T08:34:39.395800",
+              "price": 0.26,
+              "size": 8800.0,
+              "notional": 2288.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1319,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-245",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 20900.0,
+              "notional": 5538.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-244",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 9100.0,
+              "notional": 2411.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-243",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 900.0,
+              "notional": 238.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-242",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 40000.0,
+              "notional": 10600.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-241",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 14100.0,
+              "notional": 3736.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-240",
+              "timestamp": "2026-04-22T07:27:58.823600",
+              "price": 0.265,
+              "size": 5900.0,
+              "notional": 1563.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-239",
+              "timestamp": "2026-04-22T07:26:17.705900",
+              "price": 0.27,
+              "size": 1000.0,
+              "notional": 270.0,
+              "bucket": "RETAIL",
+              "confidence": "MEDIUM",
+              "run_id": 1317,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-238",
+              "timestamp": "2026-04-22T07:25:48.926500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-237",
+              "timestamp": "2026-04-22T07:25:47.241500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-236",
+              "timestamp": "2026-04-22T07:25:45.645500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-235",
+              "timestamp": "2026-04-22T07:25:43.929900",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            }
+          ],
+          "peer_comparison": [
+            {
+              "ticker": "TKU",
+              "currency": "SGD",
+              "is_target": true,
+              "retail_pct": 0.25647668393782386,
+              "mixed_pct": 0.11917098445595854,
+              "instit_pct": 0.3393782383419689,
+              "ambiguous_pct": 0.28367875647668395,
+              "unobservable_pct": 0.0012953367875647669,
+              "unclear_pct": 0.2849740932642487,
+              "retail_qty_pct": 0.039133722985359276,
+              "mixed_qty_pct": 0.11338134109349182,
+              "instit_qty_pct": 0.36728402673308835,
+              "ambiguous_qty_pct": 0.23358570289444047,
+              "unobservable_qty_pct": 0.24661520629362008,
+              "unclear_qty_pct": 0.4802009091880606,
+              "retail_notional_pct": 0.03887388171931364,
+              "mixed_notional_pct": 0.11239478699495245,
+              "instit_notional_pct": 0.37010485294462436,
+              "ambiguous_notional_pct": 0.23244563087610237,
+              "unobservable_notional_pct": 0.24618084746500715,
+              "unclear_notional_pct": 0.4786264783411095,
+              "run_retail_pct": 0.4946236559139785,
+              "run_mixed_pct": 0.14336917562724014,
+              "run_instit_pct": 0.13261648745519714,
+              "run_unclear_pct": 0.22939068100358423,
+              "avg_trade_size": 7734.740932642487,
+              "avg_run_notional": 21402.222222222223,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.07168458781362007,
+              "medium_confidence_pct": 0.32974910394265233,
+              "low_confidence_pct": 0.22580645161290322,
+              "na_confidence_pct": 0.3727598566308244,
+              "avg_feature_coverage": 0.8532258064516127,
+              "observable_run_pct": 0.996415770609319,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "KUX",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.4,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.4,
+              "ambiguous_pct": 0.2,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.2,
+              "retail_qty_pct": 0.0036231884057971015,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.9057971014492754,
+              "ambiguous_qty_pct": 0.09057971014492754,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.09057971014492754,
+              "retail_notional_pct": 0.0022145050078010973,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.9537470431325179,
+              "ambiguous_notional_pct": 0.044038451859680916,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.044038451859680916,
+              "run_retail_pct": 0.5,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.25,
+              "run_unclear_pct": 0.25,
+              "avg_trade_size": 794.76,
+              "avg_run_notional": 993.45,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.75,
+              "na_confidence_pct": 0.25,
+              "avg_feature_coverage": 0.8125000000000001,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "42F",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.2890625,
+              "mixed_pct": 0.1875,
+              "instit_pct": 0.33203125,
+              "ambiguous_pct": 0.19140625,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.19140625,
+              "retail_qty_pct": 0.043757153612153335,
+              "mixed_qty_pct": 0.22341100549438217,
+              "instit_qty_pct": 0.5791380777211269,
+              "ambiguous_qty_pct": 0.15369376317233752,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.15369376317233752,
+              "retail_notional_pct": 0.04453771624107478,
+              "mixed_notional_pct": 0.22523979984277565,
+              "instit_notional_pct": 0.5784488216270122,
+              "ambiguous_notional_pct": 0.1517736622891374,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.1517736622891374,
+              "run_retail_pct": 0.5142857142857142,
+              "run_mixed_pct": 0.17857142857142858,
+              "run_instit_pct": 0.1357142857142857,
+              "run_unclear_pct": 0.17142857142857143,
+              "avg_trade_size": 5258.21015625,
+              "avg_run_notional": 9615.01285714286,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.007142857142857143,
+              "medium_confidence_pct": 0.36428571428571427,
+              "low_confidence_pct": 0.2785714285714286,
+              "na_confidence_pct": 0.35,
+              "avg_feature_coverage": 0.852142857142857,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "ITS",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.3786291529482191,
+              "mixed_pct": 0.20622568093385213,
+              "instit_pct": 0.2565100269380425,
+              "ambiguous_pct": 0.1568392696797366,
+              "unobservable_pct": 0.0017958695001496557,
+              "unclear_pct": 0.15863513917988625,
+              "retail_qty_pct": 0.07022129290817215,
+              "mixed_qty_pct": 0.16331864685236352,
+              "instit_qty_pct": 0.5251163716924302,
+              "ambiguous_qty_pct": 0.23706220595922634,
+              "unobservable_qty_pct": 0.004281482587807732,
+              "unclear_qty_pct": 0.24134368854703406,
+              "retail_notional_pct": 0.07049443436147616,
+              "mixed_notional_pct": 0.16306911769593815,
+              "instit_notional_pct": 0.5252038757227699,
+              "ambiguous_notional_pct": 0.23682513703841093,
+              "unobservable_notional_pct": 0.004407435181404854,
+              "unclear_notional_pct": 0.24123257221981578,
+              "run_retail_pct": 0.6925675675675675,
+              "run_mixed_pct": 0.15427927927927929,
+              "run_instit_pct": 0.06531531531531531,
+              "run_unclear_pct": 0.08783783783783783,
+              "avg_trade_size": 2525.9348997306197,
+              "avg_run_notional": 4751.772804054054,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.26463963963963966,
+              "medium_confidence_pct": 0.40427927927927926,
+              "low_confidence_pct": 0.08896396396396396,
+              "na_confidence_pct": 0.24211711711711711,
+              "avg_feature_coverage": 0.863626126126126,
+              "observable_run_pct": 0.9994369369369369,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "J03",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.24013722126929674,
+              "mixed_pct": 0.14751286449399656,
+              "instit_pct": 0.3259005145797599,
+              "ambiguous_pct": 0.28130360205831906,
+              "unobservable_pct": 0.005145797598627788,
+              "unclear_pct": 0.2864493996569468,
+              "retail_qty_pct": 0.08161688596425812,
+              "mixed_qty_pct": 0.12910716895808041,
+              "instit_qty_pct": 0.44223340502390845,
+              "ambiguous_qty_pct": 0.34107661147188406,
+              "unobservable_qty_pct": 0.005965928581868947,
+              "unclear_qty_pct": 0.347042540053753,
+              "retail_notional_pct": 0.0823459032113254,
+              "mixed_notional_pct": 0.1298675594502258,
+              "instit_notional_pct": 0.4366809808079329,
+              "ambiguous_notional_pct": 0.34481774113219715,
+              "unobservable_notional_pct": 0.006287815398318695,
+              "unclear_notional_pct": 0.35110555653051584,
+              "run_retail_pct": 0.43661971830985913,
+              "run_mixed_pct": 0.15492957746478872,
+              "run_instit_pct": 0.15140845070422534,
+              "run_unclear_pct": 0.25704225352112675,
+              "avg_trade_size": 2653.638936535163,
+              "avg_run_notional": 5447.43485915493,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.045774647887323945,
+              "medium_confidence_pct": 0.323943661971831,
+              "low_confidence_pct": 0.21830985915492956,
+              "na_confidence_pct": 0.4119718309859155,
+              "avg_feature_coverage": 0.8466549295774648,
+              "observable_run_pct": 0.9964788732394366,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "LVR",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.05,
+              "mixed_pct": 0.016666666666666666,
+              "instit_pct": 0.3333333333333333,
+              "ambiguous_pct": 0.4666666666666667,
+              "unobservable_pct": 0.13333333333333333,
+              "unclear_pct": 0.6,
+              "retail_qty_pct": 0.030080213903743314,
+              "mixed_qty_pct": 0.03074866310160428,
+              "instit_qty_pct": 0.35093582887700536,
+              "ambiguous_qty_pct": 0.4411764705882353,
+              "unobservable_qty_pct": 0.14705882352941177,
+              "unclear_qty_pct": 0.5882352941176471,
+              "retail_notional_pct": 0.029945993566608552,
+              "mixed_notional_pct": 0.029287107676020625,
+              "instit_notional_pct": 0.347380928584913,
+              "ambiguous_notional_pct": 0.44369672000681093,
+              "unobservable_notional_pct": 0.14968925016564688,
+              "unclear_notional_pct": 0.5933859701724578,
+              "run_retail_pct": 0.125,
+              "run_mixed_pct": 0.041666666666666664,
+              "run_instit_pct": 0.20833333333333334,
+              "run_unclear_pct": 0.625,
+              "avg_trade_size": 2251.275,
+              "avg_run_notional": 5628.1875,
+              "dominant_bucket": "AMBIGUOUS",
+              "dominant_label": "Unclassified Flow",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.3333333333333333,
+              "na_confidence_pct": 0.6666666666666666,
+              "avg_feature_coverage": 0.8166666666666668,
+              "observable_run_pct": 0.9166666666666666,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "U77",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.25,
+              "mixed_pct": 0.09615384615384616,
+              "instit_pct": 0.15384615384615385,
+              "ambiguous_pct": 0.46153846153846156,
+              "unobservable_pct": 0.038461538461538464,
+              "unclear_pct": 0.5,
+              "retail_qty_pct": 0.16365824308062576,
+              "mixed_qty_pct": 0.05157297576070139,
+              "instit_qty_pct": 0.2236548048822417,
+              "ambiguous_qty_pct": 0.5439229843561973,
+              "unobservable_qty_pct": 0.017190991920233798,
+              "unclear_qty_pct": 0.5611139762764311,
+              "retail_notional_pct": 0.16339974500535043,
+              "mixed_notional_pct": 0.052083647198287175,
+              "instit_notional_pct": 0.2237237999884641,
+              "ambiguous_notional_pct": 0.5438996274943116,
+              "unobservable_notional_pct": 0.016893180313586602,
+              "unclear_notional_pct": 0.5607928078078982,
+              "run_retail_pct": 0.32432432432432434,
+              "run_mixed_pct": 0.08108108108108109,
+              "run_instit_pct": 0.13513513513513514,
+              "run_unclear_pct": 0.4594594594594595,
+              "avg_trade_size": 2233.8326923076925,
+              "avg_run_notional": 3139.4405405405405,
+              "dominant_bucket": "AMBIGUOUS",
+              "dominant_label": "Unclassified Flow",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.4594594594594595,
+              "na_confidence_pct": 0.5405405405405406,
+              "avg_feature_coverage": 0.8229729729729732,
+              "observable_run_pct": 0.972972972972973,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "532",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.0,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.0,
+              "ambiguous_pct": 0.0,
+              "unobservable_pct": 1.0,
+              "unclear_pct": 1.0,
+              "retail_qty_pct": 0.0,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.0,
+              "ambiguous_qty_pct": 0.0,
+              "unobservable_qty_pct": 1.0,
+              "unclear_qty_pct": 1.0,
+              "retail_notional_pct": 0.0,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.0,
+              "ambiguous_notional_pct": 0.0,
+              "unobservable_notional_pct": 1.0,
+              "unclear_notional_pct": 1.0,
+              "run_retail_pct": 0.0,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.0,
+              "run_unclear_pct": 1.0,
+              "avg_trade_size": 481.85714285714283,
+              "avg_run_notional": 562.1666666666666,
+              "dominant_bucket": "UNOBSERVABLE",
+              "dominant_label": "Not Observable",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.0,
+              "na_confidence_pct": 1.0,
+              "avg_feature_coverage": 0.5499999999999999,
+              "observable_run_pct": 0.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            }
+          ]
+        },
+        "2w": {
+          "valid": true,
+          "currency": "SGD",
+          "n_trades": 937,
+          "n_runs": 365,
+          "n_trade_days": 10,
+          "first_trade_date": "2026-04-09",
+          "last_trade_date": "2026-04-22",
+          "period_days": 10,
+          "method": {
+            "key": "persona_v3_2b",
+            "name": "Behavioral persona classification",
+            "version": "3.2b",
+            "unit_of_classification": "runs"
+          },
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          },
+          "composition": {
+            "retail_pct": 0.27321237993596587,
+            "mixed_pct": 0.11099252934898612,
+            "instit_pct": 0.3489861259338314,
+            "ambiguous_pct": 0.2657417289220918,
+            "unobservable_pct": 0.0010672358591248667,
+            "unclear_pct": 0.2668089647812167,
+            "retail_qty_pct": 0.04507949571127555,
+            "mixed_qty_pct": 0.11387645351930813,
+            "instit_qty_pct": 0.39157579584394575,
+            "ambiguous_qty_pct": 0.23662833183162943,
+            "unobservable_qty_pct": 0.21283992309384112,
+            "unclear_qty_pct": 0.44946825492547055,
+            "retail_notional_pct": 0.044483427326539184,
+            "mixed_notional_pct": 0.11312454197813128,
+            "instit_notional_pct": 0.3920018320509391,
+            "ambiguous_notional_pct": 0.23555971998673897,
+            "unobservable_notional_pct": 0.21483047865765148,
+            "unclear_notional_pct": 0.45039019864439045
+          },
+          "run_composition": {
+            "retail_pct": 0.5205479452054794,
+            "mixed_pct": 0.13150684931506848,
+            "instit_pct": 0.13972602739726028,
+            "ambiguous_pct": 0.2054794520547945,
+            "unobservable_pct": 0.0027397260273972603,
+            "unclear_pct": 0.20821917808219176,
+            "retail_notional_pct": 0.044483427326539184,
+            "mixed_notional_pct": 0.11312454197813128,
+            "instit_notional_pct": 0.3920018320509391,
+            "unclear_notional_pct": 0.45039019864439045
+          },
+          "counts": {
+            "trades": {
+              "retail": 256,
+              "mixed": 104,
+              "institutional": 327,
+              "ambiguous": 249,
+              "unobservable": 1,
+              "unclear": 250
+            },
+            "runs": {
+              "retail": 190,
+              "mixed": 48,
+              "institutional": 51,
+              "ambiguous": 75,
+              "unobservable": 1,
+              "unclear": 76
+            }
+          },
+          "confidence": {
+            "high": 0.0547945205479452,
+            "medium": 0.25205479452054796,
+            "low": 0.35342465753424657,
+            "na": 0.33972602739726027
+          },
+          "confidence_counts": {
+            "high": 20,
+            "medium": 92,
+            "low": 129,
+            "na": 124
+          },
+          "trade_confidence": {
+            "high": 0.029882604055496264,
+            "medium": 0.25827107790821774,
+            "low": 0.33404482390608325,
+            "na": 0.37780149413020275
+          },
+          "trade_confidence_counts": {
+            "high": 28,
+            "medium": 242,
+            "low": 313,
+            "na": 354
+          },
+          "observability": {
+            "avg_feature_coverage": 0.8491780821917806,
+            "observable_run_pct": 0.9972602739726028,
+            "ambiguous_run_pct": 0.2054794520547945,
+            "unobservable_run_pct": 0.0027397260273972603
+          },
+          "dominant_bucket": "RETAIL",
+          "dominant_label": "Retail-led",
+          "dominant_share": 0.5205479452054794,
+          "dominance_gap": 0.3150684931506849,
+          "diagnostics": {
+            "d1_cluster_mechanic": {
+              "MULTI_FILL_SINGLE_PRICE": 612,
+              "SINGLE_FILL": 309,
+              "WALK_BOOK": 16
+            },
+            "d2_information": {
+              "NEUTRAL_OR_REVERSING": 673,
+              "PERSISTENT_POSITIVE_IMPACT": 179,
+              "MOMENTUM_REACTIVE": 71,
+              "SHORT_HORIZON_POSITIVE_IMPACT": 13,
+              "UNOBSERVABLE": 1
+            },
+            "d3_urgency": {
+              "IMMEDIATE": 357,
+              "ADAPTIVE": 8
+            },
+            "participant_confidence": {
+              "LOW": 129,
+              "NA": 124,
+              "MEDIUM": 92,
+              "HIGH": 20
+            }
+          },
+          "trade_size": {
+            "avg": 7302.672892209178,
+            "median": 2250.0
+          },
+          "run_size": {
+            "avg": 18746.861643835615,
+            "median": 2600.0,
+            "avg_length": 1.2547945205479452
+          },
+          "recent_trades": [
+            {
+              "trade_id": "BMLL-272",
+              "timestamp": "2026-04-22T09:09:13.746800",
+              "price": 0.26,
+              "size": 12000.0,
+              "notional": 3120.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1322,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-271",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 4900.0,
+              "notional": 1274.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-270",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 11600.0,
+              "notional": 3016.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-269",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 20200.0,
+              "notional": 5252.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-268",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 5000.0,
+              "notional": 1300.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-267",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 5000.0,
+              "notional": 1300.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-266",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 16800.0,
+              "notional": 4368.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-265",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 3200.0,
+              "notional": 832.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-264",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 500.0,
+              "notional": 130.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-263",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 2500.0,
+              "notional": 650.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-262",
+              "timestamp": "2026-04-22T09:06:21.548500",
+              "price": 0.26,
+              "size": 30000.0,
+              "notional": 7800.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-261",
+              "timestamp": "2026-04-22T09:06:21.548500",
+              "price": 0.26,
+              "size": 13800.0,
+              "notional": 3588.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-260",
+              "timestamp": "2026-04-22T09:06:18.572300",
+              "price": 0.26,
+              "size": 11200.0,
+              "notional": 2912.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-259",
+              "timestamp": "2026-04-22T09:06:18.572300",
+              "price": 0.26,
+              "size": 48800.0,
+              "notional": 12688.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-258",
+              "timestamp": "2026-04-22T09:06:14.874700",
+              "price": 0.26,
+              "size": 30000.0,
+              "notional": 7800.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-249",
+              "timestamp": "2026-04-22T08:49:06.605500",
+              "price": 0.26,
+              "size": 16200.0,
+              "notional": 4212.0,
+              "bucket": "MIXED",
+              "confidence": "NA",
+              "run_id": 1320,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-248",
+              "timestamp": "2026-04-22T08:49:06.605400",
+              "price": 0.26,
+              "size": 3800.0,
+              "notional": 988.0,
+              "bucket": "MIXED",
+              "confidence": "NA",
+              "run_id": 1320,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-247",
+              "timestamp": "2026-04-22T08:34:39.395800",
+              "price": 0.26,
+              "size": 1200.0,
+              "notional": 312.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1319,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-246",
+              "timestamp": "2026-04-22T08:34:39.395800",
+              "price": 0.26,
+              "size": 8800.0,
+              "notional": 2288.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1319,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-245",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 20900.0,
+              "notional": 5538.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-244",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 9100.0,
+              "notional": 2411.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-243",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 900.0,
+              "notional": 238.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-242",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 40000.0,
+              "notional": 10600.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-241",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 14100.0,
+              "notional": 3736.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-240",
+              "timestamp": "2026-04-22T07:27:58.823600",
+              "price": 0.265,
+              "size": 5900.0,
+              "notional": 1563.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-239",
+              "timestamp": "2026-04-22T07:26:17.705900",
+              "price": 0.27,
+              "size": 1000.0,
+              "notional": 270.0,
+              "bucket": "RETAIL",
+              "confidence": "MEDIUM",
+              "run_id": 1317,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-238",
+              "timestamp": "2026-04-22T07:25:48.926500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-237",
+              "timestamp": "2026-04-22T07:25:47.241500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-236",
+              "timestamp": "2026-04-22T07:25:45.645500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-235",
+              "timestamp": "2026-04-22T07:25:43.929900",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            }
+          ],
+          "peer_comparison": [
+            {
+              "ticker": "TKU",
+              "currency": "SGD",
+              "is_target": true,
+              "retail_pct": 0.27321237993596587,
+              "mixed_pct": 0.11099252934898612,
+              "instit_pct": 0.3489861259338314,
+              "ambiguous_pct": 0.2657417289220918,
+              "unobservable_pct": 0.0010672358591248667,
+              "unclear_pct": 0.2668089647812167,
+              "retail_qty_pct": 0.04507949571127555,
+              "mixed_qty_pct": 0.11387645351930813,
+              "instit_qty_pct": 0.39157579584394575,
+              "ambiguous_qty_pct": 0.23662833183162943,
+              "unobservable_qty_pct": 0.21283992309384112,
+              "unclear_qty_pct": 0.44946825492547055,
+              "retail_notional_pct": 0.044483427326539184,
+              "mixed_notional_pct": 0.11312454197813128,
+              "instit_notional_pct": 0.3920018320509391,
+              "ambiguous_notional_pct": 0.23555971998673897,
+              "unobservable_notional_pct": 0.21483047865765148,
+              "unclear_notional_pct": 0.45039019864439045,
+              "run_retail_pct": 0.5205479452054794,
+              "run_mixed_pct": 0.13150684931506848,
+              "run_instit_pct": 0.13972602739726028,
+              "run_unclear_pct": 0.20821917808219176,
+              "avg_trade_size": 7302.672892209178,
+              "avg_run_notional": 18746.861643835615,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.0547945205479452,
+              "medium_confidence_pct": 0.25205479452054796,
+              "low_confidence_pct": 0.35342465753424657,
+              "na_confidence_pct": 0.33972602739726027,
+              "avg_feature_coverage": 0.8491780821917806,
+              "observable_run_pct": 0.9972602739726028,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "NXR",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.0,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.75,
+              "ambiguous_pct": 0.25,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.25,
+              "retail_qty_pct": 0.0,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.9174311926605505,
+              "ambiguous_qty_pct": 0.08256880733944955,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.08256880733944955,
+              "retail_notional_pct": 0.0,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.9192523364485982,
+              "ambiguous_notional_pct": 0.08074766355140187,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.08074766355140187,
+              "run_retail_pct": 0.0,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.5,
+              "run_unclear_pct": 0.5,
+              "avg_trade_size": 1003.125,
+              "avg_run_notional": 2006.25,
+              "dominant_bucket": "INSTITUTIONAL",
+              "dominant_label": "Mixed, leaning institution-like",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.5,
+              "na_confidence_pct": 0.5,
+              "avg_feature_coverage": 0.8500000000000001,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "KUX",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.2857142857142857,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.2857142857142857,
+              "ambiguous_pct": 0.42857142857142855,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.42857142857142855,
+              "retail_qty_pct": 0.0025220680958385876,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.6305170239596469,
+              "ambiguous_qty_pct": 0.3669609079445145,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.3669609079445145,
+              "retail_notional_pct": 0.0018267494239511762,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.7867477632698814,
+              "ambiguous_notional_pct": 0.21142548730616736,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.21142548730616736,
+              "run_retail_pct": 0.3333333333333333,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.16666666666666666,
+              "run_unclear_pct": 0.5,
+              "avg_trade_size": 688.1857142857142,
+              "avg_run_notional": 802.8833333333332,
+              "dominant_bucket": "AMBIGUOUS",
+              "dominant_label": "Unclassified Flow",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.5,
+              "na_confidence_pct": 0.5,
+              "avg_feature_coverage": 0.8250000000000002,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "42F",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.28174603174603174,
+              "mixed_pct": 0.12301587301587301,
+              "instit_pct": 0.3194444444444444,
+              "ambiguous_pct": 0.2718253968253968,
+              "unobservable_pct": 0.003968253968253968,
+              "unclear_pct": 0.27579365079365076,
+              "retail_qty_pct": 0.057090048180760924,
+              "mixed_qty_pct": 0.14840993715977835,
+              "instit_qty_pct": 0.5507168476295652,
+              "ambiguous_qty_pct": 0.2436597832354407,
+              "unobservable_qty_pct": 0.00012338379445481465,
+              "unclear_qty_pct": 0.24378316702989553,
+              "retail_notional_pct": 0.056893270093284674,
+              "mixed_notional_pct": 0.14966012701118608,
+              "instit_notional_pct": 0.5513695749015551,
+              "ambiguous_notional_pct": 0.24195521099882436,
+              "unobservable_notional_pct": 0.00012181699514982599,
+              "unclear_notional_pct": 0.24207702799397418,
+              "run_retail_pct": 0.5,
+              "run_mixed_pct": 0.11764705882352941,
+              "run_instit_pct": 0.1213235294117647,
+              "run_unclear_pct": 0.26102941176470584,
+              "avg_trade_size": 4443.303174603174,
+              "avg_run_notional": 8233.179411764706,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.003676470588235294,
+              "medium_confidence_pct": 0.33455882352941174,
+              "low_confidence_pct": 0.28308823529411764,
+              "na_confidence_pct": 0.3786764705882353,
+              "avg_feature_coverage": 0.8430147058823528,
+              "observable_run_pct": 0.9963235294117647,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "ITS",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.36410137177400603,
+              "mixed_pct": 0.18949081608928156,
+              "instit_pct": 0.2601720530109277,
+              "ambiguous_pct": 0.18367821436875145,
+              "unobservable_pct": 0.0025575447570332483,
+              "unclear_pct": 0.1862357591257847,
+              "retail_qty_pct": 0.06785526084665379,
+              "mixed_qty_pct": 0.15289829615317055,
+              "instit_qty_pct": 0.49301774108554364,
+              "ambiguous_qty_pct": 0.2814509046197084,
+              "unobservable_qty_pct": 0.00477779729492359,
+              "unclear_qty_pct": 0.286228701914632,
+              "retail_notional_pct": 0.06818802242294596,
+              "mixed_notional_pct": 0.15317858625062233,
+              "instit_notional_pct": 0.49395379889738433,
+              "ambiguous_notional_pct": 0.27983008549156063,
+              "unobservable_notional_pct": 0.004849506937486743,
+              "unclear_notional_pct": 0.2846795924290474,
+              "run_retail_pct": 0.6687197536295645,
+              "run_mixed_pct": 0.14650241970963485,
+              "run_instit_pct": 0.07347118345798505,
+              "run_unclear_pct": 0.11130664320281565,
+              "avg_trade_size": 2750.1555452220414,
+              "avg_run_notional": 5203.87989441267,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.20985481742190937,
+              "medium_confidence_pct": 0.4223493180818302,
+              "low_confidence_pct": 0.10998680158380994,
+              "na_confidence_pct": 0.2578090629124505,
+              "avg_feature_coverage": 0.8591069071711394,
+              "observable_run_pct": 0.9991201055873296,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "J03",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.21194464675892208,
+              "mixed_pct": 0.12454479242534595,
+              "instit_pct": 0.34741442097596503,
+              "ambiguous_pct": 0.30735615440640934,
+              "unobservable_pct": 0.00873998543335761,
+              "unclear_pct": 0.316096139839767,
+              "retail_qty_pct": 0.07716747803993584,
+              "mixed_qty_pct": 0.13447300369221146,
+              "instit_qty_pct": 0.412743234284193,
+              "ambiguous_qty_pct": 0.3633390670090502,
+              "unobservable_qty_pct": 0.012277216974609423,
+              "unclear_qty_pct": 0.37561628398365965,
+              "retail_notional_pct": 0.07809199005416438,
+              "mixed_notional_pct": 0.12698409718272477,
+              "instit_notional_pct": 0.41619026362853623,
+              "ambiguous_notional_pct": 0.36526830276007255,
+              "unobservable_notional_pct": 0.013465346374502139,
+              "unclear_notional_pct": 0.3787336491345747,
+              "run_retail_pct": 0.4246353322528363,
+              "run_mixed_pct": 0.13776337115072934,
+              "run_instit_pct": 0.14748784440842788,
+              "run_unclear_pct": 0.2901134521880065,
+              "avg_trade_size": 2521.5383102694827,
+              "avg_run_notional": 5611.137925445705,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.02106969205834684,
+              "medium_confidence_pct": 0.3014586709886548,
+              "low_confidence_pct": 0.24959481361426256,
+              "na_confidence_pct": 0.42787682333873583,
+              "avg_feature_coverage": 0.846677471636953,
+              "observable_run_pct": 0.9951377633711507,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "LVR",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.10084033613445378,
+              "mixed_pct": 0.025210084033613446,
+              "instit_pct": 0.2773109243697479,
+              "ambiguous_pct": 0.3949579831932773,
+              "unobservable_pct": 0.20168067226890757,
+              "unclear_pct": 0.5966386554621849,
+              "retail_qty_pct": 0.10112359550561797,
+              "mixed_qty_pct": 0.1344153141905951,
+              "instit_qty_pct": 0.2798585101955888,
+              "ambiguous_qty_pct": 0.36641697877652935,
+              "unobservable_qty_pct": 0.11818560133166875,
+              "unclear_qty_pct": 0.4846025801081981,
+              "retail_notional_pct": 0.09677774097726073,
+              "mixed_notional_pct": 0.12667542978978855,
+              "instit_notional_pct": 0.2832757175238312,
+              "ambiguous_notional_pct": 0.3716776033203267,
+              "unobservable_notional_pct": 0.12159350838879286,
+              "unclear_notional_pct": 0.4932711117091195,
+              "run_retail_pct": 0.2037037037037037,
+              "run_mixed_pct": 0.05555555555555555,
+              "run_instit_pct": 0.16666666666666666,
+              "run_unclear_pct": 0.5740740740740741,
+              "avg_trade_size": 3247.63025210084,
+              "avg_run_notional": 7156.814814814815,
+              "dominant_bucket": "AMBIGUOUS",
+              "dominant_label": "Unclassified Flow",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.37037037037037035,
+              "na_confidence_pct": 0.6296296296296297,
+              "avg_feature_coverage": 0.792592592592593,
+              "observable_run_pct": 0.8703703703703703,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "532",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.0,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.1875,
+              "ambiguous_pct": 0.1875,
+              "unobservable_pct": 0.625,
+              "unclear_pct": 0.8125,
+              "retail_qty_pct": 0.0,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.25102900763358776,
+              "ambiguous_qty_pct": 0.4207267175572519,
+              "unobservable_qty_pct": 0.3282442748091603,
+              "unclear_qty_pct": 0.7489709923664122,
+              "retail_notional_pct": 0.0,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.2510290076335878,
+              "ambiguous_notional_pct": 0.4207267175572519,
+              "unobservable_notional_pct": 0.3282442748091603,
+              "unclear_notional_pct": 0.7489709923664122,
+              "run_retail_pct": 0.0,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.08333333333333333,
+              "run_unclear_pct": 0.9166666666666666,
+              "avg_trade_size": 1023.4375,
+              "avg_run_notional": 1364.5833333333333,
+              "dominant_bucket": "UNOBSERVABLE",
+              "dominant_label": "Not Observable",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.08333333333333333,
+              "na_confidence_pct": 0.9166666666666666,
+              "avg_feature_coverage": 0.6,
+              "observable_run_pct": 0.25,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "U77",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.20512820512820512,
+              "mixed_pct": 0.10256410256410256,
+              "instit_pct": 0.14102564102564102,
+              "ambiguous_pct": 0.4358974358974359,
+              "unobservable_pct": 0.11538461538461539,
+              "unclear_pct": 0.5512820512820513,
+              "retail_qty_pct": 0.12763726903420258,
+              "mixed_qty_pct": 0.05503865810509763,
+              "instit_qty_pct": 0.19407679203249903,
+              "ambiguous_qty_pct": 0.5606080461276373,
+              "unobservable_qty_pct": 0.06263923470056348,
+              "unclear_qty_pct": 0.6232472808282008,
+              "retail_notional_pct": 0.12743028895057718,
+              "mixed_notional_pct": 0.05572946403375793,
+              "instit_notional_pct": 0.19397423529488972,
+              "ambiguous_notional_pct": 0.5605529633348427,
+              "unobservable_notional_pct": 0.06231304838593245,
+              "unclear_notional_pct": 0.6228660117207752,
+              "run_retail_pct": 0.2830188679245283,
+              "run_mixed_pct": 0.09433962264150944,
+              "run_instit_pct": 0.1320754716981132,
+              "run_unclear_pct": 0.49056603773584906,
+              "avg_trade_size": 1953.5769230769235,
+              "avg_run_notional": 2875.0754716981132,
+              "dominant_bucket": "AMBIGUOUS",
+              "dominant_label": "Unclassified Flow",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.41509433962264153,
+              "na_confidence_pct": 0.5849056603773585,
+              "avg_feature_coverage": 0.807547169811321,
+              "observable_run_pct": 0.9433962264150944,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            }
+          ]
+        },
+        "30d": {
+          "valid": true,
+          "currency": "SGD",
+          "n_trades": 1564,
+          "n_runs": 708,
+          "n_trade_days": 21,
+          "first_trade_date": "2026-03-24",
+          "last_trade_date": "2026-04-22",
+          "period_days": 21,
+          "method": {
+            "key": "persona_v3_2b",
+            "name": "Behavioral persona classification",
+            "version": "3.2b",
+            "unit_of_classification": "runs"
+          },
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          },
+          "composition": {
+            "retail_pct": 0.30434782608695654,
+            "mixed_pct": 0.09207161125319693,
+            "instit_pct": 0.35805626598465473,
+            "ambiguous_pct": 0.2448849104859335,
+            "unobservable_pct": 0.0006393861892583121,
+            "unclear_pct": 0.24552429667519182,
+            "retail_qty_pct": 0.05044831423197984,
+            "mixed_qty_pct": 0.10504483142319798,
+            "instit_qty_pct": 0.4368281943264916,
+            "ambiguous_qty_pct": 0.23950826977894002,
+            "unobservable_qty_pct": 0.16817039023939054,
+            "unclear_qty_pct": 0.40767866001833053,
+            "retail_notional_pct": 0.04973793489131716,
+            "mixed_notional_pct": 0.1049427668647136,
+            "instit_notional_pct": 0.4346282793589214,
+            "ambiguous_notional_pct": 0.2384185433623884,
+            "unobservable_notional_pct": 0.17227247552265945,
+            "unclear_notional_pct": 0.4106910188850479
+          },
+          "run_composition": {
+            "retail_pct": 0.5649717514124294,
+            "mixed_pct": 0.10028248587570622,
+            "instit_pct": 0.1553672316384181,
+            "ambiguous_pct": 0.17796610169491525,
+            "unobservable_pct": 0.0014124293785310734,
+            "unclear_pct": 0.1793785310734463,
+            "retail_notional_pct": 0.04973793489131716,
+            "mixed_notional_pct": 0.1049427668647136,
+            "instit_notional_pct": 0.4346282793589214,
+            "unclear_notional_pct": 0.4106910188850479
+          },
+          "counts": {
+            "trades": {
+              "retail": 476,
+              "mixed": 144,
+              "institutional": 560,
+              "ambiguous": 383,
+              "unobservable": 1,
+              "unclear": 384
+            },
+            "runs": {
+              "retail": 400,
+              "mixed": 71,
+              "institutional": 110,
+              "ambiguous": 126,
+              "unobservable": 1,
+              "unclear": 127
+            }
+          },
+          "confidence": {
+            "high": 0.09463276836158192,
+            "medium": 0.268361581920904,
+            "low": 0.3573446327683616,
+            "na": 0.2796610169491525
+          },
+          "confidence_counts": {
+            "high": 67,
+            "medium": 190,
+            "low": 253,
+            "na": 198
+          },
+          "trade_confidence": {
+            "high": 0.05690537084398977,
+            "medium": 0.2531969309462916,
+            "low": 0.3523017902813299,
+            "na": 0.3375959079283887
+          },
+          "trade_confidence_counts": {
+            "high": 89,
+            "medium": 396,
+            "low": 551,
+            "na": 528
+          },
+          "observability": {
+            "avg_feature_coverage": 0.85,
+            "observable_run_pct": 0.998587570621469,
+            "ambiguous_run_pct": 0.17796610169491525,
+            "unobservable_run_pct": 0.0014124293785310734
+          },
+          "dominant_bucket": "RETAIL",
+          "dominant_label": "Retail-led",
+          "dominant_share": 0.5649717514124294,
+          "dominance_gap": 0.38700564971751417,
+          "diagnostics": {
+            "d1_cluster_mechanic": {
+              "MULTI_FILL_SINGLE_PRICE": 929,
+              "SINGLE_FILL": 619,
+              "WALK_BOOK": 16
+            },
+            "d2_information": {
+              "NEUTRAL_OR_REVERSING": 1140,
+              "PERSISTENT_POSITIVE_IMPACT": 291,
+              "MOMENTUM_REACTIVE": 118,
+              "SHORT_HORIZON_POSITIVE_IMPACT": 13,
+              "UNOBSERVABLE": 2
+            },
+            "d3_urgency": {
+              "IMMEDIATE": 700,
+              "ADAPTIVE": 8
+            },
+            "participant_confidence": {
+              "LOW": 253,
+              "NA": 198,
+              "MEDIUM": 190,
+              "HIGH": 67
+            }
+          },
+          "trade_size": {
+            "avg": 5455.878516624041,
+            "median": 1760.0
+          },
+          "run_size": {
+            "avg": 12052.25141242938,
+            "median": 1885.0,
+            "avg_length": 1.2019774011299436
+          },
+          "recent_trades": [
+            {
+              "trade_id": "BMLL-272",
+              "timestamp": "2026-04-22T09:09:13.746800",
+              "price": 0.26,
+              "size": 12000.0,
+              "notional": 3120.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1322,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-271",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 4900.0,
+              "notional": 1274.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-270",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 11600.0,
+              "notional": 3016.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-269",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 20200.0,
+              "notional": 5252.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-268",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 5000.0,
+              "notional": 1300.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-267",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 5000.0,
+              "notional": 1300.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-266",
+              "timestamp": "2026-04-22T09:06:22.360400",
+              "price": 0.26,
+              "size": 16800.0,
+              "notional": 4368.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "MOMENTUM_REACTIVE",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-265",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 3200.0,
+              "notional": 832.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-264",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 500.0,
+              "notional": 130.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-263",
+              "timestamp": "2026-04-22T09:06:21.548600",
+              "price": 0.26,
+              "size": 2500.0,
+              "notional": 650.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-262",
+              "timestamp": "2026-04-22T09:06:21.548500",
+              "price": 0.26,
+              "size": 30000.0,
+              "notional": 7800.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-261",
+              "timestamp": "2026-04-22T09:06:21.548500",
+              "price": 0.26,
+              "size": 13800.0,
+              "notional": 3588.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-260",
+              "timestamp": "2026-04-22T09:06:18.572300",
+              "price": 0.26,
+              "size": 11200.0,
+              "notional": 2912.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-259",
+              "timestamp": "2026-04-22T09:06:18.572300",
+              "price": 0.26,
+              "size": 48800.0,
+              "notional": 12688.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-258",
+              "timestamp": "2026-04-22T09:06:14.874700",
+              "price": 0.26,
+              "size": 30000.0,
+              "notional": 7800.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1321,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-249",
+              "timestamp": "2026-04-22T08:49:06.605500",
+              "price": 0.26,
+              "size": 16200.0,
+              "notional": 4212.0,
+              "bucket": "MIXED",
+              "confidence": "NA",
+              "run_id": 1320,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-248",
+              "timestamp": "2026-04-22T08:49:06.605400",
+              "price": 0.26,
+              "size": 3800.0,
+              "notional": 988.0,
+              "bucket": "MIXED",
+              "confidence": "NA",
+              "run_id": 1320,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-247",
+              "timestamp": "2026-04-22T08:34:39.395800",
+              "price": 0.26,
+              "size": 1200.0,
+              "notional": 312.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1319,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-246",
+              "timestamp": "2026-04-22T08:34:39.395800",
+              "price": 0.26,
+              "size": 8800.0,
+              "notional": 2288.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1319,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-245",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 20900.0,
+              "notional": 5538.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-244",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 9100.0,
+              "notional": 2411.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-243",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 900.0,
+              "notional": 238.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-242",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 40000.0,
+              "notional": 10600.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-241",
+              "timestamp": "2026-04-22T07:27:58.823700",
+              "price": 0.265,
+              "size": 14100.0,
+              "notional": 3736.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-240",
+              "timestamp": "2026-04-22T07:27:58.823600",
+              "price": 0.265,
+              "size": 5900.0,
+              "notional": 1563.5,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "MEDIUM",
+              "run_id": 1318,
+              "d1": "MULTI_FILL_SINGLE_PRICE",
+              "d2": "PERSISTENT_POSITIVE_IMPACT",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-239",
+              "timestamp": "2026-04-22T07:26:17.705900",
+              "price": 0.27,
+              "size": 1000.0,
+              "notional": 270.0,
+              "bucket": "RETAIL",
+              "confidence": "MEDIUM",
+              "run_id": 1317,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "IMMEDIATE"
+            },
+            {
+              "trade_id": "BMLL-238",
+              "timestamp": "2026-04-22T07:25:48.926500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-237",
+              "timestamp": "2026-04-22T07:25:47.241500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-236",
+              "timestamp": "2026-04-22T07:25:45.645500",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            },
+            {
+              "trade_id": "BMLL-235",
+              "timestamp": "2026-04-22T07:25:43.929900",
+              "price": 0.27,
+              "size": 100.0,
+              "notional": 27.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": 1316,
+              "d1": "SINGLE_FILL",
+              "d2": "NEUTRAL_OR_REVERSING",
+              "d3": "ADAPTIVE"
+            }
+          ],
+          "peer_comparison": [
+            {
+              "ticker": "TKU",
+              "currency": "SGD",
+              "is_target": true,
+              "retail_pct": 0.30434782608695654,
+              "mixed_pct": 0.09207161125319693,
+              "instit_pct": 0.35805626598465473,
+              "ambiguous_pct": 0.2448849104859335,
+              "unobservable_pct": 0.0006393861892583121,
+              "unclear_pct": 0.24552429667519182,
+              "retail_qty_pct": 0.05044831423197984,
+              "mixed_qty_pct": 0.10504483142319798,
+              "instit_qty_pct": 0.4368281943264916,
+              "ambiguous_qty_pct": 0.23950826977894002,
+              "unobservable_qty_pct": 0.16817039023939054,
+              "unclear_qty_pct": 0.40767866001833053,
+              "retail_notional_pct": 0.04973793489131716,
+              "mixed_notional_pct": 0.1049427668647136,
+              "instit_notional_pct": 0.4346282793589214,
+              "ambiguous_notional_pct": 0.2384185433623884,
+              "unobservable_notional_pct": 0.17227247552265945,
+              "unclear_notional_pct": 0.4106910188850479,
+              "run_retail_pct": 0.5649717514124294,
+              "run_mixed_pct": 0.10028248587570622,
+              "run_instit_pct": 0.1553672316384181,
+              "run_unclear_pct": 0.1793785310734463,
+              "avg_trade_size": 5455.878516624041,
+              "avg_run_notional": 12052.25141242938,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.09463276836158192,
+              "medium_confidence_pct": 0.268361581920904,
+              "low_confidence_pct": 0.3573446327683616,
+              "na_confidence_pct": 0.2796610169491525,
+              "avg_feature_coverage": 0.85,
+              "observable_run_pct": 0.998587570621469,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "KUX",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.2857142857142857,
+              "mixed_pct": 0.0,
+              "instit_pct": 0.2857142857142857,
+              "ambiguous_pct": 0.42857142857142855,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.42857142857142855,
+              "retail_qty_pct": 0.0025220680958385876,
+              "mixed_qty_pct": 0.0,
+              "instit_qty_pct": 0.6305170239596469,
+              "ambiguous_qty_pct": 0.3669609079445145,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.3669609079445145,
+              "retail_notional_pct": 0.0018267494239511762,
+              "mixed_notional_pct": 0.0,
+              "instit_notional_pct": 0.7867477632698814,
+              "ambiguous_notional_pct": 0.21142548730616736,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.21142548730616736,
+              "run_retail_pct": 0.3333333333333333,
+              "run_mixed_pct": 0.0,
+              "run_instit_pct": 0.16666666666666666,
+              "run_unclear_pct": 0.5,
+              "avg_trade_size": 688.1857142857142,
+              "avg_run_notional": 802.8833333333332,
+              "dominant_bucket": "AMBIGUOUS",
+              "dominant_label": "Unclassified Flow",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.5,
+              "na_confidence_pct": 0.5,
+              "avg_feature_coverage": 0.8250000000000002,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "42F",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.2555350553505535,
+              "mixed_pct": 0.14206642066420663,
+              "instit_pct": 0.2924354243542435,
+              "ambiguous_pct": 0.3081180811808118,
+              "unobservable_pct": 0.0018450184501845018,
+              "unclear_pct": 0.3099630996309963,
+              "retail_qty_pct": 0.05485793692721134,
+              "mixed_qty_pct": 0.1353779543836277,
+              "instit_qty_pct": 0.5163056710384271,
+              "ambiguous_qty_pct": 0.2934004410042033,
+              "unobservable_qty_pct": 5.799664653053724e-05,
+              "unclear_qty_pct": 0.29345843765073387,
+              "retail_notional_pct": 0.05503125858287338,
+              "mixed_notional_pct": 0.13700197838807218,
+              "instit_notional_pct": 0.5170479379405091,
+              "ambiguous_notional_pct": 0.29086047678902294,
+              "unobservable_notional_pct": 5.834829952244014e-05,
+              "unclear_notional_pct": 0.2909188250885454,
+              "run_retail_pct": 0.4436974789915966,
+              "run_mixed_pct": 0.13781512605042018,
+              "run_instit_pct": 0.11932773109243698,
+              "run_unclear_pct": 0.2991596638655462,
+              "avg_trade_size": 4313.073708487084,
+              "avg_run_notional": 7857.767899159665,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.0067226890756302525,
+              "medium_confidence_pct": 0.2689075630252101,
+              "low_confidence_pct": 0.28739495798319326,
+              "na_confidence_pct": 0.4369747899159664,
+              "avg_feature_coverage": 0.8417647058823529,
+              "observable_run_pct": 0.9983193277310924,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "ITS",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.3279374072575206,
+              "mixed_pct": 0.19020639417239985,
+              "instit_pct": 0.28962633211925,
+              "ambiguous_pct": 0.1907459867799811,
+              "unobservable_pct": 0.0014838796708485094,
+              "unclear_pct": 0.19222986645082962,
+              "retail_qty_pct": 0.06482886882442931,
+              "mixed_qty_pct": 0.14118846926838047,
+              "instit_qty_pct": 0.5056783753787083,
+              "ambiguous_qty_pct": 0.28504064552899183,
+              "unobservable_qty_pct": 0.003263640999490056,
+              "unclear_qty_pct": 0.2883042865284819,
+              "retail_notional_pct": 0.06510651971834955,
+              "mixed_notional_pct": 0.1418015053106928,
+              "instit_notional_pct": 0.5057824072269396,
+              "ambiguous_notional_pct": 0.2839597090758529,
+              "unobservable_notional_pct": 0.003349858668165174,
+              "unclear_notional_pct": 0.28730956774401806,
+              "run_retail_pct": 0.6390936390936391,
+              "run_mixed_pct": 0.15315315315315314,
+              "run_instit_pct": 0.088998088998089,
+              "run_unclear_pct": 0.11875511875511875,
+              "avg_trade_size": 2309.956495346014,
+              "avg_run_notional": 4674.776822276823,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.17335517335517336,
+              "medium_confidence_pct": 0.4318864318864319,
+              "low_confidence_pct": 0.12285012285012285,
+              "na_confidence_pct": 0.2719082719082719,
+              "avg_feature_coverage": 0.8629948129948128,
+              "observable_run_pct": 0.9994539994539995,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "NXR",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.15789473684210525,
+              "mixed_pct": 0.05263157894736842,
+              "instit_pct": 0.42105263157894735,
+              "ambiguous_pct": 0.3684210526315789,
+              "unobservable_pct": 0.0,
+              "unclear_pct": 0.3684210526315789,
+              "retail_qty_pct": 0.0439052570768342,
+              "mixed_qty_pct": 0.04737146158290006,
+              "instit_qty_pct": 0.4777585210860774,
+              "ambiguous_qty_pct": 0.43096476025418834,
+              "unobservable_qty_pct": 0.0,
+              "unclear_qty_pct": 0.43096476025418834,
+              "retail_notional_pct": 0.04463341166589949,
+              "mixed_notional_pct": 0.04834007639444081,
+              "instit_notional_pct": 0.4747195774886741,
+              "ambiguous_notional_pct": 0.4323069344509856,
+              "unobservable_notional_pct": 0.0,
+              "unclear_notional_pct": 0.4323069344509856,
+              "run_retail_pct": 0.2,
+              "run_mixed_pct": 0.06666666666666667,
+              "run_instit_pct": 0.3333333333333333,
+              "run_unclear_pct": 0.4,
+              "avg_trade_size": 3258.7105263157896,
+              "avg_run_notional": 4127.7,
+              "dominant_bucket": "AMBIGUOUS",
+              "dominant_label": "Mixed, mostly unclassified",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.5333333333333333,
+              "na_confidence_pct": 0.4666666666666667,
+              "avg_feature_coverage": 0.8299999999999998,
+              "observable_run_pct": 1.0,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "J03",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.21180327868852458,
+              "mixed_pct": 0.12655737704918033,
+              "instit_pct": 0.3527868852459016,
+              "ambiguous_pct": 0.30098360655737705,
+              "unobservable_pct": 0.007868852459016393,
+              "unclear_pct": 0.30885245901639347,
+              "retail_qty_pct": 0.07511622951340775,
+              "mixed_qty_pct": 0.13402213570332835,
+              "instit_qty_pct": 0.42381301087712814,
+              "ambiguous_qty_pct": 0.35586421896945714,
+              "unobservable_qty_pct": 0.011184404936678608,
+              "unclear_qty_pct": 0.36704862390613574,
+              "retail_notional_pct": 0.07654116480971204,
+              "mixed_notional_pct": 0.12733983103268126,
+              "instit_notional_pct": 0.4239886577856452,
+              "ambiguous_notional_pct": 0.35951387308679833,
+              "unobservable_notional_pct": 0.01261647328516315,
+              "unclear_notional_pct": 0.37213034637196146,
+              "run_retail_pct": 0.4209770114942529,
+              "run_mixed_pct": 0.13936781609195403,
+              "run_instit_pct": 0.15660919540229884,
+              "run_unclear_pct": 0.28304597701149425,
+              "avg_trade_size": 2422.9576393442626,
+              "avg_run_notional": 5308.922988505747,
+              "dominant_bucket": "RETAIL",
+              "dominant_label": "Retail-led",
+              "high_confidence_pct": 0.01867816091954023,
+              "medium_confidence_pct": 0.27155172413793105,
+              "low_confidence_pct": 0.28735632183908044,
+              "na_confidence_pct": 0.4224137931034483,
+              "avg_feature_coverage": 0.8483477011494251,
+              "observable_run_pct": 0.9956896551724138,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "LVR",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.14285714285714285,
+              "mixed_pct": 0.05612244897959184,
+              "instit_pct": 0.336734693877551,
+              "ambiguous_pct": 0.32142857142857145,
+              "unobservable_pct": 0.14285714285714285,
+              "unclear_pct": 0.4642857142857143,
+              "retail_qty_pct": 0.09689025957337445,
+              "mixed_qty_pct": 0.19403752248779235,
+              "instit_qty_pct": 0.35659213569776405,
+              "ambiguous_qty_pct": 0.27460806990490877,
+              "unobservable_qty_pct": 0.07787201233616037,
+              "unclear_qty_pct": 0.35248008224106914,
+              "retail_notional_pct": 0.0942647032198706,
+              "mixed_notional_pct": 0.18634612251078475,
+              "instit_notional_pct": 0.35504657068885775,
+              "ambiguous_notional_pct": 0.28241637602848063,
+              "unobservable_notional_pct": 0.08192622755200626,
+              "unclear_notional_pct": 0.36434260358048687,
+              "run_retail_pct": 0.2523364485981308,
+              "run_mixed_pct": 0.09345794392523364,
+              "run_instit_pct": 0.2336448598130841,
+              "run_unclear_pct": 0.4205607476635514,
+              "avg_trade_size": 3099.8520408163267,
+              "avg_run_notional": 5678.2336448598135,
+              "dominant_bucket": "AMBIGUOUS",
+              "dominant_label": "Mixed, mostly unclassified",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.48598130841121495,
+              "na_confidence_pct": 0.514018691588785,
+              "avg_feature_coverage": 0.8032710280373829,
+              "observable_run_pct": 0.9158878504672897,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "U77",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.1791044776119403,
+              "mixed_pct": 0.09701492537313433,
+              "instit_pct": 0.22388059701492538,
+              "ambiguous_pct": 0.417910447761194,
+              "unobservable_pct": 0.08208955223880597,
+              "unclear_pct": 0.5,
+              "retail_qty_pct": 0.10488361478776814,
+              "mixed_qty_pct": 0.07220447284345048,
+              "instit_qty_pct": 0.2837060702875399,
+              "ambiguous_qty_pct": 0.49100867183934277,
+              "unobservable_qty_pct": 0.04819717024189868,
+              "unclear_qty_pct": 0.5392058420812414,
+              "retail_notional_pct": 0.10478163751469972,
+              "mixed_notional_pct": 0.07272180655119537,
+              "instit_notional_pct": 0.2836022133680169,
+              "ambiguous_notional_pct": 0.4908048252669323,
+              "unobservable_notional_pct": 0.04808951729915574,
+              "unclear_notional_pct": 0.538894342566088,
+              "run_retail_pct": 0.23809523809523808,
+              "run_mixed_pct": 0.11904761904761904,
+              "run_instit_pct": 0.16666666666666666,
+              "run_unclear_pct": 0.47619047619047616,
+              "avg_trade_size": 1628.3686567164182,
+              "avg_run_notional": 2597.635714285714,
+              "dominant_bucket": "AMBIGUOUS",
+              "dominant_label": "Unclassified Flow",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.40476190476190477,
+              "na_confidence_pct": 0.5952380952380952,
+              "avg_feature_coverage": 0.8113095238095236,
+              "observable_run_pct": 0.9523809523809523,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            },
+            {
+              "ticker": "532",
+              "currency": "SGD",
+              "is_target": false,
+              "retail_pct": 0.0847457627118644,
+              "mixed_pct": 0.05084745762711865,
+              "instit_pct": 0.05084745762711865,
+              "ambiguous_pct": 0.1864406779661017,
+              "unobservable_pct": 0.6271186440677966,
+              "unclear_pct": 0.8135593220338984,
+              "retail_qty_pct": 0.026608481527300856,
+              "mixed_qty_pct": 0.052998473525860006,
+              "instit_qty_pct": 0.12136798065481902,
+              "ambiguous_qty_pct": 0.2772277812388356,
+              "unobservable_qty_pct": 0.5217972830531845,
+              "unclear_qty_pct": 0.7990250642920201,
+              "retail_notional_pct": 0.026614229489416608,
+              "mixed_notional_pct": 0.05299816056523498,
+              "instit_notional_pct": 0.12136726396627015,
+              "ambiguous_notional_pct": 0.2772261441845222,
+              "unobservable_notional_pct": 0.5217942017945562,
+              "unclear_notional_pct": 0.7990203459790783,
+              "run_retail_pct": 0.13157894736842105,
+              "run_mixed_pct": 0.07894736842105263,
+              "run_instit_pct": 0.02631578947368421,
+              "run_unclear_pct": 0.7631578947368421,
+              "avg_trade_size": 574.0525423728814,
+              "avg_run_notional": 891.2921052631579,
+              "dominant_bucket": "UNOBSERVABLE",
+              "dominant_label": "Not Observable",
+              "high_confidence_pct": 0.0,
+              "medium_confidence_pct": 0.0,
+              "low_confidence_pct": 0.15789473684210525,
+              "na_confidence_pct": 0.8421052631578947,
+              "avg_feature_coverage": 0.6684210526315791,
+              "observable_run_pct": 0.42105263157894735,
+              "thresholds": {
+                "retail_max": 10000.0,
+                "instit_min": 50000.0
+              }
+            }
+          ]
+        }
+      },
+      "valid": true,
+      "currency": "SGD",
+      "n_trades": 1564,
+      "n_runs": 708,
+      "n_trade_days": 21,
+      "first_trade_date": "2026-03-24",
+      "last_trade_date": "2026-04-22",
+      "period_days": 21,
+      "method": {
+        "key": "persona_v3_2b",
+        "name": "Behavioral persona classification",
+        "version": "3.2b",
+        "unit_of_classification": "runs"
+      },
+      "thresholds": {
+        "retail_max": 10000.0,
+        "instit_min": 50000.0
+      },
+      "composition": {
+        "retail_pct": 0.30434782608695654,
+        "mixed_pct": 0.09207161125319693,
+        "instit_pct": 0.35805626598465473,
+        "ambiguous_pct": 0.2448849104859335,
+        "unobservable_pct": 0.0006393861892583121,
+        "unclear_pct": 0.24552429667519182,
+        "retail_qty_pct": 0.05044831423197984,
+        "mixed_qty_pct": 0.10504483142319798,
+        "instit_qty_pct": 0.4368281943264916,
+        "ambiguous_qty_pct": 0.23950826977894002,
+        "unobservable_qty_pct": 0.16817039023939054,
+        "unclear_qty_pct": 0.40767866001833053,
+        "retail_notional_pct": 0.04973793489131716,
+        "mixed_notional_pct": 0.1049427668647136,
+        "instit_notional_pct": 0.4346282793589214,
+        "ambiguous_notional_pct": 0.2384185433623884,
+        "unobservable_notional_pct": 0.17227247552265945,
+        "unclear_notional_pct": 0.4106910188850479
+      },
+      "run_composition": {
+        "retail_pct": 0.5649717514124294,
+        "mixed_pct": 0.10028248587570622,
+        "instit_pct": 0.1553672316384181,
+        "ambiguous_pct": 0.17796610169491525,
+        "unobservable_pct": 0.0014124293785310734,
+        "unclear_pct": 0.1793785310734463
+      },
+      "trade_size": {
+        "avg": 5455.878516624041,
+        "median": 1760.0
+      },
+      "run_size": {
+        "avg": 12052.25141242938,
+        "median": 1885.0,
+        "avg_length": 1.2019774011299436
+      },
+      "confidence": {
+        "high": 0.09463276836158192,
+        "medium": 0.268361581920904,
+        "low": 0.3573446327683616,
+        "na": 0.2796610169491525
+      },
+      "confidence_counts": {
+        "high": 67,
+        "medium": 190,
+        "low": 253,
+        "na": 198
+      },
+      "trade_confidence": {
+        "high": 0.05690537084398977,
+        "medium": 0.2531969309462916,
+        "low": 0.3523017902813299,
+        "na": 0.3375959079283887
+      },
+      "trade_confidence_counts": {
+        "high": 89,
+        "medium": 396,
+        "low": 551,
+        "na": 528
+      },
+      "counts": {
+        "trades": {
+          "retail": 476,
+          "mixed": 144,
+          "institutional": 560,
+          "ambiguous": 383,
+          "unobservable": 1,
+          "unclear": 384
+        },
+        "runs": {
+          "retail": 400,
+          "mixed": 71,
+          "institutional": 110,
+          "ambiguous": 126,
+          "unobservable": 1,
+          "unclear": 127
+        }
+      },
+      "observability": {
+        "avg_feature_coverage": 0.85,
+        "observable_run_pct": 0.998587570621469,
+        "ambiguous_run_pct": 0.17796610169491525,
+        "unobservable_run_pct": 0.0014124293785310734
+      },
+      "dominant_bucket": "RETAIL",
+      "dominant_label": "Retail-led",
+      "dominant_share": 0.5649717514124294,
+      "dominance_gap": 0.38700564971751417,
+      "over_time": {
+        "valid": true,
+        "periods": [
+          {
+            "month": "2026-03",
+            "n_trades": 1431,
+            "n_runs": 745,
+            "retail_pct": 0.27113906359189377,
+            "mixed_pct": 0.14255765199161424,
+            "instit_pct": 0.3941299790356394,
+            "ambiguous_pct": 0.19217330538085256,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.19217330538085256,
+            "avg_trade_size": 3185.088749126485,
+            "avg_run_notional": 6117.935570469798,
+            "retail_qty_pct": 0.06899682251475261,
+            "mixed_qty_pct": 0.16353083384761333,
+            "instit_qty_pct": 0.5271616335232344,
+            "ambiguous_qty_pct": 0.24031071011439967,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.24031071011439967,
+            "retail_notional_pct": 0.06849428525918512,
+            "mixed_notional_pct": 0.16450322541577608,
+            "instit_notional_pct": 0.5287911305783282,
+            "ambiguous_notional_pct": 0.23821135874671062,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.23821135874671062,
+            "run_retail_pct": 0.4966442953020134,
+            "run_mixed_pct": 0.13691275167785236,
+            "run_instit_pct": 0.19731543624161074,
+            "run_ambiguous_pct": 0.1691275167785235,
+            "run_unobservable_pct": 0.0,
+            "run_unclear_pct": 0.1691275167785235,
+            "avg_feature_coverage": 0.8594630872483221,
+            "high_confidence_pct": 0.036241610738255034,
+            "medium_confidence_pct": 0.23221476510067113,
+            "low_confidence_pct": 0.425503355704698,
+            "na_confidence_pct": 0.30604026845637583,
+            "total_quantity": null
+          },
+          {
+            "month": "2026-04",
+            "n_trades": 1340,
+            "n_runs": 578,
+            "retail_pct": 0.30597014925373134,
+            "mixed_pct": 0.09179104477611941,
+            "instit_pct": 0.3455223880597015,
+            "ambiguous_pct": 0.25597014925373135,
+            "unobservable_pct": 0.0007462686567164179,
+            "unclear_pct": 0.25671641791044775,
+            "avg_trade_size": 5853.541417910447,
+            "avg_run_notional": 13570.493944636679,
+            "retail_qty_pct": 0.04647751009182179,
+            "mixed_qty_pct": 0.10492738176182688,
+            "instit_qty_pct": 0.42844147968465734,
+            "ambiguous_qty_pct": 0.23638752595696197,
+            "unobservable_qty_pct": 0.18376610250473197,
+            "unclear_qty_pct": 0.4201536284616939,
+            "retail_notional_pct": 0.04593150045472536,
+            "mixed_notional_pct": 0.10484219560667796,
+            "instit_notional_pct": 0.42643179843099194,
+            "ambiguous_notional_pct": 0.23538403942351266,
+            "unobservable_notional_pct": 0.1874104660840921,
+            "unclear_notional_pct": 0.4227945055076048,
+            "run_retail_pct": 0.5847750865051903,
+            "run_mixed_pct": 0.0986159169550173,
+            "run_instit_pct": 0.14186851211072665,
+            "run_ambiguous_pct": 0.17301038062283736,
+            "run_unobservable_pct": 0.0017301038062283738,
+            "run_unclear_pct": 0.17474048442906573,
+            "avg_feature_coverage": 0.8489619377162629,
+            "high_confidence_pct": 0.11591695501730104,
+            "medium_confidence_pct": 0.328719723183391,
+            "low_confidence_pct": 0.2820069204152249,
+            "na_confidence_pct": 0.27335640138408307,
+            "total_quantity": null
+          }
+        ]
+      },
+      "peer_comparison": [
+        {
+          "ticker": "TKU",
+          "currency": "SGD",
+          "is_target": true,
+          "retail_pct": 0.30434782608695654,
+          "mixed_pct": 0.09207161125319693,
+          "instit_pct": 0.35805626598465473,
+          "ambiguous_pct": 0.2448849104859335,
+          "unobservable_pct": 0.0006393861892583121,
+          "unclear_pct": 0.24552429667519182,
+          "retail_qty_pct": 0.05044831423197984,
+          "mixed_qty_pct": 0.10504483142319798,
+          "instit_qty_pct": 0.4368281943264916,
+          "ambiguous_qty_pct": 0.23950826977894002,
+          "unobservable_qty_pct": 0.16817039023939054,
+          "unclear_qty_pct": 0.40767866001833053,
+          "retail_notional_pct": 0.04973793489131716,
+          "mixed_notional_pct": 0.1049427668647136,
+          "instit_notional_pct": 0.4346282793589214,
+          "ambiguous_notional_pct": 0.2384185433623884,
+          "unobservable_notional_pct": 0.17227247552265945,
+          "unclear_notional_pct": 0.4106910188850479,
+          "run_retail_pct": 0.5649717514124294,
+          "run_mixed_pct": 0.10028248587570622,
+          "run_instit_pct": 0.1553672316384181,
+          "run_unclear_pct": 0.1793785310734463,
+          "avg_trade_size": 5455.878516624041,
+          "avg_run_notional": 12052.25141242938,
+          "dominant_bucket": "RETAIL",
+          "dominant_label": "Retail-led",
+          "high_confidence_pct": 0.09463276836158192,
+          "medium_confidence_pct": 0.268361581920904,
+          "low_confidence_pct": 0.3573446327683616,
+          "na_confidence_pct": 0.2796610169491525,
+          "avg_feature_coverage": 0.85,
+          "observable_run_pct": 0.998587570621469,
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          }
+        },
+        {
+          "ticker": "KUX",
+          "currency": "SGD",
+          "is_target": false,
+          "retail_pct": 0.2857142857142857,
+          "mixed_pct": 0.0,
+          "instit_pct": 0.2857142857142857,
+          "ambiguous_pct": 0.42857142857142855,
+          "unobservable_pct": 0.0,
+          "unclear_pct": 0.42857142857142855,
+          "retail_qty_pct": 0.0025220680958385876,
+          "mixed_qty_pct": 0.0,
+          "instit_qty_pct": 0.6305170239596469,
+          "ambiguous_qty_pct": 0.3669609079445145,
+          "unobservable_qty_pct": 0.0,
+          "unclear_qty_pct": 0.3669609079445145,
+          "retail_notional_pct": 0.0018267494239511762,
+          "mixed_notional_pct": 0.0,
+          "instit_notional_pct": 0.7867477632698814,
+          "ambiguous_notional_pct": 0.21142548730616736,
+          "unobservable_notional_pct": 0.0,
+          "unclear_notional_pct": 0.21142548730616736,
+          "run_retail_pct": 0.3333333333333333,
+          "run_mixed_pct": 0.0,
+          "run_instit_pct": 0.16666666666666666,
+          "run_unclear_pct": 0.5,
+          "avg_trade_size": 688.1857142857142,
+          "avg_run_notional": 802.8833333333332,
+          "dominant_bucket": "AMBIGUOUS",
+          "dominant_label": "Unclassified Flow",
+          "high_confidence_pct": 0.0,
+          "medium_confidence_pct": 0.0,
+          "low_confidence_pct": 0.5,
+          "na_confidence_pct": 0.5,
+          "avg_feature_coverage": 0.8250000000000002,
+          "observable_run_pct": 1.0,
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          }
+        },
+        {
+          "ticker": "42F",
+          "currency": "SGD",
+          "is_target": false,
+          "retail_pct": 0.2555350553505535,
+          "mixed_pct": 0.14206642066420663,
+          "instit_pct": 0.2924354243542435,
+          "ambiguous_pct": 0.3081180811808118,
+          "unobservable_pct": 0.0018450184501845018,
+          "unclear_pct": 0.3099630996309963,
+          "retail_qty_pct": 0.05485793692721134,
+          "mixed_qty_pct": 0.1353779543836277,
+          "instit_qty_pct": 0.5163056710384271,
+          "ambiguous_qty_pct": 0.2934004410042033,
+          "unobservable_qty_pct": 5.799664653053724e-05,
+          "unclear_qty_pct": 0.29345843765073387,
+          "retail_notional_pct": 0.05503125858287338,
+          "mixed_notional_pct": 0.13700197838807218,
+          "instit_notional_pct": 0.5170479379405091,
+          "ambiguous_notional_pct": 0.29086047678902294,
+          "unobservable_notional_pct": 5.834829952244014e-05,
+          "unclear_notional_pct": 0.2909188250885454,
+          "run_retail_pct": 0.4436974789915966,
+          "run_mixed_pct": 0.13781512605042018,
+          "run_instit_pct": 0.11932773109243698,
+          "run_unclear_pct": 0.2991596638655462,
+          "avg_trade_size": 4313.073708487084,
+          "avg_run_notional": 7857.767899159665,
+          "dominant_bucket": "RETAIL",
+          "dominant_label": "Retail-led",
+          "high_confidence_pct": 0.0067226890756302525,
+          "medium_confidence_pct": 0.2689075630252101,
+          "low_confidence_pct": 0.28739495798319326,
+          "na_confidence_pct": 0.4369747899159664,
+          "avg_feature_coverage": 0.8417647058823529,
+          "observable_run_pct": 0.9983193277310924,
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          }
+        },
+        {
+          "ticker": "ITS",
+          "currency": "SGD",
+          "is_target": false,
+          "retail_pct": 0.3279374072575206,
+          "mixed_pct": 0.19020639417239985,
+          "instit_pct": 0.28962633211925,
+          "ambiguous_pct": 0.1907459867799811,
+          "unobservable_pct": 0.0014838796708485094,
+          "unclear_pct": 0.19222986645082962,
+          "retail_qty_pct": 0.06482886882442931,
+          "mixed_qty_pct": 0.14118846926838047,
+          "instit_qty_pct": 0.5056783753787083,
+          "ambiguous_qty_pct": 0.28504064552899183,
+          "unobservable_qty_pct": 0.003263640999490056,
+          "unclear_qty_pct": 0.2883042865284819,
+          "retail_notional_pct": 0.06510651971834955,
+          "mixed_notional_pct": 0.1418015053106928,
+          "instit_notional_pct": 0.5057824072269396,
+          "ambiguous_notional_pct": 0.2839597090758529,
+          "unobservable_notional_pct": 0.003349858668165174,
+          "unclear_notional_pct": 0.28730956774401806,
+          "run_retail_pct": 0.6390936390936391,
+          "run_mixed_pct": 0.15315315315315314,
+          "run_instit_pct": 0.088998088998089,
+          "run_unclear_pct": 0.11875511875511875,
+          "avg_trade_size": 2309.956495346014,
+          "avg_run_notional": 4674.776822276823,
+          "dominant_bucket": "RETAIL",
+          "dominant_label": "Retail-led",
+          "high_confidence_pct": 0.17335517335517336,
+          "medium_confidence_pct": 0.4318864318864319,
+          "low_confidence_pct": 0.12285012285012285,
+          "na_confidence_pct": 0.2719082719082719,
+          "avg_feature_coverage": 0.8629948129948128,
+          "observable_run_pct": 0.9994539994539995,
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          }
+        },
+        {
+          "ticker": "NXR",
+          "currency": "SGD",
+          "is_target": false,
+          "retail_pct": 0.15789473684210525,
+          "mixed_pct": 0.05263157894736842,
+          "instit_pct": 0.42105263157894735,
+          "ambiguous_pct": 0.3684210526315789,
+          "unobservable_pct": 0.0,
+          "unclear_pct": 0.3684210526315789,
+          "retail_qty_pct": 0.0439052570768342,
+          "mixed_qty_pct": 0.04737146158290006,
+          "instit_qty_pct": 0.4777585210860774,
+          "ambiguous_qty_pct": 0.43096476025418834,
+          "unobservable_qty_pct": 0.0,
+          "unclear_qty_pct": 0.43096476025418834,
+          "retail_notional_pct": 0.04463341166589949,
+          "mixed_notional_pct": 0.04834007639444081,
+          "instit_notional_pct": 0.4747195774886741,
+          "ambiguous_notional_pct": 0.4323069344509856,
+          "unobservable_notional_pct": 0.0,
+          "unclear_notional_pct": 0.4323069344509856,
+          "run_retail_pct": 0.2,
+          "run_mixed_pct": 0.06666666666666667,
+          "run_instit_pct": 0.3333333333333333,
+          "run_unclear_pct": 0.4,
+          "avg_trade_size": 3258.7105263157896,
+          "avg_run_notional": 4127.7,
+          "dominant_bucket": "AMBIGUOUS",
+          "dominant_label": "Mixed, mostly unclassified",
+          "high_confidence_pct": 0.0,
+          "medium_confidence_pct": 0.0,
+          "low_confidence_pct": 0.5333333333333333,
+          "na_confidence_pct": 0.4666666666666667,
+          "avg_feature_coverage": 0.8299999999999998,
+          "observable_run_pct": 1.0,
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          }
+        },
+        {
+          "ticker": "J03",
+          "currency": "SGD",
+          "is_target": false,
+          "retail_pct": 0.21180327868852458,
+          "mixed_pct": 0.12655737704918033,
+          "instit_pct": 0.3527868852459016,
+          "ambiguous_pct": 0.30098360655737705,
+          "unobservable_pct": 0.007868852459016393,
+          "unclear_pct": 0.30885245901639347,
+          "retail_qty_pct": 0.07511622951340775,
+          "mixed_qty_pct": 0.13402213570332835,
+          "instit_qty_pct": 0.42381301087712814,
+          "ambiguous_qty_pct": 0.35586421896945714,
+          "unobservable_qty_pct": 0.011184404936678608,
+          "unclear_qty_pct": 0.36704862390613574,
+          "retail_notional_pct": 0.07654116480971204,
+          "mixed_notional_pct": 0.12733983103268126,
+          "instit_notional_pct": 0.4239886577856452,
+          "ambiguous_notional_pct": 0.35951387308679833,
+          "unobservable_notional_pct": 0.01261647328516315,
+          "unclear_notional_pct": 0.37213034637196146,
+          "run_retail_pct": 0.4209770114942529,
+          "run_mixed_pct": 0.13936781609195403,
+          "run_instit_pct": 0.15660919540229884,
+          "run_unclear_pct": 0.28304597701149425,
+          "avg_trade_size": 2422.9576393442626,
+          "avg_run_notional": 5308.922988505747,
+          "dominant_bucket": "RETAIL",
+          "dominant_label": "Retail-led",
+          "high_confidence_pct": 0.01867816091954023,
+          "medium_confidence_pct": 0.27155172413793105,
+          "low_confidence_pct": 0.28735632183908044,
+          "na_confidence_pct": 0.4224137931034483,
+          "avg_feature_coverage": 0.8483477011494251,
+          "observable_run_pct": 0.9956896551724138,
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          }
+        },
+        {
+          "ticker": "LVR",
+          "currency": "SGD",
+          "is_target": false,
+          "retail_pct": 0.14285714285714285,
+          "mixed_pct": 0.05612244897959184,
+          "instit_pct": 0.336734693877551,
+          "ambiguous_pct": 0.32142857142857145,
+          "unobservable_pct": 0.14285714285714285,
+          "unclear_pct": 0.4642857142857143,
+          "retail_qty_pct": 0.09689025957337445,
+          "mixed_qty_pct": 0.19403752248779235,
+          "instit_qty_pct": 0.35659213569776405,
+          "ambiguous_qty_pct": 0.27460806990490877,
+          "unobservable_qty_pct": 0.07787201233616037,
+          "unclear_qty_pct": 0.35248008224106914,
+          "retail_notional_pct": 0.0942647032198706,
+          "mixed_notional_pct": 0.18634612251078475,
+          "instit_notional_pct": 0.35504657068885775,
+          "ambiguous_notional_pct": 0.28241637602848063,
+          "unobservable_notional_pct": 0.08192622755200626,
+          "unclear_notional_pct": 0.36434260358048687,
+          "run_retail_pct": 0.2523364485981308,
+          "run_mixed_pct": 0.09345794392523364,
+          "run_instit_pct": 0.2336448598130841,
+          "run_unclear_pct": 0.4205607476635514,
+          "avg_trade_size": 3099.8520408163267,
+          "avg_run_notional": 5678.2336448598135,
+          "dominant_bucket": "AMBIGUOUS",
+          "dominant_label": "Mixed, mostly unclassified",
+          "high_confidence_pct": 0.0,
+          "medium_confidence_pct": 0.0,
+          "low_confidence_pct": 0.48598130841121495,
+          "na_confidence_pct": 0.514018691588785,
+          "avg_feature_coverage": 0.8032710280373829,
+          "observable_run_pct": 0.9158878504672897,
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          }
+        },
+        {
+          "ticker": "U77",
+          "currency": "SGD",
+          "is_target": false,
+          "retail_pct": 0.1791044776119403,
+          "mixed_pct": 0.09701492537313433,
+          "instit_pct": 0.22388059701492538,
+          "ambiguous_pct": 0.417910447761194,
+          "unobservable_pct": 0.08208955223880597,
+          "unclear_pct": 0.5,
+          "retail_qty_pct": 0.10488361478776814,
+          "mixed_qty_pct": 0.07220447284345048,
+          "instit_qty_pct": 0.2837060702875399,
+          "ambiguous_qty_pct": 0.49100867183934277,
+          "unobservable_qty_pct": 0.04819717024189868,
+          "unclear_qty_pct": 0.5392058420812414,
+          "retail_notional_pct": 0.10478163751469972,
+          "mixed_notional_pct": 0.07272180655119537,
+          "instit_notional_pct": 0.2836022133680169,
+          "ambiguous_notional_pct": 0.4908048252669323,
+          "unobservable_notional_pct": 0.04808951729915574,
+          "unclear_notional_pct": 0.538894342566088,
+          "run_retail_pct": 0.23809523809523808,
+          "run_mixed_pct": 0.11904761904761904,
+          "run_instit_pct": 0.16666666666666666,
+          "run_unclear_pct": 0.47619047619047616,
+          "avg_trade_size": 1628.3686567164182,
+          "avg_run_notional": 2597.635714285714,
+          "dominant_bucket": "AMBIGUOUS",
+          "dominant_label": "Unclassified Flow",
+          "high_confidence_pct": 0.0,
+          "medium_confidence_pct": 0.0,
+          "low_confidence_pct": 0.40476190476190477,
+          "na_confidence_pct": 0.5952380952380952,
+          "avg_feature_coverage": 0.8113095238095236,
+          "observable_run_pct": 0.9523809523809523,
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          }
+        },
+        {
+          "ticker": "532",
+          "currency": "SGD",
+          "is_target": false,
+          "retail_pct": 0.0847457627118644,
+          "mixed_pct": 0.05084745762711865,
+          "instit_pct": 0.05084745762711865,
+          "ambiguous_pct": 0.1864406779661017,
+          "unobservable_pct": 0.6271186440677966,
+          "unclear_pct": 0.8135593220338984,
+          "retail_qty_pct": 0.026608481527300856,
+          "mixed_qty_pct": 0.052998473525860006,
+          "instit_qty_pct": 0.12136798065481902,
+          "ambiguous_qty_pct": 0.2772277812388356,
+          "unobservable_qty_pct": 0.5217972830531845,
+          "unclear_qty_pct": 0.7990250642920201,
+          "retail_notional_pct": 0.026614229489416608,
+          "mixed_notional_pct": 0.05299816056523498,
+          "instit_notional_pct": 0.12136726396627015,
+          "ambiguous_notional_pct": 0.2772261441845222,
+          "unobservable_notional_pct": 0.5217942017945562,
+          "unclear_notional_pct": 0.7990203459790783,
+          "run_retail_pct": 0.13157894736842105,
+          "run_mixed_pct": 0.07894736842105263,
+          "run_instit_pct": 0.02631578947368421,
+          "run_unclear_pct": 0.7631578947368421,
+          "avg_trade_size": 574.0525423728814,
+          "avg_run_notional": 891.2921052631579,
+          "dominant_bucket": "UNOBSERVABLE",
+          "dominant_label": "Not Observable",
+          "high_confidence_pct": 0.0,
+          "medium_confidence_pct": 0.0,
+          "low_confidence_pct": 0.15789473684210525,
+          "na_confidence_pct": 0.8421052631578947,
+          "avg_feature_coverage": 0.6684210526315791,
+          "observable_run_pct": 0.42105263157894735,
+          "thresholds": {
+            "retail_max": 10000.0,
+            "instit_min": 50000.0
+          }
+        }
+      ],
+      "peer_comparison_periods": {
+        "1d": [
+          {
+            "ticker": "TKU",
+            "currency": "SGD",
+            "is_target": true,
+            "retail_pct": 0.3346153846153846,
+            "mixed_pct": 0.12307692307692308,
+            "instit_pct": 0.36153846153846153,
+            "ambiguous_pct": 0.18076923076923077,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.18076923076923077,
+            "retail_qty_pct": 0.034415353631086366,
+            "mixed_qty_pct": 0.09274177625083915,
+            "instit_qty_pct": 0.6007384591083205,
+            "ambiguous_qty_pct": 0.27210441100975397,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.27210441100975397,
+            "retail_notional_pct": 0.03440692992318246,
+            "mixed_notional_pct": 0.09221458013228481,
+            "instit_notional_pct": 0.6052158057536772,
+            "ambiguous_notional_pct": 0.2681626841908556,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.2681626841908556,
+            "run_retail_pct": 0.49333333333333335,
+            "run_mixed_pct": 0.18666666666666668,
+            "run_instit_pct": 0.12,
+            "run_unclear_pct": 0.2,
+            "avg_trade_size": 5047.675,
+            "avg_run_notional": 17498.606666666667,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.3333333333333333,
+            "low_confidence_pct": 0.28,
+            "na_confidence_pct": 0.38666666666666666,
+            "avg_feature_coverage": 0.86,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "KUX",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.4,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.4,
+            "ambiguous_pct": 0.2,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.2,
+            "retail_qty_pct": 0.0036231884057971015,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.9057971014492754,
+            "ambiguous_qty_pct": 0.09057971014492754,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.09057971014492754,
+            "retail_notional_pct": 0.0022145050078010973,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.9537470431325179,
+            "ambiguous_notional_pct": 0.044038451859680916,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.044038451859680916,
+            "run_retail_pct": 0.5,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.25,
+            "run_unclear_pct": 0.25,
+            "avg_trade_size": 794.76,
+            "avg_run_notional": 993.45,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.75,
+            "na_confidence_pct": 0.25,
+            "avg_feature_coverage": 0.8125000000000001,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "J03",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.3045977011494253,
+            "mixed_pct": 0.16091954022988506,
+            "instit_pct": 0.3793103448275862,
+            "ambiguous_pct": 0.15517241379310345,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.15517241379310345,
+            "retail_qty_pct": 0.09669405607202987,
+            "mixed_qty_pct": 0.1685363443378962,
+            "instit_qty_pct": 0.5355986018593075,
+            "ambiguous_qty_pct": 0.1991709977307664,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.1991709977307664,
+            "retail_notional_pct": 0.09740737374968657,
+            "mixed_notional_pct": 0.17204249330710328,
+            "instit_notional_pct": 0.5317599151613325,
+            "ambiguous_notional_pct": 0.1987902177818777,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.1987902177818777,
+            "run_retail_pct": 0.5517241379310345,
+            "run_mixed_pct": 0.1839080459770115,
+            "run_instit_pct": 0.16091954022988506,
+            "run_unclear_pct": 0.10344827586206896,
+            "avg_trade_size": 2890.1373563218385,
+            "avg_run_notional": 5780.274712643679,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.42528735632183906,
+            "low_confidence_pct": 0.28735632183908044,
+            "na_confidence_pct": 0.28735632183908044,
+            "avg_feature_coverage": 0.8603448275862065,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "ITS",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.39903264812575573,
+            "mixed_pct": 0.31076178960096734,
+            "instit_pct": 0.2140266021765417,
+            "ambiguous_pct": 0.06892382103990327,
+            "unobservable_pct": 0.007255139056831923,
+            "unclear_pct": 0.0761789600967352,
+            "retail_qty_pct": 0.13789694797973556,
+            "mixed_qty_pct": 0.3692079574941307,
+            "instit_qty_pct": 0.364265414555789,
+            "ambiguous_qty_pct": 0.08612381070060546,
+            "unobservable_qty_pct": 0.04250586926973928,
+            "unclear_qty_pct": 0.12862967997034475,
+            "retail_notional_pct": 0.13832539935500013,
+            "mixed_notional_pct": 0.3684678910925814,
+            "instit_notional_pct": 0.3644454954538133,
+            "ambiguous_notional_pct": 0.086269590757515,
+            "unobservable_notional_pct": 0.04249162334109024,
+            "unclear_notional_pct": 0.12876121409860525,
+            "run_retail_pct": 0.7317073170731707,
+            "run_mixed_pct": 0.2039911308203991,
+            "run_instit_pct": 0.03991130820399113,
+            "run_unclear_pct": 0.024390243902439025,
+            "avg_trade_size": 1058.4631197097945,
+            "avg_run_notional": 1940.9068736141908,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.44567627494456763,
+            "medium_confidence_pct": 0.3170731707317073,
+            "low_confidence_pct": 0.008869179600886918,
+            "na_confidence_pct": 0.22838137472283815,
+            "avg_feature_coverage": 0.8770509977827049,
+            "observable_run_pct": 0.9977827050997783,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "42F",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.5454545454545454,
+            "mixed_pct": 0.45454545454545453,
+            "instit_pct": 0.0,
+            "ambiguous_pct": 0.0,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.0,
+            "retail_qty_pct": 0.014670462010072258,
+            "mixed_qty_pct": 0.9853295379899277,
+            "instit_qty_pct": 0.0,
+            "ambiguous_qty_pct": 0.0,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.0,
+            "retail_notional_pct": 0.014341140065658231,
+            "mixed_notional_pct": 0.9856588599343418,
+            "instit_notional_pct": 0.0,
+            "ambiguous_notional_pct": 0.0,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.0,
+            "run_retail_pct": 0.6,
+            "run_mixed_pct": 0.4,
+            "run_instit_pct": 0.0,
+            "run_unclear_pct": 0.0,
+            "avg_trade_size": 2315.0181818181813,
+            "avg_run_notional": 2546.5199999999995,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.6,
+            "na_confidence_pct": 0.4,
+            "avg_feature_coverage": 0.85,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "LVR",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.0,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.0,
+            "ambiguous_pct": 0.0,
+            "unobservable_pct": 1.0,
+            "unclear_pct": 1.0,
+            "retail_qty_pct": 0.0,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.0,
+            "ambiguous_qty_pct": 0.0,
+            "unobservable_qty_pct": 1.0,
+            "unclear_qty_pct": 1.0,
+            "retail_notional_pct": 0.0,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.0,
+            "ambiguous_notional_pct": 0.0,
+            "unobservable_notional_pct": 1.0,
+            "unclear_notional_pct": 1.0,
+            "run_retail_pct": 0.0,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.0,
+            "run_unclear_pct": 1.0,
+            "avg_trade_size": 932.25,
+            "avg_run_notional": 1864.5,
+            "dominant_bucket": "UNOBSERVABLE",
+            "dominant_label": "Not Observable",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.0,
+            "na_confidence_pct": 1.0,
+            "avg_feature_coverage": 0.6,
+            "observable_run_pct": 0.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "U77",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.25,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.0,
+            "ambiguous_pct": 0.25,
+            "unobservable_pct": 0.5,
+            "unclear_pct": 0.75,
+            "retail_qty_pct": 0.02,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.0,
+            "ambiguous_qty_pct": 0.48,
+            "unobservable_qty_pct": 0.5,
+            "unclear_qty_pct": 0.98,
+            "retail_notional_pct": 0.020387879405693313,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.0,
+            "ambiguous_notional_pct": 0.47952292362190674,
+            "unobservable_notional_pct": 0.5000891969723998,
+            "unclear_notional_pct": 0.9796121205943066,
+            "run_retail_pct": 0.3333333333333333,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.0,
+            "run_unclear_pct": 0.6666666666666666,
+            "avg_trade_size": 980.9750000000001,
+            "avg_run_notional": 1307.966666666667,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Mixed, leaning retail-like",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.3333333333333333,
+            "na_confidence_pct": 0.6666666666666666,
+            "avg_feature_coverage": 0.7666666666666667,
+            "observable_run_pct": 0.6666666666666667,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "532",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.0,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.0,
+            "ambiguous_pct": 0.0,
+            "unobservable_pct": 1.0,
+            "unclear_pct": 1.0,
+            "retail_qty_pct": 0.0,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.0,
+            "ambiguous_qty_pct": 0.0,
+            "unobservable_qty_pct": 1.0,
+            "unclear_qty_pct": 1.0,
+            "retail_notional_pct": 0.0,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.0,
+            "ambiguous_notional_pct": 0.0,
+            "unobservable_notional_pct": 1.0,
+            "unclear_notional_pct": 1.0,
+            "run_retail_pct": 0.0,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.0,
+            "run_unclear_pct": 1.0,
+            "avg_trade_size": 842.5,
+            "avg_run_notional": 1123.3333333333333,
+            "dominant_bucket": "UNOBSERVABLE",
+            "dominant_label": "Not Observable",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.0,
+            "na_confidence_pct": 1.0,
+            "avg_feature_coverage": 0.55,
+            "observable_run_pct": 0.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          }
+        ],
+        "1w": [
+          {
+            "ticker": "TKU",
+            "currency": "SGD",
+            "is_target": true,
+            "retail_pct": 0.25647668393782386,
+            "mixed_pct": 0.11917098445595854,
+            "instit_pct": 0.3393782383419689,
+            "ambiguous_pct": 0.28367875647668395,
+            "unobservable_pct": 0.0012953367875647669,
+            "unclear_pct": 0.2849740932642487,
+            "retail_qty_pct": 0.039133722985359276,
+            "mixed_qty_pct": 0.11338134109349182,
+            "instit_qty_pct": 0.36728402673308835,
+            "ambiguous_qty_pct": 0.23358570289444047,
+            "unobservable_qty_pct": 0.24661520629362008,
+            "unclear_qty_pct": 0.4802009091880606,
+            "retail_notional_pct": 0.03887388171931364,
+            "mixed_notional_pct": 0.11239478699495245,
+            "instit_notional_pct": 0.37010485294462436,
+            "ambiguous_notional_pct": 0.23244563087610237,
+            "unobservable_notional_pct": 0.24618084746500715,
+            "unclear_notional_pct": 0.4786264783411095,
+            "run_retail_pct": 0.4946236559139785,
+            "run_mixed_pct": 0.14336917562724014,
+            "run_instit_pct": 0.13261648745519714,
+            "run_unclear_pct": 0.22939068100358423,
+            "avg_trade_size": 7734.740932642487,
+            "avg_run_notional": 21402.222222222223,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.07168458781362007,
+            "medium_confidence_pct": 0.32974910394265233,
+            "low_confidence_pct": 0.22580645161290322,
+            "na_confidence_pct": 0.3727598566308244,
+            "avg_feature_coverage": 0.8532258064516127,
+            "observable_run_pct": 0.996415770609319,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "KUX",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.4,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.4,
+            "ambiguous_pct": 0.2,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.2,
+            "retail_qty_pct": 0.0036231884057971015,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.9057971014492754,
+            "ambiguous_qty_pct": 0.09057971014492754,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.09057971014492754,
+            "retail_notional_pct": 0.0022145050078010973,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.9537470431325179,
+            "ambiguous_notional_pct": 0.044038451859680916,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.044038451859680916,
+            "run_retail_pct": 0.5,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.25,
+            "run_unclear_pct": 0.25,
+            "avg_trade_size": 794.76,
+            "avg_run_notional": 993.45,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.75,
+            "na_confidence_pct": 0.25,
+            "avg_feature_coverage": 0.8125000000000001,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "42F",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.2890625,
+            "mixed_pct": 0.1875,
+            "instit_pct": 0.33203125,
+            "ambiguous_pct": 0.19140625,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.19140625,
+            "retail_qty_pct": 0.043757153612153335,
+            "mixed_qty_pct": 0.22341100549438217,
+            "instit_qty_pct": 0.5791380777211269,
+            "ambiguous_qty_pct": 0.15369376317233752,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.15369376317233752,
+            "retail_notional_pct": 0.04453771624107478,
+            "mixed_notional_pct": 0.22523979984277565,
+            "instit_notional_pct": 0.5784488216270122,
+            "ambiguous_notional_pct": 0.1517736622891374,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.1517736622891374,
+            "run_retail_pct": 0.5142857142857142,
+            "run_mixed_pct": 0.17857142857142858,
+            "run_instit_pct": 0.1357142857142857,
+            "run_unclear_pct": 0.17142857142857143,
+            "avg_trade_size": 5258.21015625,
+            "avg_run_notional": 9615.01285714286,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.007142857142857143,
+            "medium_confidence_pct": 0.36428571428571427,
+            "low_confidence_pct": 0.2785714285714286,
+            "na_confidence_pct": 0.35,
+            "avg_feature_coverage": 0.852142857142857,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "ITS",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.3786291529482191,
+            "mixed_pct": 0.20622568093385213,
+            "instit_pct": 0.2565100269380425,
+            "ambiguous_pct": 0.1568392696797366,
+            "unobservable_pct": 0.0017958695001496557,
+            "unclear_pct": 0.15863513917988625,
+            "retail_qty_pct": 0.07022129290817215,
+            "mixed_qty_pct": 0.16331864685236352,
+            "instit_qty_pct": 0.5251163716924302,
+            "ambiguous_qty_pct": 0.23706220595922634,
+            "unobservable_qty_pct": 0.004281482587807732,
+            "unclear_qty_pct": 0.24134368854703406,
+            "retail_notional_pct": 0.07049443436147616,
+            "mixed_notional_pct": 0.16306911769593815,
+            "instit_notional_pct": 0.5252038757227699,
+            "ambiguous_notional_pct": 0.23682513703841093,
+            "unobservable_notional_pct": 0.004407435181404854,
+            "unclear_notional_pct": 0.24123257221981578,
+            "run_retail_pct": 0.6925675675675675,
+            "run_mixed_pct": 0.15427927927927929,
+            "run_instit_pct": 0.06531531531531531,
+            "run_unclear_pct": 0.08783783783783783,
+            "avg_trade_size": 2525.9348997306197,
+            "avg_run_notional": 4751.772804054054,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.26463963963963966,
+            "medium_confidence_pct": 0.40427927927927926,
+            "low_confidence_pct": 0.08896396396396396,
+            "na_confidence_pct": 0.24211711711711711,
+            "avg_feature_coverage": 0.863626126126126,
+            "observable_run_pct": 0.9994369369369369,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "J03",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.24013722126929674,
+            "mixed_pct": 0.14751286449399656,
+            "instit_pct": 0.3259005145797599,
+            "ambiguous_pct": 0.28130360205831906,
+            "unobservable_pct": 0.005145797598627788,
+            "unclear_pct": 0.2864493996569468,
+            "retail_qty_pct": 0.08161688596425812,
+            "mixed_qty_pct": 0.12910716895808041,
+            "instit_qty_pct": 0.44223340502390845,
+            "ambiguous_qty_pct": 0.34107661147188406,
+            "unobservable_qty_pct": 0.005965928581868947,
+            "unclear_qty_pct": 0.347042540053753,
+            "retail_notional_pct": 0.0823459032113254,
+            "mixed_notional_pct": 0.1298675594502258,
+            "instit_notional_pct": 0.4366809808079329,
+            "ambiguous_notional_pct": 0.34481774113219715,
+            "unobservable_notional_pct": 0.006287815398318695,
+            "unclear_notional_pct": 0.35110555653051584,
+            "run_retail_pct": 0.43661971830985913,
+            "run_mixed_pct": 0.15492957746478872,
+            "run_instit_pct": 0.15140845070422534,
+            "run_unclear_pct": 0.25704225352112675,
+            "avg_trade_size": 2653.638936535163,
+            "avg_run_notional": 5447.43485915493,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.045774647887323945,
+            "medium_confidence_pct": 0.323943661971831,
+            "low_confidence_pct": 0.21830985915492956,
+            "na_confidence_pct": 0.4119718309859155,
+            "avg_feature_coverage": 0.8466549295774648,
+            "observable_run_pct": 0.9964788732394366,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "LVR",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.05,
+            "mixed_pct": 0.016666666666666666,
+            "instit_pct": 0.3333333333333333,
+            "ambiguous_pct": 0.4666666666666667,
+            "unobservable_pct": 0.13333333333333333,
+            "unclear_pct": 0.6,
+            "retail_qty_pct": 0.030080213903743314,
+            "mixed_qty_pct": 0.03074866310160428,
+            "instit_qty_pct": 0.35093582887700536,
+            "ambiguous_qty_pct": 0.4411764705882353,
+            "unobservable_qty_pct": 0.14705882352941177,
+            "unclear_qty_pct": 0.5882352941176471,
+            "retail_notional_pct": 0.029945993566608552,
+            "mixed_notional_pct": 0.029287107676020625,
+            "instit_notional_pct": 0.347380928584913,
+            "ambiguous_notional_pct": 0.44369672000681093,
+            "unobservable_notional_pct": 0.14968925016564688,
+            "unclear_notional_pct": 0.5933859701724578,
+            "run_retail_pct": 0.125,
+            "run_mixed_pct": 0.041666666666666664,
+            "run_instit_pct": 0.20833333333333334,
+            "run_unclear_pct": 0.625,
+            "avg_trade_size": 2251.275,
+            "avg_run_notional": 5628.1875,
+            "dominant_bucket": "AMBIGUOUS",
+            "dominant_label": "Unclassified Flow",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.3333333333333333,
+            "na_confidence_pct": 0.6666666666666666,
+            "avg_feature_coverage": 0.8166666666666668,
+            "observable_run_pct": 0.9166666666666666,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "U77",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.25,
+            "mixed_pct": 0.09615384615384616,
+            "instit_pct": 0.15384615384615385,
+            "ambiguous_pct": 0.46153846153846156,
+            "unobservable_pct": 0.038461538461538464,
+            "unclear_pct": 0.5,
+            "retail_qty_pct": 0.16365824308062576,
+            "mixed_qty_pct": 0.05157297576070139,
+            "instit_qty_pct": 0.2236548048822417,
+            "ambiguous_qty_pct": 0.5439229843561973,
+            "unobservable_qty_pct": 0.017190991920233798,
+            "unclear_qty_pct": 0.5611139762764311,
+            "retail_notional_pct": 0.16339974500535043,
+            "mixed_notional_pct": 0.052083647198287175,
+            "instit_notional_pct": 0.2237237999884641,
+            "ambiguous_notional_pct": 0.5438996274943116,
+            "unobservable_notional_pct": 0.016893180313586602,
+            "unclear_notional_pct": 0.5607928078078982,
+            "run_retail_pct": 0.32432432432432434,
+            "run_mixed_pct": 0.08108108108108109,
+            "run_instit_pct": 0.13513513513513514,
+            "run_unclear_pct": 0.4594594594594595,
+            "avg_trade_size": 2233.8326923076925,
+            "avg_run_notional": 3139.4405405405405,
+            "dominant_bucket": "AMBIGUOUS",
+            "dominant_label": "Unclassified Flow",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.4594594594594595,
+            "na_confidence_pct": 0.5405405405405406,
+            "avg_feature_coverage": 0.8229729729729732,
+            "observable_run_pct": 0.972972972972973,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "532",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.0,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.0,
+            "ambiguous_pct": 0.0,
+            "unobservable_pct": 1.0,
+            "unclear_pct": 1.0,
+            "retail_qty_pct": 0.0,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.0,
+            "ambiguous_qty_pct": 0.0,
+            "unobservable_qty_pct": 1.0,
+            "unclear_qty_pct": 1.0,
+            "retail_notional_pct": 0.0,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.0,
+            "ambiguous_notional_pct": 0.0,
+            "unobservable_notional_pct": 1.0,
+            "unclear_notional_pct": 1.0,
+            "run_retail_pct": 0.0,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.0,
+            "run_unclear_pct": 1.0,
+            "avg_trade_size": 481.85714285714283,
+            "avg_run_notional": 562.1666666666666,
+            "dominant_bucket": "UNOBSERVABLE",
+            "dominant_label": "Not Observable",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.0,
+            "na_confidence_pct": 1.0,
+            "avg_feature_coverage": 0.5499999999999999,
+            "observable_run_pct": 0.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          }
+        ],
+        "2w": [
+          {
+            "ticker": "TKU",
+            "currency": "SGD",
+            "is_target": true,
+            "retail_pct": 0.27321237993596587,
+            "mixed_pct": 0.11099252934898612,
+            "instit_pct": 0.3489861259338314,
+            "ambiguous_pct": 0.2657417289220918,
+            "unobservable_pct": 0.0010672358591248667,
+            "unclear_pct": 0.2668089647812167,
+            "retail_qty_pct": 0.04507949571127555,
+            "mixed_qty_pct": 0.11387645351930813,
+            "instit_qty_pct": 0.39157579584394575,
+            "ambiguous_qty_pct": 0.23662833183162943,
+            "unobservable_qty_pct": 0.21283992309384112,
+            "unclear_qty_pct": 0.44946825492547055,
+            "retail_notional_pct": 0.044483427326539184,
+            "mixed_notional_pct": 0.11312454197813128,
+            "instit_notional_pct": 0.3920018320509391,
+            "ambiguous_notional_pct": 0.23555971998673897,
+            "unobservable_notional_pct": 0.21483047865765148,
+            "unclear_notional_pct": 0.45039019864439045,
+            "run_retail_pct": 0.5205479452054794,
+            "run_mixed_pct": 0.13150684931506848,
+            "run_instit_pct": 0.13972602739726028,
+            "run_unclear_pct": 0.20821917808219176,
+            "avg_trade_size": 7302.672892209178,
+            "avg_run_notional": 18746.861643835615,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.0547945205479452,
+            "medium_confidence_pct": 0.25205479452054796,
+            "low_confidence_pct": 0.35342465753424657,
+            "na_confidence_pct": 0.33972602739726027,
+            "avg_feature_coverage": 0.8491780821917806,
+            "observable_run_pct": 0.9972602739726028,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "NXR",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.0,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.75,
+            "ambiguous_pct": 0.25,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.25,
+            "retail_qty_pct": 0.0,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.9174311926605505,
+            "ambiguous_qty_pct": 0.08256880733944955,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.08256880733944955,
+            "retail_notional_pct": 0.0,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.9192523364485982,
+            "ambiguous_notional_pct": 0.08074766355140187,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.08074766355140187,
+            "run_retail_pct": 0.0,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.5,
+            "run_unclear_pct": 0.5,
+            "avg_trade_size": 1003.125,
+            "avg_run_notional": 2006.25,
+            "dominant_bucket": "INSTITUTIONAL",
+            "dominant_label": "Mixed, leaning institution-like",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.5,
+            "na_confidence_pct": 0.5,
+            "avg_feature_coverage": 0.8500000000000001,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "KUX",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.2857142857142857,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.2857142857142857,
+            "ambiguous_pct": 0.42857142857142855,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.42857142857142855,
+            "retail_qty_pct": 0.0025220680958385876,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.6305170239596469,
+            "ambiguous_qty_pct": 0.3669609079445145,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.3669609079445145,
+            "retail_notional_pct": 0.0018267494239511762,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.7867477632698814,
+            "ambiguous_notional_pct": 0.21142548730616736,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.21142548730616736,
+            "run_retail_pct": 0.3333333333333333,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.16666666666666666,
+            "run_unclear_pct": 0.5,
+            "avg_trade_size": 688.1857142857142,
+            "avg_run_notional": 802.8833333333332,
+            "dominant_bucket": "AMBIGUOUS",
+            "dominant_label": "Unclassified Flow",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.5,
+            "na_confidence_pct": 0.5,
+            "avg_feature_coverage": 0.8250000000000002,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "42F",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.28174603174603174,
+            "mixed_pct": 0.12301587301587301,
+            "instit_pct": 0.3194444444444444,
+            "ambiguous_pct": 0.2718253968253968,
+            "unobservable_pct": 0.003968253968253968,
+            "unclear_pct": 0.27579365079365076,
+            "retail_qty_pct": 0.057090048180760924,
+            "mixed_qty_pct": 0.14840993715977835,
+            "instit_qty_pct": 0.5507168476295652,
+            "ambiguous_qty_pct": 0.2436597832354407,
+            "unobservable_qty_pct": 0.00012338379445481465,
+            "unclear_qty_pct": 0.24378316702989553,
+            "retail_notional_pct": 0.056893270093284674,
+            "mixed_notional_pct": 0.14966012701118608,
+            "instit_notional_pct": 0.5513695749015551,
+            "ambiguous_notional_pct": 0.24195521099882436,
+            "unobservable_notional_pct": 0.00012181699514982599,
+            "unclear_notional_pct": 0.24207702799397418,
+            "run_retail_pct": 0.5,
+            "run_mixed_pct": 0.11764705882352941,
+            "run_instit_pct": 0.1213235294117647,
+            "run_unclear_pct": 0.26102941176470584,
+            "avg_trade_size": 4443.303174603174,
+            "avg_run_notional": 8233.179411764706,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.003676470588235294,
+            "medium_confidence_pct": 0.33455882352941174,
+            "low_confidence_pct": 0.28308823529411764,
+            "na_confidence_pct": 0.3786764705882353,
+            "avg_feature_coverage": 0.8430147058823528,
+            "observable_run_pct": 0.9963235294117647,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "ITS",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.36410137177400603,
+            "mixed_pct": 0.18949081608928156,
+            "instit_pct": 0.2601720530109277,
+            "ambiguous_pct": 0.18367821436875145,
+            "unobservable_pct": 0.0025575447570332483,
+            "unclear_pct": 0.1862357591257847,
+            "retail_qty_pct": 0.06785526084665379,
+            "mixed_qty_pct": 0.15289829615317055,
+            "instit_qty_pct": 0.49301774108554364,
+            "ambiguous_qty_pct": 0.2814509046197084,
+            "unobservable_qty_pct": 0.00477779729492359,
+            "unclear_qty_pct": 0.286228701914632,
+            "retail_notional_pct": 0.06818802242294596,
+            "mixed_notional_pct": 0.15317858625062233,
+            "instit_notional_pct": 0.49395379889738433,
+            "ambiguous_notional_pct": 0.27983008549156063,
+            "unobservable_notional_pct": 0.004849506937486743,
+            "unclear_notional_pct": 0.2846795924290474,
+            "run_retail_pct": 0.6687197536295645,
+            "run_mixed_pct": 0.14650241970963485,
+            "run_instit_pct": 0.07347118345798505,
+            "run_unclear_pct": 0.11130664320281565,
+            "avg_trade_size": 2750.1555452220414,
+            "avg_run_notional": 5203.87989441267,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.20985481742190937,
+            "medium_confidence_pct": 0.4223493180818302,
+            "low_confidence_pct": 0.10998680158380994,
+            "na_confidence_pct": 0.2578090629124505,
+            "avg_feature_coverage": 0.8591069071711394,
+            "observable_run_pct": 0.9991201055873296,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "J03",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.21194464675892208,
+            "mixed_pct": 0.12454479242534595,
+            "instit_pct": 0.34741442097596503,
+            "ambiguous_pct": 0.30735615440640934,
+            "unobservable_pct": 0.00873998543335761,
+            "unclear_pct": 0.316096139839767,
+            "retail_qty_pct": 0.07716747803993584,
+            "mixed_qty_pct": 0.13447300369221146,
+            "instit_qty_pct": 0.412743234284193,
+            "ambiguous_qty_pct": 0.3633390670090502,
+            "unobservable_qty_pct": 0.012277216974609423,
+            "unclear_qty_pct": 0.37561628398365965,
+            "retail_notional_pct": 0.07809199005416438,
+            "mixed_notional_pct": 0.12698409718272477,
+            "instit_notional_pct": 0.41619026362853623,
+            "ambiguous_notional_pct": 0.36526830276007255,
+            "unobservable_notional_pct": 0.013465346374502139,
+            "unclear_notional_pct": 0.3787336491345747,
+            "run_retail_pct": 0.4246353322528363,
+            "run_mixed_pct": 0.13776337115072934,
+            "run_instit_pct": 0.14748784440842788,
+            "run_unclear_pct": 0.2901134521880065,
+            "avg_trade_size": 2521.5383102694827,
+            "avg_run_notional": 5611.137925445705,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.02106969205834684,
+            "medium_confidence_pct": 0.3014586709886548,
+            "low_confidence_pct": 0.24959481361426256,
+            "na_confidence_pct": 0.42787682333873583,
+            "avg_feature_coverage": 0.846677471636953,
+            "observable_run_pct": 0.9951377633711507,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "LVR",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.10084033613445378,
+            "mixed_pct": 0.025210084033613446,
+            "instit_pct": 0.2773109243697479,
+            "ambiguous_pct": 0.3949579831932773,
+            "unobservable_pct": 0.20168067226890757,
+            "unclear_pct": 0.5966386554621849,
+            "retail_qty_pct": 0.10112359550561797,
+            "mixed_qty_pct": 0.1344153141905951,
+            "instit_qty_pct": 0.2798585101955888,
+            "ambiguous_qty_pct": 0.36641697877652935,
+            "unobservable_qty_pct": 0.11818560133166875,
+            "unclear_qty_pct": 0.4846025801081981,
+            "retail_notional_pct": 0.09677774097726073,
+            "mixed_notional_pct": 0.12667542978978855,
+            "instit_notional_pct": 0.2832757175238312,
+            "ambiguous_notional_pct": 0.3716776033203267,
+            "unobservable_notional_pct": 0.12159350838879286,
+            "unclear_notional_pct": 0.4932711117091195,
+            "run_retail_pct": 0.2037037037037037,
+            "run_mixed_pct": 0.05555555555555555,
+            "run_instit_pct": 0.16666666666666666,
+            "run_unclear_pct": 0.5740740740740741,
+            "avg_trade_size": 3247.63025210084,
+            "avg_run_notional": 7156.814814814815,
+            "dominant_bucket": "AMBIGUOUS",
+            "dominant_label": "Unclassified Flow",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.37037037037037035,
+            "na_confidence_pct": 0.6296296296296297,
+            "avg_feature_coverage": 0.792592592592593,
+            "observable_run_pct": 0.8703703703703703,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "532",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.0,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.1875,
+            "ambiguous_pct": 0.1875,
+            "unobservable_pct": 0.625,
+            "unclear_pct": 0.8125,
+            "retail_qty_pct": 0.0,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.25102900763358776,
+            "ambiguous_qty_pct": 0.4207267175572519,
+            "unobservable_qty_pct": 0.3282442748091603,
+            "unclear_qty_pct": 0.7489709923664122,
+            "retail_notional_pct": 0.0,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.2510290076335878,
+            "ambiguous_notional_pct": 0.4207267175572519,
+            "unobservable_notional_pct": 0.3282442748091603,
+            "unclear_notional_pct": 0.7489709923664122,
+            "run_retail_pct": 0.0,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.08333333333333333,
+            "run_unclear_pct": 0.9166666666666666,
+            "avg_trade_size": 1023.4375,
+            "avg_run_notional": 1364.5833333333333,
+            "dominant_bucket": "UNOBSERVABLE",
+            "dominant_label": "Not Observable",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.08333333333333333,
+            "na_confidence_pct": 0.9166666666666666,
+            "avg_feature_coverage": 0.6,
+            "observable_run_pct": 0.25,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "U77",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.20512820512820512,
+            "mixed_pct": 0.10256410256410256,
+            "instit_pct": 0.14102564102564102,
+            "ambiguous_pct": 0.4358974358974359,
+            "unobservable_pct": 0.11538461538461539,
+            "unclear_pct": 0.5512820512820513,
+            "retail_qty_pct": 0.12763726903420258,
+            "mixed_qty_pct": 0.05503865810509763,
+            "instit_qty_pct": 0.19407679203249903,
+            "ambiguous_qty_pct": 0.5606080461276373,
+            "unobservable_qty_pct": 0.06263923470056348,
+            "unclear_qty_pct": 0.6232472808282008,
+            "retail_notional_pct": 0.12743028895057718,
+            "mixed_notional_pct": 0.05572946403375793,
+            "instit_notional_pct": 0.19397423529488972,
+            "ambiguous_notional_pct": 0.5605529633348427,
+            "unobservable_notional_pct": 0.06231304838593245,
+            "unclear_notional_pct": 0.6228660117207752,
+            "run_retail_pct": 0.2830188679245283,
+            "run_mixed_pct": 0.09433962264150944,
+            "run_instit_pct": 0.1320754716981132,
+            "run_unclear_pct": 0.49056603773584906,
+            "avg_trade_size": 1953.5769230769235,
+            "avg_run_notional": 2875.0754716981132,
+            "dominant_bucket": "AMBIGUOUS",
+            "dominant_label": "Unclassified Flow",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.41509433962264153,
+            "na_confidence_pct": 0.5849056603773585,
+            "avg_feature_coverage": 0.807547169811321,
+            "observable_run_pct": 0.9433962264150944,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          }
+        ],
+        "30d": [
+          {
+            "ticker": "TKU",
+            "currency": "SGD",
+            "is_target": true,
+            "retail_pct": 0.30434782608695654,
+            "mixed_pct": 0.09207161125319693,
+            "instit_pct": 0.35805626598465473,
+            "ambiguous_pct": 0.2448849104859335,
+            "unobservable_pct": 0.0006393861892583121,
+            "unclear_pct": 0.24552429667519182,
+            "retail_qty_pct": 0.05044831423197984,
+            "mixed_qty_pct": 0.10504483142319798,
+            "instit_qty_pct": 0.4368281943264916,
+            "ambiguous_qty_pct": 0.23950826977894002,
+            "unobservable_qty_pct": 0.16817039023939054,
+            "unclear_qty_pct": 0.40767866001833053,
+            "retail_notional_pct": 0.04973793489131716,
+            "mixed_notional_pct": 0.1049427668647136,
+            "instit_notional_pct": 0.4346282793589214,
+            "ambiguous_notional_pct": 0.2384185433623884,
+            "unobservable_notional_pct": 0.17227247552265945,
+            "unclear_notional_pct": 0.4106910188850479,
+            "run_retail_pct": 0.5649717514124294,
+            "run_mixed_pct": 0.10028248587570622,
+            "run_instit_pct": 0.1553672316384181,
+            "run_unclear_pct": 0.1793785310734463,
+            "avg_trade_size": 5455.878516624041,
+            "avg_run_notional": 12052.25141242938,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.09463276836158192,
+            "medium_confidence_pct": 0.268361581920904,
+            "low_confidence_pct": 0.3573446327683616,
+            "na_confidence_pct": 0.2796610169491525,
+            "avg_feature_coverage": 0.85,
+            "observable_run_pct": 0.998587570621469,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "KUX",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.2857142857142857,
+            "mixed_pct": 0.0,
+            "instit_pct": 0.2857142857142857,
+            "ambiguous_pct": 0.42857142857142855,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.42857142857142855,
+            "retail_qty_pct": 0.0025220680958385876,
+            "mixed_qty_pct": 0.0,
+            "instit_qty_pct": 0.6305170239596469,
+            "ambiguous_qty_pct": 0.3669609079445145,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.3669609079445145,
+            "retail_notional_pct": 0.0018267494239511762,
+            "mixed_notional_pct": 0.0,
+            "instit_notional_pct": 0.7867477632698814,
+            "ambiguous_notional_pct": 0.21142548730616736,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.21142548730616736,
+            "run_retail_pct": 0.3333333333333333,
+            "run_mixed_pct": 0.0,
+            "run_instit_pct": 0.16666666666666666,
+            "run_unclear_pct": 0.5,
+            "avg_trade_size": 688.1857142857142,
+            "avg_run_notional": 802.8833333333332,
+            "dominant_bucket": "AMBIGUOUS",
+            "dominant_label": "Unclassified Flow",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.5,
+            "na_confidence_pct": 0.5,
+            "avg_feature_coverage": 0.8250000000000002,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "42F",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.2555350553505535,
+            "mixed_pct": 0.14206642066420663,
+            "instit_pct": 0.2924354243542435,
+            "ambiguous_pct": 0.3081180811808118,
+            "unobservable_pct": 0.0018450184501845018,
+            "unclear_pct": 0.3099630996309963,
+            "retail_qty_pct": 0.05485793692721134,
+            "mixed_qty_pct": 0.1353779543836277,
+            "instit_qty_pct": 0.5163056710384271,
+            "ambiguous_qty_pct": 0.2934004410042033,
+            "unobservable_qty_pct": 5.799664653053724e-05,
+            "unclear_qty_pct": 0.29345843765073387,
+            "retail_notional_pct": 0.05503125858287338,
+            "mixed_notional_pct": 0.13700197838807218,
+            "instit_notional_pct": 0.5170479379405091,
+            "ambiguous_notional_pct": 0.29086047678902294,
+            "unobservable_notional_pct": 5.834829952244014e-05,
+            "unclear_notional_pct": 0.2909188250885454,
+            "run_retail_pct": 0.4436974789915966,
+            "run_mixed_pct": 0.13781512605042018,
+            "run_instit_pct": 0.11932773109243698,
+            "run_unclear_pct": 0.2991596638655462,
+            "avg_trade_size": 4313.073708487084,
+            "avg_run_notional": 7857.767899159665,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.0067226890756302525,
+            "medium_confidence_pct": 0.2689075630252101,
+            "low_confidence_pct": 0.28739495798319326,
+            "na_confidence_pct": 0.4369747899159664,
+            "avg_feature_coverage": 0.8417647058823529,
+            "observable_run_pct": 0.9983193277310924,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "ITS",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.3279374072575206,
+            "mixed_pct": 0.19020639417239985,
+            "instit_pct": 0.28962633211925,
+            "ambiguous_pct": 0.1907459867799811,
+            "unobservable_pct": 0.0014838796708485094,
+            "unclear_pct": 0.19222986645082962,
+            "retail_qty_pct": 0.06482886882442931,
+            "mixed_qty_pct": 0.14118846926838047,
+            "instit_qty_pct": 0.5056783753787083,
+            "ambiguous_qty_pct": 0.28504064552899183,
+            "unobservable_qty_pct": 0.003263640999490056,
+            "unclear_qty_pct": 0.2883042865284819,
+            "retail_notional_pct": 0.06510651971834955,
+            "mixed_notional_pct": 0.1418015053106928,
+            "instit_notional_pct": 0.5057824072269396,
+            "ambiguous_notional_pct": 0.2839597090758529,
+            "unobservable_notional_pct": 0.003349858668165174,
+            "unclear_notional_pct": 0.28730956774401806,
+            "run_retail_pct": 0.6390936390936391,
+            "run_mixed_pct": 0.15315315315315314,
+            "run_instit_pct": 0.088998088998089,
+            "run_unclear_pct": 0.11875511875511875,
+            "avg_trade_size": 2309.956495346014,
+            "avg_run_notional": 4674.776822276823,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.17335517335517336,
+            "medium_confidence_pct": 0.4318864318864319,
+            "low_confidence_pct": 0.12285012285012285,
+            "na_confidence_pct": 0.2719082719082719,
+            "avg_feature_coverage": 0.8629948129948128,
+            "observable_run_pct": 0.9994539994539995,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "NXR",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.15789473684210525,
+            "mixed_pct": 0.05263157894736842,
+            "instit_pct": 0.42105263157894735,
+            "ambiguous_pct": 0.3684210526315789,
+            "unobservable_pct": 0.0,
+            "unclear_pct": 0.3684210526315789,
+            "retail_qty_pct": 0.0439052570768342,
+            "mixed_qty_pct": 0.04737146158290006,
+            "instit_qty_pct": 0.4777585210860774,
+            "ambiguous_qty_pct": 0.43096476025418834,
+            "unobservable_qty_pct": 0.0,
+            "unclear_qty_pct": 0.43096476025418834,
+            "retail_notional_pct": 0.04463341166589949,
+            "mixed_notional_pct": 0.04834007639444081,
+            "instit_notional_pct": 0.4747195774886741,
+            "ambiguous_notional_pct": 0.4323069344509856,
+            "unobservable_notional_pct": 0.0,
+            "unclear_notional_pct": 0.4323069344509856,
+            "run_retail_pct": 0.2,
+            "run_mixed_pct": 0.06666666666666667,
+            "run_instit_pct": 0.3333333333333333,
+            "run_unclear_pct": 0.4,
+            "avg_trade_size": 3258.7105263157896,
+            "avg_run_notional": 4127.7,
+            "dominant_bucket": "AMBIGUOUS",
+            "dominant_label": "Mixed, mostly unclassified",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.5333333333333333,
+            "na_confidence_pct": 0.4666666666666667,
+            "avg_feature_coverage": 0.8299999999999998,
+            "observable_run_pct": 1.0,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "J03",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.21180327868852458,
+            "mixed_pct": 0.12655737704918033,
+            "instit_pct": 0.3527868852459016,
+            "ambiguous_pct": 0.30098360655737705,
+            "unobservable_pct": 0.007868852459016393,
+            "unclear_pct": 0.30885245901639347,
+            "retail_qty_pct": 0.07511622951340775,
+            "mixed_qty_pct": 0.13402213570332835,
+            "instit_qty_pct": 0.42381301087712814,
+            "ambiguous_qty_pct": 0.35586421896945714,
+            "unobservable_qty_pct": 0.011184404936678608,
+            "unclear_qty_pct": 0.36704862390613574,
+            "retail_notional_pct": 0.07654116480971204,
+            "mixed_notional_pct": 0.12733983103268126,
+            "instit_notional_pct": 0.4239886577856452,
+            "ambiguous_notional_pct": 0.35951387308679833,
+            "unobservable_notional_pct": 0.01261647328516315,
+            "unclear_notional_pct": 0.37213034637196146,
+            "run_retail_pct": 0.4209770114942529,
+            "run_mixed_pct": 0.13936781609195403,
+            "run_instit_pct": 0.15660919540229884,
+            "run_unclear_pct": 0.28304597701149425,
+            "avg_trade_size": 2422.9576393442626,
+            "avg_run_notional": 5308.922988505747,
+            "dominant_bucket": "RETAIL",
+            "dominant_label": "Retail-led",
+            "high_confidence_pct": 0.01867816091954023,
+            "medium_confidence_pct": 0.27155172413793105,
+            "low_confidence_pct": 0.28735632183908044,
+            "na_confidence_pct": 0.4224137931034483,
+            "avg_feature_coverage": 0.8483477011494251,
+            "observable_run_pct": 0.9956896551724138,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "LVR",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.14285714285714285,
+            "mixed_pct": 0.05612244897959184,
+            "instit_pct": 0.336734693877551,
+            "ambiguous_pct": 0.32142857142857145,
+            "unobservable_pct": 0.14285714285714285,
+            "unclear_pct": 0.4642857142857143,
+            "retail_qty_pct": 0.09689025957337445,
+            "mixed_qty_pct": 0.19403752248779235,
+            "instit_qty_pct": 0.35659213569776405,
+            "ambiguous_qty_pct": 0.27460806990490877,
+            "unobservable_qty_pct": 0.07787201233616037,
+            "unclear_qty_pct": 0.35248008224106914,
+            "retail_notional_pct": 0.0942647032198706,
+            "mixed_notional_pct": 0.18634612251078475,
+            "instit_notional_pct": 0.35504657068885775,
+            "ambiguous_notional_pct": 0.28241637602848063,
+            "unobservable_notional_pct": 0.08192622755200626,
+            "unclear_notional_pct": 0.36434260358048687,
+            "run_retail_pct": 0.2523364485981308,
+            "run_mixed_pct": 0.09345794392523364,
+            "run_instit_pct": 0.2336448598130841,
+            "run_unclear_pct": 0.4205607476635514,
+            "avg_trade_size": 3099.8520408163267,
+            "avg_run_notional": 5678.2336448598135,
+            "dominant_bucket": "AMBIGUOUS",
+            "dominant_label": "Mixed, mostly unclassified",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.48598130841121495,
+            "na_confidence_pct": 0.514018691588785,
+            "avg_feature_coverage": 0.8032710280373829,
+            "observable_run_pct": 0.9158878504672897,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "U77",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.1791044776119403,
+            "mixed_pct": 0.09701492537313433,
+            "instit_pct": 0.22388059701492538,
+            "ambiguous_pct": 0.417910447761194,
+            "unobservable_pct": 0.08208955223880597,
+            "unclear_pct": 0.5,
+            "retail_qty_pct": 0.10488361478776814,
+            "mixed_qty_pct": 0.07220447284345048,
+            "instit_qty_pct": 0.2837060702875399,
+            "ambiguous_qty_pct": 0.49100867183934277,
+            "unobservable_qty_pct": 0.04819717024189868,
+            "unclear_qty_pct": 0.5392058420812414,
+            "retail_notional_pct": 0.10478163751469972,
+            "mixed_notional_pct": 0.07272180655119537,
+            "instit_notional_pct": 0.2836022133680169,
+            "ambiguous_notional_pct": 0.4908048252669323,
+            "unobservable_notional_pct": 0.04808951729915574,
+            "unclear_notional_pct": 0.538894342566088,
+            "run_retail_pct": 0.23809523809523808,
+            "run_mixed_pct": 0.11904761904761904,
+            "run_instit_pct": 0.16666666666666666,
+            "run_unclear_pct": 0.47619047619047616,
+            "avg_trade_size": 1628.3686567164182,
+            "avg_run_notional": 2597.635714285714,
+            "dominant_bucket": "AMBIGUOUS",
+            "dominant_label": "Unclassified Flow",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.40476190476190477,
+            "na_confidence_pct": 0.5952380952380952,
+            "avg_feature_coverage": 0.8113095238095236,
+            "observable_run_pct": 0.9523809523809523,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          },
+          {
+            "ticker": "532",
+            "currency": "SGD",
+            "is_target": false,
+            "retail_pct": 0.0847457627118644,
+            "mixed_pct": 0.05084745762711865,
+            "instit_pct": 0.05084745762711865,
+            "ambiguous_pct": 0.1864406779661017,
+            "unobservable_pct": 0.6271186440677966,
+            "unclear_pct": 0.8135593220338984,
+            "retail_qty_pct": 0.026608481527300856,
+            "mixed_qty_pct": 0.052998473525860006,
+            "instit_qty_pct": 0.12136798065481902,
+            "ambiguous_qty_pct": 0.2772277812388356,
+            "unobservable_qty_pct": 0.5217972830531845,
+            "unclear_qty_pct": 0.7990250642920201,
+            "retail_notional_pct": 0.026614229489416608,
+            "mixed_notional_pct": 0.05299816056523498,
+            "instit_notional_pct": 0.12136726396627015,
+            "ambiguous_notional_pct": 0.2772261441845222,
+            "unobservable_notional_pct": 0.5217942017945562,
+            "unclear_notional_pct": 0.7990203459790783,
+            "run_retail_pct": 0.13157894736842105,
+            "run_mixed_pct": 0.07894736842105263,
+            "run_instit_pct": 0.02631578947368421,
+            "run_unclear_pct": 0.7631578947368421,
+            "avg_trade_size": 574.0525423728814,
+            "avg_run_notional": 891.2921052631579,
+            "dominant_bucket": "UNOBSERVABLE",
+            "dominant_label": "Not Observable",
+            "high_confidence_pct": 0.0,
+            "medium_confidence_pct": 0.0,
+            "low_confidence_pct": 0.15789473684210525,
+            "na_confidence_pct": 0.8421052631578947,
+            "avg_feature_coverage": 0.6684210526315791,
+            "observable_run_pct": 0.42105263157894735,
+            "thresholds": {
+              "retail_max": 10000.0,
+              "instit_min": 50000.0
+            }
+          }
+        ]
+      },
+      "peer_activity_enabled": true,
+      "peer_activity_reason": null,
+      "recent_trades": [
+        {
+          "trade_id": "BMLL-272",
+          "timestamp": "2026-04-22T09:09:13.746800",
+          "price": 0.26,
+          "size": 12000.0,
+          "notional": 3120.0,
+          "bucket": "RETAIL",
+          "confidence": "LOW",
+          "run_id": 1322,
+          "d1": "SINGLE_FILL",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-271",
+          "timestamp": "2026-04-22T09:06:22.360400",
+          "price": 0.26,
+          "size": 4900.0,
+          "notional": 1274.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "MOMENTUM_REACTIVE",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-270",
+          "timestamp": "2026-04-22T09:06:22.360400",
+          "price": 0.26,
+          "size": 11600.0,
+          "notional": 3016.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "MOMENTUM_REACTIVE",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-269",
+          "timestamp": "2026-04-22T09:06:22.360400",
+          "price": 0.26,
+          "size": 20200.0,
+          "notional": 5252.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "MOMENTUM_REACTIVE",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-268",
+          "timestamp": "2026-04-22T09:06:22.360400",
+          "price": 0.26,
+          "size": 5000.0,
+          "notional": 1300.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "MOMENTUM_REACTIVE",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-267",
+          "timestamp": "2026-04-22T09:06:22.360400",
+          "price": 0.26,
+          "size": 5000.0,
+          "notional": 1300.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "MOMENTUM_REACTIVE",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-266",
+          "timestamp": "2026-04-22T09:06:22.360400",
+          "price": 0.26,
+          "size": 16800.0,
+          "notional": 4368.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "MOMENTUM_REACTIVE",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-265",
+          "timestamp": "2026-04-22T09:06:21.548600",
+          "price": 0.26,
+          "size": 3200.0,
+          "notional": 832.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-264",
+          "timestamp": "2026-04-22T09:06:21.548600",
+          "price": 0.26,
+          "size": 500.0,
+          "notional": 130.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-263",
+          "timestamp": "2026-04-22T09:06:21.548600",
+          "price": 0.26,
+          "size": 2500.0,
+          "notional": 650.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-262",
+          "timestamp": "2026-04-22T09:06:21.548500",
+          "price": 0.26,
+          "size": 30000.0,
+          "notional": 7800.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-261",
+          "timestamp": "2026-04-22T09:06:21.548500",
+          "price": 0.26,
+          "size": 13800.0,
+          "notional": 3588.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-260",
+          "timestamp": "2026-04-22T09:06:18.572300",
+          "price": 0.26,
+          "size": 11200.0,
+          "notional": 2912.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-259",
+          "timestamp": "2026-04-22T09:06:18.572300",
+          "price": 0.26,
+          "size": 48800.0,
+          "notional": 12688.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-258",
+          "timestamp": "2026-04-22T09:06:14.874700",
+          "price": 0.26,
+          "size": 30000.0,
+          "notional": 7800.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1321,
+          "d1": "SINGLE_FILL",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-249",
+          "timestamp": "2026-04-22T08:49:06.605500",
+          "price": 0.26,
+          "size": 16200.0,
+          "notional": 4212.0,
+          "bucket": "MIXED",
+          "confidence": "NA",
+          "run_id": 1320,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-248",
+          "timestamp": "2026-04-22T08:49:06.605400",
+          "price": 0.26,
+          "size": 3800.0,
+          "notional": 988.0,
+          "bucket": "MIXED",
+          "confidence": "NA",
+          "run_id": 1320,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-247",
+          "timestamp": "2026-04-22T08:34:39.395800",
+          "price": 0.26,
+          "size": 1200.0,
+          "notional": 312.0,
+          "bucket": "RETAIL",
+          "confidence": "LOW",
+          "run_id": 1319,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-246",
+          "timestamp": "2026-04-22T08:34:39.395800",
+          "price": 0.26,
+          "size": 8800.0,
+          "notional": 2288.0,
+          "bucket": "RETAIL",
+          "confidence": "LOW",
+          "run_id": 1319,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-245",
+          "timestamp": "2026-04-22T07:27:58.823700",
+          "price": 0.265,
+          "size": 20900.0,
+          "notional": 5538.5,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1318,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-244",
+          "timestamp": "2026-04-22T07:27:58.823700",
+          "price": 0.265,
+          "size": 9100.0,
+          "notional": 2411.5,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1318,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-243",
+          "timestamp": "2026-04-22T07:27:58.823700",
+          "price": 0.265,
+          "size": 900.0,
+          "notional": 238.5,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1318,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-242",
+          "timestamp": "2026-04-22T07:27:58.823700",
+          "price": 0.265,
+          "size": 40000.0,
+          "notional": 10600.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1318,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-241",
+          "timestamp": "2026-04-22T07:27:58.823700",
+          "price": 0.265,
+          "size": 14100.0,
+          "notional": 3736.5,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1318,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-240",
+          "timestamp": "2026-04-22T07:27:58.823600",
+          "price": 0.265,
+          "size": 5900.0,
+          "notional": 1563.5,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "MEDIUM",
+          "run_id": 1318,
+          "d1": "MULTI_FILL_SINGLE_PRICE",
+          "d2": "PERSISTENT_POSITIVE_IMPACT",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-239",
+          "timestamp": "2026-04-22T07:26:17.705900",
+          "price": 0.27,
+          "size": 1000.0,
+          "notional": 270.0,
+          "bucket": "RETAIL",
+          "confidence": "MEDIUM",
+          "run_id": 1317,
+          "d1": "SINGLE_FILL",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "IMMEDIATE"
+        },
+        {
+          "trade_id": "BMLL-238",
+          "timestamp": "2026-04-22T07:25:48.926500",
+          "price": 0.27,
+          "size": 100.0,
+          "notional": 27.0,
+          "bucket": "RETAIL",
+          "confidence": "LOW",
+          "run_id": 1316,
+          "d1": "SINGLE_FILL",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-237",
+          "timestamp": "2026-04-22T07:25:47.241500",
+          "price": 0.27,
+          "size": 100.0,
+          "notional": 27.0,
+          "bucket": "RETAIL",
+          "confidence": "LOW",
+          "run_id": 1316,
+          "d1": "SINGLE_FILL",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-236",
+          "timestamp": "2026-04-22T07:25:45.645500",
+          "price": 0.27,
+          "size": 100.0,
+          "notional": 27.0,
+          "bucket": "RETAIL",
+          "confidence": "LOW",
+          "run_id": 1316,
+          "d1": "SINGLE_FILL",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "ADAPTIVE"
+        },
+        {
+          "trade_id": "BMLL-235",
+          "timestamp": "2026-04-22T07:25:43.929900",
+          "price": 0.27,
+          "size": 100.0,
+          "notional": 27.0,
+          "bucket": "RETAIL",
+          "confidence": "LOW",
+          "run_id": 1316,
+          "d1": "SINGLE_FILL",
+          "d2": "NEUTRAL_OR_REVERSING",
+          "d3": "ADAPTIVE"
+        }
+      ],
+      "currency_thresholds": {
+        "SGD": {
+          "retail_max": 13500.0,
+          "instit_min": 67500.0
+        }
+      },
+      "classification_legend": {
+        "retail": "Retail-like behavior",
+        "mixed": "Mixed investor behavior",
+        "institutional": "Institution-like behavior",
+        "ambiguous": "Behavior seen but not clearly one type",
+        "unobservable": "Not enough market evidence to classify",
+        "unclear": "Unclassified (ambiguous + unobservable)"
+      }
+    },
+    "price_moving_trades": {
+      "total_trades": 1563,
+      "price_moving_trades": 152,
+      "pct_price_moving": 9.724888035828535,
+      "all_movers": {
+        "count": 152,
+        "avg_size": 2684.9144736842104,
+        "median_size": 480.0,
+        "retail_count": 99,
+        "mixed_count": 15,
+        "institutional_count": 22,
+        "ambiguous_count": 16,
+        "unobservable_count": 0,
+        "retail_pct": 65.13157894736842,
+        "mixed_pct": 9.868421052631579,
+        "instit_pct": 14.473684210526317,
+        "unclear_pct": 10.526315789473683
+      },
+      "positive_movers": {
+        "count": 79,
+        "avg_size": 2980.1835443037976,
+        "median_size": 47.0,
+        "retail_count": 61,
+        "mixed_count": 7,
+        "institutional_count": 8,
+        "ambiguous_count": 3,
+        "unobservable_count": 0,
+        "retail_pct": 77.21518987341773,
+        "mixed_pct": 8.860759493670885,
+        "instit_pct": 10.126582278481013,
+        "unclear_pct": 3.79746835443038
+      },
+      "negative_movers": {
+        "count": 73,
+        "avg_size": 2365.376712328767,
+        "median_size": 1275.0,
+        "retail_count": 38,
+        "mixed_count": 8,
+        "institutional_count": 14,
+        "ambiguous_count": 13,
+        "unobservable_count": 0,
+        "retail_pct": 52.054794520547944,
+        "mixed_pct": 10.95890410958904,
+        "instit_pct": 19.17808219178082,
+        "unclear_pct": 17.80821917808219
+      }
+    },
+    "short_selling": {
+      "data_available": true,
+      "security_name": "$ Toku Ltd",
+      "mapping": {
+        "ticker_to_security": "$ Toku Ltd",
+        "confidence": "high"
+      },
+      "coverage": {
+        "n_days_short_data": 22,
+        "window_days": 21
+      },
+      "periods": {
+        "1W": {
+          "stats": {
+            "valid": true,
+            "avg_short_ratio": 0.0,
+            "max_short_ratio": 0.0,
+            "interpretation": "Low short interest"
+          }
+        },
+        "2W": {
+          "stats": {
+            "valid": true,
+            "avg_short_ratio": 0.0,
+            "max_short_ratio": 0.0,
+            "interpretation": "Low short interest"
+          }
+        },
+        "1M": {
+          "stats": {
+            "valid": true,
+            "avg_short_ratio": 0.0027449071709758593,
+            "max_short_ratio": 0.03807390817469205,
+            "interpretation": "Low short interest"
+          }
+        }
+      },
+      "correlation": {
+        "valid": false,
+        "correlation": null,
+        "interpretation": "No clear relationship (correlation undefined)"
+      },
+      "peaks": [],
+      "short_interest_change": {
+        "valid": true,
+        "monthly_data": [
+          {
+            "month": "2026-04",
+            "avg_short_ratio": 0.0
+          },
+          {
+            "month": "2026-03",
+            "avg_short_ratio": 0.006996731109067539
+          },
+          {
+            "month": "2026-02",
+            "avg_short_ratio": 0.014753167520636205
+          },
+          {
+            "month": "2026-01",
+            "avg_short_ratio": 0.009069182023479604
+          }
+        ],
+        "mom_change": [
+          {
+            "month": "2026-04",
+            "avg_short_ratio": 0.0,
+            "change_pct": null
+          },
+          {
+            "month": "2026-03",
+            "avg_short_ratio": 0.006996731109067539,
+            "change_pct": null
+          },
+          {
+            "month": "2026-02",
+            "avg_short_ratio": 0.014753167520636205,
+            "change_pct": 110.85800341128693
+          },
+          {
+            "month": "2026-01",
+            "avg_short_ratio": 0.009069182023479604,
+            "change_pct": -38.527221284554955
+          }
+        ],
+        "interpretation": "Shorts covering significantly (-100% MoM)"
+      },
+      "short_series": {
+        "valid": true,
+        "rows": [
+          {
+            "date": "2026-04-22",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 5476800,
+            "close": 0.26,
+            "return": 0.019607843137254832
+          },
+          {
+            "date": "2026-04-21",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 7842700,
+            "close": 0.255,
+            "return": 0.08510638297872353
+          },
+          {
+            "date": "2026-04-20",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 824200,
+            "close": 0.235,
+            "return": 0.021739130434782483
+          },
+          {
+            "date": "2026-04-17",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 818600,
+            "close": 0.23,
+            "return": -0.061224489795918324
+          },
+          {
+            "date": "2026-04-16",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 9893900,
+            "close": 0.245,
+            "return": 0.06521739130434767
+          },
+          {
+            "date": "2026-04-15",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 550400,
+            "close": 0.23,
+            "return": 0.0
+          },
+          {
+            "date": "2026-04-14",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 512100,
+            "close": 0.23,
+            "return": 0.045454545454545414
+          },
+          {
+            "date": "2026-04-13",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 1064200,
+            "close": 0.22,
+            "return": -0.0434782608695653
+          },
+          {
+            "date": "2026-04-10",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 777400,
+            "close": 0.23,
+            "return": 0.0
+          },
+          {
+            "date": "2026-04-09",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 1029700,
+            "close": 0.23,
+            "return": 0.022222222222222143
+          },
+          {
+            "date": "2026-04-08",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 1591000,
+            "close": 0.225,
+            "return": 0.022727272727272707
+          },
+          {
+            "date": "2026-04-07",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 730200,
+            "close": 0.22,
+            "return": 0.0
+          },
+          {
+            "date": "2026-04-06",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 1221000,
+            "close": 0.22,
+            "return": -0.0434782608695653
+          },
+          {
+            "date": "2026-04-02",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 466000,
+            "close": 0.23,
+            "return": 0.0
+          },
+          {
+            "date": "2026-04-01",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 632200,
+            "close": 0.23,
+            "return": 0.022222222222222143
+          },
+          {
+            "date": "2026-03-31",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 578100,
+            "close": 0.225,
+            "return": 0.0
+          },
+          {
+            "date": "2026-03-30",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 463200,
+            "close": 0.225,
+            "return": -0.021739130434782594
+          },
+          {
+            "date": "2026-03-27",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 476800,
+            "close": 0.23,
+            "return": 0.0
+          },
+          {
+            "date": "2026-03-26",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 458600,
+            "close": 0.23,
+            "return": 0.0
+          },
+          {
+            "date": "2026-03-25",
+            "short_ratio": 0.03807390817469205,
+            "short_vol": 17000,
+            "total_vol": 446500,
+            "close": 0.23,
+            "return": -0.02127659574468077
+          },
+          {
+            "date": "2026-03-24",
+            "short_ratio": 0.02231404958677686,
+            "short_vol": 13500,
+            "total_vol": 605000,
+            "close": 0.235,
+            "return": 0.04444444444444429
+          },
+          {
+            "date": "2026-03-23",
+            "short_ratio": 0.0,
+            "short_vol": 0,
+            "total_vol": 788800,
+            "close": 0.225,
+            "return": null
+          }
+        ]
+      },
+      "peer_comparison": [
+        {
+          "ticker": "TKU",
+          "avg_short_ratio": 0.0,
+          "max_short_ratio": 0.0,
+          "is_target": true
+        },
+        {
+          "ticker": "42F",
+          "avg_short_ratio": 1.93407586373894e-05,
+          "max_short_ratio": 0.0071947622131088565,
+          "is_target": false
+        },
+        {
+          "ticker": "NXR",
+          "avg_short_ratio": 8.68229479730181e-05,
+          "max_short_ratio": 0.03229813664596273,
+          "is_target": false
+        },
+        {
+          "ticker": "J03",
+          "avg_short_ratio": 0.0002710450103520994,
+          "max_short_ratio": 0.039047524386953865,
+          "is_target": false
+        },
+        {
+          "ticker": "ITS",
+          "avg_short_ratio": 0.003078844304598654,
+          "max_short_ratio": 0.1385606874328679,
+          "is_target": false
+        },
+        {
+          "ticker": "U77",
+          "avg_short_ratio": 0.00361056485986067,
+          "max_short_ratio": 1.0,
+          "is_target": false
+        }
+      ]
+    },
+    "intraday": {
+      "session_periods": [
+        "1D",
+        "1W",
+        "2W",
+        "1M"
+      ],
+      "session": {
+        "1D": {
+          "opening": 0.0033472202858274122,
+          "continuous": 0.9623355788921147,
+          "closing": 0.03417029378723087,
+          "auctions": 0.03766442110788528,
+          "other": 0.0
+        },
+        "1W": {
+          "opening": 0.0018852852094702684,
+          "continuous": 0.9777756029942042,
+          "closing": 0.020257163429784984,
+          "auctions": 0.022224397005795798,
+          "other": 0.0
+        },
+        "2W": {
+          "opening": 0.006967371188793316,
+          "continuous": 0.9745181320906606,
+          "closing": 0.018430301495446968,
+          "auctions": 0.02548186790933938,
+          "other": 0.0
+        },
+        "1M": {
+          "opening": 0.008436642261084374,
+          "continuous": 0.9759098936818635,
+          "closing": 0.015551475384646404,
+          "auctions": 0.02409010631813648,
+          "other": 0.0
+        }
+      },
+      "hhi": {
+        "1D": 0.4001405467902117,
+        "1W": 0.424796255257392,
+        "2W": 0.39450246942934597,
+        "1M": 0.35676536599353387
+      },
+      "profile_buckets": [
+        {
+          "time": "08:30",
+          "avg_share": 0.002
+        },
+        {
+          "time": "09:00",
+          "avg_share": 0.1946
+        },
+        {
+          "time": "09:30",
+          "avg_share": 0.1137
+        },
+        {
+          "time": "10:00",
+          "avg_share": 0.0468
+        },
+        {
+          "time": "10:30",
+          "avg_share": 0.087
+        },
+        {
+          "time": "11:00",
+          "avg_share": 0.0375
+        },
+        {
+          "time": "11:30",
+          "avg_share": 0.0512
+        },
+        {
+          "time": "12:30",
+          "avg_share": 0.0005
+        },
+        {
+          "time": "13:00",
+          "avg_share": 0.0304
+        },
+        {
+          "time": "13:30",
+          "avg_share": 0.0758
+        },
+        {
+          "time": "14:00",
+          "avg_share": 0.0436
+        },
+        {
+          "time": "14:30",
+          "avg_share": 0.0533
+        },
+        {
+          "time": "15:00",
+          "avg_share": 0.103
+        },
+        {
+          "time": "15:30",
+          "avg_share": 0.0354
+        },
+        {
+          "time": "16:00",
+          "avg_share": 0.015
+        },
+        {
+          "time": "16:30",
+          "avg_share": 0.0354
+        },
+        {
+          "time": "17:00",
+          "avg_share": 0.0746
+        }
+      ],
+      "peers_hhi_rows": [
+        {
+          "ticker": "TKU",
+          "auctions_pct": 5.990610861426644,
+          "hhi": 0.25997405581920086,
+          "interp": {
+            "text": "Concentrated",
+            "cls": "bg-red-500/20 text-red-400",
+            "you": true
+          }
+        },
+        {
+          "ticker": "KUX",
+          "auctions_pct": 5.530887278959259,
+          "hhi": 0.9170431980355639,
+          "interp": {
+            "text": "Concentrated",
+            "cls": "bg-red-500/20 text-red-400"
+          }
+        },
+        {
+          "ticker": "532",
+          "auctions_pct": 8.476652248591146,
+          "hhi": 0.8620585513146177,
+          "interp": {
+            "text": "Concentrated",
+            "cls": "bg-red-500/20 text-red-400"
+          }
+        },
+        {
+          "ticker": "U77",
+          "auctions_pct": 3.9102511356149137,
+          "hhi": 0.5539220365028371,
+          "interp": {
+            "text": "Concentrated",
+            "cls": "bg-red-500/20 text-red-400"
+          }
+        },
+        {
+          "ticker": "J03",
+          "auctions_pct": 5.864161491079051,
+          "hhi": 0.59648879795305,
+          "interp": {
+            "text": "Concentrated",
+            "cls": "bg-red-500/20 text-red-400"
+          }
+        },
+        {
+          "ticker": "NXR",
+          "auctions_pct": 1.1439328700458613,
+          "hhi": 0.8039130070344215,
+          "interp": {
+            "text": "Concentrated",
+            "cls": "bg-red-500/20 text-red-400"
+          }
+        },
+        {
+          "ticker": "42F",
+          "auctions_pct": 6.367339986704137,
+          "hhi": 0.4891795248177999,
+          "interp": {
+            "text": "Concentrated",
+            "cls": "bg-red-500/20 text-red-400"
+          }
+        },
+        {
+          "ticker": "LVR",
+          "auctions_pct": 3.556189770885554,
+          "hhi": 0.4954738296027754,
+          "interp": {
+            "text": "Concentrated",
+            "cls": "bg-red-500/20 text-red-400"
+          }
+        },
+        {
+          "ticker": "ITS",
+          "auctions_pct": 3.9383401336623,
+          "hhi": 0.18113824690983718,
+          "interp": {
+            "text": "Moderate",
+            "cls": "bg-amber-500/20 text-amber-400"
+          }
+        }
+      ]
+    },
+    "ofi_block": {
+      "tiles_values": [
+        {
+          "value": "N/A",
+          "note_suffix": " - Data not available in this report."
+        },
+        {
+          "value": "N/A",
+          "note_suffix": " - Correlation between daily OFI and same-day returns."
+        },
+        {
+          "value": "Limited",
+          "note_suffix": " - L2 snapshots insufficient for robust testing."
+        }
+      ],
+      "table_rows": [
+        {
+          "period": "1M",
+          "avg_ofi": "N/A",
+          "avg_abs": "N/A",
+          "interp": {
+            "text": "Unavailable",
+            "cls": "bg-slate-500/20 text-slate-300"
+          }
+        },
+        {
+          "period": "3M",
+          "avg_ofi": "N/A",
+          "avg_abs": "N/A",
+          "interp": {
+            "text": "Unavailable",
+            "cls": "bg-slate-500/20 text-slate-300"
+          }
+        },
+        {
+          "period": "6M",
+          "avg_ofi": "N/A",
+          "avg_abs": "N/A",
+          "interp": {
+            "text": "Unavailable",
+            "cls": "bg-slate-500/20 text-slate-300"
+          }
+        }
+      ],
+      "corr_value": "N/A",
+      "pie": {
+        "net_buy_days": null,
+        "net_sell_days": null,
+        "balanced_days": null
+      },
+      "l2_compact_text": "L2 order-book imbalance data is limited in this report.",
+      "unusual_header": [
+        "Date",
+        "OFI%",
+        "Direction",
+        "Return"
+      ],
+      "unusual_rows": [],
+      "ofi_series": {
+        "rows": [],
+        "window_options": [
+          30,
+          60,
+          100
+        ]
+      }
+    },
+    "index_block": {
+      "tiles": [
+        {
+          "title": "Market Cap Rank",
+          "value": "N/A",
+          "sub": "Rank data not available"
+        },
+        {
+          "title": "Free Float",
+          "value": "N/A",
+          "sub": "Float data not available"
+        },
+        {
+          "title": "Avg Daily Turnover",
+          "value": "N/A",
+          "sub": "Notional"
+        },
+        {
+          "title": "Velocity",
+          "value": "N/A",
+          "sub": "Turnover / float"
+        }
+      ],
+      "table_header": [
+        "Index",
+        "Status",
+        "Notes",
+        "What's Needed"
+      ],
+      "table_rows": [],
+      "insight": "Index eligibility data not available for this security.",
+      "levers_title": "How to Improve Index Eligibility",
+      "levers": []
+    }
+  }
+};
+
+export default REPORT_DATA;

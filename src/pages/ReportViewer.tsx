@@ -19,7 +19,11 @@ import {
     BarChart3,
     Loader2,
     Gauge,
-    BookOpen
+    BookOpen,
+    Cpu,
+    Gift,
+    DollarSign,
+    LineChart
 } from 'lucide-react';
 import { loadReportData } from '@/data/reportsIndex';
 import { ReportProvider } from '@/context/ReportContext';
@@ -31,10 +35,18 @@ import { DriversAnalysis } from '@/sections/DriversAnalysis';
 import { MarketStateAnalysis } from '@/sections/MarketStateAnalysis';
 import { ExecutionPanel } from '@/sections/ExecutionPanel';
 import { TraderComposition } from '@/sections/TraderComposition';
-import { PeerTraderComposition } from '@/sections/PeerTraderComposition';
 import { PriceMovingTrades } from '@/sections/PriceMovingTrades';
 import { IntradayPanel } from '@/sections/IntradayPanel';
 import { ShortSellingAndLending } from '@/sections/ShortSellingAndLending';
+import {
+    EtfLiquidityProfile,
+    EtfMacroRegimePlaybook,
+    EtfOverview,
+    EtfProductNav,
+    EtfShortVolumeOverlay,
+    EtfTradingActivity,
+    EtfTradingLiquidityRegimes,
+} from '@/sections/EtfReportSections';
 import type { ReportData } from '@/types/report';
 
 type SubSection = { id: string; label: string; icon: React.ElementType };
@@ -48,6 +60,61 @@ type TabDef = {
 };
 
 function buildTabs(report: ReportData): TabDef[] {
+    const isEtfReport = report.report_kind === 'etf' || Boolean(report.etf);
+    if (isEtfReport) {
+        return [
+            { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+            {
+                id: 'liquidity-profile', label: 'Liquidity Profile', icon: BarChart3,
+                subSections: [
+                    { id: 'liquidity', label: 'Liquidity Health', icon: Activity },
+                    { id: 'execution', label: 'Trading Costs', icon: Target },
+                    { id: 'daily-charts', label: 'Daily Charts', icon: LineChart },
+                ],
+            },
+            {
+                id: 'trading-activity', label: 'Trading Activity', icon: Activity,
+                subSections: [
+                    { id: 'traders', label: 'Execution Segments', icon: Users },
+                    { id: 'intraday', label: 'Trading Hours', icon: Clock },
+                    { id: 'persona-timing', label: 'Segment Timing', icon: Users },
+                    { id: 'flow', label: 'Flow Signal', icon: Activity },
+                ],
+            },
+            {
+                id: 'market-regimes', label: 'Trading & Liquidity Regimes', icon: LineChart,
+                subSections: [
+                    { id: 'regime-now', label: 'Current Regime', icon: Gauge },
+                    { id: 'regime-map', label: 'Regime Map', icon: LineChart },
+                ],
+            },
+            {
+                id: 'macro-regime-study', label: 'Macro Regime Playbook', icon: Cpu,
+                subSections: [
+                    { id: 'macro-summary', label: 'Regime Overview', icon: LayoutDashboard },
+                    { id: 'macro-insights', label: 'Insights', icon: Activity },
+                    { id: 'macro-monitoring', label: 'Actual Regime', icon: Gauge },
+                ],
+            },
+            {
+                id: 'short', label: 'Short Selling', icon: TrendingDown,
+                subSections: [
+                    { id: 'short-overview', label: 'Overview', icon: TrendingDown },
+                    { id: 'short-trend', label: 'Trend', icon: Activity },
+                    { id: 'short-peaks', label: 'Peak Days', icon: TrendingUp },
+                ],
+            },
+            {
+                id: 'product', label: 'Product / NAV', icon: Gift,
+                subSections: [
+                    { id: 'profile', label: 'ETF Profile', icon: BookOpen },
+                    { id: 'nav', label: 'NAV / AUM', icon: DollarSign },
+                    { id: 'distributions', label: 'Distributions', icon: Gift },
+                ],
+            },
+        ];
+    }
+
     const showShort = report.meta.market === 'XSES' && !!report.series.short_selling?.data_available;
 
     return [
@@ -66,7 +133,6 @@ function buildTabs(report: ReportData): TabDef[] {
             id: 'trading-activity', label: 'Trading Activity', icon: Activity,
             subSections: [
                 { id: 'traders', label: 'Trader Types', icon: Users },
-                { id: 'peer-traders', label: 'Peer Traders', icon: Users },
                 { id: 'price-moving', label: 'Price-Moving Trades', icon: Activity },
                 { id: 'intraday', label: 'Trading Times', icon: Clock },
             ],
@@ -90,6 +156,15 @@ export function ReportViewer() {
 
     const tabs = useMemo(() => reportData ? buildTabs(reportData) : [], [reportData]);
     const currentTab = tabs.find(t => t.id === activeTab);
+    const isEtfReport = reportData?.report_kind === 'etf' || Boolean(reportData?.etf);
+
+    useEffect(() => {
+        if (!tabs.length) return;
+        if (!tabs.some((tab) => tab.id === activeTab)) {
+            setActiveTab('overview');
+            setActiveSubSection(tabs[0]?.subSections?.[0]?.id ?? null);
+        }
+    }, [tabs, activeTab]);
 
     useEffect(() => {
         async function loadReport() {
@@ -143,24 +218,46 @@ export function ReportViewer() {
         if (!currentTab?.subSections?.length) return;
 
         const sectionIds = currentTab.subSections.map(s => s.id);
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (isScrollingRef.current) return;
-                for (const entry of entries) {
-                    if (entry.isIntersecting) {
-                        setActiveSubSection(entry.target.id);
-                    }
+        let frame = 0;
+        const updateActiveSection = () => {
+            frame = 0;
+            if (isScrollingRef.current) return;
+
+            const offset = 170;
+            let next = sectionIds[0] ?? null;
+            let closestDistance = Number.POSITIVE_INFINITY;
+
+            for (const sId of sectionIds) {
+                const el = document.getElementById(sId);
+                if (!el) continue;
+                const distance = el.getBoundingClientRect().top - offset;
+                if (distance <= 0) {
+                    next = sId;
                 }
-            },
-            { threshold: 0.15, rootMargin: '-160px 0px -30% 0px' }
-        );
+                const absDistance = Math.abs(distance);
+                if (next === null && absDistance < closestDistance) {
+                    closestDistance = absDistance;
+                    next = sId;
+                }
+            }
 
-        sectionIds.forEach((sId) => {
-            const el = document.getElementById(sId);
-            if (el) observer.observe(el);
-        });
+            if (next) setActiveSubSection(next);
+        };
 
-        return () => observer.disconnect();
+        const onScroll = () => {
+            if (frame) return;
+            frame = window.requestAnimationFrame(updateActiveSection);
+        };
+
+        updateActiveSection();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+
+        return () => {
+            if (frame) window.cancelAnimationFrame(frame);
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+        };
     }, [currentTab, contentMounted]);
 
     if (loading) {
@@ -293,12 +390,18 @@ export function ReportViewer() {
                             className="p-4 lg:p-8 space-y-8"
                         >
                             {activeTab === 'overview' && (
-                                <section id="hero">
-                                    <HeroSection />
-                                </section>
+                                isEtfReport ? <EtfOverview /> : (
+                                    <section id="hero">
+                                        <HeroSection />
+                                    </section>
+                                )
                             )}
 
-                            {activeTab === 'liquidity-profile' && (
+                            {activeTab === 'liquidity-profile' && isEtfReport && (
+                                <EtfLiquidityProfile />
+                            )}
+
+                            {activeTab === 'liquidity-profile' && !isEtfReport && (
                                 <>
                                     <section id="liquidity">
                                         <LiquidityScore />
@@ -320,18 +423,14 @@ export function ReportViewer() {
                                 </>
                             )}
 
-                            {activeTab === 'trading-activity' && (
+                            {activeTab === 'trading-activity' && isEtfReport && (
+                                <EtfTradingActivity />
+                            )}
+
+                            {activeTab === 'trading-activity' && !isEtfReport && (
                                 <>
                                     <section id="traders">
                                         <TraderComposition
-                                            selectedPeriod={traderPersonaPeriod}
-                                            onSelectedPeriodChange={setTraderPersonaPeriod}
-                                            mode={traderPersonaMode}
-                                            onModeChange={setTraderPersonaMode}
-                                        />
-                                    </section>
-                                    <section id="peer-traders">
-                                        <PeerTraderComposition
                                             selectedPeriod={traderPersonaPeriod}
                                             onSelectedPeriodChange={setTraderPersonaPeriod}
                                             mode={traderPersonaMode}
@@ -345,6 +444,22 @@ export function ReportViewer() {
                                         <IntradayPanel />
                                     </section>
                                 </>
+                            )}
+
+                            {activeTab === 'market-regimes' && isEtfReport && (
+                                <EtfTradingLiquidityRegimes />
+                            )}
+
+                            {activeTab === 'macro-regime-study' && isEtfReport && (
+                                <EtfMacroRegimePlaybook />
+                            )}
+
+                            {activeTab === 'short' && isEtfReport && (
+                                <EtfShortVolumeOverlay />
+                            )}
+
+                            {activeTab === 'product' && isEtfReport && (
+                                <EtfProductNav />
                             )}
 
                             {activeTab === 'sentiment' && (

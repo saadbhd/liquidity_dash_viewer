@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, BarChart3, Info, ChevronDown } from 'lucide-react';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
@@ -41,15 +41,38 @@ export function IntradayPanel() {
   const { labels, series, insights } = useReport();
   const chartTheme = useChartTheme();
   const { intraday } = series;
-  const [selectedPeriod, setSelectedPeriod] = useState(intraday.session_periods[0] ?? '6M');
+  const availablePeriods = useMemo(() => {
+    const configured = Array.isArray(intraday.session_periods) ? intraday.session_periods : [];
+    const present = configured.filter((period) => intraday.session?.[period]);
+    if (present.length > 0) {
+      return present;
+    }
+    return Object.keys(intraday.session ?? {});
+  }, [intraday.session, intraday.session_periods]);
+  const defaultPeriod = availablePeriods[0] ?? '6M';
+  const [selectedPeriod, setSelectedPeriod] = useState(defaultPeriod);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    if (!availablePeriods.includes(selectedPeriod)) {
+      setSelectedPeriod(defaultPeriod);
+    }
+  }, [availablePeriods, defaultPeriod, selectedPeriod]);
 
   // Some datasets store shares as fractions (0-1), others as percentages (0-100).
   // Normalize to percentage points for charts.
   const toPct = (v: number) => (v <= 1 ? v * 100 : v);
 
   // Session data
-  const currentSession = intraday.session[selectedPeriod];
+  const currentSession =
+    intraday.session?.[selectedPeriod] ??
+    intraday.session?.[defaultPeriod] ?? {
+      opening: 0,
+      continuous: 0,
+      closing: 0,
+      auctions: 0,
+      other: 0,
+    };
   const sessionChartData = [
     { name: 'Opening', value: toPct(currentSession.opening), color: '#64748b' },
     { name: 'Continuous', value: toPct(currentSession.continuous), color: '#0ea5e9' },
@@ -59,10 +82,11 @@ export function IntradayPanel() {
   ];
 
   // Intensity data
-  const totalShare = intraday.profile_buckets.reduce((sum, b) => sum + b.avg_share, 0);
-  const intensityData = intraday.profile_buckets.map((bucket) => ({
+  const profileBuckets = Array.isArray(intraday.profile_buckets) ? intraday.profile_buckets : [];
+  const totalShare = profileBuckets.reduce((sum, b) => sum + (b.avg_share ?? 0), 0);
+  const intensityData = profileBuckets.map((bucket) => ({
     time: bucket.time,
-    value: (bucket.avg_share / totalShare) * 100,
+    value: totalShare > 0 ? ((bucket.avg_share ?? 0) / totalShare) * 100 : 0,
   }));
 
   const sortedIntensity = [...intensityData].sort((a, b) => b.value - a.value);
@@ -134,7 +158,7 @@ export function IntradayPanel() {
               </button>
               {dropdownOpen && (
                 <div className="absolute right-0 top-full mt-1 bg-slate-800 border border-slate-700 rounded-lg overflow-hidden z-10">
-                  {intraday.session_periods.map((period) => (
+                  {availablePeriods.map((period) => (
                     <button
                       key={period}
                       onClick={() => {

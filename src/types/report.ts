@@ -1270,6 +1270,7 @@ export interface PeerMethodology {
 }
 
 export interface ReportData {
+  report_kind?: 'equity' | 'etf';
   meta: Meta;
   theme: Theme;
   labels: Labels;
@@ -1278,4 +1279,5 @@ export interface ReportData {
   series: Series;
   q01?: Q01;
   q02?: Q02;
+  etf?: Record<string, unknown>;
 }

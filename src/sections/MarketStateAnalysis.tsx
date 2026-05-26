@@ -1,8 +1,15 @@
 import { motion } from 'framer-motion';
-import { Activity, TrendingUp } from 'lucide-react';
+import { Activity, HelpCircle, TrendingUp } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
-import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import type { Q02RegimeItem, Q02RegimeSwitching } from '@/types/report';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import {
   Table,
   TableBody,
@@ -41,6 +48,67 @@ const formatDays = (value: number | null | undefined) => {
   return `${value.toFixed(1)} days`;
 };
 
+const formatPosterior = (value: number | null | undefined, display?: string | null) => {
+  if (display) return display;
+  if (value === null || value === undefined || !Number.isFinite(value)) return 'Not available';
+  if (value >= 0.9995) return '>99.9%';
+  if (value <= 0.0005) return '<0.1%';
+  return `${(value * 100).toFixed(1)}%`;
+};
+
+const regimeMeaning = (label?: string | null) => {
+  const text = (label ?? '').toLowerCase();
+  if (text.includes('calm')) {
+    return 'Quiet price action, lower jump risk, and easier trading conditions.';
+  }
+  if (text.includes('normal')) {
+    return 'Typical day-to-day trading conditions without clear stress.';
+  }
+  if (text.includes('stressed')) {
+    return 'More fragile trading conditions: volatility, spread, activity, or liquidity stress is higher than usual.';
+  }
+  if (text.includes('jump')) {
+    return 'Tail-risk days where abnormal return or residual shocks are more visible.';
+  }
+  if (text.includes('transition')) {
+    return 'The model does not have a clean enough read to assign one dominant state.';
+  }
+  return 'A statistically inferred trading environment for this stock.';
+};
+
+const metricValue = (regime: Q02RegimeItem, key: string) => {
+  const metrics = regime.metrics ?? regime.metrics_median ?? {};
+  const value = metrics[key];
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+};
+
+const formatTicks = (value: number | null) => (
+  value === null ? 'N/A' : `${value.toFixed(1)} ticks`
+);
+
+const activityScore = (regime: Q02RegimeItem) => {
+  const values = [metricValue(regime, 'log_notional'), metricValue(regime, 'log_trade_count')]
+    .filter((value): value is number => value !== null);
+  if (!values.length) return null;
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+};
+
+const relativeLabel = (
+  value: number | null,
+  values: Array<number | null>,
+  labels: { low: string; mid: string; high: string },
+) => {
+  const clean = values.filter((item): item is number => item !== null && Number.isFinite(item));
+  if (value === null || clean.length < 2) return 'N/A';
+  const min = Math.min(...clean);
+  const max = Math.max(...clean);
+  if (Math.abs(max - min) < 1e-12) return labels.mid;
+  const position = (value - min) / (max - min);
+  if (position >= 0.67) return labels.high;
+  if (position <= 0.33) return labels.low;
+  return labels.mid;
+};
+
 
 export function MarketStateAnalysis() {
   const report = useReport();
@@ -70,6 +138,24 @@ export function MarketStateAnalysis() {
   const regimes = Array.isArray(regimeSwitching.regimes) ? regimeSwitching.regimes : [];
   const currentRegime = regimes.find((regime) => regime.id === regimeSwitching.current_regime) ?? regimes[0] ?? null;
   const hasRegimeCards = regimes.length > 0 && currentRegime;
+  const currentSummary = (driverModel?.current_summary ?? {}) as {
+    confidence_display?: string | null;
+  };
+  const jumpRisk = (driverModel?.jump_risk ?? regimeSwitching.jump_risk ?? {}) as {
+    current_probability?: number | null;
+    current_flag?: boolean;
+  };
+  const currentPosteriorDisplay = currentSummary.confidence_display
+    ?? driverModel?.current_regime_probability_display
+    ?? regimeSwitching.current_regime_probability_display
+    ?? currentRegime?.current_probability_display;
+  const currentPosteriorValue = driverModel?.current_regime_probability
+    ?? regimeSwitching.current_regime_probability
+    ?? currentRegime?.current_probability;
+  const jumpProbability = jumpRisk.current_probability;
+  const jumpFlag = jumpRisk.current_flag === true;
+  const volatilityValues = regimes.map((regime) => metricValue(regime, 'rolling_vol_10d'));
+  const activityValues = regimes.map(activityScore);
 
   const badgeText = currentRegime?.label ?? driverModel?.current_regime_label ?? labels.regime_badge_text ?? 'Current state';
   const regimeTitle = labels.regime_title || 'Market State';
@@ -96,10 +182,104 @@ export function MarketStateAnalysis() {
               <Activity className="w-5 h-5 text-emerald-400" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-                {regimeTitle}
-                <MethodologyTooltip methodKey="regime_switching" />
-              </h2>
+              <div className="flex items-center gap-2">
+                <h2 className="text-xl font-bold text-foreground">{regimeTitle}</h2>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button
+                      type="button"
+                      aria-label="Open market state guide"
+                      className="inline-flex size-6 items-center justify-center rounded-full text-muted-foreground hover:text-foreground hover:bg-accent/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      <HelpCircle className="size-4" />
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-4xl">
+                    <DialogHeader>
+                      <DialogTitle>Market State Guide</DialogTitle>
+                      <DialogDescription>
+                        Market states group similar trading days using returns, volatility, liquidity/activity, spread, and jump-risk signals. The model can select fewer than four states when the history does not support a richer split.
+                      </DialogDescription>
+                    </DialogHeader>
+
+                    <div className="space-y-5">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {[
+                          ['Calm / Liquid', 'Lower volatility, lower jump risk, and easier trading conditions.'],
+                          ['Normal / Active', 'Ordinary trading conditions with no clear stress signal.'],
+                          ['Stressed / Illiquid', 'More fragile conditions where volatility, spread, or liquidity stress is higher.'],
+                          ['Jump / Tail Shock', 'Abnormal return or residual shocks are more visible than usual.'],
+                        ].map(([title, body]) => (
+                          <div key={title} className="rounded-lg border border-border/60 bg-card/30 p-3">
+                            <p className="text-sm font-semibold text-foreground">{title}</p>
+                            <p className="text-xs leading-5 text-muted-foreground mt-1">{body}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="rounded-lg border border-border/60 bg-card/30 p-4">
+                        <p className="text-sm font-semibold text-foreground mb-3">Metrics used</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-5 text-muted-foreground">
+                          <p><span className="text-foreground">Return behavior:</span> stock, market, sector, residual, and absolute return.</p>
+                          <p><span className="text-foreground">Volatility and risk:</span> rolling volatility, downside volatility, drawdown, skew, and kurtosis.</p>
+                          <p><span className="text-foreground">Liquidity and activity:</span> volume, traded notional, trade count, Amihud stress, and spread when available.</p>
+                          <p><span className="text-foreground">Jump stress:</span> abnormal return and residual shock score.</p>
+                        </div>
+                      </div>
+
+                      {regimes.length ? (
+                        <div className="space-y-2">
+                          <div className="rounded-lg border border-border/60 overflow-hidden">
+                            <Table>
+                              <TableHeader>
+                                <TableRow className="hover:bg-transparent">
+                                  <TableHead className="text-xs">State in this report</TableHead>
+                                  <TableHead className="text-xs">Meaning</TableHead>
+                                  <TableHead className="text-xs">10d vol</TableHead>
+                                  <TableHead className="text-xs">Activity</TableHead>
+                                  <TableHead className="text-xs">Spread</TableHead>
+                                  <TableHead className="text-xs">Jump risk</TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                {regimes.map((regime, index) => {
+                                  const vol10 = metricValue(regime, 'rolling_vol_10d');
+                                  const spreadTicks = metricValue(regime, 'spread_ticks');
+                                  const activity = activityScore(regime);
+                                  return (
+                                    <TableRow key={`guide-${regime.id ?? index}`}>
+                                      <TableCell className="text-sm font-medium text-foreground">
+                                        {regime.label ?? `State ${index + 1}`}
+                                      </TableCell>
+                                      <TableCell className="text-xs leading-5 text-muted-foreground min-w-[220px]">
+                                        {regimeMeaning(regime.label)}
+                                      </TableCell>
+                                      <TableCell className="text-xs text-muted-foreground">
+                                        {formatPct(vol10)}
+                                        <span className="block text-[11px]">
+                                          {relativeLabel(vol10, volatilityValues, { low: 'lower', mid: 'middle', high: 'higher' })}
+                                        </span>
+                                      </TableCell>
+                                      <TableCell className="text-xs text-muted-foreground">
+                                        {relativeLabel(activity, activityValues, { low: 'lower', mid: 'middle', high: 'higher' })}
+                                      </TableCell>
+                                      <TableCell className="text-xs text-muted-foreground">{formatTicks(spreadTicks)}</TableCell>
+                                      <TableCell className="text-xs text-muted-foreground">{formatPct(regime.jump_probability)}</TableCell>
+                                    </TableRow>
+                                  );
+                                })}
+                              </TableBody>
+                            </Table>
+                          </div>
+                          <p className="text-xs leading-5 text-muted-foreground">
+                            Lower, middle, and higher are ranked against the other states in this same report, not against all stocks.
+                          </p>
+                        </div>
+                      ) : null}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
               <p className="text-xs text-muted-foreground max-w-5xl">{regimeSubtitle}</p>
             </div>
           </div>
@@ -169,6 +349,19 @@ export function MarketStateAnalysis() {
                 </div>
 
                 <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="rounded-lg border border-border/60 bg-card/30 p-3">
+                      <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-1">Current confidence</p>
+                      <p className="text-sm font-semibold text-foreground">{formatPosterior(currentPosteriorValue, currentPosteriorDisplay)}</p>
+                    </div>
+                    <div className="rounded-lg border border-border/60 bg-card/30 p-3">
+                      <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-1">Jump Risk</p>
+                      <p className="text-sm font-semibold text-foreground">{formatPct(jumpProbability)}</p>
+                      <p className={`text-[11px] mt-1 ${jumpFlag ? 'text-amber-500' : 'text-muted-foreground'}`}>
+                        {jumpFlag ? 'Latest day flagged' : 'No hard jump flag'}
+                      </p>
+                    </div>
+                  </div>
                   <div className="rounded-xl border border-border/60 bg-card/30 p-4">
                     <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-2">Current read</p>
                     <p className="text-sm leading-6 text-foreground">{currentRead}</p>

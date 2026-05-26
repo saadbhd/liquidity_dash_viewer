@@ -797,6 +797,11 @@ export interface Q02RegimeItem {
   dominant_driver_label?: string | null;
   expected_duration_days?: number | null;
   lead_signal?: Q02LeadSignal | null;
+  current_probability_display?: string | null;
+  current_probability_basis?: string | null;
+  jump_probability?: number | null;
+  jump_rate?: number | null;
+  risk_score?: number | null;
   liquidity_score?: number | null;
   mean_ret_pct?: number | null;
   volatility_pct?: number | null;
@@ -820,6 +825,7 @@ export interface Q02RegimeItem {
     beta_stock_lag?: Q02Interval | null;
   };
   metrics_median?: Q02RegimeMetricsMedian;
+  metrics?: Q02RegimeMetricsMedian;
 }
 
 export interface Q02RegimeMethodology {
@@ -830,6 +836,42 @@ export interface Q02RegimeMethodology {
   regime_metric_aggregation?: string | null;
 }
 
+export interface Q02StateProbability {
+  id?: number | null;
+  label?: string | null;
+  probability?: number | null;
+  probability_display?: string | null;
+  basis?: string | null;
+}
+
+export interface Q02JumpRisk {
+  current_probability?: number | null;
+  current_score?: number | null;
+  current_flag?: boolean;
+  jump_threshold_score?: number | null;
+  method?: string | null;
+  model_definition?: string | null;
+}
+
+export interface Q02ModelSelection {
+  chosen?: number | null;
+  criterion?: string | null;
+  bic?: number | null;
+  loglik?: number | null;
+  n_params?: number | null;
+  bic_delta_vs_next_best?: number | null;
+  candidates?: Array<{
+    k?: number | null;
+    valid?: boolean;
+    reason?: string | null;
+    bic?: number | null;
+    loglik?: number | null;
+    n_params?: number | null;
+  }>;
+}
+
+export type Q02RobustnessDiagnostics = Record<string, unknown>;
+
 export interface Q02RegimeSwitching {
   valid?: boolean;
   regime_method?: string;
@@ -837,6 +879,15 @@ export interface Q02RegimeSwitching {
   regimes?: Q02RegimeItem[];
   transitions?: number[][];
   current_regime?: number;
+  current_regime_label?: string | null;
+  current_regime_probability?: number | null;
+  current_regime_probability_display?: string | null;
+  current_probability_basis?: string | null;
+  historical_probability_basis?: string | null;
+  state_probabilities?: Q02StateProbability[];
+  jump_risk?: Q02JumpRisk;
+  model_selection?: Q02ModelSelection;
+  robustness_diagnostics?: Q02RobustnessDiagnostics;
   interpretation?: string;
   feature_columns?: string[];
   methodology?: Q02RegimeMethodology;
@@ -872,6 +923,9 @@ export interface Q02DriverModel {
   current_regime?: number | null;
   current_regime_label?: string | null;
   current_regime_probability?: number | null;
+  current_regime_probability_display?: string | null;
+  current_probability_basis?: string | null;
+  historical_probability_basis?: string | null;
   current_summary?: {
     regime_label?: string | null;
     dominant_driver?: string | null;
@@ -880,11 +934,17 @@ export interface Q02DriverModel {
     driver_share_display?: string | null;
     confidence_label?: string | null;
     confidence_pct?: number | null;
+    confidence_display?: string | null;
+    probability_basis?: string | null;
     display_confidence_pct?: number | null;
     confidence_note?: string | null;
     history_days?: number | null;
     history_limited?: boolean;
     volatility_label?: string | null;
+    jump_risk_label?: string | null;
+    jump_risk_probability?: number | null;
+    jump_risk_score?: number | null;
+    jump_risk_note?: string | null;
     lead_signal_text?: string | null;
     state_term?: string | null;
     stay_probability?: number | null;
@@ -919,6 +979,10 @@ export interface Q02DriverModel {
   monthly_history?: Q02MonthlyHistoryItem[];
   regimes?: Q02RegimeItem[];
   transitions?: { mean?: number[][] | null } | null;
+  state_probabilities?: Q02StateProbability[];
+  jump_risk?: Q02JumpRisk;
+  model_selection?: Q02ModelSelection;
+  robustness_diagnostics?: Q02RobustnessDiagnostics;
 }
 
 export interface Q02 {

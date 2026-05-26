@@ -17,20 +17,6 @@ export const PEER_METHODOLOGY = {
       "industry": "Financials - Insurance"
     },
     {
-      "ticker": "1828",
-      "name": "FWD",
-      "marketCap": 38388662280.0,
-      "sector": "Insurance",
-      "industry": "Financials - Insurance"
-    },
-    {
-      "ticker": "945",
-      "name": "MANULIFE-S",
-      "marketCap": 506341381947.6,
-      "sector": "Insurance",
-      "industry": "Financials - Insurance"
-    },
-    {
       "ticker": "376",
       "name": "YUNFENG FIN",
       "marketCap": 8930441680.6,
@@ -38,9 +24,23 @@ export const PEER_METHODOLOGY = {
       "industry": "Financials - Insurance"
     },
     {
+      "ticker": "1828",
+      "name": "FWD",
+      "marketCap": 38388662280.0,
+      "sector": "Insurance",
+      "industry": "Financials - Insurance"
+    },
+    {
       "ticker": "82318",
       "name": "PING AN-R",
       "marketCap": 392859682108.0,
+      "sector": "Insurance",
+      "industry": "Financials - Insurance"
+    },
+    {
+      "ticker": "945",
+      "name": "MANULIFE-S",
+      "marketCap": 506341381947.6,
       "sector": "Insurance",
       "industry": "Financials - Insurance"
     },
@@ -59,16 +59,16 @@ export const PEER_METHODOLOGY = {
       "industry": "Financials - Insurance"
     },
     {
-      "ticker": "81299",
-      "name": "AIA-R",
-      "marketCap": 783975520500.0,
+      "ticker": "6060",
+      "name": "ZA ONLINE",
+      "marketCap": 17378061127.0,
       "sector": "Insurance",
       "industry": "Financials - Insurance"
     },
     {
-      "ticker": "6060",
-      "name": "ZA ONLINE",
-      "marketCap": 17378061127.0,
+      "ticker": "966",
+      "name": "CHINA TAIPING",
+      "marketCap": 73461738916.72,
       "sector": "Insurance",
       "industry": "Financials - Insurance"
     }
@@ -81,12 +81,12 @@ export const REPORT_DATA: ReportData = {
     "currency": "HKD",
     "ticker": "2378",
     "company": "PRU",
-    "asof_date": "2026-05-05",
+    "asof_date": "2026-05-22",
     "industry": "Financials - Insurance",
     "sector": "Insurance",
     "market_cap_display": "301.5B",
     "market_cap_category": "large",
-    "universe_total": 2566,
+    "universe_total": 2571,
     "peers_count": 8,
     "page_title_template": "Liquidity Analysis Report — {market}/{ticker} — {asof}"
   },
@@ -99,32 +99,32 @@ export const REPORT_DATA: ReportData = {
         "liquidity": {
           "metric_aggregation": "median",
           "metric_window_days": 1,
-          "score_pca": 72.99298519095869,
-          "score_pca_percentile": 72.99298519095869,
-          "rank_pca": 694,
-          "total": 2566,
-          "adv_notional_sgd": 14292290.0,
-          "adv_volume_shares": 123850.0,
+          "score_pca": 60.63788409179308,
+          "score_pca_percentile": 60.63788409179308,
+          "rank_pca": 1013,
+          "total": 2571,
+          "adv_notional_sgd": 5688200.0,
+          "adv_volume_shares": 47600.0,
           "free_float_shares": 2557509480.0,
-          "turnover_ratio": 4.8426017955561985e-05,
-          "votes": 578.0,
-          "trades": 578.0,
-          "spread_pct": 0.0035719041902417758,
-          "spread_ticks": 4.075871195412439,
-          "amihud": 6.733558460800795e-10,
-          "volatility": 0.46432261223477633
+          "turnover_ratio": 1.8611856719295524e-05,
+          "votes": 203.0,
+          "trades": 203.0,
+          "spread_pct": 0.002459874134224027,
+          "spread_ticks": 2.96474358974359,
+          "amihud": 0.0,
+          "volatility": 0.1895727130500785
         },
         "pca": {
           "valid": true,
           "window_days": 1,
-          "variance_explained": 0.5345052165627021,
+          "variance_explained": 0.5406954755527241,
           "loadings": {
-            "log_adv": 0.5416851541213638,
-            "log_trades": 0.5036351252612795,
-            "log_turnover": 0.5012280093778216,
-            "neg_spread": 0.3963931580251345,
-            "neg_amihud": 0.07057106010788129,
-            "neg_vol": -0.19897619648798776
+            "log_adv": 0.5407109812235213,
+            "log_trades": 0.5025331161204728,
+            "log_turnover": 0.4998196642338014,
+            "neg_spread": 0.407846230925005,
+            "neg_amihud": 0.0420994516049351,
+            "neg_vol": -0.19277316547327142
           }
         },
         "data_quality": {
@@ -135,354 +135,354 @@ export const REPORT_DATA: ReportData = {
         },
         "peer_summary": {
           "n_peers": 8,
-          "peer_median_adv": 9164216.5,
-          "peer_median_score_pca": 78.29306313328138,
-          "peer_median_trades": 553.5,
-          "peer_median_volatility": 0.24604843963514791,
-          "peer_median_spread_pct": 0.0027584212530892345,
-          "peer_median_spread_ticks": 2.0138628508985574,
-          "peer_median_amihud": 1.7039421272362125e-09,
-          "peer_median_turnover_ratio": 0.0014730656516777365,
+          "peer_median_adv": 10934033.75,
+          "peer_median_score_pca": 73.88175807078957,
+          "peer_median_trades": 585.5,
+          "peer_median_volatility": 0.21635920696633287,
+          "peer_median_spread_pct": 0.002503314850526173,
+          "peer_median_spread_ticks": 1.1922825376062787,
+          "peer_median_amihud": 9.81801833259751e-11,
+          "peer_median_turnover_ratio": 0.00239840644413954,
           "target_vs_peer": {
-            "score_pca_delta": -5.3,
-            "adv_delta_pct": 56.0,
-            "trades_delta_pct": 4.43,
-            "volatility_delta_pct": -88.71,
-            "spread_pct_delta_pct": -29.49,
-            "spread_ticks_delta_pct": 102.39,
-            "amihud_delta_pct": 60.48,
-            "turnover_ratio_delta_pct": -96.71
+            "score_pca_delta": -13.24,
+            "adv_delta_pct": -48.0,
+            "trades_delta_pct": -65.33,
+            "volatility_delta_pct": 12.38,
+            "spread_pct_delta_pct": 1.74,
+            "spread_ticks_delta_pct": 148.66,
+            "amihud_delta_pct": 100.0,
+            "turnover_ratio_delta_pct": -99.22
           }
         },
         "peer_liquidity": [
           {
             "ticker": "2378",
-            "score_pca": 72.99298519095869,
-            "rank_pca": 694,
-            "adv": 14292290.0,
-            "trades": 578.0,
-            "volatility": 0.46432261223477633,
-            "spread_pct": 0.0035719041902417758,
-            "spread_ticks": 4.075871195412439,
-            "amihud": 6.733558460800795e-10,
-            "turnover_ratio": 4.8426017955561985e-05,
+            "score_pca": 60.63788409179308,
+            "rank_pca": 1013,
+            "adv": 5688200.0,
+            "trades": 203.0,
+            "volatility": 0.1895727130500785,
+            "spread_pct": 0.002459874134224027,
+            "spread_ticks": 2.96474358974359,
+            "amihud": 0.0,
+            "turnover_ratio": 1.8611856719295524e-05,
             "is_target": true
           },
           {
-            "ticker": "1828",
-            "score_pca": 80.78721745908028,
-            "rank_pca": 494,
-            "adv": 11275478.0,
-            "trades": 785.0,
-            "volatility": 0.2036630413980895,
-            "spread_pct": 0.002143640048081484,
-            "spread_ticks": null,
-            "amihud": 1.5120583205314081e-09,
-            "turnover_ratio": 0.0013658128941576317,
-            "is_target": false
-          },
-          {
-            "ticker": "945",
-            "score_pca": 43.56975837879969,
-            "rank_pca": 1449,
-            "adv": 1479800.0,
-            "trades": 29.0,
-            "volatility": 0.08862652794991903,
-            "spread_pct": 0.007011356718517132,
-            "spread_ticks": 10.557471264367816,
-            "amihud": 6.207833292361648e-09,
-            "turnover_ratio": 2.868812645002964e-06,
-            "is_target": false
-          },
-          {
             "ticker": "376",
-            "score_pca": 75.79890880748246,
-            "rank_pca": 622,
-            "adv": 7052955.0,
-            "trades": 322.0,
-            "volatility": 0.3137486872764378,
-            "spread_pct": 0.005109670653636548,
-            "spread_ticks": 1.3921282798833818,
-            "amihud": 2.5500817048728164e-09,
-            "turnover_ratio": 0.002031611842523441,
+            "score_pca": 73.12329832749903,
+            "rank_pca": 692,
+            "adv": 8698800.0,
+            "trades": 533.0,
+            "volatility": 0.2576809176778238,
+            "spread_pct": 0.005370998083469953,
+            "spread_ticks": 1.1922825376062787,
+            "amihud": 0.0,
+            "turnover_ratio": 0.003109345161733186,
+            "is_target": false
+          },
+          {
+            "ticker": "1828",
+            "score_pca": 66.0832360949047,
+            "rank_pca": 873,
+            "adv": 3024000.0,
+            "trades": 361.0,
+            "volatility": 0.05706869190714034,
+            "spread_pct": 0.0016685084320825314,
+            "spread_ticks": null,
+            "amihud": 4.4150578195972583e-10,
+            "turnover_ratio": 0.0003660567395136646,
             "is_target": false
           },
           {
             "ticker": "82318",
-            "score_pca": 33.943881527669525,
-            "rank_pca": 1696,
-            "adv": 477352.5666907368,
-            "trades": 9.0,
-            "volatility": 0.10419353506090663,
-            "spread_pct": 0.0023996641553552392,
-            "spread_ticks": 2.6355974219137335,
-            "amihud": 1.895825933941017e-09,
-            "turnover_ratio": 1.3402723816475745e-06,
+            "score_pca": 54.4535200311163,
+            "rank_pca": 1172,
+            "adv": 6629608.503212715,
+            "trades": 44.0,
+            "volatility": 0.09002534849183383,
+            "spread_pct": 0.002006255285288183,
+            "spread_ticks": 2.1246066708621774,
+            "amihud": 0.0,
+            "turnover_ratio": 1.9478625279944747e-05,
+            "is_target": false
+          },
+          {
+            "ticker": "945",
+            "score_pca": 47.413457798521975,
+            "rank_pca": 1353,
+            "adv": 2245160.0,
+            "trades": 42.0,
+            "volatility": 0.06901626007742315,
+            "spread_pct": 0.004869238179796444,
+            "spread_ticks": 7.4037037037037035,
+            "amihud": 2.955557762634758e-09,
+            "turnover_ratio": 4.332492565922844e-06,
             "is_target": false
           },
           {
             "ticker": "1508",
-            "score_pca": 91.38737334372564,
-            "rank_pca": 222,
-            "adv": 42316312.39,
-            "trades": 1938.0,
-            "volatility": 0.40232187194921065,
-            "spread_pct": 0.00853344690487259,
-            "spread_ticks": 1.0101444820166001,
-            "amihud": 1.9692957308119788e-10,
-            "turnover_ratio": 0.00560152544932088,
+            "score_pca": 74.64021781408012,
+            "rank_pca": 653,
+            "adv": 13169267.5,
+            "trades": 638.0,
+            "volatility": 0.46514657088559663,
+            "spread_pct": 0.008739072962821873,
+            "spread_ticks": 1.0864589955499047,
+            "amihud": 6.123739326452478e-10,
+            "turnover_ratio": 0.0016874677265458931,
             "is_target": false
           },
           {
             "ticker": "6963",
-            "score_pca": 92.6344505066251,
-            "rank_pca": 190,
-            "adv": 38556045.0,
-            "trades": 2750.0,
-            "volatility": 0.42854916101679064,
-            "spread_pct": 0.00311717835082323,
-            "spread_ticks": 1.121900826446281,
-            "amihud": 5.099828405199392e-10,
-            "turnover_ratio": 0.004093821590772519,
-            "is_target": false
-          },
-          {
-            "ticker": "81299",
-            "score_pca": 17.692907248636008,
-            "rank_pca": 2113,
-            "adv": 34290.97906614133,
-            "trades": 1.0,
-            "volatility": 0.0,
-            "spread_pct": 0.001967058342841352,
-            "spread_ticks": 2.924437891632879,
-            "amihud": 5.578518934104373e-07,
-            "turnover_ratio": 4.112779170796247e-08,
+            "score_pca": 85.84208479190977,
+            "rank_pca": 365,
+            "adv": 63565087.080000006,
+            "trades": 2853.0,
+            "volatility": 0.2448138001469245,
+            "spread_pct": 0.0030003744157641628,
+            "spread_ticks": 1.047180892717306,
+            "amihud": 1.3407874769369672e-10,
+            "turnover_ratio": 0.0070199865172492154,
             "is_target": false
           },
           {
             "ticker": "6060",
-            "score_pca": 88.50350740452065,
-            "rank_pca": 296,
-            "adv": 23745384.0,
-            "trades": 2045.0,
-            "volatility": 0.28843383787220633,
-            "spread_pct": 0.0015416083292034315,
+            "score_pca": 85.99766627771295,
+            "rank_pca": 361,
+            "adv": 60646276.00000001,
+            "trades": 3971.0,
+            "volatility": 0.18790461378574125,
+            "spread_pct": 0.0015017506455060408,
             "spread_ticks": null,
-            "amihud": 1.0590137863965369e-10,
-            "turnover_ratio": 0.001580318409197841,
+            "amihud": 6.228161895825349e-11,
+            "turnover_ratio": 0.00454116681180393,
+            "is_target": false
+          },
+          {
+            "ticker": "966",
+            "score_pca": 92.22092570984053,
+            "rank_pca": 201,
+            "adv": 146509586.72,
+            "trades": 6820.0,
+            "volatility": 0.36956617721577045,
+            "spread_pct": 0.0015990779416459834,
+            "spread_ticks": null,
+            "amihud": 1.9977049514760755e-11,
+            "turnover_ratio": 0.005147411925453545,
             "is_target": false
           }
         ],
         "market_comparison": {
           "sector_name": "Insurance",
           "sector_count": 21,
-          "market_count": 2566,
+          "market_count": 2571,
           "market": {
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.47610583759616226,
-              "median": 0.295976534595778,
+              "mean": 0.4916096374673696,
+              "median": 0.3232042928751561,
               "min": 0.0,
-              "max": 9.718212131658548,
+              "max": 8.346380628758805,
               "p5": 0.0,
-              "p95": 1.5734579451885498,
-              "count": 2566
+              "p95": 1.574697276834208,
+              "count": 2571
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 30524096.42160152,
-              "median": 247195.0,
+              "mean": 75462343.85910961,
+              "median": 250368.0,
               "min": 0.0,
-              "max": 6138127800.0,
+              "max": 16976702966.099998,
               "p5": 0.0,
-              "p95": 98680473.12,
-              "count": 2566
+              "p95": 264125078.68,
+              "count": 2571
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.0477772326468068,
-              "median": 0.02770747016689854,
-              "min": 0.0004719772506389261,
-              "max": 0.974472807991121,
-              "p5": 0.001641247220510284,
-              "p95": 0.15377233131551749,
-              "count": 2566
+              "mean": 0.04726026632294284,
+              "median": 0.02675500649895896,
+              "min": 0.0005035150421513581,
+              "max": 0.7662226887999475,
+              "p5": 0.001439122612394633,
+              "p95": 0.15140370330439512,
+              "count": 2571
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.0032455787963563396,
-              "median": 0.0008879002284271321,
+              "mean": 0.006255503878706491,
+              "median": 0.0010660658652869685,
               "min": 0.0,
-              "max": 0.5707496368632508,
+              "max": 0.4711159875,
               "p5": 0.0,
-              "p95": 0.01140006909213786,
-              "count": 2551
+              "p95": 0.025415181368797272,
+              "count": 2555
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 4.455892804578166e-06,
-              "median": 1.2315957759288692e-08,
+              "mean": 1.0478535891994099e-05,
+              "median": 7.2727500578353275e-09,
               "min": 0.0,
-              "max": 0.002032520325203245,
+              "max": 0.009173510396645114,
               "p5": 0.0,
-              "p95": 5.89449163666458e-06,
-              "count": 2219
+              "p95": 7.121644833509226e-06,
+              "count": 2258
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 527.639127045986,
+              "mean": 1255.512252042007,
               "median": 24.0,
               "min": 0.0,
-              "max": 34828.0,
+              "max": 123709.0,
               "p5": 0.0,
-              "p95": 2607.75,
-              "count": 2566
+              "p95": 6609.5,
+              "count": 2571
             }
           },
           "sector": {
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.2698955140385278,
-              "median": 0.2625890213176625,
+              "mean": 0.3177493832805896,
+              "median": 0.2448138001469245,
               "min": 0.0,
-              "max": 1.1736802786491973,
-              "p5": 0.0,
-              "p95": 0.46432261223477633,
+              "max": 1.6478165848198418,
+              "p5": 0.05706869190714034,
+              "p95": 0.5855813595565101,
               "count": 21
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 163658053.00265512,
-              "median": 23745384.0,
+              "mean": 299608941.0773607,
+              "median": 13169267.5,
               "min": 0.0,
-              "max": 1213655673.6000001,
-              "p5": 9360.0,
-              "p95": 798163504.0,
+              "max": 2252842695.2,
+              "p5": 8840.0,
+              "p95": 1499104311.8500001,
               "count": 21
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.01711402840481169,
-              "median": 0.0023996641553552392,
-              "min": 0.0006823878588190443,
-              "max": 0.2014276731885934,
-              "p5": 0.0008385711695330583,
-              "p95": 0.08725870184266905,
+              "mean": 0.009942116099015576,
+              "median": 0.002006255285288183,
+              "min": 0.0006621525622509683,
+              "max": 0.06006094564042067,
+              "p5": 0.000852269882566611,
+              "p95": 0.05631219036871136,
               "count": 21
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.001658897656730875,
-              "median": 0.0014527059880386404,
+              "mean": 0.0033060265445428853,
+              "median": 0.004339873639302612,
               "min": 0.0,
-              "max": 0.00560152544932088,
-              "p5": 4.112779170796247e-08,
-              "p95": 0.004093821590772519,
+              "max": 0.009056578990575642,
+              "p5": 2.262028543937936e-07,
+              "p95": 0.0070199865172492154,
               "count": 21
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 1.0391659972769512e-07,
-              "median": 3.5345620680056854e-10,
-              "min": 9.58089450713158e-13,
-              "max": 5.899120323177372e-07,
-              "p5": 4.752380050089037e-12,
-              "p95": 5.594549003558023e-07,
+              "mean": 8.998559494288824e-08,
+              "median": 4.112933423650712e-11,
+              "min": 0.0,
+              "max": 1.556727136867428e-06,
+              "p5": 0.0,
+              "p95": 1.9016346188768064e-07,
               "count": 20
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 2077.2380952380954,
-              "median": 1600.0,
+              "mean": 3837.285714285714,
+              "median": 638.0,
               "min": 0.0,
-              "max": 9484.0,
-              "p5": 1.0,
-              "p95": 7708.0,
+              "max": 15840.0,
+              "p5": 2.0,
+              "p95": 10560.0,
               "count": 21
             }
           },
           "peers": {
             "adv": {
               "direction": "higher_is_better",
-              "mean": 15617202.241969611,
-              "median": 9164216.5,
-              "min": 34290.97906614133,
-              "max": 42316312.39,
-              "p5": 189362.53473474976,
-              "p95": 41000218.8035,
+              "mean": 38060973.22540159,
+              "median": 10934033.75,
+              "min": 2245160.0,
+              "max": 146509586.72,
+              "p5": 2517754.0,
+              "p95": 117479011.84599996,
               "count": 8
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 984.875,
-              "median": 553.5,
-              "min": 1.0,
-              "max": 2750.0,
-              "p5": 3.8000000000000003,
-              "p95": 2503.2499999999995,
+              "mean": 1907.75,
+              "median": 585.5,
+              "min": 42.0,
+              "max": 6820.0,
+              "p5": 42.7,
+              "p95": 5822.8499999999985,
               "count": 8
             },
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.22869208281544506,
-              "median": 0.24604843963514791,
-              "min": 0.0,
-              "max": 0.42854916101679064,
-              "p5": 0.03101928478247166,
-              "p95": 0.41936960984313765,
+              "mean": 0.21765279752353173,
+              "median": 0.21635920696633287,
+              "min": 0.05706869190714034,
+              "max": 0.46514657088559663,
+              "p5": 0.061250340766739325,
+              "p95": 0.43169343310115743,
               "count": 8
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.0039779529379163755,
-              "median": 0.0027584212530892345,
-              "min": 0.0015416083292034315,
-              "max": 0.00853344690487259,
-              "p5": 0.0016905158339767037,
-              "p95": 0.00800071533964818,
-              "count": 8
-            },
-            "amihud": {
-              "direction": "lower_is_better",
-              "mean": 7.135381330679811e-08,
-              "median": 1.7039421272362125e-09,
-              "min": 1.0590137863965369e-10,
-              "max": 5.578518934104373e-07,
-              "p5": 1.3776124669419417e-10,
-              "p95": 3.647764723691105e-07,
-              "count": 8
-            },
-            "turnover_ratio": {
-              "direction": "higher_is_better",
-              "mean": 0.001834667549848834,
-              "median": 0.0014730656516777365,
-              "min": 4.112779170796247e-08,
-              "max": 0.00560152544932088,
-              "p5": 4.958283981868267e-07,
-              "p95": 0.005073829098828953,
+              "mean": 0.003594409493296896,
+              "median": 0.002503314850526173,
+              "min": 0.0015017506455060408,
+              "max": 0.008739072962821873,
+              "p5": 0.0015358151991550207,
+              "p95": 0.007560246755048699,
               "count": 8
             },
             "spread_ticks": {
               "direction": "neutral",
-              "mean": 3.2736133610434486,
-              "median": 2.0138628508985574,
-              "min": 1.0101444820166001,
-              "max": 10.557471264367816,
-              "p5": 1.0380835681240204,
-              "p95": 8.649212921184082,
-              "count": 6
+              "mean": 2.570846560087874,
+              "median": 1.1922825376062787,
+              "min": 1.047180892717306,
+              "max": 7.4037037037037035,
+              "p5": 1.0550365132838257,
+              "p95": 6.347884297135398,
+              "count": 5
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 5.282218616758053e-10,
+              "median": 9.81801833259751e-11,
+              "min": 0.0,
+              "max": 2.955557762634758e-09,
+              "p5": 0.0,
+              "p95": 2.1354434221384283e-09,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.0027369057500181626,
+              "median": 0.00239840644413954,
+              "min": 4.332492565922844e-06,
+              "max": 0.0070199865172492154,
+              "p5": 9.63363901583051e-06,
+              "p95": 0.00636458541012073,
+              "count": 8
             }
           },
           "returns": {
             "window_days": 1,
             "n_obs": 1,
-            "stock": 0.00962379702537186,
-            "market": 0.004441002868801558,
-            "sector": -0.0009049773755656076,
-            "peers": -0.005045664540801242,
-            "vs_market": 0.005182794156570303,
-            "vs_sector": 0.010528774400937468,
-            "vs_peers": 0.014669461566173103
+            "stock": 0.0,
+            "market": 0.006898577571811337,
+            "sector": 0.000822368421052655,
+            "peers": 0.0006675567423231055,
+            "vs_market": -0.006898577571811337,
+            "vs_sector": -0.000822368421052655,
+            "vs_peers": -0.0006675567423231055
           }
         }
       },
@@ -492,32 +492,32 @@ export const REPORT_DATA: ReportData = {
         "liquidity": {
           "metric_aggregation": "median",
           "metric_window_days": 21,
-          "score_pca": 66.60171473109898,
-          "score_pca_percentile": 66.60171473109898,
-          "rank_pca": 858,
-          "total": 2566,
-          "adv_notional_sgd": 7577640.0,
-          "adv_volume_shares": 65100.0,
+          "score_pca": 67.79463243873978,
+          "score_pca_percentile": 67.79463243873978,
+          "rank_pca": 829,
+          "total": 2571,
+          "adv_notional_sgd": 9655520.0,
+          "adv_volume_shares": 81550.0,
           "free_float_shares": 2557509480.0,
-          "turnover_ratio": 2.5454451101389465e-05,
-          "votes": 265.0,
-          "trades": 265.0,
-          "spread_pct": 0.0033612727954605588,
-          "spread_ticks": 3.991310644460536,
-          "amihud": 1.984825860215468e-09,
-          "volatility": 0.32014765202316253
+          "turnover_ratio": 3.188648982055777e-05,
+          "votes": 314.0,
+          "trades": 314.0,
+          "spread_pct": 0.0029384830112982913,
+          "spread_ticks": 3.448202959830867,
+          "amihud": 1.0735181483634944e-09,
+          "volatility": 0.3504158488379418
         },
         "pca": {
           "valid": true,
           "window_days": 21,
-          "variance_explained": 0.5657274471170398,
+          "variance_explained": 0.568684862026577,
           "loadings": {
-            "log_adv": 0.5250725237914275,
-            "log_trades": 0.48144844187870606,
-            "log_turnover": 0.4774894482323678,
-            "neg_spread": 0.45687308893836004,
-            "neg_amihud": 0.2270355713041698,
-            "neg_vol": 0.0650530503906446
+            "log_adv": 0.5240486297281388,
+            "log_trades": 0.4804228298837161,
+            "log_turnover": 0.4741829709988567,
+            "neg_spread": 0.4523762906591961,
+            "neg_amihud": 0.25058601476865405,
+            "neg_vol": 0.0477471368049439
           }
         },
         "data_quality": {
@@ -528,354 +528,354 @@ export const REPORT_DATA: ReportData = {
         },
         "peer_summary": {
           "n_peers": 8,
-          "peer_median_adv": 8652620.0,
-          "peer_median_score_pca": 75.05845674201092,
-          "peer_median_trades": 580.0,
-          "peer_median_volatility": 0.3454218535793602,
-          "peer_median_spread_pct": 0.00335766709834962,
-          "peer_median_spread_ticks": 1.8925447569946785,
-          "peer_median_amihud": 1.3833460141187386e-09,
-          "peer_median_turnover_ratio": 0.001944978860779616,
+          "peer_median_adv": 19051220.0,
+          "peer_median_score_pca": 78.45196421625826,
+          "peer_median_trades": 968.0,
+          "peer_median_volatility": 0.32482686221487755,
+          "peer_median_spread_pct": 0.002820822357925889,
+          "peer_median_spread_ticks": 1.3071120689655173,
+          "peer_median_amihud": 9.228730561713358e-10,
+          "peer_median_turnover_ratio": 0.0035501838912526673,
           "target_vs_peer": {
-            "score_pca_delta": -8.46,
-            "adv_delta_pct": -12.4,
-            "trades_delta_pct": -54.31,
-            "volatility_delta_pct": 7.32,
-            "spread_pct_delta_pct": -0.11,
-            "spread_ticks_delta_pct": 110.9,
-            "amihud_delta_pct": -43.48,
-            "turnover_ratio_delta_pct": -98.69
+            "score_pca_delta": -10.66,
+            "adv_delta_pct": -49.3,
+            "trades_delta_pct": -67.56,
+            "volatility_delta_pct": -7.88,
+            "spread_pct_delta_pct": -4.17,
+            "spread_ticks_delta_pct": 163.8,
+            "amihud_delta_pct": -16.32,
+            "turnover_ratio_delta_pct": -99.1
           }
         },
         "peer_liquidity": [
           {
             "ticker": "2378",
-            "score_pca": 66.60171473109898,
-            "rank_pca": 858,
-            "adv": 7577640.0,
-            "trades": 265.0,
-            "volatility": 0.32014765202316253,
-            "spread_pct": 0.0033612727954605588,
-            "spread_ticks": 3.991310644460536,
-            "amihud": 1.984825860215468e-09,
-            "turnover_ratio": 2.5454451101389465e-05,
+            "score_pca": 67.79463243873978,
+            "rank_pca": 829,
+            "adv": 9655520.0,
+            "trades": 314.0,
+            "volatility": 0.3504158488379418,
+            "spread_pct": 0.0029384830112982913,
+            "spread_ticks": 3.448202959830867,
+            "amihud": 1.0735181483634944e-09,
+            "turnover_ratio": 3.188648982055777e-05,
             "is_target": true
           },
           {
-            "ticker": "1828",
-            "score_pca": 74.0062353858145,
-            "rank_pca": 668,
-            "adv": 6110440.0,
-            "trades": 634.0,
-            "volatility": 0.31666561822703726,
-            "spread_pct": 0.003622316382493332,
-            "spread_ticks": null,
-            "amihud": 1.5799091019152336e-09,
-            "turnover_ratio": 0.0007066928721166582,
-            "is_target": false
-          },
-          {
-            "ticker": "945",
-            "score_pca": 59.66484801247077,
-            "rank_pca": 1036,
-            "adv": 4021919.9999999995,
-            "trades": 77.0,
-            "volatility": 0.22320693826402443,
-            "spread_pct": 0.00532989999823632,
-            "spread_ticks": 7.829015544041451,
-            "amihud": 1.3645069190507145e-09,
-            "turnover_ratio": 7.845324376130555e-06,
-            "is_target": false
-          },
-          {
             "ticker": "376",
-            "score_pca": 76.11067809820733,
-            "rank_pca": 614,
-            "adv": 11194800.0,
-            "trades": 526.0,
-            "volatility": 0.5388309589513696,
-            "spread_pct": 0.004760862591552156,
-            "spread_ticks": 1.3259521700620018,
-            "amihud": 1.4021851091867626e-09,
-            "turnover_ratio": 0.003183264849442574,
+            "score_pca": 76.50719564371839,
+            "rank_pca": 605,
+            "adv": 11576290.000000002,
+            "trades": 596.0,
+            "volatility": 0.3357180613242595,
+            "spread_pct": 0.005109670653636548,
+            "spread_ticks": 1.3071120689655173,
+            "amihud": 1.6729780320585383e-09,
+            "turnover_ratio": 0.003840678242262236,
+            "is_target": false
+          },
+          {
+            "ticker": "1828",
+            "score_pca": 73.59004278490859,
+            "rank_pca": 680,
+            "adv": 5739370.0,
+            "trades": 611.0,
+            "volatility": 0.2241369755252657,
+            "spread_pct": 0.002526584069903239,
+            "spread_ticks": null,
+            "amihud": 1.4653990203133647e-09,
+            "turnover_ratio": 0.0006809091136786916,
             "is_target": false
           },
           {
             "ticker": "82318",
-            "score_pca": 55.72876071706937,
-            "rank_pca": 1137,
-            "adv": 3846320.192259165,
-            "trades": 24.0,
-            "volatility": 0.29821268992742817,
-            "spread_pct": 0.002250185432676576,
-            "spread_ticks": 2.459137343927355,
-            "amihud": 2.7383870755015655e-09,
-            "turnover_ratio": 1.1168936513729786e-05,
+            "score_pca": 59.39323220536756,
+            "rank_pca": 1045,
+            "adv": 5818512.698771655,
+            "trades": 42.0,
+            "volatility": 0.2735725210330361,
+            "spread_pct": 0.0022448128407331763,
+            "spread_ticks": 2.472457627118644,
+            "amihud": 1.4509278025961812e-09,
+            "turnover_ratio": 1.6887432008759437e-05,
+            "is_target": false
+          },
+          {
+            "ticker": "945",
+            "score_pca": 57.02061454686892,
+            "rank_pca": 1106,
+            "adv": 3624000.0,
+            "trades": 57.0,
+            "volatility": 0.22605482623084552,
+            "spread_pct": 0.004890688511270169,
+            "spread_ticks": 7.586956521739131,
+            "amihud": 2.275002275002265e-09,
+            "turnover_ratio": 7.025663620415422e-06,
             "is_target": false
           },
           {
             "ticker": "1508",
-            "score_pca": 83.8269680436477,
-            "rank_pca": 416,
-            "adv": 42316312.39,
-            "trades": 1660.0,
-            "volatility": 0.3883755341253393,
-            "spread_pct": 0.007503105424140774,
-            "spread_ticks": 1.0290817494847722,
-            "amihud": 3.2091203681460606e-10,
-            "turnover_ratio": 0.00498420097346484,
+            "score_pca": 80.39673278879813,
+            "rank_pca": 505,
+            "adv": 26526150.0,
+            "trades": 1325.0,
+            "volatility": 0.3693831124392409,
+            "spread_pct": 0.008228673489637975,
+            "spread_ticks": 1.0421052631578946,
+            "amihud": 3.948183097464904e-10,
+            "turnover_ratio": 0.003259689540243098,
             "is_target": false
           },
           {
             "ticker": "6963",
-            "score_pca": 88.42556508183944,
-            "rank_pca": 298,
-            "adv": 55850475.0,
-            "trades": 2827.0,
-            "volatility": 0.36354882870846633,
-            "spread_pct": 0.0030930178142059075,
-            "spread_ticks": 1.121900826446281,
-            "amihud": 3.2697684654257743e-10,
-            "turnover_ratio": 0.005810709815231982,
-            "is_target": false
-          },
-          {
-            "ticker": "81299",
-            "score_pca": 30.94310210444271,
-            "rank_pca": 1773,
-            "adv": 209204.95096707073,
-            "trades": 3.0,
-            "volatility": 0.3272948784502541,
-            "spread_pct": 0.0019988762308385585,
-            "spread_ticks": 2.955357142857143,
-            "amihud": 2.601644568415561e-08,
-            "turnover_ratio": 2.467667502477748e-07,
+            "score_pca": 88.05912096460521,
+            "rank_pca": 308,
+            "adv": 60133091.74,
+            "trades": 2676.0,
+            "volatility": 0.3466653270735935,
+            "spread_pct": 0.0031150606459485392,
+            "spread_ticks": 1.11968434896975,
+            "amihud": 3.6222273154405227e-10,
+            "turnover_ratio": 0.006474012978448546,
             "is_target": false
           },
           {
             "ticker": "6060",
-            "score_pca": 92.40062353858146,
-            "rank_pca": 196,
-            "adv": 92219788.0,
-            "trades": 4795.0,
-            "volatility": 0.4400430182281287,
-            "spread_pct": 0.0011639567169556035,
+            "score_pca": 90.97627382341501,
+            "rank_pca": 233,
+            "adv": 83607700.0,
+            "trades": 4566.0,
+            "volatility": 0.31393566310549553,
+            "spread_pct": 0.0013418958078890944,
             "spread_ticks": null,
-            "amihud": 1.7803108384813867e-10,
-            "turnover_ratio": 0.006021670610085376,
+            "amihud": 1.6165429355466477e-10,
+            "turnover_ratio": 0.005788212672431641,
+            "is_target": false
+          },
+          {
+            "ticker": "966",
+            "score_pca": 94.47685725398678,
+            "rank_pca": 143,
+            "adv": 194979652.98000002,
+            "trades": 7788.0,
+            "volatility": 0.4491595830369361,
+            "spread_pct": 0.0015863627399135478,
+            "spread_ticks": null,
+            "amihud": 9.231249676623304e-11,
+            "turnover_ratio": 0.006461430372413298,
             "is_target": false
           }
         ],
         "market_comparison": {
           "sector_name": "Insurance",
           "sector_count": 21,
-          "market_count": 2566,
+          "market_count": 2571,
           "market": {
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.6829742185391824,
-              "median": 0.5164043420839413,
+              "mean": 0.7011151554535207,
+              "median": 0.5106680275119818,
               "min": 0.0,
-              "max": 28.000443481783236,
-              "p5": 0.16301565272212604,
-              "p95": 1.66143771591774,
-              "count": 2565
+              "max": 59.50183291238528,
+              "p5": 0.16376262650510948,
+              "p95": 1.673153348621239,
+              "count": 2571
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 56425315.71520244,
-              "median": 219625.0,
+              "mean": 62902627.31827769,
+              "median": 221400.0,
               "min": 0.0,
-              "max": 10534340250.0,
+              "max": 12307843080.0,
               "p5": 0.0,
-              "p95": 219169473.15,
-              "count": 2566
+              "p95": 254491351.175,
+              "count": 2571
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.04514200991425875,
-              "median": 0.028611244281733603,
-              "min": 0.0004719772506389261,
+              "mean": 0.04378896465895211,
+              "median": 0.028605482717520857,
+              "min": 0.0004644488055358157,
               "max": 0.5912209998910793,
-              "p5": 0.0014510239076598516,
-              "p95": 0.14350204829667962,
-              "count": 2566
+              "p5": 0.0014277647807145535,
+              "p95": 0.1376472417616101,
+              "count": 2571
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.0040519831727945845,
-              "median": 0.0008857318810081622,
+              "mean": 0.004332117176113941,
+              "median": 0.0009551138871723442,
               "min": 0.0,
-              "max": 0.2778405506031397,
+              "max": 0.25464556631692925,
               "p5": 0.0,
-              "p95": 0.01541843473308223,
-              "count": 2551
+              "p95": 0.017816381106878738,
+              "count": 2555
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 1.2278257643117092e-06,
-              "median": 4.5503875792620654e-08,
+              "mean": 9.231960444764851e-07,
+              "median": 4.6305996973902975e-08,
               "min": 0.0,
-              "max": 0.00022428229665071768,
-              "p5": 3.102354456415163e-11,
-              "p95": 4.813246053138235e-06,
-              "count": 2561
+              "max": 0.0001421629445822993,
+              "p5": 2.6656947361175034e-11,
+              "p95": 4.055650959504832e-06,
+              "count": 2563
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 1033.3519095869058,
-              "median": 20.0,
+              "mean": 1123.1664721898094,
+              "median": 21.0,
               "min": 0.0,
-              "max": 66111.0,
+              "max": 83202.0,
               "p5": 0.0,
-              "p95": 5815.5,
-              "count": 2566
+              "p95": 6120.5,
+              "count": 2571
             }
           },
           "sector": {
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.4342930922768695,
-              "median": 0.3204297656455112,
-              "min": 0.15846280850695751,
-              "max": 2.400798970315606,
-              "p5": 0.22320693826402443,
-              "p95": 0.5388309589513696,
+              "mean": 0.3341238770014385,
+              "median": 0.3205058195657933,
+              "min": 0.19317227887919272,
+              "max": 0.8814217586056219,
+              "p5": 0.21420841545708136,
+              "p95": 0.4491595830369361,
               "count": 21
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 324282468.9268203,
-              "median": 42316312.39,
+              "mean": 373854861.4511548,
+              "median": 26526150.0,
               "min": 0.0,
-              "max": 1879756569.6000001,
-              "p5": 10320.0,
-              "p95": 1703821289.5,
+              "max": 2252481212.25,
+              "p5": 0.0,
+              "p95": 1942079452.0,
               "count": 21
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.008829779368020431,
-              "median": 0.002335935963056067,
-              "min": 0.0006567526873819095,
-              "max": 0.050345656747820856,
-              "p5": 0.0008619261420315018,
-              "p95": 0.04235284328477225,
+              "mean": 0.011668994081575765,
+              "median": 0.0024097833685150657,
+              "min": 0.0006730043907931626,
+              "max": 0.11545356758694877,
+              "p5": 0.0008734336841850196,
+              "p95": 0.04462725642626763,
               "count": 21
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.003345602637050842,
-              "median": 0.003183264849442574,
+              "mean": 0.003496255223353916,
+              "median": 0.003259689540243098,
               "min": 0.0,
-              "max": 0.009710416543498858,
-              "p5": 2.467667502477748e-07,
-              "p95": 0.008073814007262809,
+              "max": 0.009355138613035222,
+              "p5": 0.0,
+              "p95": 0.008844488929928182,
               "count": 21
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 3.9724693061706845e-08,
-              "median": 3.2697684654257743e-10,
-              "min": 4.952079555319346e-12,
-              "max": 3.7814331631688475e-07,
-              "p5": 7.132333414484544e-12,
-              "p95": 1.470626904347672e-07,
+              "mean": 5.3929283482497046e-08,
+              "median": 3.948183097464904e-10,
+              "min": 3.5084715340117e-12,
+              "max": 4.5278473832721776e-07,
+              "p5": 3.8841683711377744e-12,
+              "p95": 3.401230395095426e-07,
               "count": 21
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 4398.285714285715,
-              "median": 1660.0,
+              "mean": 4741.952380952381,
+              "median": 1325.0,
               "min": 0.0,
-              "max": 15818.0,
-              "p5": 2.0,
-              "p95": 14593.0,
+              "max": 15840.0,
+              "p5": 0.0,
+              "p95": 15715.0,
               "count": 21
             }
           },
           "peers": {
             "adv": {
               "direction": "higher_is_better",
-              "mean": 26971157.566653278,
-              "median": 8652620.0,
-              "min": 209204.95096707073,
-              "max": 92219788.0,
-              "p5": 1482195.2854193037,
-              "p95": 79490528.44999999,
+              "mean": 49000595.92734646,
+              "median": 19051220.0,
+              "min": 3624000.0,
+              "max": 194979652.98000002,
+              "p5": 4364379.5,
+              "p95": 155999469.43699995,
               "count": 8
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 1318.25,
-              "median": 580.0,
-              "min": 3.0,
-              "max": 4795.0,
-              "p5": 10.350000000000001,
-              "p95": 4106.199999999999,
+              "mean": 2207.625,
+              "median": 968.0,
+              "min": 42.0,
+              "max": 7788.0,
+              "p5": 47.25,
+              "p95": 6660.299999999998,
               "count": 8
             },
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.362022308110256,
-              "median": 0.3454218535793602,
-              "min": 0.22320693826402443,
-              "max": 0.5388309589513696,
-              "p5": 0.24945895134621573,
-              "p95": 0.5042551796982352,
+              "mean": 0.3173282587210841,
+              "median": 0.32482686221487755,
+              "min": 0.2241369755252657,
+              "max": 0.4491595830369361,
+              "p5": 0.22480822327221864,
+              "p95": 0.4212378183277427,
               "count": 8
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.003715277573887403,
-              "median": 0.00335766709834962,
-              "min": 0.0011639567169556035,
-              "max": 0.007503105424140774,
-              "p5": 0.0014561785468146377,
-              "p95": 0.006742483525074214,
-              "count": 8
-            },
-            "amihud": {
-              "direction": "lower_is_better",
-              "mean": 4.240919232126901e-09,
-              "median": 1.3833460141187386e-09,
-              "min": 1.7803108384813867e-10,
-              "max": 2.601644568415561e-08,
-              "p5": 2.2803941738640226e-10,
-              "p95": 1.7869125171126685e-08,
-              "count": 8
-            },
-            "turnover_ratio": {
-              "direction": "higher_is_better",
-              "mean": 0.002590725018497692,
-              "median": 0.001944978860779616,
-              "min": 2.467667502477748e-07,
-              "max": 0.006021670610085376,
-              "p5": 2.906261919306748e-06,
-              "p95": 0.005947834331886688,
+              "mean": 0.0036304685948665358,
+              "median": 0.002820822357925889,
+              "min": 0.0013418958078890944,
+              "max": 0.008228673489637975,
+              "p5": 0.0014274592340976532,
+              "p95": 0.0071370224970374735,
               "count": 8
             },
             "spread_ticks": {
               "direction": "neutral",
-              "mean": 2.7867407961365007,
-              "median": 1.8925447569946785,
-              "min": 1.0290817494847722,
-              "max": 7.829015544041451,
-              "p5": 1.0522865187251493,
-              "p95": 6.610600943745374,
-              "count": 6
+              "mean": 2.7056631659901873,
+              "median": 1.3071120689655173,
+              "min": 1.0421052631578946,
+              "max": 7.586956521739131,
+              "p5": 1.0576210803202657,
+              "p95": 6.5640567428150325,
+              "count": 5
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 9.844143701977236e-10,
+              "median": 9.228730561713358e-10,
+              "min": 9.231249676623304e-11,
+              "max": 2.275002275002265e-09,
+              "p5": 1.1658212564218416e-10,
+              "p95": 2.06429378997196e-09,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.003316105751888335,
+              "median": 0.0035501838912526673,
+              "min": 7.025663620415422e-06,
+              "max": 0.006474012978448546,
+              "p5": 1.0477282556335827e-05,
+              "p95": 0.0064696090663362085,
+              "count": 8
             }
           },
           "returns": {
             "window_days": 21,
             "n_obs": 21,
-            "stock": 0.07348837209302217,
-            "market": 0.061764402986667966,
-            "sector": 0.0369669548770839,
-            "peers": -0.027075209681488355,
-            "vs_market": 0.011723969106354204,
-            "vs_sector": 0.03652141721593827,
-            "vs_peers": 0.10056358177451052
+            "stock": 0.008438818565400963,
+            "market": 0.02086654266861232,
+            "sector": -0.023903913558397716,
+            "peers": -0.06247086488729148,
+            "vs_market": -0.012427724103211357,
+            "vs_sector": 0.03234273212379868,
+            "vs_peers": 0.07090968345269244
           }
         }
       },
@@ -885,32 +885,32 @@ export const REPORT_DATA: ReportData = {
         "liquidity": {
           "metric_aggregation": "median",
           "metric_window_days": 63,
-          "score_pca": 67.57599376461418,
-          "score_pca_percentile": 67.57599376461418,
-          "rank_pca": 833,
-          "total": 2566,
-          "adv_notional_sgd": 7388370.0,
-          "adv_volume_shares": 65100.0,
+          "score_pca": 67.21120186697783,
+          "score_pca_percentile": 67.21120186697783,
+          "rank_pca": 844,
+          "total": 2571,
+          "adv_notional_sgd": 7670745.0,
+          "adv_volume_shares": 66750.0,
           "free_float_shares": 2557509480.0,
-          "turnover_ratio": 2.5454451101389465e-05,
-          "votes": 254.0,
-          "trades": 254.0,
-          "spread_pct": 0.0036488016316969527,
-          "spread_ticks": 4.37045203969129,
-          "amihud": 1.984825860215468e-09,
-          "volatility": 0.3826314994108481
+          "turnover_ratio": 2.609961000027261e-05,
+          "votes": 270.0,
+          "trades": 270.0,
+          "spread_pct": 0.0035400913694717475,
+          "spread_ticks": 4.075871195412439,
+          "amihud": 1.9281629162692664e-09,
+          "volatility": 0.3691406992824093
         },
         "pca": {
           "valid": true,
           "window_days": 63,
-          "variance_explained": 0.6170494984803035,
+          "variance_explained": 0.6077995981281279,
           "loadings": {
-            "log_adv": 0.500279235277616,
-            "log_trades": 0.45394350318501075,
-            "log_turnover": 0.45399670910522294,
-            "neg_spread": 0.4604516422934917,
-            "neg_amihud": 0.3288727602098362,
-            "neg_vol": 0.1317951573047417
+            "log_adv": 0.5062609965266698,
+            "log_trades": 0.45994196001153886,
+            "log_turnover": 0.4589839532616572,
+            "neg_spread": 0.4608437840933715,
+            "neg_amihud": 0.31902478957325225,
+            "neg_vol": 0.08563362520127225
           }
         },
         "data_quality": {
@@ -921,354 +921,354 @@ export const REPORT_DATA: ReportData = {
         },
         "peer_summary": {
           "n_peers": 8,
-          "peer_median_adv": 13728614.0,
-          "peer_median_score_pca": 77.39672642244739,
-          "peer_median_trades": 800.5,
-          "peer_median_volatility": 0.373626618667393,
-          "peer_median_spread_pct": 0.002846220734729132,
-          "peer_median_spread_ticks": 1.9464357173280447,
-          "peer_median_amihud": 1.0005615464131023e-09,
-          "peer_median_turnover_ratio": 0.0021917563174398908,
+          "peer_median_adv": 23404464.0,
+          "peer_median_score_pca": 79.56048230260599,
+          "peer_median_trades": 1131.5,
+          "peer_median_volatility": 0.36650824575641255,
+          "peer_median_spread_pct": 0.0028613038842016754,
+          "peer_median_spread_ticks": 1.325448028673835,
+          "peer_median_amihud": 8.284983914723181e-10,
+          "peer_median_turnover_ratio": 0.003971704941717646,
           "target_vs_peer": {
-            "score_pca_delta": -9.82,
-            "adv_delta_pct": -46.2,
-            "trades_delta_pct": -68.27,
-            "volatility_delta_pct": -2.41,
-            "spread_pct_delta_pct": -28.2,
-            "spread_ticks_delta_pct": 124.54,
-            "amihud_delta_pct": -98.37,
-            "turnover_ratio_delta_pct": -98.84
+            "score_pca_delta": -12.35,
+            "adv_delta_pct": -67.2,
+            "trades_delta_pct": -76.14,
+            "volatility_delta_pct": -0.72,
+            "spread_pct_delta_pct": -23.72,
+            "spread_ticks_delta_pct": 207.51,
+            "amihud_delta_pct": -132.73,
+            "turnover_ratio_delta_pct": -99.34
           }
         },
         "peer_liquidity": [
           {
             "ticker": "2378",
-            "score_pca": 67.57599376461418,
-            "rank_pca": 833,
-            "adv": 7388370.0,
-            "trades": 254.0,
-            "volatility": 0.3826314994108481,
-            "spread_pct": 0.0036488016316969527,
-            "spread_ticks": 4.37045203969129,
-            "amihud": 1.984825860215468e-09,
-            "turnover_ratio": 2.5454451101389465e-05,
+            "score_pca": 67.21120186697783,
+            "rank_pca": 844,
+            "adv": 7670745.0,
+            "trades": 270.0,
+            "volatility": 0.3691406992824093,
+            "spread_pct": 0.0035400913694717475,
+            "spread_ticks": 4.075871195412439,
+            "amihud": 1.9281629162692664e-09,
+            "turnover_ratio": 2.609961000027261e-05,
             "is_target": true
           },
           {
-            "ticker": "1828",
-            "score_pca": 76.65627435697584,
-            "rank_pca": 600,
-            "adv": 9313680.0,
-            "trades": 858.0,
-            "volatility": 0.26389483021507576,
-            "spread_pct": 0.0024244412726778866,
-            "spread_ticks": null,
-            "amihud": 9.654491802022797e-10,
-            "turnover_ratio": 0.001030987185991363,
-            "is_target": false
-          },
-          {
-            "ticker": "945",
-            "score_pca": 60.52221356196414,
-            "rank_pca": 1014,
-            "adv": 3780919.9999999995,
-            "trades": 65.0,
-            "volatility": 0.2679460139925926,
-            "spread_pct": 0.004945549359841873,
-            "spread_ticks": 7.292517006802721,
-            "amihud": 3.1162808132282643e-09,
-            "turnover_ratio": 7.66968278562017e-06,
-            "is_target": false
-          },
-          {
             "ticker": "376",
-            "score_pca": 78.13717848791893,
-            "rank_pca": 562,
-            "adv": 18143548.0,
-            "trades": 743.0,
-            "volatility": 0.6250349584156409,
-            "spread_pct": 0.004640975666235684,
-            "spread_ticks": 1.3394415357766143,
-            "amihud": 1.035673912623925e-09,
-            "turnover_ratio": 0.004902290778514082,
+            "score_pca": 77.75184753014392,
+            "rank_pca": 573,
+            "adv": 15063808.0,
+            "trades": 679.0,
+            "volatility": 0.5896505078731508,
+            "spread_pct": 0.0047759145528608014,
+            "spread_ticks": 1.325448028673835,
+            "amihud": 1.3131051747211863e-09,
+            "turnover_ratio": 0.004590884434546874,
+            "is_target": false
+          },
+          {
+            "ticker": "1828",
+            "score_pca": 74.9124854142357,
+            "rank_pca": 646,
+            "adv": 7642110.0,
+            "trades": 748.0,
+            "volatility": 0.2664778255368511,
+            "spread_pct": 0.002537245038768167,
+            "spread_ticks": null,
+            "amihud": 1.2438432673523702e-09,
+            "turnover_ratio": 0.0008730162716179066,
             "is_target": false
           },
           {
             "ticker": "82318",
-            "score_pca": 59.197194076383475,
-            "rank_pca": 1048,
+            "score_pca": 58.69311551925321,
+            "rank_pca": 1063,
             "adv": 3944875.0488724275,
-            "trades": 32.0,
-            "volatility": 0.33653993877080496,
-            "spread_pct": 0.002254698630896886,
-            "spread_ticks": 2.5534298988794752,
-            "amihud": 2.7383870755015655e-09,
-            "turnover_ratio": 1.1168936513729786e-05,
+            "trades": 33.0,
+            "volatility": 0.30822726245306303,
+            "spread_pct": 0.0022944768262999128,
+            "spread_ticks": 2.514347202295552,
+            "amihud": 2.382732048122587e-09,
+            "turnover_ratio": 1.1258288005839625e-05,
+            "is_target": false
+          },
+          {
+            "ticker": "945",
+            "score_pca": 59.27654609101517,
+            "rank_pca": 1048,
+            "adv": 3722400.0,
+            "trades": 64.0,
+            "volatility": 0.2514987266022581,
+            "spread_pct": 0.004945549359841873,
+            "spread_ticks": 7.586956521739131,
+            "amihud": 3.2003826603417872e-09,
+            "turnover_ratio": 7.435493998272989e-06,
             "is_target": false
           },
           {
             "ticker": "1508",
-            "score_pca": 81.76149649259547,
-            "rank_pca": 469,
-            "adv": 33684190.0,
-            "trades": 1543.0,
-            "volatility": 0.43512158804394147,
-            "spread_pct": 0.006943367352214332,
-            "spread_ticks": 1.0820845448445537,
-            "amihud": 3.974522388004641e-10,
+            "score_pca": 81.36911707506806,
+            "rank_pca": 480,
+            "adv": 31745120.0,
+            "trades": 1515.0,
+            "volatility": 0.43152023425074293,
+            "spread_pct": 0.0072952355918196946,
+            "spread_ticks": 1.0669663984855655,
+            "amihud": 4.1315351559226593e-10,
             "turnover_ratio": 0.003352525448888419,
             "is_target": false
           },
           {
             "ticker": "6963",
-            "score_pca": 86.43803585346843,
-            "rank_pca": 349,
-            "adv": 46244585.0,
-            "trades": 2193.0,
-            "volatility": 0.35590178612560897,
-            "spread_pct": 0.0032680001967803777,
-            "spread_ticks": 1.2254625905068384,
-            "amihud": 3.457033293739452e-10,
-            "turnover_ratio": 0.004755793871726414,
-            "is_target": false
-          },
-          {
-            "ticker": "81299",
-            "score_pca": 37.685113016367886,
-            "rank_pca": 1600,
-            "adv": 398485.6208896585,
-            "trades": 4.0,
-            "volatility": 0.42717051064083533,
-            "spread_pct": 0.002011494290217908,
-            "spread_ticks": 2.9881753312945976,
-            "amihud": 2.928295602327887e-08,
-            "turnover_ratio": 4.935335004955496e-07,
+            "score_pca": 86.7366783352781,
+            "rank_pca": 342,
+            "adv": 50381760.0,
+            "trades": 2434.0,
+            "volatility": 0.337605751215132,
+            "spread_pct": 0.003185362729635183,
+            "spread_ticks": 1.1896396396396396,
+            "amihud": 3.2562080085068537e-10,
+            "turnover_ratio": 0.0053275760427861545,
             "is_target": false
           },
           {
             "ticker": "6060",
-            "score_pca": 94.6219797349961,
-            "rank_pca": 139,
-            "adv": 124651331.99999999,
-            "trades": 6710.0,
-            "volatility": 0.39135145120917697,
-            "spread_pct": 0.0011907216370160157,
+            "score_pca": 93.77674056787242,
+            "rank_pca": 161,
+            "adv": 115859350.0,
+            "trades": 6177.0,
+            "volatility": 0.39541074029769313,
+            "spread_pct": 0.0012236879873623906,
             "spread_ticks": null,
-            "amihud": 1.4393356444561903e-10,
-            "turnover_ratio": 0.007231863069712856,
+            "amihud": 1.5036770012754012e-10,
+            "turnover_ratio": 0.007066858533485036,
+            "is_target": false
+          },
+          {
+            "ticker": "966",
+            "score_pca": 94.98249708284715,
+            "rank_pca": 130,
+            "adv": 190066708.0,
+            "trades": 7644.0,
+            "volatility": 0.413776811314124,
+            "spread_pct": 0.001533592250931656,
+            "spread_ticks": null,
+            "amihud": 8.501054098064112e-11,
+            "turnover_ratio": 0.0062335221124455486,
             "is_target": false
           }
         ],
         "market_comparison": {
           "sector_name": "Insurance",
           "sector_count": 21,
-          "market_count": 2566,
+          "market_count": 2571,
           "market": {
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.7115894447531742,
-              "median": 0.57549560694507,
+              "mean": 0.7357243729704763,
+              "median": 0.5852980955369584,
               "min": 0.0,
-              "max": 16.13862380852955,
-              "p5": 0.2229582153201595,
-              "p95": 1.5855845309233194,
-              "count": 2565
+              "max": 34.385705571190606,
+              "p5": 0.22164619388369478,
+              "p95": 1.6751756484854745,
+              "count": 2571
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 59669180.0910479,
-              "median": 219600.0,
+              "mean": 58964655.65297873,
+              "median": 219888.0,
               "min": 0.0,
-              "max": 13012759200.0,
+              "max": 12236636500.0,
               "p5": 0.0,
-              "p95": 234475295.725,
-              "count": 2566
+              "p95": 234495515.75,
+              "count": 2571
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.04316019262914479,
-              "median": 0.02821060839555429,
-              "min": 0.0005766037246855124,
+              "mean": 0.04311758135656986,
+              "median": 0.02881844380403459,
+              "min": 0.0005681922931204329,
               "max": 0.586235634471959,
-              "p5": 0.0014671630968590772,
-              "p95": 0.13559817408354224,
-              "count": 2566
+              "p5": 0.0014500226814230816,
+              "p95": 0.13143370097338894,
+              "count": 2571
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.0037880959683696965,
-              "median": 0.0008716374770653215,
+              "mean": 0.0038888401494928536,
+              "median": 0.0008843933226605998,
               "min": 0.0,
-              "max": 0.4102056640783613,
+              "max": 0.38612653752209847,
               "p5": 0.0,
-              "p95": 0.014649306319650904,
-              "count": 2551
+              "p95": 0.014793894971560263,
+              "count": 2555
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 6.992924940713892e-07,
-              "median": 4.686124617157561e-08,
+              "mean": 6.992807053771985e-07,
+              "median": 4.923906765497146e-08,
               "min": 0.0,
-              "max": 4.629629629629633e-05,
-              "p5": 4.905036119858656e-11,
-              "p95": 3.754540074820779e-06,
-              "count": 2566
+              "max": 4.914515513019252e-05,
+              "p5": 4.954160167373198e-11,
+              "p95": 3.423917792152159e-06,
+              "count": 2571
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 1058.2655884645362,
+              "mean": 1071.655387008946,
               "median": 20.0,
               "min": 0.0,
-              "max": 72100.0,
+              "max": 67896.0,
               "p5": 0.0,
-              "p95": 5839.5,
-              "count": 2566
+              "p95": 5824.0,
+              "count": 2571
             }
           },
           "sector": {
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.48557495310083515,
-              "median": 0.39135145120917697,
-              "min": 0.18736326638995207,
-              "max": 2.691572391359211,
-              "p5": 0.26389483021507576,
-              "p95": 0.6250349584156409,
+              "mean": 0.43112871714142337,
+              "median": 0.38734632175922284,
+              "min": 0.20979710540378374,
+              "max": 1.716050947944944,
+              "p5": 0.2514987266022581,
+              "p95": 0.5896505078731508,
               "count": 21
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 400205533.86379814,
-              "median": 33684190.0,
+              "mean": 373654565.5418062,
+              "median": 31745120.0,
               "min": 0.0,
-              "max": 2426074624.4,
-              "p5": 22000.0,
-              "p95": 2279749736.7000003,
+              "max": 2255352501.75,
+              "p5": 6940.0,
+              "p95": 2067353752.0,
               "count": 21
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.00795668099612031,
-              "median": 0.002254698630896886,
-              "min": 0.0006695136869400823,
-              "max": 0.044361666102268896,
-              "p5": 0.0008488999185669237,
-              "p95": 0.03378760283866104,
+              "mean": 0.008571138609547849,
+              "median": 0.0022944768262999128,
+              "min": 0.0006721075695228333,
+              "max": 0.05241143832693134,
+              "p5": 0.0008695892751344031,
+              "p95": 0.038732525687007,
               "count": 21
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.0035035166129687143,
+              "mean": 0.0034482774772435255,
               "median": 0.003352525448888419,
               "min": 0.0,
-              "max": 0.009404131840219713,
-              "p5": 4.935335004955496e-07,
-              "p95": 0.00928047018000585,
+              "max": 0.009355138613035222,
+              "p5": 2.262028543937936e-07,
+              "p95": 0.008844488929928182,
               "count": 21
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 3.612096326629132e-08,
-              "median": 3.974522388004641e-10,
-              "min": 5.678413011391941e-12,
-              "max": 3.7054668719444715e-07,
-              "p5": 7.494294684821568e-12,
-              "p95": 1.470626904347672e-07,
+              "mean": 4.782242934594407e-08,
+              "median": 4.1315351559226593e-10,
+              "min": 5.377789876709357e-12,
+              "max": 5.805717470565019e-07,
+              "p5": 6.880184524268378e-12,
+              "p95": 1.6488415898526306e-07,
               "count": 21
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 5001.666666666667,
-              "median": 1543.0,
+              "mean": 4767.952380952381,
+              "median": 1515.0,
               "min": 0.0,
-              "max": 17431.0,
-              "p5": 2.0,
-              "p95": 16023.0,
+              "max": 15856.0,
+              "p5": 1.0,
+              "p95": 15818.0,
               "count": 21
             }
           },
           "peers": {
             "adv": {
               "direction": "higher_is_better",
-              "mean": 30020201.95872026,
-              "median": 13728614.0,
-              "min": 398485.6208896585,
-              "max": 124651331.99999999,
-              "p5": 1582337.653578278,
-              "p95": 97208970.54999995,
+              "mean": 52303266.38110905,
+              "median": 23404464.0,
+              "min": 3722400.0,
+              "max": 190066708.0,
+              "p5": 3800266.26710535,
+              "p95": 164094132.69999996,
               "count": 8
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 1518.5,
-              "median": 800.5,
-              "min": 4.0,
-              "max": 6710.0,
-              "p5": 13.8,
-              "p95": 5129.049999999997,
+              "mean": 2411.75,
+              "median": 1131.5,
+              "min": 33.0,
+              "max": 7644.0,
+              "p5": 43.85,
+              "p95": 7130.549999999999,
               "count": 8
             },
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.3878701346767096,
-              "median": 0.373626618667393,
-              "min": 0.26389483021507576,
-              "max": 0.6250349584156409,
-              "p5": 0.26531274453720666,
-              "p95": 0.5585652787855461,
+              "mean": 0.3742709824428769,
+              "median": 0.36650824575641255,
+              "min": 0.2514987266022581,
+              "max": 0.5896505078731508,
+              "p5": 0.25674141122936567,
+              "p95": 0.534304912105308,
               "count": 8
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.00345990605073512,
-              "median": 0.002846220734729132,
-              "min": 0.0011907216370160157,
-              "max": 0.006943367352214332,
-              "p5": 0.001477992065636678,
-              "p95": 0.006244131054883971,
-              "count": 8
-            },
-            "amihud": {
-              "direction": "lower_is_better",
-              "mean": 4.7532295171818664e-09,
-              "median": 1.0005615464131023e-09,
-              "min": 1.4393356444561903e-10,
-              "max": 2.928295602327887e-08,
-              "p5": 2.1455298217053318e-10,
-              "p95": 2.0124619699761146e-08,
-              "count": 8
-            },
-            "turnover_ratio": {
-              "direction": "higher_is_better",
-              "mean": 0.0026615990634541223,
-              "median": 0.0021917563174398908,
-              "min": 4.935335004955496e-07,
-              "max": 0.007231863069712856,
-              "p5": 3.0051857502891667e-06,
-              "p95": 0.006416512767793284,
+              "mean": 0.0034738830421899595,
+              "median": 0.0028613038842016754,
+              "min": 0.0012236879873623906,
+              "max": 0.0072952355918196946,
+              "p5": 0.0013321544796116335,
+              "p95": 0.006472845410627455,
               "count": 8
             },
             "spread_ticks": {
               "direction": "neutral",
-              "mean": 2.7468518180174666,
-              "median": 1.9464357173280447,
-              "min": 1.0820845448445537,
-              "max": 7.292517006802721,
-              "p5": 1.117929056260125,
-              "p95": 6.21643158792569,
-              "count": 6
+              "mean": 2.736671558166745,
+              "median": 1.325448028673835,
+              "min": 1.0669663984855655,
+              "max": 7.586956521739131,
+              "p5": 1.0915010467163804,
+              "p95": 6.572434657850414,
+              "count": 5
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 1.1392769635111328e-09,
+              "median": 8.284983914723181e-10,
+              "min": 8.501054098064112e-11,
+              "max": 3.2003826603417872e-09,
+              "p5": 1.0788554668205577e-10,
+              "p95": 2.9142049460650667e-09,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.0034328845782217567,
+              "median": 0.003971704941717646,
+              "min": 7.435493998272989e-06,
+              "max": 0.007066858533485036,
+              "p5": 8.773471900921313e-06,
+              "p95": 0.006775190786121215,
+              "count": 8
             }
           },
           "returns": {
             "window_days": 63,
             "n_obs": 63,
-            "stock": -0.08339952343129542,
-            "market": 0.0415245390987562,
-            "sector": -0.11921446832342297,
-            "peers": -0.1928598352178036,
-            "vs_market": -0.12492406253005162,
-            "vs_sector": 0.035814944892127554,
-            "vs_peers": 0.10946031178650817
+            "stock": 0.031061259706643085,
+            "market": 0.029271276062160734,
+            "sector": -0.11788138148293426,
+            "peers": -0.17549184959233988,
+            "vs_market": 0.0017899836444823514,
+            "vs_sector": 0.14894264118957734,
+            "vs_peers": 0.20655310929898296
           }
         }
       },
@@ -1278,32 +1278,32 @@ export const REPORT_DATA: ReportData = {
         "liquidity": {
           "metric_aggregation": "median",
           "metric_window_days": 126,
-          "score_pca": 67.38113795791114,
-          "score_pca_percentile": 67.38113795791114,
-          "rank_pca": 838,
-          "total": 2566,
-          "adv_notional_sgd": 7871677.5,
-          "adv_volume_shares": 68925.0,
+          "score_pca": 67.87242318164138,
+          "score_pca_percentile": 67.87242318164138,
+          "rank_pca": 827,
+          "total": 2571,
+          "adv_notional_sgd": 8630745.0,
+          "adv_volume_shares": 72425.0,
           "free_float_shares": 2557509480.0,
-          "turnover_ratio": 2.695004673061857e-05,
-          "votes": 264.5,
-          "trades": 264.5,
-          "spread_pct": 0.0035401170946083383,
-          "spread_ticks": 4.156856528762557,
-          "amihud": 1.330364410805972e-09,
-          "volatility": 0.3237076081130601
+          "turnover_ratio": 2.8318565607037357e-05,
+          "votes": 271.0,
+          "trades": 271.0,
+          "spread_pct": 0.0034695532331077495,
+          "spread_ticks": 4.138320463237838,
+          "amihud": 1.3828644341540456e-09,
+          "volatility": 0.33916495668027413
         },
         "pca": {
           "valid": true,
           "window_days": 126,
-          "variance_explained": 0.6334111316511629,
+          "variance_explained": 0.6278930772038819,
           "loadings": {
-            "log_adv": 0.49481565116339976,
-            "log_trades": 0.44767428580434243,
-            "log_turnover": 0.45014494174190584,
-            "neg_spread": 0.45926897094315444,
-            "neg_amihud": 0.3550672847415671,
-            "neg_vol": 0.12293889641832687
+            "log_adv": 0.4972405548774173,
+            "log_trades": 0.4502866682635278,
+            "log_turnover": 0.4499390435752101,
+            "neg_spread": 0.460142718554864,
+            "neg_amihud": 0.3517472510336677,
+            "neg_vol": 0.10995978349902442
           }
         },
         "data_quality": {
@@ -1314,374 +1314,374 @@ export const REPORT_DATA: ReportData = {
         },
         "peer_summary": {
           "n_peers": 8,
-          "peer_median_adv": 20222279.0,
-          "peer_median_score_pca": 78.54637568199533,
-          "peer_median_trades": 941.25,
-          "peer_median_volatility": 0.35688756674148225,
-          "peer_median_spread_pct": 0.0027692053093815636,
-          "peer_median_spread_ticks": 1.9582609478502433,
-          "peer_median_amihud": 7.705990559811574e-10,
-          "peer_median_turnover_ratio": 0.002064316998153081,
+          "peer_median_adv": 27320287.7,
+          "peer_median_score_pca": 79.87164527421237,
+          "peer_median_trades": 1029.0,
+          "peer_median_volatility": 0.34690058195360723,
+          "peer_median_spread_pct": 0.00275985846234272,
+          "peer_median_spread_ticks": 1.3526260713573848,
+          "peer_median_amihud": 5.789557112725479e-10,
+          "peer_median_turnover_ratio": 0.004007071846044922,
           "target_vs_peer": {
-            "score_pca_delta": -11.17,
-            "adv_delta_pct": -61.1,
-            "trades_delta_pct": -71.9,
-            "volatility_delta_pct": 9.3,
-            "spread_pct_delta_pct": -27.84,
-            "spread_ticks_delta_pct": 112.27,
-            "amihud_delta_pct": -72.64,
-            "turnover_ratio_delta_pct": -98.69
+            "score_pca_delta": -12.0,
+            "adv_delta_pct": -68.4,
+            "trades_delta_pct": -73.66,
+            "volatility_delta_pct": 2.23,
+            "spread_pct_delta_pct": -25.71,
+            "spread_ticks_delta_pct": 205.95,
+            "amihud_delta_pct": -138.85,
+            "turnover_ratio_delta_pct": -99.29
           }
         },
         "peer_liquidity": [
           {
             "ticker": "2378",
-            "score_pca": 67.38113795791114,
-            "rank_pca": 838,
-            "adv": 7871677.5,
-            "trades": 264.5,
-            "volatility": 0.3237076081130601,
-            "spread_pct": 0.0035401170946083383,
-            "spread_ticks": 4.156856528762557,
-            "amihud": 1.330364410805972e-09,
-            "turnover_ratio": 2.695004673061857e-05,
+            "score_pca": 67.87242318164138,
+            "rank_pca": 827,
+            "adv": 8630745.0,
+            "trades": 271.0,
+            "volatility": 0.33916495668027413,
+            "spread_pct": 0.0034695532331077495,
+            "spread_ticks": 4.138320463237838,
+            "amihud": 1.3828644341540456e-09,
+            "turnover_ratio": 2.8318565607037357e-05,
             "is_target": true
           },
           {
-            "ticker": "1828",
-            "score_pca": 77.00701480904131,
-            "rank_pca": 591,
-            "adv": 11601638.0,
-            "trades": 864.0,
-            "volatility": 0.21797050446133018,
-            "spread_pct": 0.0021718878586147747,
-            "spread_ticks": null,
-            "amihud": 6.440971094070327e-10,
-            "turnover_ratio": 0.0011484667050713933,
-            "is_target": false
-          },
-          {
-            "ticker": "945",
-            "score_pca": 59.392049883086514,
-            "rank_pca": 1043,
-            "adv": 3392360.0,
-            "trades": 59.0,
-            "volatility": 0.2187146042335629,
-            "spread_pct": 0.004225994461612143,
-            "spread_ticks": 5.966060398078243,
-            "amihud": 2.5092866268628036e-09,
-            "turnover_ratio": 7.201305210925808e-06,
-            "is_target": false
-          },
-          {
             "ticker": "376",
-            "score_pca": 81.02104442712394,
-            "rank_pca": 488,
-            "adv": 28842920.0,
-            "trades": 1018.5,
-            "volatility": 0.6359905638859137,
-            "spread_pct": 0.00427173567552446,
-            "spread_ticks": 1.3600535086125745,
-            "amihud": 8.971010025552821e-10,
-            "turnover_ratio": 0.006580424965448483,
+            "score_pca": 79.77440684558537,
+            "rank_pca": 521,
+            "adv": 24483975.4,
+            "trades": 867.0,
+            "volatility": 0.6098940062111264,
+            "spread_pct": 0.00446149281911183,
+            "spread_ticks": 1.3526260713573848,
+            "amihud": 1.0341474669400284e-09,
+            "turnover_ratio": 0.006163588700936619,
+            "is_target": false
+          },
+          {
+            "ticker": "1828",
+            "score_pca": 76.93504472967717,
+            "rank_pca": 594,
+            "adv": 11247428.0,
+            "trades": 864.0,
+            "volatility": 0.21844048650518122,
+            "spread_pct": 0.002149718430856517,
+            "spread_ticks": null,
+            "amihud": 7.347097588702582e-10,
+            "turnover_ratio": 0.0011143304615056349,
             "is_target": false
           },
           {
             "ticker": "82318",
-            "score_pca": 59.08028059236165,
-            "rank_pca": 1051,
-            "adv": 4646563.143961151,
-            "trades": 32.5,
-            "volatility": 0.3231672275733205,
-            "spread_pct": 0.00227739327960181,
-            "spread_ticks": 2.556468387087912,
-            "amihud": 2.1184961275086776e-09,
+            "score_pca": 58.92648774795799,
+            "rank_pca": 1057,
+            "adv": 4634686.981070053,
+            "trades": 33.0,
+            "volatility": 0.31964830291644675,
+            "spread_pct": 0.0022530412460761077,
+            "spread_ticks": 2.539879846112113,
+            "amihud": 2.149257434906314e-09,
             "turnover_ratio": 1.2196478672992927e-05,
             "is_target": false
           },
           {
+            "ticker": "945",
+            "score_pca": 59.50991831971996,
+            "rank_pca": 1042,
+            "adv": 3587050.0,
+            "trades": 62.0,
+            "volatility": 0.22826696421155068,
+            "spread_pct": 0.004493256573419837,
+            "spread_ticks": 6.3194773135302755,
+            "amihud": 2.3920814572436205e-09,
+            "turnover_ratio": 7.406220399854591e-06,
+            "is_target": false
+          },
+          {
             "ticker": "1508",
-            "score_pca": 80.08573655494934,
-            "rank_pca": 512,
-            "adv": 30258669.785,
-            "trades": 1137.0,
-            "volatility": 0.36780283018476634,
-            "spread_pct": 0.006642108829882296,
-            "spread_ticks": 1.0770572149604944,
+            "score_pca": 79.96888370283936,
+            "rank_pca": 516,
+            "adv": 30156600.0,
+            "trades": 1191.0,
+            "volatility": 0.3756639188778311,
+            "spread_pct": 0.006718332424202004,
+            "spread_ticks": 1.0760004750029686,
             "amihud": 4.2320166367483765e-10,
             "turnover_ratio": 0.002980167291234769,
             "is_target": false
           },
           {
             "ticker": "6963",
-            "score_pca": 86.63289166017148,
-            "rank_pca": 344,
-            "adv": 48105238.239999995,
-            "trades": 2266.0,
-            "volatility": 0.35595620219574575,
-            "spread_pct": 0.0032610173391613173,
-            "spread_ticks": 1.2282011313364558,
-            "amihud": 2.8544883905968443e-10,
-            "turnover_ratio": 0.004820160317676517,
-            "is_target": false
-          },
-          {
-            "ticker": "81299",
-            "score_pca": 36.12626656274357,
-            "rank_pca": 1640,
-            "adv": 364171.5813130491,
-            "trades": 3.0,
-            "volatility": 0.3823217041317,
-            "spread_pct": 0.0020388105506287764,
-            "spread_ticks": 3.023476692407418,
-            "amihud": 2.9911982220572446e-08,
-            "turnover_ratio": 4.3184181293360595e-07,
+            "score_pca": 86.7755737067289,
+            "rank_pca": 341,
+            "adv": 49337585.0,
+            "trades": 2353.5,
+            "volatility": 0.3381005390937223,
+            "spread_pct": 0.003266675678609333,
+            "spread_ticks": 1.228738060294598,
+            "amihud": 2.9261069156643023e-10,
+            "turnover_ratio": 0.005033976400855074,
             "is_target": false
           },
           {
             "ticker": "6060",
-            "score_pca": 95.20654715510523,
-            "rank_pca": 124,
-            "adv": 147201748.5,
-            "trades": 7189.5,
-            "volatility": 0.3578189312872188,
-            "spread_pct": 0.001076986982866866,
+            "score_pca": 94.71022948269156,
+            "rank_pca": 137,
+            "adv": 133765207.5,
+            "trades": 6745.0,
+            "volatility": 0.3557006248134922,
+            "spread_pct": 0.0011371279687285637,
             "spread_ticks": null,
-            "amihud": 9.598714543429525e-11,
-            "turnover_ratio": 0.007691575418474926,
+            "amihud": 1.0650837246208049e-10,
+            "turnover_ratio": 0.007390818235582105,
+            "is_target": false
+          },
+          {
+            "ticker": "966",
+            "score_pca": 95.91598599766627,
+            "rank_pca": 106,
+            "adv": 199305288.68,
+            "trades": 8512.0,
+            "volatility": 0.4164305190406225,
+            "spread_pct": 0.0015754932569227848,
+            "spread_ticks": null,
+            "amihud": 8.17055259482872e-11,
+            "turnover_ratio": 0.007076066625744584,
             "is_target": false
           }
         ],
         "market_comparison": {
           "sector_name": "Insurance",
           "sector_count": 21,
-          "market_count": 2566,
+          "market_count": 2571,
           "market": {
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.7412129986443076,
-              "median": 0.5896426700122256,
+              "mean": 0.75822812756525,
+              "median": 0.6031638752731745,
               "min": 0.0,
-              "max": 33.69155621232454,
-              "p5": 0.2234860817568074,
-              "p95": 1.578390762729493,
-              "count": 2565
+              "max": 33.691646467757096,
+              "p5": 0.22550745371131659,
+              "p95": 1.63682605116363,
+              "count": 2571
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 55315932.40657849,
-              "median": 207689.25,
+              "mean": 55728659.478669554,
+              "median": 210975.0,
               "min": 0.0,
-              "max": 11376396450.0,
+              "max": 11918065125.0,
               "p5": 0.0,
-              "p95": 209782336.9,
-              "count": 2566
+              "p95": 220259932.29,
+              "count": 2571
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.04209417686601101,
-              "median": 0.02711283991875178,
-              "min": 0.0005747861018128454,
+              "mean": 0.04207446141121854,
+              "median": 0.027695784679656173,
+              "min": 0.0005771856643019467,
               "max": 0.586235634471959,
-              "p5": 0.0014161011297062487,
-              "p95": 0.13360936257996903,
-              "count": 2566
+              "p5": 0.0014208584315453484,
+              "p95": 0.1324396532286795,
+              "count": 2571
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.0034733871468676488,
-              "median": 0.0008378651147225603,
+              "mean": 0.0035373519647117313,
+              "median": 0.0008301989288898599,
               "min": 0.0,
-              "max": 0.20377282466782026,
+              "max": 0.18523236964248901,
               "p5": 0.0,
-              "p95": 0.013936026148510566,
-              "count": 2551
+              "p95": 0.01457506378368512,
+              "count": 2555
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 6.32076511785314e-07,
-              "median": 4.741943094346306e-08,
+              "mean": 6.114115465324687e-07,
+              "median": 4.764775689033665e-08,
               "min": 0.0,
-              "max": 2.024037584382411e-05,
-              "p5": 5.138318648677789e-11,
-              "p95": 3.4611188554167365e-06,
-              "count": 2566
+              "max": 2.184280144806465e-05,
+              "p5": 5.243088147276305e-11,
+              "p95": 3.143788841813537e-06,
+              "count": 2571
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 1012.1938815276695,
-              "median": 19.5,
+              "mean": 1017.7306495527032,
+              "median": 19.0,
               "min": 0.0,
-              "max": 88929.0,
+              "max": 79385.5,
               "p5": 0.0,
-              "p95": 5642.0,
-              "count": 2566
+              "p95": 5533.25,
+              "count": 2571
             }
           },
           "sector": {
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.43444582029548695,
-              "median": 0.35797086670343664,
-              "min": 0.21797050446133018,
-              "max": 1.9571164205487641,
-              "p5": 0.2187146042335629,
-              "p95": 0.6359905638859137,
+              "mean": 0.4315190064202189,
+              "median": 0.3557006248134922,
+              "min": 0.21844048650518122,
+              "max": 1.968484818579439,
+              "p5": 0.22826696421155068,
+              "p95": 0.6098940062111264,
               "count": 21
             },
             "adv": {
               "direction": "higher_is_better",
-              "mean": 395134860.5542987,
-              "median": 30258669.785,
+              "mean": 395633931.9010032,
+              "median": 30156600.0,
               "min": 0.0,
-              "max": 2286237750.3,
-              "p5": 50320.0,
-              "p95": 2106529895.55,
+              "max": 2277587334.95,
+              "p5": 27000.0,
+              "p95": 2133859266.3250003,
               "count": 21
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.00851839082400369,
-              "median": 0.0021718878586147747,
-              "min": 0.0006765261455938876,
-              "max": 0.05035057826935165,
-              "p5": 0.0008478694874768748,
-              "p95": 0.03724201108557803,
+              "mean": 0.008508185857922724,
+              "median": 0.002149718430856517,
+              "min": 0.000675890048809352,
+              "max": 0.052379174494585255,
+              "p5": 0.0008483486664256693,
+              "p95": 0.03625207608907069,
               "count": 21
             },
             "turnover_ratio": {
               "direction": "higher_is_better",
-              "mean": 0.0037184483187270795,
+              "mean": 0.0036545330583630077,
               "median": 0.002980167291234769,
               "min": 0.0,
-              "max": 0.010052468189646493,
-              "p5": 4.3184181293360595e-07,
-              "p95": 0.009846611552401656,
+              "max": 0.009771684565041131,
+              "p5": 3.0845843780971854e-07,
+              "p95": 0.009404131840219713,
               "count": 21
             },
             "amihud": {
               "direction": "lower_is_better",
-              "mean": 2.357352567168868e-08,
+              "mean": 2.811933185913324e-08,
               "median": 4.2320166367483765e-10,
               "min": 4.883409595552578e-12,
-              "max": 1.479553823217473e-07,
-              "p5": 7.214710232545567e-12,
-              "p95": 1.4526121598163848e-07,
+              "max": 2.1603719112949397e-07,
+              "p5": 6.865674918277967e-12,
+              "p95": 1.4097085128208605e-07,
               "count": 21
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 4964.285714285715,
-              "median": 1137.0,
+              "mean": 4953.380952380952,
+              "median": 1191.0,
               "min": 0.0,
-              "max": 16971.5,
-              "p5": 3.0,
-              "p95": 16216.5,
+              "max": 17315.0,
+              "p5": 2.0,
+              "p95": 16392.5,
               "count": 21
             }
           },
           "peers": {
             "adv": {
               "direction": "higher_is_better",
-              "mean": 34301663.65628427,
-              "median": 20222279.0,
-              "min": 364171.5813130491,
-              "max": 147201748.5,
-              "p5": 1424037.527853482,
-              "p95": 112517969.90899995,
+              "mean": 57064727.69513376,
+              "median": 27320287.7,
+              "min": 3587050.0,
+              "max": 199305288.68,
+              "p5": 3953722.9433745183,
+              "p95": 176366260.26699996,
               "count": 8
             },
             "trades": {
               "direction": "higher_is_better",
-              "mean": 1571.1875,
-              "median": 941.25,
-              "min": 3.0,
-              "max": 7189.5,
-              "p5": 13.325000000000001,
-              "p95": 5466.274999999998,
+              "mean": 2578.4375,
+              "median": 1029.0,
+              "min": 33.0,
+              "max": 8512.0,
+              "p5": 43.15,
+              "p95": 7893.549999999999,
               "count": 8
             },
             "volatility": {
               "direction": "lower_is_better",
-              "mean": 0.3574678209941948,
-              "median": 0.35688756674148225,
-              "min": 0.21797050446133018,
-              "max": 0.6359905638859137,
-              "p5": 0.21823093938161164,
-              "p95": 0.5472064629719388,
+              "mean": 0.3577681702087466,
+              "median": 0.34690058195360723,
+              "min": 0.21844048650518122,
+              "max": 0.6098940062111264,
+              "p5": 0.22187975370241053,
+              "p95": 0.5421817857014499,
               "count": 8
             },
             "spread_pct": {
               "direction": "lower_is_better",
-              "mean": 0.0032457418722365555,
-              "median": 0.0027692053093815636,
-              "min": 0.001076986982866866,
-              "max": 0.006642108829882296,
-              "p5": 0.0014136252315835346,
-              "p95": 0.005812478225857052,
-              "count": 8
-            },
-            "amihud": {
-              "direction": "lower_is_better",
-              "mean": 4.610700091884382e-09,
-              "median": 7.705990559811574e-10,
-              "min": 9.598714543429525e-11,
-              "max": 2.9911982220572446e-08,
-              "p5": 1.6229873820318147e-10,
-              "p95": 2.0321038762774056e-08,
-              "count": 8
-            },
-            "turnover_ratio": {
-              "direction": "higher_is_better",
-              "mean": 0.002905078040450367,
-              "median": 0.002064316998153081,
-              "min": 4.3184181293360595e-07,
-              "max": 0.007691575418474926,
-              "p5": 2.801154002230877e-06,
-              "p95": 0.00730267275991567,
+              "mean": 0.003256892299740872,
+              "median": 0.00275985846234272,
+              "min": 0.0011371279687285637,
+              "max": 0.006718332424202004,
+              "p5": 0.0012905558195965411,
+              "p95": 0.005939555876428244,
               "count": 8
             },
             "spread_ticks": {
               "direction": "neutral",
-              "mean": 2.5352195554138497,
-              "median": 1.9582609478502433,
-              "min": 1.0770572149604944,
-              "max": 5.966060398078243,
-              "p5": 1.1148431940544847,
-              "p95": 5.230414471660537,
-              "count": 6
+              "mean": 2.503344353259468,
+              "median": 1.3526260713573848,
+              "min": 1.0760004750029686,
+              "max": 6.3194773135302755,
+              "p5": 1.1065479920612944,
+              "p95": 5.5635578200466425,
+              "count": 5
+            },
+            "amihud": {
+              "direction": "lower_is_better",
+              "mean": 9.017777964514821e-10,
+              "median": 5.789557112725479e-10,
+              "min": 8.17055259482872e-11,
+              "max": 2.3920814572436205e-09,
+              "p5": 9.038652222811485e-11,
+              "p95": 2.307093049425563e-09,
+              "count": 8
+            },
+            "turnover_ratio": {
+              "direction": "higher_is_better",
+              "mean": 0.003722318801866455,
+              "median": 0.004007071846044922,
+              "min": 7.406220399854591e-06,
+              "max": 0.007390818235582105,
+              "p5": 9.08281079545301e-06,
+              "p95": 0.007280655172138973,
+              "count": 8
             }
           },
           "returns": {
             "window_days": 126,
             "n_obs": 126,
-            "stock": 0.10642377756471588,
-            "market": 0.13246234055294548,
-            "sector": -0.07271020565986053,
-            "peers": -0.17713068024066558,
-            "vs_market": -0.026038562988229597,
-            "vs_sector": 0.1791339832245764,
-            "vs_peers": 0.28355445780538147
+            "stock": 0.12842304060434317,
+            "market": 0.15043005670937237,
+            "sector": -0.10017017179734633,
+            "peers": -0.18465185595292855,
+            "vs_market": -0.022007016105029198,
+            "vs_sector": 0.2285932124016895,
+            "vs_peers": 0.3130748965572717
           }
         }
       }
     },
     "period_insights": {
       "1d": {
-        "liquidity": "Current trading looks balanced rather than stressed. Displayed bid depth is 1.78x ask depth and the spread is 3 ticks, which supports near-term access even with weaker structural liquidity.",
-        "market_comparison": "Return 1.0% vs peers -0.5%."
+        "liquidity": "1D score 60.6 vs peer median 73.9 (-13.2 pts).",
+        "market_comparison": "Return 0.0% vs peers 0.1%."
       },
       "30d": {
-        "liquidity": "1M score 66.6 vs peer median 75.1 (-8.5 pts).",
-        "market_comparison": "The stock has outperformed, returning +7.3% over 1M compared with peers at -2.7% and the market at +6.2%. That matters because the return backdrop is stronger than the peer group even though liquidity is not."
+        "liquidity": "Liquidity is weak on the monthly view, with a score of 67.8 compared with a peer median of 78.5, which leaves access below the peer group.",
+        "market_comparison": "The stock returned 0.8% over 1M while peers fell 6.2%, which gives trading a firmer backdrop than the sector."
       },
       "3m": {
-        "liquidity": "The medium-term picture still reads as weak rather than deteriorating. The six-month liquidity score is 67.4 compared with a peer median of 78.5, which indicates a persistent gap in accessibility.",
-        "market_comparison": "Sector moves are the main current driver at 54.6%. That matters because trading conditions are still being shaped more by broader market forces than by company-specific news.",
-        "6m": {
-          "liquidity": "Structural liquidity is weak on a six-month view. The score of 67.4 sits 11.2 points below the peer median of 78.5, which means the stock is less accessible than comparable names.",
-          "market_comparison": "Primary average daily volume is HK$7.9M compared with a peer median of HK$20.2M. That matters because lower average volume usually translates into thinner access and less capacity than peers."
-        }
+        "liquidity": "Liquidity remains weak over 3M, with a score of 67.2 compared with a peer median of 79.6, showing the gap is structural rather than a short-term move.",
+        "market_comparison": "The stock rose 3.1% over 3M while peers fell 17.5%, which supports interest even though liquidity still screens below peers."
+      },
+      "6m": {
+        "liquidity": "Liquidity is weak over 6M, with a score of 67.9 compared with a peer median of 79.9, so accessibility has been consistently below peers for its size.",
+        "market_comparison": "The stock gained 12.8% over 6M while peers fell 18.5%, which strengthens the return backdrop but does not close the liquidity gap."
       }
     }
   },
@@ -1696,124 +1696,124 @@ export const REPORT_DATA: ReportData = {
       "n_regimes": 4,
       "current_regime": 2,
       "current_regime_label": "Stressed / Illiquid",
-      "current_regime_probability": 0.999999998860542,
-      "current_regime_probability_display": ">99.9%",
+      "current_regime_probability": 0.9984577388326532,
+      "current_regime_probability_display": "99.8%",
       "current_probability_basis": "filtered",
       "historical_probability_basis": "smoothed",
       "current_driver_mix": {
         "market_share": {
-          "median": 0.3793349603854555,
+          "median": 0.38913472981046404,
           "low": null,
           "high": null,
           "range_collapsed": false,
-          "display_value": "37.9%",
+          "display_value": "38.9%",
           "display_range": null,
-          "display_text": "37.9%",
+          "display_text": "38.9%",
           "is_point_estimate": true,
           "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
           "kind": "share_pct",
-          "value_pct": 37.9,
-          "plain_english": "Market explains about 37.9% of price moves in the current state."
+          "value_pct": 38.9,
+          "plain_english": "Market explains about 38.9% of price moves in the current state."
         },
         "sector_share": {
-          "median": 0.5463791636096462,
+          "median": 0.4843773200892645,
           "low": null,
           "high": null,
           "range_collapsed": false,
-          "display_value": "54.6%",
+          "display_value": "48.4%",
           "display_range": null,
-          "display_text": "54.6%",
+          "display_text": "48.4%",
           "is_point_estimate": true,
           "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
           "kind": "share_pct",
-          "value_pct": 54.6,
-          "plain_english": "Sector explains about 54.6% of price moves in the current state."
+          "value_pct": 48.4,
+          "plain_english": "Sector explains about 48.4% of price moves in the current state."
         },
         "company_share": {
-          "median": 0.07428587600489825,
+          "median": 0.12648795010027147,
           "low": null,
           "high": null,
           "range_collapsed": false,
-          "display_value": "7.4%",
+          "display_value": "12.6%",
           "display_range": null,
-          "display_text": "7.4%",
+          "display_text": "12.6%",
           "is_point_estimate": true,
           "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
           "kind": "share_pct",
-          "value_pct": 7.4,
-          "plain_english": "Company-specific explains about 7.4% of price moves in the current state."
+          "value_pct": 12.6,
+          "plain_english": "Company-specific explains about 12.6% of price moves in the current state."
         },
         "basis": "current_state"
       },
       "current_sensitivities": {
         "beta_market": {
-          "median": 0.3485640656875511,
+          "median": 0.5713380867249417,
           "low": null,
           "high": null,
           "range_collapsed": false,
-          "display_value": "0.35",
+          "display_value": "0.57",
           "display_range": null,
-          "display_text": "0.35",
+          "display_text": "0.57",
           "is_point_estimate": true,
           "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
           "kind": "beta",
           "strength_label": "Modest",
-          "plain_english": "Modest market link: a 1% market move has lined up with about a 0.35% stock move in the same direction in this state.",
-          "value_num": 0.35
+          "plain_english": "Modest market link: a 1% market move has lined up with about a 0.57% stock move in the same direction in this state.",
+          "value_num": 0.57
         },
         "beta_stock_lag": {
-          "median": -0.43908847309049115,
+          "median": -0.5572552410366294,
           "low": null,
           "high": null,
           "range_collapsed": false,
-          "display_value": "-0.44",
+          "display_value": "-0.56",
           "display_range": null,
-          "display_text": "-0.44",
+          "display_text": "-0.56",
           "is_point_estimate": true,
           "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
           "kind": "lag_beta",
-          "value_num": -0.44
+          "value_num": -0.56
         },
         "beta_sector": {
-          "median": -1.0606429079324493,
+          "median": 4.483814424521306,
           "low": null,
           "high": null,
           "range_collapsed": false,
-          "display_value": "-1.06",
+          "display_value": "4.48",
           "display_range": null,
-          "display_text": "-1.06",
+          "display_text": "4.48",
           "is_point_estimate": true,
           "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
           "kind": "beta",
-          "strength_label": "Moderate",
-          "plain_english": "Moderate sector link: a 1% sector move has lined up with about a 1.06% stock move in the opposite direction in this state.",
-          "value_num": -1.06
+          "strength_label": "Very high",
+          "plain_english": "Very high sector link: a 1% sector move has lined up with about a 4.48% stock move in the same direction in this state.",
+          "value_num": 4.48
         },
         "beta_market_lag": {
-          "median": 1.6769175581659492,
+          "median": 3.5008677687846657,
           "low": null,
           "high": null,
           "range_collapsed": false,
-          "display_value": "1.68",
+          "display_value": "3.50",
           "display_range": null,
-          "display_text": "1.68",
+          "display_text": "3.50",
           "is_point_estimate": true,
           "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
           "kind": "lag_beta",
-          "value_num": 1.68
+          "value_num": 3.5
         },
         "beta_sector_lag": {
-          "median": -1.781228752943431,
+          "median": -1.5485450298293817,
           "low": null,
           "high": null,
           "range_collapsed": false,
-          "display_value": "-1.78",
+          "display_value": "-1.55",
           "display_range": null,
-          "display_text": "-1.78",
+          "display_text": "-1.55",
           "is_point_estimate": true,
           "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
           "kind": "lag_beta",
-          "value_num": -1.78
+          "value_num": -1.55
         },
         "posterior_source": null,
         "intervals_collapsed": false,
@@ -1823,146 +1823,75 @@ export const REPORT_DATA: ReportData = {
       "rolling_windows": {},
       "monthly_history": [
         {
-          "month_key": "2025-04",
-          "month_label": "April 2025",
-          "month_short_label": "Apr",
-          "period_label": "2025-04-16 to 2025-04-30",
-          "n_obs": 9,
-          "partial_month": true,
-          "dominant_driver": "sector",
-          "dominant_driver_label": "Sector",
-          "regime_id": null,
-          "regime_label": null,
-          "dominant_share": {
-            "median": 0.45103925334935036,
-            "low": null,
-            "high": null,
-            "range_collapsed": false,
-            "display_value": "45.1%",
-            "display_range": null,
-            "display_text": "45.1%",
-            "is_point_estimate": true,
-            "point_estimate_note": "Point estimate only because the current state has 9 trading days.",
-            "kind": "share_pct",
-            "value_pct": 45.1,
-            "plain_english": "Sector explains about 45.1% of price moves in the current state."
-          },
-          "shares": {
-            "market_share": {
-              "median": 0.4436404446758936,
-              "low": null,
-              "high": null,
-              "range_collapsed": false,
-              "display_value": "44.4%",
-              "display_range": null,
-              "display_text": "44.4%",
-              "is_point_estimate": true,
-              "point_estimate_note": "Point estimate only because the current state has 9 trading days.",
-              "kind": "share_pct",
-              "value_pct": 44.4,
-              "plain_english": "Market explains about 44.4% of price moves in the current state."
-            },
-            "sector_share": {
-              "median": 0.45103925334935036,
-              "low": null,
-              "high": null,
-              "range_collapsed": false,
-              "display_value": "45.1%",
-              "display_range": null,
-              "display_text": "45.1%",
-              "is_point_estimate": true,
-              "point_estimate_note": "Point estimate only because the current state has 9 trading days.",
-              "kind": "share_pct",
-              "value_pct": 45.1,
-              "plain_english": "Sector explains about 45.1% of price moves in the current state."
-            },
-            "company_share": {
-              "median": 0.10532030197475606,
-              "low": null,
-              "high": null,
-              "range_collapsed": false,
-              "display_value": "10.5%",
-              "display_range": null,
-              "display_text": "10.5%",
-              "is_point_estimate": true,
-              "point_estimate_note": "Point estimate only because the current state has 9 trading days.",
-              "kind": "share_pct",
-              "value_pct": 10.5,
-              "plain_english": "Company-specific explains about 10.5% of price moves in the current state."
-            }
-          },
-          "summary": "Apr: Mostly sector-driven."
-        },
-        {
           "month_key": "2025-05",
           "month_label": "May 2025",
           "month_short_label": "May",
-          "period_label": "2025-05-02 to 2025-05-30",
-          "n_obs": 20,
+          "period_label": "2025-05-09 to 2025-05-30",
+          "n_obs": 16,
           "partial_month": true,
           "dominant_driver": "company",
           "dominant_driver_label": "Company-specific",
           "regime_id": null,
           "regime_label": null,
           "dominant_share": {
-            "median": 0.4883107134024427,
+            "median": 0.4245159322630158,
             "low": null,
             "high": null,
             "range_collapsed": false,
-            "display_value": "48.8%",
+            "display_value": "42.5%",
             "display_range": null,
-            "display_text": "48.8%",
+            "display_text": "42.5%",
             "is_point_estimate": true,
-            "point_estimate_note": "Point estimate only because the current state has 20 trading days.",
+            "point_estimate_note": "Point estimate only because the current state has 16 trading days.",
             "kind": "share_pct",
-            "value_pct": 48.8,
-            "plain_english": "Company-specific explains about 48.8% of price moves in the current state."
+            "value_pct": 42.5,
+            "plain_english": "Company-specific explains about 42.5% of price moves in the current state."
           },
           "shares": {
             "market_share": {
-              "median": 0.27958120795527386,
+              "median": 0.41608517633152675,
               "low": null,
               "high": null,
               "range_collapsed": false,
-              "display_value": "28.0%",
+              "display_value": "41.6%",
               "display_range": null,
-              "display_text": "28.0%",
+              "display_text": "41.6%",
               "is_point_estimate": true,
-              "point_estimate_note": "Point estimate only because the current state has 20 trading days.",
+              "point_estimate_note": "Point estimate only because the current state has 16 trading days.",
               "kind": "share_pct",
-              "value_pct": 28.0,
-              "plain_english": "Market explains about 28.0% of price moves in the current state."
+              "value_pct": 41.6,
+              "plain_english": "Market explains about 41.6% of price moves in the current state."
             },
             "sector_share": {
-              "median": 0.23210807864228358,
+              "median": 0.1593988914054574,
               "low": null,
               "high": null,
               "range_collapsed": false,
-              "display_value": "23.2%",
+              "display_value": "15.9%",
               "display_range": null,
-              "display_text": "23.2%",
+              "display_text": "15.9%",
               "is_point_estimate": true,
-              "point_estimate_note": "Point estimate only because the current state has 20 trading days.",
+              "point_estimate_note": "Point estimate only because the current state has 16 trading days.",
               "kind": "share_pct",
-              "value_pct": 23.2,
-              "plain_english": "Sector explains about 23.2% of price moves in the current state."
+              "value_pct": 15.9,
+              "plain_english": "Sector explains about 15.9% of price moves in the current state."
             },
             "company_share": {
-              "median": 0.4883107134024427,
+              "median": 0.4245159322630158,
               "low": null,
               "high": null,
               "range_collapsed": false,
-              "display_value": "48.8%",
+              "display_value": "42.5%",
               "display_range": null,
-              "display_text": "48.8%",
+              "display_text": "42.5%",
               "is_point_estimate": true,
-              "point_estimate_note": "Point estimate only because the current state has 20 trading days.",
+              "point_estimate_note": "Point estimate only because the current state has 16 trading days.",
               "kind": "share_pct",
-              "value_pct": 48.8,
-              "plain_english": "Company-specific explains about 48.8% of price moves in the current state."
+              "value_pct": 42.5,
+              "plain_english": "Company-specific explains about 42.5% of price moves in the current state."
             }
           },
-          "summary": "May: Mostly company-driven."
+          "summary": "May: More mixed, though company-driven still has the largest share."
         },
         {
           "month_key": "2025-06",
@@ -2744,151 +2673,222 @@ export const REPORT_DATA: ReportData = {
             }
           },
           "summary": "Apr: Mostly market-driven."
+        },
+        {
+          "month_key": "2026-05",
+          "month_label": "May 2026",
+          "month_short_label": "May",
+          "period_label": "2026-05-04 to 2026-05-22",
+          "n_obs": 15,
+          "partial_month": true,
+          "dominant_driver": "company",
+          "dominant_driver_label": "Company-specific",
+          "regime_id": null,
+          "regime_label": null,
+          "dominant_share": {
+            "median": 0.36784031838420955,
+            "low": null,
+            "high": null,
+            "range_collapsed": false,
+            "display_value": "36.8%",
+            "display_range": null,
+            "display_text": "36.8%",
+            "is_point_estimate": true,
+            "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+            "kind": "share_pct",
+            "value_pct": 36.8,
+            "plain_english": "Company-specific explains about 36.8% of price moves in the current state."
+          },
+          "shares": {
+            "market_share": {
+              "median": 0.2773969845775809,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "27.7%",
+              "display_range": null,
+              "display_text": "27.7%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+              "kind": "share_pct",
+              "value_pct": 27.7,
+              "plain_english": "Market explains about 27.7% of price moves in the current state."
+            },
+            "sector_share": {
+              "median": 0.3547626970382096,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "35.5%",
+              "display_range": null,
+              "display_text": "35.5%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+              "kind": "share_pct",
+              "value_pct": 35.5,
+              "plain_english": "Sector explains about 35.5% of price moves in the current state."
+            },
+            "company_share": {
+              "median": 0.36784031838420955,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "36.8%",
+              "display_range": null,
+              "display_text": "36.8%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+              "kind": "share_pct",
+              "value_pct": 36.8,
+              "plain_english": "Company-specific explains about 36.8% of price moves in the current state."
+            }
+          },
+          "summary": "May: Much more balanced across company, sector, and market factors."
         }
       ],
       "regimes": [
         {
           "id": 0,
           "label": "Calm / Liquid",
-          "pct_time": 0.18592406952842683,
-          "expected_duration_days": 4.305361450194776,
-          "current_probability": 1.3492975515257833e-20,
+          "pct_time": 0.1845518371000242,
+          "expected_duration_days": 4.542270017411272,
+          "current_probability": 9.639983651026922e-18,
           "current_probability_display": "<0.1%",
           "current_probability_basis": "filtered",
-          "n_days_effective": 46.66694145163513,
+          "n_days_effective": 46.32251111210608,
           "volatility": {
-            "median": 0.0074381360911349404,
-            "low": 0.0074381360911349404,
-            "high": 0.0074381360911349404
+            "median": 0.0078088952523777,
+            "low": 0.0078088952523777,
+            "high": 0.0078088952523777
           },
           "volatility_label": "Calm / Liquid",
-          "jump_probability": 0.15897601377863665,
-          "jump_rate": 1.114553229853315e-06,
-          "risk_score": 0.011612311978740948,
+          "jump_probability": 0.1803339116380829,
+          "jump_rate": 0.00010114260672673877,
+          "risk_score": 0.01573057144961522,
           "metrics": {
-            "rolling_vol_10d": 0.010321717069063381,
-            "downside_vol_10d": 0.005136716679751229,
-            "drawdown_21d": 0.012336646683893383,
-            "amihud_stress": 0.09947762729866734,
-            "spread_rel": 26.762933398013274,
-            "spread_ticks": 4.317996058376258,
-            "log_notional": 15.730241876363014,
-            "log_trade_count": 5.356313101138973
+            "rolling_vol_10d": 0.010186033340106515,
+            "downside_vol_10d": 0.005026593711083678,
+            "drawdown_21d": 0.011908119019798992,
+            "amihud_stress": 0.09693563436345307,
+            "spread_rel": 27.021717648873654,
+            "spread_ticks": 4.335356150804627,
+            "log_notional": 15.778040634126913,
+            "log_trade_count": 5.406004795625246
           }
         },
         {
           "id": 1,
           "label": "Normal / Active",
-          "pct_time": 0.2737309791936572,
-          "expected_duration_days": 5.408898242605185,
-          "current_probability": 1.897027949509659e-42,
+          "pct_time": 0.27282690608320576,
+          "expected_duration_days": 6.723843433601532,
+          "current_probability": 0.00018251885507725144,
           "current_probability_display": "<0.1%",
           "current_probability_basis": "filtered",
-          "n_days_effective": 68.70647577760795,
+          "n_days_effective": 68.47955342688465,
           "volatility": {
-            "median": 0.01841774002943619,
-            "low": 0.01841774002943619,
-            "high": 0.01841774002943619
+            "median": 0.01713360953942907,
+            "low": 0.01713360953942907,
+            "high": 0.01713360953942907
           },
           "volatility_label": "Normal / Active",
-          "jump_probability": 0.24303022247455539,
-          "jump_rate": 0.04360294175638448,
-          "risk_score": 0.31941745430367363,
+          "jump_probability": 0.2235469297231818,
+          "jump_rate": 0.043742724927105854,
+          "risk_score": 0.26737060272618335,
           "metrics": {
-            "rolling_vol_10d": 0.01615128260797271,
-            "downside_vol_10d": 0.007870323175543476,
-            "drawdown_21d": 0.021294562634280804,
-            "amihud_stress": 0.17219827350835262,
-            "spread_rel": 26.570085383140004,
-            "spread_ticks": 3.2939477261836436,
-            "log_notional": 16.024112658425015,
-            "log_trade_count": 5.594579165253343
+            "rolling_vol_10d": 0.016083095264823877,
+            "downside_vol_10d": 0.007866560006466097,
+            "drawdown_21d": 0.02221525841305102,
+            "amihud_stress": 0.163079097984146,
+            "spread_rel": 26.62298934318184,
+            "spread_ticks": 3.302283345197291,
+            "log_notional": 16.000966753833357,
+            "log_trade_count": 5.561989432665824
           }
         },
         {
           "id": 2,
           "label": "Stressed / Illiquid",
-          "pct_time": 0.3134733362873029,
-          "expected_duration_days": 6.959043338224177,
-          "current_probability": 0.999999998860542,
-          "current_probability_display": ">99.9%",
+          "pct_time": 0.2903680161449006,
+          "expected_duration_days": 5.592530933294633,
+          "current_probability": 0.9984577388326532,
+          "current_probability_display": "99.8%",
           "current_probability_basis": "filtered",
-          "n_days_effective": 78.68180740811303,
+          "n_days_effective": 72.88237205237004,
           "volatility": {
-            "median": 0.010169396290875385,
-            "low": 0.010169396290875385,
-            "high": 0.010169396290875385
+            "median": 0.010130784659521027,
+            "low": 0.010130784659521027,
+            "high": 0.010130784659521027
           },
           "volatility_label": "Stressed / Illiquid",
-          "jump_probability": 0.19860772177205602,
-          "jump_rate": 0.025303721276844715,
-          "risk_score": 0.3508676940591029,
+          "jump_probability": 0.1994900893748884,
+          "jump_rate": 0.013714347688367432,
+          "risk_score": 0.37970521969892884,
           "metrics": {
-            "rolling_vol_10d": 0.016896943394621635,
-            "downside_vol_10d": 0.00828179102442849,
-            "drawdown_21d": 0.01935496851101161,
-            "amihud_stress": 0.08987506944574623,
-            "spread_rel": 33.67693372493178,
-            "spread_ticks": 4.333523939635506,
-            "log_notional": 15.988565489688925,
-            "log_trade_count": 5.592506058694635
+            "rolling_vol_10d": 0.017530270761234014,
+            "downside_vol_10d": 0.00882185767400303,
+            "drawdown_21d": 0.023070569624913637,
+            "amihud_stress": 0.08693123265375194,
+            "spread_rel": 34.516568757379375,
+            "spread_ticks": 4.301264220839396,
+            "log_notional": 15.946851806693969,
+            "log_trade_count": 5.585281083086917
           }
         },
         {
           "id": 3,
           "label": "Jump / Tail Shock",
-          "pct_time": 0.22687161499061306,
-          "expected_duration_days": 5.5849884090559225,
-          "current_probability": 1.139457992972753e-09,
-          "current_probability_display": "<0.1%",
+          "pct_time": 0.2522532406718695,
+          "expected_duration_days": 4.572238030527758,
+          "current_probability": 0.0013597423122694247,
+          "current_probability_display": "0.1%",
           "current_probability_basis": "filtered",
-          "n_days_effective": 56.94477536264388,
+          "n_days_effective": 63.31556340863925,
           "volatility": {
-            "median": 0.02888688114094495,
-            "low": 0.02888688114094495,
-            "high": 0.02888688114094495
+            "median": 0.02971495914931679,
+            "low": 0.02971495914931679,
+            "high": 0.02971495914931679
           },
           "volatility_label": "Jump / Tail Shock",
-          "jump_probability": 0.32931128927506625,
-          "jump_rate": 0.17584055670799345,
+          "jump_probability": 0.347081883753662,
+          "jump_rate": 0.17373766841680838,
           "risk_score": 1.0,
           "metrics": {
-            "rolling_vol_10d": 0.025671671387483275,
-            "downside_vol_10d": 0.01521464545385289,
-            "drawdown_21d": 0.06277439456607813,
-            "amihud_stress": 0.2357047010183241,
-            "spread_rel": 41.34501720246765,
-            "spread_ticks": 4.9083571792959475,
-            "log_notional": 15.897455790886042,
-            "log_trade_count": 5.540088150965479
+            "rolling_vol_10d": 0.025620924731100014,
+            "downside_vol_10d": 0.014736363943419813,
+            "drawdown_21d": 0.06163173899724627,
+            "amihud_stress": 0.23135969825875027,
+            "spread_rel": 39.211772931443754,
+            "spread_ticks": 4.5909910046584965,
+            "log_notional": 16.00671528966338,
+            "log_trade_count": 5.6368889384391805
           }
         }
       ],
       "transitions": {
         "mean": [
           [
-            0.7677314642293832,
-            0.189096248402701,
-            0.0002146464216198664,
-            0.04295764094629607
+            0.7798457607833011,
+            0.17646363487453798,
+            0.00021874042533710048,
+            0.0434718639168237
           ],
           [
-            0.14028150415241325,
-            0.8151194651577782,
-            0.02865966538223331,
-            0.015939365307575375
+            0.11950376532495194,
+            0.8512755375887204,
+            0.00015577726271813708,
+            0.029064919823609505
           ],
           [
-            0.015472166825941137,
-            0.03683109744861972,
-            0.8563020876005664,
-            0.09139464812487276
+            0.02804838435957624,
+            0.013812960959255835,
+            0.8211900815699401,
+            0.13694857311122788
           ],
           [
-            0.00017531508747927374,
-            0.00019266328428101665,
-            0.17868342276965024,
-            0.8209485988585895
+            0.0001577602659467674,
+            0.0001605136102178921,
+            0.21839299909852206,
+            0.7812887270253134
           ]
         ],
         "low": [],
@@ -2896,27 +2896,27 @@ export const REPORT_DATA: ReportData = {
         "counts": [
           [
             36.0,
-            9.0,
+            8.0,
             0.0,
             2.0
           ],
           [
-            10.0,
-            55.0,
+            8.0,
+            59.0,
+            0.0,
+            2.0
+          ],
+          [
             2.0,
-            1.0
-          ],
-          [
             1.0,
-            3.0,
-            67.0,
-            7.0
+            59.0,
+            10.0
           ],
           [
             0.0,
             0.0,
-            10.0,
-            47.0
+            14.0,
+            49.0
           ]
         ]
       },
@@ -2925,35 +2925,35 @@ export const REPORT_DATA: ReportData = {
         {
           "id": 0,
           "label": "Calm / Liquid",
-          "probability": 1.3492975515257833e-20,
+          "probability": 9.639983651026922e-18,
           "probability_display": "<0.1%",
           "basis": "filtered"
         },
         {
           "id": 1,
           "label": "Normal / Active",
-          "probability": 1.897027949509659e-42,
+          "probability": 0.00018251885507725144,
           "probability_display": "<0.1%",
           "basis": "filtered"
         },
         {
           "id": 2,
           "label": "Stressed / Illiquid",
-          "probability": 0.999999998860542,
-          "probability_display": ">99.9%",
+          "probability": 0.9984577388326532,
+          "probability_display": "99.8%",
           "basis": "filtered"
         },
         {
           "id": 3,
           "label": "Jump / Tail Shock",
-          "probability": 1.139457992972753e-09,
-          "probability_display": "<0.1%",
+          "probability": 0.0013597423122694247,
+          "probability_display": "0.1%",
           "basis": "filtered"
         }
       ],
       "jump_risk": {
-        "current_probability": 0.19860772192098725,
-        "current_score": 1.0548442059227112,
+        "current_probability": 0.19969516700960613,
+        "current_score": 0.5525756401451052,
         "current_flag": false,
         "jump_threshold_score": 2.5,
         "method": "robust_residual_and_return_jump_overlay",
@@ -2962,54 +2962,54 @@ export const REPORT_DATA: ReportData = {
       "model_selection": {
         "chosen": 4,
         "criterion": "bic_with_min_state_support",
-        "bic": 11967.325568081922,
-        "loglik": -5455.982028353876,
+        "bic": 11816.571505445525,
+        "loglik": -5380.604997035677,
         "n_params": 191,
-        "bic_delta_vs_next_best": 166.09064869980102,
+        "bic_delta_vs_next_best": 165.00843268413882,
         "candidates": [
           {
             "k": 2,
             "valid": true,
             "reason": "ok",
-            "bic": 12696.537171588867,
-            "loglik": -6096.860477063938,
+            "bic": 12503.496694478257,
+            "loglik": -6000.340238508633,
             "n_params": 91,
             "converged": true,
-            "iterations": 17,
-            "best_seed": 1337,
+            "iterations": 11,
+            "best_seed": 42,
             "seed_runs": [
               {
                 "seed": 42,
                 "k": 2,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12696.537184174435,
-                "loglik": -6096.8604833567215,
+                "bic": 12503.496694478257,
+                "loglik": -6000.340238508633,
                 "n_params": 91,
                 "converged": true,
-                "iterations": 16
+                "iterations": 11
               },
               {
                 "seed": 1337,
                 "k": 2,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12696.537171588867,
-                "loglik": -6096.860477063938,
+                "bic": 12503.496694888183,
+                "loglik": -6000.340238713596,
                 "n_params": 91,
                 "converged": true,
-                "iterations": 17
+                "iterations": 11
               },
               {
                 "seed": 2027,
                 "k": 2,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12696.537194550161,
-                "loglik": -6096.860488544585,
+                "bic": 12503.496698115167,
+                "loglik": -6000.3402403270875,
                 "n_params": 91,
                 "converged": true,
-                "iterations": 16
+                "iterations": 11
               }
             ]
           },
@@ -3017,11 +3017,11 @@ export const REPORT_DATA: ReportData = {
             "k": 3,
             "valid": true,
             "reason": "ok",
-            "bic": 12133.416216781723,
-            "loglik": -5679.926402651637,
+            "bic": 11981.579938129664,
+            "loglik": -5604.008263325607,
             "n_params": 140,
             "converged": true,
-            "iterations": 35,
+            "iterations": 24,
             "best_seed": 42,
             "seed_runs": [
               {
@@ -3029,33 +3029,33 @@ export const REPORT_DATA: ReportData = {
                 "k": 3,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12133.416216781723,
-                "loglik": -5679.926402651637,
+                "bic": 11981.579938129664,
+                "loglik": -5604.008263325607,
                 "n_params": 140,
                 "converged": true,
-                "iterations": 35
+                "iterations": 24
               },
               {
                 "seed": 1337,
                 "k": 3,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12133.416217123144,
-                "loglik": -5679.926402822347,
+                "bic": 11981.57994334027,
+                "loglik": -5604.00826593091,
                 "n_params": 140,
                 "converged": true,
-                "iterations": 35
+                "iterations": 21
               },
               {
                 "seed": 2027,
                 "k": 3,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12194.209561354217,
-                "loglik": -5710.323074937884,
+                "bic": 11981.57994103151,
+                "loglik": -5604.00826477653,
                 "n_params": 140,
                 "converged": true,
-                "iterations": 18
+                "iterations": 22
               }
             ]
           },
@@ -3063,45 +3063,45 @@ export const REPORT_DATA: ReportData = {
             "k": 4,
             "valid": true,
             "reason": "ok",
-            "bic": 11967.325568081922,
-            "loglik": -5455.982028353876,
+            "bic": 11816.571505445525,
+            "loglik": -5380.604997035677,
             "n_params": 191,
             "converged": true,
-            "iterations": 37,
-            "best_seed": 2027,
+            "iterations": 28,
+            "best_seed": 42,
             "seed_runs": [
               {
                 "seed": 42,
                 "k": 4,
                 "valid": true,
                 "reason": "ok",
-                "bic": 11967.325569941037,
-                "loglik": -5455.982029283433,
+                "bic": 11816.571505445525,
+                "loglik": -5380.604997035677,
                 "n_params": 191,
                 "converged": true,
-                "iterations": 37
+                "iterations": 28
               },
               {
                 "seed": 1337,
                 "k": 4,
                 "valid": true,
                 "reason": "ok",
-                "bic": 11967.325576517162,
-                "loglik": -5455.982032571495,
+                "bic": 11816.571618982804,
+                "loglik": -5380.605053804316,
                 "n_params": 191,
                 "converged": true,
-                "iterations": 39
+                "iterations": 28
               },
               {
                 "seed": 2027,
                 "k": 4,
                 "valid": true,
                 "reason": "ok",
-                "bic": 11967.325568081922,
-                "loglik": -5455.982028353876,
+                "bic": 11816.571591982169,
+                "loglik": -5380.605040303999,
                 "n_params": 191,
                 "converged": true,
-                "iterations": 37
+                "iterations": 29
               }
             ]
           }
@@ -3117,21 +3117,21 @@ export const REPORT_DATA: ReportData = {
             {
               "seed": 42,
               "selected_states": 4,
-              "bic": 11967.325569941037,
+              "bic": 11816.571505445525,
               "valid": true,
               "reason": null
             },
             {
               "seed": 1337,
               "selected_states": 4,
-              "bic": 11967.325576517162,
+              "bic": 11816.571618982804,
               "valid": true,
               "reason": null
             },
             {
               "seed": 2027,
               "selected_states": 4,
-              "bic": 11967.325568081922,
+              "bic": 11816.571591982169,
               "valid": true,
               "reason": null
             }
@@ -3156,9 +3156,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 6799.1593836333695,
-                "3": 6706.225747575181,
-                "4": 6580.940286392184
+                "2": 6757.1966092301545,
+                "3": 6634.928185360642,
+                "4": 6529.31897877415
               },
               "valid": true
             },
@@ -3171,9 +3171,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 9780.77841935878,
-                "3": 9355.955179194492,
-                "4": 9293.263960228629
+                "2": 9741.311671319603,
+                "3": 9259.144008107347,
+                "4": 9149.842559500365
               },
               "valid": true
             },
@@ -3186,9 +3186,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 12696.53725044719,
-                "3": 12133.416216781723,
-                "4": 11967.325628855111
+                "2": 12503.496694478257,
+                "3": 11981.579952324388,
+                "4": 11816.57168619361
               },
               "valid": true
             }
@@ -3205,8 +3205,8 @@ export const REPORT_DATA: ReportData = {
           4
         ],
         "selected_states": 4,
-        "bic_delta_vs_next_best": 166.09064869980102,
-        "state_count_interpretation": "251 observations allowed the current rule to test up to 4 states; BIC preferred 4 with a 166.09 improvement versus the next best valid state count.",
+        "bic_delta_vs_next_best": 165.00843268413882,
+        "state_count_interpretation": "251 observations allowed the current rule to test up to 4 states; BIC preferred 4 with a 165.01 improvement versus the next best valid state count.",
         "parameter_count": {
           "formula": "k^2 - 1 + 2*k*d",
           "n_parameters": 191,
@@ -3215,51 +3215,51 @@ export const REPORT_DATA: ReportData = {
         },
         "state_occupancy": {
           "min_effective_days_required": 7.529999999999999,
-          "min_effective_days_observed": 46.66694145163513,
+          "min_effective_days_observed": 46.32251111210608,
           "passes": true,
           "states": [
             {
               "id": 0,
               "label": "Calm / Liquid",
-              "effective_days": 46.66694145163513,
-              "pct_time": 0.18592406952842683,
+              "effective_days": 46.32251111210608,
+              "pct_time": 0.1845518371000242,
               "passes_min_support": true
             },
             {
               "id": 1,
               "label": "Normal / Active",
-              "effective_days": 68.70647577760795,
-              "pct_time": 0.2737309791936572,
+              "effective_days": 68.47955342688465,
+              "pct_time": 0.27282690608320576,
               "passes_min_support": true
             },
             {
               "id": 2,
               "label": "Stressed / Illiquid",
-              "effective_days": 78.68180740811303,
-              "pct_time": 0.3134733362873029,
+              "effective_days": 72.88237205237004,
+              "pct_time": 0.2903680161449006,
               "passes_min_support": true
             },
             {
               "id": 3,
               "label": "Jump / Tail Shock",
-              "effective_days": 56.94477536264388,
-              "pct_time": 0.22687161499061306,
+              "effective_days": 63.31556340863925,
+              "pct_time": 0.2522532406718695,
               "passes_min_support": true
             }
           ]
         },
         "transition_diagnostics": {
           "self_transition_probabilities": [
-            0.7677314642293832,
-            0.8151194651577782,
-            0.8563020876005664,
-            0.8209485988585895
+            0.7798457607833011,
+            0.8512755375887204,
+            0.8211900815699401,
+            0.7812887270253134
           ],
           "expected_duration_days": [
-            4.305361450194776,
-            5.408898242605185,
-            6.959043338224177,
-            5.5849884090559225
+            4.542270017411272,
+            6.723843433601532,
+            5.592530933294633,
+            4.572238030527758
           ],
           "nearly_absorbing_state_ids": [],
           "fast_switching_state_ids": [],
@@ -3276,21 +3276,21 @@ export const REPORT_DATA: ReportData = {
             {
               "seed": 42,
               "selected_states": 4,
-              "bic": 11967.325569941037,
+              "bic": 11816.571505445525,
               "valid": true,
               "reason": null
             },
             {
               "seed": 1337,
               "selected_states": 4,
-              "bic": 11967.325576517162,
+              "bic": 11816.571618982804,
               "valid": true,
               "reason": null
             },
             {
               "seed": 2027,
               "selected_states": 4,
-              "bic": 11967.325568081922,
+              "bic": 11816.571591982169,
               "valid": true,
               "reason": null
             }
@@ -3315,9 +3315,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 6799.1593836333695,
-                "3": 6706.225747575181,
-                "4": 6580.940286392184
+                "2": 6757.1966092301545,
+                "3": 6634.928185360642,
+                "4": 6529.31897877415
               },
               "valid": true
             },
@@ -3330,9 +3330,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 9780.77841935878,
-                "3": 9355.955179194492,
-                "4": 9293.263960228629
+                "2": 9741.311671319603,
+                "3": 9259.144008107347,
+                "4": 9149.842559500365
               },
               "valid": true
             },
@@ -3345,9 +3345,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 12696.53725044719,
-                "3": 12133.416216781723,
-                "4": 11967.325628855111
+                "2": 12503.496694478257,
+                "3": 11981.579952324388,
+                "4": 11816.57168619361
               },
               "valid": true
             }
@@ -3358,62 +3358,62 @@ export const REPORT_DATA: ReportData = {
           {
             "id": 0,
             "label": "Calm / Liquid",
-            "risk_score": 0.011612311978740948,
-            "jump_probability": 0.15897601377863665,
-            "jump_rate": 1.114553229853315e-06,
-            "rolling_vol_10d": 0.010321717069063381,
-            "downside_vol_10d": 0.005136716679751229,
-            "drawdown_21d": 0.012336646683893383,
-            "amihud_stress": 0.09947762729866734,
-            "spread_rel": 26.762933398013274,
-            "spread_ticks": 4.317996058376258,
-            "log_notional": 15.730241876363014,
-            "log_trade_count": 5.356313101138973
+            "risk_score": 0.01573057144961522,
+            "jump_probability": 0.1803339116380829,
+            "jump_rate": 0.00010114260672673877,
+            "rolling_vol_10d": 0.010186033340106515,
+            "downside_vol_10d": 0.005026593711083678,
+            "drawdown_21d": 0.011908119019798992,
+            "amihud_stress": 0.09693563436345307,
+            "spread_rel": 27.021717648873654,
+            "spread_ticks": 4.335356150804627,
+            "log_notional": 15.778040634126913,
+            "log_trade_count": 5.406004795625246
           },
           {
             "id": 1,
             "label": "Normal / Active",
-            "risk_score": 0.31941745430367363,
-            "jump_probability": 0.24303022247455539,
-            "jump_rate": 0.04360294175638448,
-            "rolling_vol_10d": 0.01615128260797271,
-            "downside_vol_10d": 0.007870323175543476,
-            "drawdown_21d": 0.021294562634280804,
-            "amihud_stress": 0.17219827350835262,
-            "spread_rel": 26.570085383140004,
-            "spread_ticks": 3.2939477261836436,
-            "log_notional": 16.024112658425015,
-            "log_trade_count": 5.594579165253343
+            "risk_score": 0.26737060272618335,
+            "jump_probability": 0.2235469297231818,
+            "jump_rate": 0.043742724927105854,
+            "rolling_vol_10d": 0.016083095264823877,
+            "downside_vol_10d": 0.007866560006466097,
+            "drawdown_21d": 0.02221525841305102,
+            "amihud_stress": 0.163079097984146,
+            "spread_rel": 26.62298934318184,
+            "spread_ticks": 3.302283345197291,
+            "log_notional": 16.000966753833357,
+            "log_trade_count": 5.561989432665824
           },
           {
             "id": 2,
             "label": "Stressed / Illiquid",
-            "risk_score": 0.3508676940591029,
-            "jump_probability": 0.19860772177205602,
-            "jump_rate": 0.025303721276844715,
-            "rolling_vol_10d": 0.016896943394621635,
-            "downside_vol_10d": 0.00828179102442849,
-            "drawdown_21d": 0.01935496851101161,
-            "amihud_stress": 0.08987506944574623,
-            "spread_rel": 33.67693372493178,
-            "spread_ticks": 4.333523939635506,
-            "log_notional": 15.988565489688925,
-            "log_trade_count": 5.592506058694635
+            "risk_score": 0.37970521969892884,
+            "jump_probability": 0.1994900893748884,
+            "jump_rate": 0.013714347688367432,
+            "rolling_vol_10d": 0.017530270761234014,
+            "downside_vol_10d": 0.00882185767400303,
+            "drawdown_21d": 0.023070569624913637,
+            "amihud_stress": 0.08693123265375194,
+            "spread_rel": 34.516568757379375,
+            "spread_ticks": 4.301264220839396,
+            "log_notional": 15.946851806693969,
+            "log_trade_count": 5.585281083086917
           },
           {
             "id": 3,
             "label": "Jump / Tail Shock",
             "risk_score": 1.0,
-            "jump_probability": 0.32931128927506625,
-            "jump_rate": 0.17584055670799345,
-            "rolling_vol_10d": 0.025671671387483275,
-            "downside_vol_10d": 0.01521464545385289,
-            "drawdown_21d": 0.06277439456607813,
-            "amihud_stress": 0.2357047010183241,
-            "spread_rel": 41.34501720246765,
-            "spread_ticks": 4.9083571792959475,
-            "log_notional": 15.897455790886042,
-            "log_trade_count": 5.540088150965479
+            "jump_probability": 0.347081883753662,
+            "jump_rate": 0.17373766841680838,
+            "rolling_vol_10d": 0.025620924731100014,
+            "downside_vol_10d": 0.014736363943419813,
+            "drawdown_21d": 0.06163173899724627,
+            "amihud_stress": 0.23135969825875027,
+            "spread_rel": 39.211772931443754,
+            "spread_ticks": 4.5909910046584965,
+            "log_notional": 16.00671528966338,
+            "log_trade_count": 5.6368889384391805
           }
         ],
         "jump_model_definition": {
@@ -3453,194 +3453,194 @@ export const REPORT_DATA: ReportData = {
       ],
       "smoothed_probability_tail": [
         {
-          "trade_date": "2026-04-21",
+          "trade_date": "2026-05-11",
           "state": 2,
           "probabilities": [
-            1.1022671748066476e-24,
-            2.8326423181128235e-13,
-            0.9985048747339836,
-            0.0014951252657331349
+            8.650968503629963e-38,
+            1.563489902338839e-12,
+            0.875937227096799,
+            0.12406277290163761
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            4.332325225416755e-21,
-            8.41557392227979e-12,
-            0.9928768018964825,
-            0.007123198095101883
+            4.465345999725096e-37,
+            1.2070159889600012e-11,
+            0.9651466679919146,
+            0.03485333199601518
           ],
-          "jump_probability": 0.07603672061908,
-          "jump_score": 0.07829918236302476
+          "jump_probability": 0.14579041554409533,
+          "jump_score": 0.7126030449320552
         },
         {
-          "trade_date": "2026-04-22",
-          "state": 2,
-          "probabilities": [
-            4.9932942354364866e-14,
-            1.4503046727708136e-13,
-            0.9999947335255545,
-            5.266474250582961e-06
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            1.9693678754697699e-10,
-            4.333065619423717e-12,
-            0.9999747683466481,
-            2.5231452082047124e-05
-          ],
-          "jump_probability": 0.1877890989691851,
-          "jump_score": 0.9765734629224694
-        },
-        {
-          "trade_date": "2026-04-23",
-          "state": 2,
-          "probabilities": [
-            8.484056062418346e-13,
-            9.355564146967493e-16,
-            0.9999938759795003,
-            6.1240196504431965e-06
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            3.384082531685616e-09,
-            2.7952178136060655e-14,
-            0.9999706493278196,
-            2.934728806987836e-05
-          ],
-          "jump_probability": 0.17393997883474813,
-          "jump_score": 0.8952546563045954
-        },
-        {
-          "trade_date": "2026-04-24",
-          "state": 2,
-          "probabilities": [
-            5.711420667422377e-14,
-            2.2136068048984054e-19,
-            0.9999999313690865,
-            6.863085647326409e-08
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            2.2771431176838738e-10,
-            6.613870355769497e-18,
-            0.9999996708780392,
-            3.288942466103498e-07
-          ],
-          "jump_probability": 0.2209405704719684,
-          "jump_score": 1.1541794965151313
-        },
-        {
-          "trade_date": "2026-04-27",
-          "state": 2,
-          "probabilities": [
-            2.994578708093552e-17,
-            3.88197928037259e-29,
-            0.999999684072907,
-            3.1592709308681446e-07
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            1.1940610411395007e-13,
-            1.1598667631119587e-27,
-            0.9999984860052576,
-            1.5139946228581138e-06
-          ],
-          "jump_probability": 0.14041641997052168,
-          "jump_score": 0.6744907594765952
-        },
-        {
-          "trade_date": "2026-04-28",
-          "state": 2,
-          "probabilities": [
-            4.0134610113112156e-15,
-            1.6434550782866326e-32,
-            0.9999997394208756,
-            2.605791204301939e-07
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            8.53885284841165e-15,
-            9.423401833936962e-32,
-            0.9999999709902037,
-            2.9009787771639247e-08
-          ],
-          "jump_probability": 0.0953377041313865,
-          "jump_score": 0.29335969418121344
-        },
-        {
-          "trade_date": "2026-04-29",
+          "trade_date": "2026-05-12",
           "state": 3,
           "probabilities": [
-            1.74597867463549e-33,
-            9.701302105668195e-30,
-            8.980052440585552e-08,
-            0.9999999101994755
+            3.0629200746739264e-43,
+            2.9543772562380023e-12,
+            0.28988568026601086,
+            0.7101143197310348
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            1.2922432247595088e-30,
-            6.064060582521694e-29,
-            1.879236115497633e-08,
-            0.9999999812076388
+            2.6161234793924794e-42,
+            3.774170865499793e-11,
+            0.665301222067074,
+            0.3346987778951843
           ],
-          "jump_probability": 0.7031766699972304,
-          "jump_score": 2.999974830936051
+          "jump_probability": 0.18537036615022057,
+          "jump_score": 0.9627149826260918
         },
         {
-          "trade_date": "2026-04-30",
-          "state": 2,
+          "trade_date": "2026-05-13",
+          "state": 3,
           "probabilities": [
-            2.0534562867195658e-17,
-            3.266559353782374e-28,
-            0.9970688668457265,
-            0.0029311331542734406
+            3.7487814669185014e-41,
+            4.066918601122919e-09,
+            0.05049901136419277,
+            0.9495009845688885
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            8.10190230186897e-14,
-            9.652628397872467e-27,
-            0.9861075956793376,
-            0.013892404320581437
+            3.8644063336091197e-38,
+            5.888556667171938e-06,
+            0.01394837412392196,
+            0.9860457373194108
           ],
-          "jump_probability": 0.1560540619076967,
-          "jump_score": 0.7822730954379986
+          "jump_probability": 0.2622429413111345,
+          "jump_score": 1.350571086434105
         },
         {
-          "trade_date": "2026-05-04",
+          "trade_date": "2026-05-14",
           "state": 2,
           "probabilities": [
-            1.888224601572007e-24,
-            5.364567638813983e-44,
-            0.9999999986769862,
-            1.32301385338703e-09
+            2.6412619212723202e-27,
+            2.372127998541085e-11,
+            0.9998987292737874,
+            0.00010127070249123139
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            7.532793675697026e-21,
-            1.6028416109671426e-42,
-            0.9999999936597395,
-            6.340260596413049e-09
+            3.2924573493285574e-24,
+            4.308241134598167e-08,
+            0.9996319605831295,
+            0.0003679963344591898
           ],
-          "jump_probability": 0.26113996177458193,
-          "jump_score": 1.3456069617914834
+          "jump_probability": 0.1142240477823509,
+          "jump_score": 0.46886765917884665
         },
         {
-          "trade_date": "2026-05-05",
+          "trade_date": "2026-05-15",
           "state": 2,
           "probabilities": [
-            1.3492975515257833e-20,
-            1.897027949509659e-42,
-            0.999999998860542,
-            1.139457992972753e-09
+            1.3921870647932608e-23,
+            5.008567587123849e-08,
+            0.9983097880045576,
+            0.0016901619097665387
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            1.3492975515257833e-20,
-            1.897027949509659e-42,
-            0.999999998860542,
-            1.139457992972753e-09
+            4.4326620895874986e-23,
+            2.3851702464119685e-07,
+            0.9997004610276429,
+            0.00029930045533248576
           ],
-          "jump_probability": 0.20190519095782797,
-          "jump_score": 1.0548442059227112
+          "jump_probability": 0.15987845533409586,
+          "jump_score": 0.8072759086850066
+        },
+        {
+          "trade_date": "2026-05-18",
+          "state": 3,
+          "probabilities": [
+            2.9698882700832984e-36,
+            8.953279325082639e-10,
+            0.009191143015656704,
+            0.9908088560890154
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            6.979636239594922e-35,
+            3.1408517203687775e-08,
+            0.008891358135443587,
+            0.9911086104560393
+          ],
+          "jump_probability": 0.2363305173016958,
+          "jump_score": 1.2300836878197032
+        },
+        {
+          "trade_date": "2026-05-19",
+          "state": 3,
+          "probabilities": [
+            6.630682434365497e-32,
+            1.7827676065073007e-08,
+            0.2453515028720136,
+            0.7546484793003104
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            5.531460288726098e-31,
+            2.224302965676209e-07,
+            0.6497109862552651,
+            0.3502887913144384
+          ],
+          "jump_probability": 0.17986631316264068,
+          "jump_score": 0.9306491396505062
+        },
+        {
+          "trade_date": "2026-05-20",
+          "state": 3,
+          "probabilities": [
+            1.1932453504570219e-36,
+            4.8854776833831665e-08,
+            2.718424555620021e-06,
+            0.9999972327206677
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            2.1383058906764487e-35,
+            1.2863318367041647e-06,
+            1.5507222465793975e-05,
+            0.9999832064456976
+          ],
+          "jump_probability": 0.236708993217459,
+          "jump_score": 1.2319062202124778
+        },
+        {
+          "trade_date": "2026-05-21",
+          "state": 3,
+          "probabilities": [
+            1.4758254677873188e-44,
+            1.4791917197657097e-07,
+            4.1991893169964303e-10,
+            0.9999998516609091
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            7.321697592735371e-44,
+            1.5281565276101362e-07,
+            1.1137599908715911e-10,
+            0.9999998470729713
+          ],
+          "jump_probability": 0.33219152590202095,
+          "jump_score": 1.6427915398482427
+        },
+        {
+          "trade_date": "2026-05-22",
+          "state": 2,
+          "probabilities": [
+            9.639983651026922e-18,
+            0.00018251885507725144,
+            0.9984577388326532,
+            0.0013597423122694247
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            9.639983651026922e-18,
+            0.00018251885507725144,
+            0.9984577388326532,
+            0.0013597423122694247
+          ],
+          "jump_probability": 0.12433130351304691,
+          "jump_score": 0.5525756401451052
         }
       ],
       "methodology": {
@@ -3662,11 +3662,11 @@ export const REPORT_DATA: ReportData = {
         "sector_proxy_equals_market": false
       },
       "client_read": {
-        "market_link_display": "0.35",
-        "sector_link_display": "-1.06",
-        "market_link_explainer": "Modest market link. A 1% market move has lined up with about a 0.35% stock move in the same direction in this state. This is a point estimate from 251 trading days.",
-        "sector_link_explainer": "Moderate sector link. A 1% sector move has lined up with about a 1.06% stock move in the opposite direction in this state. This is a point estimate from 251 trading days.",
-        "stock_persistence_display": "-0.44",
+        "market_link_display": "0.57",
+        "sector_link_display": "4.48",
+        "market_link_explainer": "Modest market link. A 1% market move has lined up with about a 0.57% stock move in the same direction in this state. This is a point estimate from 251 trading days.",
+        "sector_link_explainer": "Very high sector link. A 1% sector move has lined up with about a 4.48% stock move in the same direction in this state. This is a point estimate from 251 trading days.",
+        "stock_persistence_display": "-0.56",
         "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
         "history_limited_note": "Read is based on 251 trading days versus the 252-day target."
       },
@@ -3674,11 +3674,11 @@ export const REPORT_DATA: ReportData = {
         "regime_label": "Stressed / Illiquid",
         "dominant_driver": "sector",
         "dominant_driver_label": "Sector",
-        "driver_share_pct": 54.6,
-        "driver_share_display": "54.6%",
+        "driver_share_pct": 48.4,
+        "driver_share_display": "48.4%",
         "confidence_label": "High, limited history",
-        "confidence_pct": 99.9,
-        "confidence_display": ">99.9%",
+        "confidence_pct": 99.8,
+        "confidence_display": "99.8%",
         "probability_basis": "filtered",
         "display_confidence_pct": null,
         "confidence_note": "Based on 251 trading days relative to the 252-day target.",
@@ -3686,15 +3686,15 @@ export const REPORT_DATA: ReportData = {
         "history_limited": true,
         "volatility_label": "Stressed / Illiquid",
         "jump_risk_label": "Contained",
-        "jump_risk_probability": 19.9,
-        "jump_risk_score": 1.05,
+        "jump_risk_probability": 20.0,
+        "jump_risk_score": 0.55,
         "jump_risk_note": "Jump risk is contained based on recent residual and return shocks.",
         "lead_signal_text": "No stable lead signal.",
         "state_term": "state",
-        "stay_probability": 0.8563020876005664,
-        "effective_days": 78.7,
-        "persistence_note": "This state looks more persistent, with a typical run length of about 7.0 days.",
-        "expected_duration_days": 7.0
+        "stay_probability": 0.8211900815699401,
+        "effective_days": 72.9,
+        "persistence_note": "This state looks more persistent, with a typical run length of about 5.6 days.",
+        "expected_duration_days": 5.6
       },
       "display_notes": {
         "collapsed_interval": "When only one number is shown, the run produced a point estimate instead of a wider uncertainty range."
@@ -3708,171 +3708,171 @@ export const REPORT_DATA: ReportData = {
         {
           "id": 0,
           "label": "Calm / Liquid",
-          "pct_time": 0.18592406952842683,
-          "expected_duration_days": 4.305361450194776,
-          "current_probability": 1.3492975515257833e-20,
+          "pct_time": 0.1845518371000242,
+          "expected_duration_days": 4.542270017411272,
+          "current_probability": 9.639983651026922e-18,
           "current_probability_display": "<0.1%",
           "current_probability_basis": "filtered",
-          "n_days_effective": 46.66694145163513,
+          "n_days_effective": 46.32251111210608,
           "volatility": {
-            "median": 0.0074381360911349404,
-            "low": 0.0074381360911349404,
-            "high": 0.0074381360911349404
+            "median": 0.0078088952523777,
+            "low": 0.0078088952523777,
+            "high": 0.0078088952523777
           },
           "volatility_label": "Calm / Liquid",
-          "jump_probability": 0.15897601377863665,
-          "jump_rate": 1.114553229853315e-06,
-          "risk_score": 0.011612311978740948,
+          "jump_probability": 0.1803339116380829,
+          "jump_rate": 0.00010114260672673877,
+          "risk_score": 0.01573057144961522,
           "metrics": {
-            "rolling_vol_10d": 0.010321717069063381,
-            "downside_vol_10d": 0.005136716679751229,
-            "drawdown_21d": 0.012336646683893383,
-            "amihud_stress": 0.09947762729866734,
-            "spread_rel": 26.762933398013274,
-            "spread_ticks": 4.317996058376258,
-            "log_notional": 15.730241876363014,
-            "log_trade_count": 5.356313101138973
+            "rolling_vol_10d": 0.010186033340106515,
+            "downside_vol_10d": 0.005026593711083678,
+            "drawdown_21d": 0.011908119019798992,
+            "amihud_stress": 0.09693563436345307,
+            "spread_rel": 27.021717648873654,
+            "spread_ticks": 4.335356150804627,
+            "log_notional": 15.778040634126913,
+            "log_trade_count": 5.406004795625246
           }
         },
         {
           "id": 1,
           "label": "Normal / Active",
-          "pct_time": 0.2737309791936572,
-          "expected_duration_days": 5.408898242605185,
-          "current_probability": 1.897027949509659e-42,
+          "pct_time": 0.27282690608320576,
+          "expected_duration_days": 6.723843433601532,
+          "current_probability": 0.00018251885507725144,
           "current_probability_display": "<0.1%",
           "current_probability_basis": "filtered",
-          "n_days_effective": 68.70647577760795,
+          "n_days_effective": 68.47955342688465,
           "volatility": {
-            "median": 0.01841774002943619,
-            "low": 0.01841774002943619,
-            "high": 0.01841774002943619
+            "median": 0.01713360953942907,
+            "low": 0.01713360953942907,
+            "high": 0.01713360953942907
           },
           "volatility_label": "Normal / Active",
-          "jump_probability": 0.24303022247455539,
-          "jump_rate": 0.04360294175638448,
-          "risk_score": 0.31941745430367363,
+          "jump_probability": 0.2235469297231818,
+          "jump_rate": 0.043742724927105854,
+          "risk_score": 0.26737060272618335,
           "metrics": {
-            "rolling_vol_10d": 0.01615128260797271,
-            "downside_vol_10d": 0.007870323175543476,
-            "drawdown_21d": 0.021294562634280804,
-            "amihud_stress": 0.17219827350835262,
-            "spread_rel": 26.570085383140004,
-            "spread_ticks": 3.2939477261836436,
-            "log_notional": 16.024112658425015,
-            "log_trade_count": 5.594579165253343
+            "rolling_vol_10d": 0.016083095264823877,
+            "downside_vol_10d": 0.007866560006466097,
+            "drawdown_21d": 0.02221525841305102,
+            "amihud_stress": 0.163079097984146,
+            "spread_rel": 26.62298934318184,
+            "spread_ticks": 3.302283345197291,
+            "log_notional": 16.000966753833357,
+            "log_trade_count": 5.561989432665824
           }
         },
         {
           "id": 2,
           "label": "Stressed / Illiquid",
-          "pct_time": 0.3134733362873029,
-          "expected_duration_days": 6.959043338224177,
-          "current_probability": 0.999999998860542,
-          "current_probability_display": ">99.9%",
+          "pct_time": 0.2903680161449006,
+          "expected_duration_days": 5.592530933294633,
+          "current_probability": 0.9984577388326532,
+          "current_probability_display": "99.8%",
           "current_probability_basis": "filtered",
-          "n_days_effective": 78.68180740811303,
+          "n_days_effective": 72.88237205237004,
           "volatility": {
-            "median": 0.010169396290875385,
-            "low": 0.010169396290875385,
-            "high": 0.010169396290875385
+            "median": 0.010130784659521027,
+            "low": 0.010130784659521027,
+            "high": 0.010130784659521027
           },
           "volatility_label": "Stressed / Illiquid",
-          "jump_probability": 0.19860772177205602,
-          "jump_rate": 0.025303721276844715,
-          "risk_score": 0.3508676940591029,
+          "jump_probability": 0.1994900893748884,
+          "jump_rate": 0.013714347688367432,
+          "risk_score": 0.37970521969892884,
           "metrics": {
-            "rolling_vol_10d": 0.016896943394621635,
-            "downside_vol_10d": 0.00828179102442849,
-            "drawdown_21d": 0.01935496851101161,
-            "amihud_stress": 0.08987506944574623,
-            "spread_rel": 33.67693372493178,
-            "spread_ticks": 4.333523939635506,
-            "log_notional": 15.988565489688925,
-            "log_trade_count": 5.592506058694635
+            "rolling_vol_10d": 0.017530270761234014,
+            "downside_vol_10d": 0.00882185767400303,
+            "drawdown_21d": 0.023070569624913637,
+            "amihud_stress": 0.08693123265375194,
+            "spread_rel": 34.516568757379375,
+            "spread_ticks": 4.301264220839396,
+            "log_notional": 15.946851806693969,
+            "log_trade_count": 5.585281083086917
           }
         },
         {
           "id": 3,
           "label": "Jump / Tail Shock",
-          "pct_time": 0.22687161499061306,
-          "expected_duration_days": 5.5849884090559225,
-          "current_probability": 1.139457992972753e-09,
-          "current_probability_display": "<0.1%",
+          "pct_time": 0.2522532406718695,
+          "expected_duration_days": 4.572238030527758,
+          "current_probability": 0.0013597423122694247,
+          "current_probability_display": "0.1%",
           "current_probability_basis": "filtered",
-          "n_days_effective": 56.94477536264388,
+          "n_days_effective": 63.31556340863925,
           "volatility": {
-            "median": 0.02888688114094495,
-            "low": 0.02888688114094495,
-            "high": 0.02888688114094495
+            "median": 0.02971495914931679,
+            "low": 0.02971495914931679,
+            "high": 0.02971495914931679
           },
           "volatility_label": "Jump / Tail Shock",
-          "jump_probability": 0.32931128927506625,
-          "jump_rate": 0.17584055670799345,
+          "jump_probability": 0.347081883753662,
+          "jump_rate": 0.17373766841680838,
           "risk_score": 1.0,
           "metrics": {
-            "rolling_vol_10d": 0.025671671387483275,
-            "downside_vol_10d": 0.01521464545385289,
-            "drawdown_21d": 0.06277439456607813,
-            "amihud_stress": 0.2357047010183241,
-            "spread_rel": 41.34501720246765,
-            "spread_ticks": 4.9083571792959475,
-            "log_notional": 15.897455790886042,
-            "log_trade_count": 5.540088150965479
+            "rolling_vol_10d": 0.025620924731100014,
+            "downside_vol_10d": 0.014736363943419813,
+            "drawdown_21d": 0.06163173899724627,
+            "amihud_stress": 0.23135969825875027,
+            "spread_rel": 39.211772931443754,
+            "spread_ticks": 4.5909910046584965,
+            "log_notional": 16.00671528966338,
+            "log_trade_count": 5.6368889384391805
           }
         }
       ],
       "transitions": [
         [
-          0.7677314642293832,
-          0.189096248402701,
-          0.0002146464216198664,
-          0.04295764094629607
+          0.7798457607833011,
+          0.17646363487453798,
+          0.00021874042533710048,
+          0.0434718639168237
         ],
         [
-          0.14028150415241325,
-          0.8151194651577782,
-          0.02865966538223331,
-          0.015939365307575375
+          0.11950376532495194,
+          0.8512755375887204,
+          0.00015577726271813708,
+          0.029064919823609505
         ],
         [
-          0.015472166825941137,
-          0.03683109744861972,
-          0.8563020876005664,
-          0.09139464812487276
+          0.02804838435957624,
+          0.013812960959255835,
+          0.8211900815699401,
+          0.13694857311122788
         ],
         [
-          0.00017531508747927374,
-          0.00019266328428101665,
-          0.17868342276965024,
-          0.8209485988585895
+          0.0001577602659467674,
+          0.0001605136102178921,
+          0.21839299909852206,
+          0.7812887270253134
         ]
       ],
       "transition_intervals": {
         "mean": [
           [
-            0.7677314642293832,
-            0.189096248402701,
-            0.0002146464216198664,
-            0.04295764094629607
+            0.7798457607833011,
+            0.17646363487453798,
+            0.00021874042533710048,
+            0.0434718639168237
           ],
           [
-            0.14028150415241325,
-            0.8151194651577782,
-            0.02865966538223331,
-            0.015939365307575375
+            0.11950376532495194,
+            0.8512755375887204,
+            0.00015577726271813708,
+            0.029064919823609505
           ],
           [
-            0.015472166825941137,
-            0.03683109744861972,
-            0.8563020876005664,
-            0.09139464812487276
+            0.02804838435957624,
+            0.013812960959255835,
+            0.8211900815699401,
+            0.13694857311122788
           ],
           [
-            0.00017531508747927374,
-            0.00019266328428101665,
-            0.17868342276965024,
-            0.8209485988585895
+            0.0001577602659467674,
+            0.0001605136102178921,
+            0.21839299909852206,
+            0.7812887270253134
           ]
         ],
         "low": [],
@@ -3880,34 +3880,34 @@ export const REPORT_DATA: ReportData = {
         "counts": [
           [
             36.0,
-            9.0,
+            8.0,
             0.0,
             2.0
           ],
           [
-            10.0,
-            55.0,
+            8.0,
+            59.0,
+            0.0,
+            2.0
+          ],
+          [
             2.0,
-            1.0
-          ],
-          [
             1.0,
-            3.0,
-            67.0,
-            7.0
+            59.0,
+            10.0
           ],
           [
             0.0,
             0.0,
-            10.0,
-            47.0
+            14.0,
+            49.0
           ]
         ]
       },
       "current_regime": 2,
       "current_regime_label": "Stressed / Illiquid",
-      "current_regime_probability": 0.999999998860542,
-      "current_regime_probability_display": ">99.9%",
+      "current_regime_probability": 0.9984577388326532,
+      "current_regime_probability_display": "99.8%",
       "current_probability_basis": "filtered",
       "historical_probability_basis": "smoothed",
       "current_state_is_transition": false,
@@ -3915,35 +3915,35 @@ export const REPORT_DATA: ReportData = {
         {
           "id": 0,
           "label": "Calm / Liquid",
-          "probability": 1.3492975515257833e-20,
+          "probability": 9.639983651026922e-18,
           "probability_display": "<0.1%",
           "basis": "filtered"
         },
         {
           "id": 1,
           "label": "Normal / Active",
-          "probability": 1.897027949509659e-42,
+          "probability": 0.00018251885507725144,
           "probability_display": "<0.1%",
           "basis": "filtered"
         },
         {
           "id": 2,
           "label": "Stressed / Illiquid",
-          "probability": 0.999999998860542,
-          "probability_display": ">99.9%",
+          "probability": 0.9984577388326532,
+          "probability_display": "99.8%",
           "basis": "filtered"
         },
         {
           "id": 3,
           "label": "Jump / Tail Shock",
-          "probability": 1.139457992972753e-09,
-          "probability_display": "<0.1%",
+          "probability": 0.0013597423122694247,
+          "probability_display": "0.1%",
           "basis": "filtered"
         }
       ],
       "jump_risk": {
-        "current_probability": 0.19860772192098725,
-        "current_score": 1.0548442059227112,
+        "current_probability": 0.19969516700960613,
+        "current_score": 0.5525756401451052,
         "current_flag": false,
         "jump_threshold_score": 2.5,
         "method": "robust_residual_and_return_jump_overlay",
@@ -3952,54 +3952,54 @@ export const REPORT_DATA: ReportData = {
       "model_selection": {
         "chosen": 4,
         "criterion": "bic_with_min_state_support",
-        "bic": 11967.325568081922,
-        "loglik": -5455.982028353876,
+        "bic": 11816.571505445525,
+        "loglik": -5380.604997035677,
         "n_params": 191,
-        "bic_delta_vs_next_best": 166.09064869980102,
+        "bic_delta_vs_next_best": 165.00843268413882,
         "candidates": [
           {
             "k": 2,
             "valid": true,
             "reason": "ok",
-            "bic": 12696.537171588867,
-            "loglik": -6096.860477063938,
+            "bic": 12503.496694478257,
+            "loglik": -6000.340238508633,
             "n_params": 91,
             "converged": true,
-            "iterations": 17,
-            "best_seed": 1337,
+            "iterations": 11,
+            "best_seed": 42,
             "seed_runs": [
               {
                 "seed": 42,
                 "k": 2,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12696.537184174435,
-                "loglik": -6096.8604833567215,
+                "bic": 12503.496694478257,
+                "loglik": -6000.340238508633,
                 "n_params": 91,
                 "converged": true,
-                "iterations": 16
+                "iterations": 11
               },
               {
                 "seed": 1337,
                 "k": 2,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12696.537171588867,
-                "loglik": -6096.860477063938,
+                "bic": 12503.496694888183,
+                "loglik": -6000.340238713596,
                 "n_params": 91,
                 "converged": true,
-                "iterations": 17
+                "iterations": 11
               },
               {
                 "seed": 2027,
                 "k": 2,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12696.537194550161,
-                "loglik": -6096.860488544585,
+                "bic": 12503.496698115167,
+                "loglik": -6000.3402403270875,
                 "n_params": 91,
                 "converged": true,
-                "iterations": 16
+                "iterations": 11
               }
             ]
           },
@@ -4007,11 +4007,11 @@ export const REPORT_DATA: ReportData = {
             "k": 3,
             "valid": true,
             "reason": "ok",
-            "bic": 12133.416216781723,
-            "loglik": -5679.926402651637,
+            "bic": 11981.579938129664,
+            "loglik": -5604.008263325607,
             "n_params": 140,
             "converged": true,
-            "iterations": 35,
+            "iterations": 24,
             "best_seed": 42,
             "seed_runs": [
               {
@@ -4019,33 +4019,33 @@ export const REPORT_DATA: ReportData = {
                 "k": 3,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12133.416216781723,
-                "loglik": -5679.926402651637,
+                "bic": 11981.579938129664,
+                "loglik": -5604.008263325607,
                 "n_params": 140,
                 "converged": true,
-                "iterations": 35
+                "iterations": 24
               },
               {
                 "seed": 1337,
                 "k": 3,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12133.416217123144,
-                "loglik": -5679.926402822347,
+                "bic": 11981.57994334027,
+                "loglik": -5604.00826593091,
                 "n_params": 140,
                 "converged": true,
-                "iterations": 35
+                "iterations": 21
               },
               {
                 "seed": 2027,
                 "k": 3,
                 "valid": true,
                 "reason": "ok",
-                "bic": 12194.209561354217,
-                "loglik": -5710.323074937884,
+                "bic": 11981.57994103151,
+                "loglik": -5604.00826477653,
                 "n_params": 140,
                 "converged": true,
-                "iterations": 18
+                "iterations": 22
               }
             ]
           },
@@ -4053,45 +4053,45 @@ export const REPORT_DATA: ReportData = {
             "k": 4,
             "valid": true,
             "reason": "ok",
-            "bic": 11967.325568081922,
-            "loglik": -5455.982028353876,
+            "bic": 11816.571505445525,
+            "loglik": -5380.604997035677,
             "n_params": 191,
             "converged": true,
-            "iterations": 37,
-            "best_seed": 2027,
+            "iterations": 28,
+            "best_seed": 42,
             "seed_runs": [
               {
                 "seed": 42,
                 "k": 4,
                 "valid": true,
                 "reason": "ok",
-                "bic": 11967.325569941037,
-                "loglik": -5455.982029283433,
+                "bic": 11816.571505445525,
+                "loglik": -5380.604997035677,
                 "n_params": 191,
                 "converged": true,
-                "iterations": 37
+                "iterations": 28
               },
               {
                 "seed": 1337,
                 "k": 4,
                 "valid": true,
                 "reason": "ok",
-                "bic": 11967.325576517162,
-                "loglik": -5455.982032571495,
+                "bic": 11816.571618982804,
+                "loglik": -5380.605053804316,
                 "n_params": 191,
                 "converged": true,
-                "iterations": 39
+                "iterations": 28
               },
               {
                 "seed": 2027,
                 "k": 4,
                 "valid": true,
                 "reason": "ok",
-                "bic": 11967.325568081922,
-                "loglik": -5455.982028353876,
+                "bic": 11816.571591982169,
+                "loglik": -5380.605040303999,
                 "n_params": 191,
                 "converged": true,
-                "iterations": 37
+                "iterations": 29
               }
             ]
           }
@@ -4107,21 +4107,21 @@ export const REPORT_DATA: ReportData = {
             {
               "seed": 42,
               "selected_states": 4,
-              "bic": 11967.325569941037,
+              "bic": 11816.571505445525,
               "valid": true,
               "reason": null
             },
             {
               "seed": 1337,
               "selected_states": 4,
-              "bic": 11967.325576517162,
+              "bic": 11816.571618982804,
               "valid": true,
               "reason": null
             },
             {
               "seed": 2027,
               "selected_states": 4,
-              "bic": 11967.325568081922,
+              "bic": 11816.571591982169,
               "valid": true,
               "reason": null
             }
@@ -4146,9 +4146,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 6799.1593836333695,
-                "3": 6706.225747575181,
-                "4": 6580.940286392184
+                "2": 6757.1966092301545,
+                "3": 6634.928185360642,
+                "4": 6529.31897877415
               },
               "valid": true
             },
@@ -4161,9 +4161,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 9780.77841935878,
-                "3": 9355.955179194492,
-                "4": 9293.263960228629
+                "2": 9741.311671319603,
+                "3": 9259.144008107347,
+                "4": 9149.842559500365
               },
               "valid": true
             },
@@ -4176,9 +4176,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 12696.53725044719,
-                "3": 12133.416216781723,
-                "4": 11967.325628855111
+                "2": 12503.496694478257,
+                "3": 11981.579952324388,
+                "4": 11816.57168619361
               },
               "valid": true
             }
@@ -4195,8 +4195,8 @@ export const REPORT_DATA: ReportData = {
           4
         ],
         "selected_states": 4,
-        "bic_delta_vs_next_best": 166.09064869980102,
-        "state_count_interpretation": "251 observations allowed the current rule to test up to 4 states; BIC preferred 4 with a 166.09 improvement versus the next best valid state count.",
+        "bic_delta_vs_next_best": 165.00843268413882,
+        "state_count_interpretation": "251 observations allowed the current rule to test up to 4 states; BIC preferred 4 with a 165.01 improvement versus the next best valid state count.",
         "parameter_count": {
           "formula": "k^2 - 1 + 2*k*d",
           "n_parameters": 191,
@@ -4205,51 +4205,51 @@ export const REPORT_DATA: ReportData = {
         },
         "state_occupancy": {
           "min_effective_days_required": 7.529999999999999,
-          "min_effective_days_observed": 46.66694145163513,
+          "min_effective_days_observed": 46.32251111210608,
           "passes": true,
           "states": [
             {
               "id": 0,
               "label": "Calm / Liquid",
-              "effective_days": 46.66694145163513,
-              "pct_time": 0.18592406952842683,
+              "effective_days": 46.32251111210608,
+              "pct_time": 0.1845518371000242,
               "passes_min_support": true
             },
             {
               "id": 1,
               "label": "Normal / Active",
-              "effective_days": 68.70647577760795,
-              "pct_time": 0.2737309791936572,
+              "effective_days": 68.47955342688465,
+              "pct_time": 0.27282690608320576,
               "passes_min_support": true
             },
             {
               "id": 2,
               "label": "Stressed / Illiquid",
-              "effective_days": 78.68180740811303,
-              "pct_time": 0.3134733362873029,
+              "effective_days": 72.88237205237004,
+              "pct_time": 0.2903680161449006,
               "passes_min_support": true
             },
             {
               "id": 3,
               "label": "Jump / Tail Shock",
-              "effective_days": 56.94477536264388,
-              "pct_time": 0.22687161499061306,
+              "effective_days": 63.31556340863925,
+              "pct_time": 0.2522532406718695,
               "passes_min_support": true
             }
           ]
         },
         "transition_diagnostics": {
           "self_transition_probabilities": [
-            0.7677314642293832,
-            0.8151194651577782,
-            0.8563020876005664,
-            0.8209485988585895
+            0.7798457607833011,
+            0.8512755375887204,
+            0.8211900815699401,
+            0.7812887270253134
           ],
           "expected_duration_days": [
-            4.305361450194776,
-            5.408898242605185,
-            6.959043338224177,
-            5.5849884090559225
+            4.542270017411272,
+            6.723843433601532,
+            5.592530933294633,
+            4.572238030527758
           ],
           "nearly_absorbing_state_ids": [],
           "fast_switching_state_ids": [],
@@ -4266,21 +4266,21 @@ export const REPORT_DATA: ReportData = {
             {
               "seed": 42,
               "selected_states": 4,
-              "bic": 11967.325569941037,
+              "bic": 11816.571505445525,
               "valid": true,
               "reason": null
             },
             {
               "seed": 1337,
               "selected_states": 4,
-              "bic": 11967.325576517162,
+              "bic": 11816.571618982804,
               "valid": true,
               "reason": null
             },
             {
               "seed": 2027,
               "selected_states": 4,
-              "bic": 11967.325568081922,
+              "bic": 11816.571591982169,
               "valid": true,
               "reason": null
             }
@@ -4305,9 +4305,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 6799.1593836333695,
-                "3": 6706.225747575181,
-                "4": 6580.940286392184
+                "2": 6757.1966092301545,
+                "3": 6634.928185360642,
+                "4": 6529.31897877415
               },
               "valid": true
             },
@@ -4320,9 +4320,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 9780.77841935878,
-                "3": 9355.955179194492,
-                "4": 9293.263960228629
+                "2": 9741.311671319603,
+                "3": 9259.144008107347,
+                "4": 9149.842559500365
               },
               "valid": true
             },
@@ -4335,9 +4335,9 @@ export const REPORT_DATA: ReportData = {
               ],
               "selected_states": 4,
               "bic_by_state": {
-                "2": 12696.53725044719,
-                "3": 12133.416216781723,
-                "4": 11967.325628855111
+                "2": 12503.496694478257,
+                "3": 11981.579952324388,
+                "4": 11816.57168619361
               },
               "valid": true
             }
@@ -4348,62 +4348,62 @@ export const REPORT_DATA: ReportData = {
           {
             "id": 0,
             "label": "Calm / Liquid",
-            "risk_score": 0.011612311978740948,
-            "jump_probability": 0.15897601377863665,
-            "jump_rate": 1.114553229853315e-06,
-            "rolling_vol_10d": 0.010321717069063381,
-            "downside_vol_10d": 0.005136716679751229,
-            "drawdown_21d": 0.012336646683893383,
-            "amihud_stress": 0.09947762729866734,
-            "spread_rel": 26.762933398013274,
-            "spread_ticks": 4.317996058376258,
-            "log_notional": 15.730241876363014,
-            "log_trade_count": 5.356313101138973
+            "risk_score": 0.01573057144961522,
+            "jump_probability": 0.1803339116380829,
+            "jump_rate": 0.00010114260672673877,
+            "rolling_vol_10d": 0.010186033340106515,
+            "downside_vol_10d": 0.005026593711083678,
+            "drawdown_21d": 0.011908119019798992,
+            "amihud_stress": 0.09693563436345307,
+            "spread_rel": 27.021717648873654,
+            "spread_ticks": 4.335356150804627,
+            "log_notional": 15.778040634126913,
+            "log_trade_count": 5.406004795625246
           },
           {
             "id": 1,
             "label": "Normal / Active",
-            "risk_score": 0.31941745430367363,
-            "jump_probability": 0.24303022247455539,
-            "jump_rate": 0.04360294175638448,
-            "rolling_vol_10d": 0.01615128260797271,
-            "downside_vol_10d": 0.007870323175543476,
-            "drawdown_21d": 0.021294562634280804,
-            "amihud_stress": 0.17219827350835262,
-            "spread_rel": 26.570085383140004,
-            "spread_ticks": 3.2939477261836436,
-            "log_notional": 16.024112658425015,
-            "log_trade_count": 5.594579165253343
+            "risk_score": 0.26737060272618335,
+            "jump_probability": 0.2235469297231818,
+            "jump_rate": 0.043742724927105854,
+            "rolling_vol_10d": 0.016083095264823877,
+            "downside_vol_10d": 0.007866560006466097,
+            "drawdown_21d": 0.02221525841305102,
+            "amihud_stress": 0.163079097984146,
+            "spread_rel": 26.62298934318184,
+            "spread_ticks": 3.302283345197291,
+            "log_notional": 16.000966753833357,
+            "log_trade_count": 5.561989432665824
           },
           {
             "id": 2,
             "label": "Stressed / Illiquid",
-            "risk_score": 0.3508676940591029,
-            "jump_probability": 0.19860772177205602,
-            "jump_rate": 0.025303721276844715,
-            "rolling_vol_10d": 0.016896943394621635,
-            "downside_vol_10d": 0.00828179102442849,
-            "drawdown_21d": 0.01935496851101161,
-            "amihud_stress": 0.08987506944574623,
-            "spread_rel": 33.67693372493178,
-            "spread_ticks": 4.333523939635506,
-            "log_notional": 15.988565489688925,
-            "log_trade_count": 5.592506058694635
+            "risk_score": 0.37970521969892884,
+            "jump_probability": 0.1994900893748884,
+            "jump_rate": 0.013714347688367432,
+            "rolling_vol_10d": 0.017530270761234014,
+            "downside_vol_10d": 0.00882185767400303,
+            "drawdown_21d": 0.023070569624913637,
+            "amihud_stress": 0.08693123265375194,
+            "spread_rel": 34.516568757379375,
+            "spread_ticks": 4.301264220839396,
+            "log_notional": 15.946851806693969,
+            "log_trade_count": 5.585281083086917
           },
           {
             "id": 3,
             "label": "Jump / Tail Shock",
             "risk_score": 1.0,
-            "jump_probability": 0.32931128927506625,
-            "jump_rate": 0.17584055670799345,
-            "rolling_vol_10d": 0.025671671387483275,
-            "downside_vol_10d": 0.01521464545385289,
-            "drawdown_21d": 0.06277439456607813,
-            "amihud_stress": 0.2357047010183241,
-            "spread_rel": 41.34501720246765,
-            "spread_ticks": 4.9083571792959475,
-            "log_notional": 15.897455790886042,
-            "log_trade_count": 5.540088150965479
+            "jump_probability": 0.347081883753662,
+            "jump_rate": 0.17373766841680838,
+            "rolling_vol_10d": 0.025620924731100014,
+            "downside_vol_10d": 0.014736363943419813,
+            "drawdown_21d": 0.06163173899724627,
+            "amihud_stress": 0.23135969825875027,
+            "spread_rel": 39.211772931443754,
+            "spread_ticks": 4.5909910046584965,
+            "log_notional": 16.00671528966338,
+            "log_trade_count": 5.6368889384391805
           }
         ],
         "jump_model_definition": {
@@ -4443,194 +4443,194 @@ export const REPORT_DATA: ReportData = {
       ],
       "smoothed_probability_tail": [
         {
-          "trade_date": "2026-04-21",
+          "trade_date": "2026-05-11",
           "state": 2,
           "probabilities": [
-            1.1022671748066476e-24,
-            2.8326423181128235e-13,
-            0.9985048747339836,
-            0.0014951252657331349
+            8.650968503629963e-38,
+            1.563489902338839e-12,
+            0.875937227096799,
+            0.12406277290163761
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            4.332325225416755e-21,
-            8.41557392227979e-12,
-            0.9928768018964825,
-            0.007123198095101883
+            4.465345999725096e-37,
+            1.2070159889600012e-11,
+            0.9651466679919146,
+            0.03485333199601518
           ],
-          "jump_probability": 0.07603672061908,
-          "jump_score": 0.07829918236302476
+          "jump_probability": 0.14579041554409533,
+          "jump_score": 0.7126030449320552
         },
         {
-          "trade_date": "2026-04-22",
-          "state": 2,
-          "probabilities": [
-            4.9932942354364866e-14,
-            1.4503046727708136e-13,
-            0.9999947335255545,
-            5.266474250582961e-06
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            1.9693678754697699e-10,
-            4.333065619423717e-12,
-            0.9999747683466481,
-            2.5231452082047124e-05
-          ],
-          "jump_probability": 0.1877890989691851,
-          "jump_score": 0.9765734629224694
-        },
-        {
-          "trade_date": "2026-04-23",
-          "state": 2,
-          "probabilities": [
-            8.484056062418346e-13,
-            9.355564146967493e-16,
-            0.9999938759795003,
-            6.1240196504431965e-06
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            3.384082531685616e-09,
-            2.7952178136060655e-14,
-            0.9999706493278196,
-            2.934728806987836e-05
-          ],
-          "jump_probability": 0.17393997883474813,
-          "jump_score": 0.8952546563045954
-        },
-        {
-          "trade_date": "2026-04-24",
-          "state": 2,
-          "probabilities": [
-            5.711420667422377e-14,
-            2.2136068048984054e-19,
-            0.9999999313690865,
-            6.863085647326409e-08
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            2.2771431176838738e-10,
-            6.613870355769497e-18,
-            0.9999996708780392,
-            3.288942466103498e-07
-          ],
-          "jump_probability": 0.2209405704719684,
-          "jump_score": 1.1541794965151313
-        },
-        {
-          "trade_date": "2026-04-27",
-          "state": 2,
-          "probabilities": [
-            2.994578708093552e-17,
-            3.88197928037259e-29,
-            0.999999684072907,
-            3.1592709308681446e-07
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            1.1940610411395007e-13,
-            1.1598667631119587e-27,
-            0.9999984860052576,
-            1.5139946228581138e-06
-          ],
-          "jump_probability": 0.14041641997052168,
-          "jump_score": 0.6744907594765952
-        },
-        {
-          "trade_date": "2026-04-28",
-          "state": 2,
-          "probabilities": [
-            4.0134610113112156e-15,
-            1.6434550782866326e-32,
-            0.9999997394208756,
-            2.605791204301939e-07
-          ],
-          "probability_basis": "smoothed",
-          "filtered_probabilities": [
-            8.53885284841165e-15,
-            9.423401833936962e-32,
-            0.9999999709902037,
-            2.9009787771639247e-08
-          ],
-          "jump_probability": 0.0953377041313865,
-          "jump_score": 0.29335969418121344
-        },
-        {
-          "trade_date": "2026-04-29",
+          "trade_date": "2026-05-12",
           "state": 3,
           "probabilities": [
-            1.74597867463549e-33,
-            9.701302105668195e-30,
-            8.980052440585552e-08,
-            0.9999999101994755
+            3.0629200746739264e-43,
+            2.9543772562380023e-12,
+            0.28988568026601086,
+            0.7101143197310348
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            1.2922432247595088e-30,
-            6.064060582521694e-29,
-            1.879236115497633e-08,
-            0.9999999812076388
+            2.6161234793924794e-42,
+            3.774170865499793e-11,
+            0.665301222067074,
+            0.3346987778951843
           ],
-          "jump_probability": 0.7031766699972304,
-          "jump_score": 2.999974830936051
+          "jump_probability": 0.18537036615022057,
+          "jump_score": 0.9627149826260918
         },
         {
-          "trade_date": "2026-04-30",
-          "state": 2,
+          "trade_date": "2026-05-13",
+          "state": 3,
           "probabilities": [
-            2.0534562867195658e-17,
-            3.266559353782374e-28,
-            0.9970688668457265,
-            0.0029311331542734406
+            3.7487814669185014e-41,
+            4.066918601122919e-09,
+            0.05049901136419277,
+            0.9495009845688885
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            8.10190230186897e-14,
-            9.652628397872467e-27,
-            0.9861075956793376,
-            0.013892404320581437
+            3.8644063336091197e-38,
+            5.888556667171938e-06,
+            0.01394837412392196,
+            0.9860457373194108
           ],
-          "jump_probability": 0.1560540619076967,
-          "jump_score": 0.7822730954379986
+          "jump_probability": 0.2622429413111345,
+          "jump_score": 1.350571086434105
         },
         {
-          "trade_date": "2026-05-04",
+          "trade_date": "2026-05-14",
           "state": 2,
           "probabilities": [
-            1.888224601572007e-24,
-            5.364567638813983e-44,
-            0.9999999986769862,
-            1.32301385338703e-09
+            2.6412619212723202e-27,
+            2.372127998541085e-11,
+            0.9998987292737874,
+            0.00010127070249123139
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            7.532793675697026e-21,
-            1.6028416109671426e-42,
-            0.9999999936597395,
-            6.340260596413049e-09
+            3.2924573493285574e-24,
+            4.308241134598167e-08,
+            0.9996319605831295,
+            0.0003679963344591898
           ],
-          "jump_probability": 0.26113996177458193,
-          "jump_score": 1.3456069617914834
+          "jump_probability": 0.1142240477823509,
+          "jump_score": 0.46886765917884665
         },
         {
-          "trade_date": "2026-05-05",
+          "trade_date": "2026-05-15",
           "state": 2,
           "probabilities": [
-            1.3492975515257833e-20,
-            1.897027949509659e-42,
-            0.999999998860542,
-            1.139457992972753e-09
+            1.3921870647932608e-23,
+            5.008567587123849e-08,
+            0.9983097880045576,
+            0.0016901619097665387
           ],
           "probability_basis": "smoothed",
           "filtered_probabilities": [
-            1.3492975515257833e-20,
-            1.897027949509659e-42,
-            0.999999998860542,
-            1.139457992972753e-09
+            4.4326620895874986e-23,
+            2.3851702464119685e-07,
+            0.9997004610276429,
+            0.00029930045533248576
           ],
-          "jump_probability": 0.20190519095782797,
-          "jump_score": 1.0548442059227112
+          "jump_probability": 0.15987845533409586,
+          "jump_score": 0.8072759086850066
+        },
+        {
+          "trade_date": "2026-05-18",
+          "state": 3,
+          "probabilities": [
+            2.9698882700832984e-36,
+            8.953279325082639e-10,
+            0.009191143015656704,
+            0.9908088560890154
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            6.979636239594922e-35,
+            3.1408517203687775e-08,
+            0.008891358135443587,
+            0.9911086104560393
+          ],
+          "jump_probability": 0.2363305173016958,
+          "jump_score": 1.2300836878197032
+        },
+        {
+          "trade_date": "2026-05-19",
+          "state": 3,
+          "probabilities": [
+            6.630682434365497e-32,
+            1.7827676065073007e-08,
+            0.2453515028720136,
+            0.7546484793003104
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            5.531460288726098e-31,
+            2.224302965676209e-07,
+            0.6497109862552651,
+            0.3502887913144384
+          ],
+          "jump_probability": 0.17986631316264068,
+          "jump_score": 0.9306491396505062
+        },
+        {
+          "trade_date": "2026-05-20",
+          "state": 3,
+          "probabilities": [
+            1.1932453504570219e-36,
+            4.8854776833831665e-08,
+            2.718424555620021e-06,
+            0.9999972327206677
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            2.1383058906764487e-35,
+            1.2863318367041647e-06,
+            1.5507222465793975e-05,
+            0.9999832064456976
+          ],
+          "jump_probability": 0.236708993217459,
+          "jump_score": 1.2319062202124778
+        },
+        {
+          "trade_date": "2026-05-21",
+          "state": 3,
+          "probabilities": [
+            1.4758254677873188e-44,
+            1.4791917197657097e-07,
+            4.1991893169964303e-10,
+            0.9999998516609091
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            7.321697592735371e-44,
+            1.5281565276101362e-07,
+            1.1137599908715911e-10,
+            0.9999998470729713
+          ],
+          "jump_probability": 0.33219152590202095,
+          "jump_score": 1.6427915398482427
+        },
+        {
+          "trade_date": "2026-05-22",
+          "state": 2,
+          "probabilities": [
+            9.639983651026922e-18,
+            0.00018251885507725144,
+            0.9984577388326532,
+            0.0013597423122694247
+          ],
+          "probability_basis": "smoothed",
+          "filtered_probabilities": [
+            9.639983651026922e-18,
+            0.00018251885507725144,
+            0.9984577388326532,
+            0.0013597423122694247
+          ],
+          "jump_probability": 0.12433130351304691,
+          "jump_score": 0.5525756401451052
         }
       ]
     }
@@ -4638,7 +4638,7 @@ export const REPORT_DATA: ReportData = {
   "theme": {
     "badges": {
       "liq_section": {
-        "text": "Liquidity score: 67.4 — Weak",
+        "text": "Liquidity score: 67.9 — Weak",
         "bg": "bg-red-500/20",
         "textColor": "text-red-400"
       },
@@ -4699,43 +4699,43 @@ export const REPORT_DATA: ReportData = {
     "action_plan_subtitle": "Observational summary only; no execution instructions.",
     "action_plan_icon": "",
     "liq_title": "Liquidity Health & Peer Comparison",
-    "liq_subtitle": "Liquidity looks weak for the stock’s size. The six-month score is 67.4, which is 11.2 points below the peer median, while the current book is balanced with bid depth at 1.78x ask depth and a 3-tick spread.",
+    "liq_subtitle": "Liquidity screens weak for the stock’s size, and today’s volume is below the recent average.",
     "market_comparison_title": "How You Compare to the Market",
     "market_comparison_subtitle": "Context relative to market, sector, and peer medians.",
     "perf_title": "Stock Performance",
-    "perf_subtitle": "Returns have outperformed over one month, with the stock up 7.3% compared with peers down 2.7% and the market up 6.2%.",
-    "perf_insight": "Price performance is strong, but liquidity still screens below peers. The stock rose 7.3% over one month, while the six-month liquidity score remains 11.2 points below the peer median, which means the firmer tape sits on a weaker access profile.",
+    "perf_subtitle": "Returns are ahead of peers, with the stock up 0.8% over one month while peers are down 6.2%.",
+    "perf_insight": "Performance is strong relative to comparison groups. Recent price performance is stronger than the main comparison groups, so the tape has a firmer return backdrop than peers. Recent flow does not show a clear deterioration from the monthly baseline.",
     "drivers_title": "What Moves Your Stock Price?",
-    "drivers_subtitle": "Sector moves are the main current driver, accounting for 54.6% of the tape. That means trading is being shaped more by the group backdrop than by company-specific news.",
+    "drivers_subtitle": "Sector factors are the main current driver, pointing to a broader market read-through in the tape.",
     "drivers_strip": [
       {
         "title": "Current Driver (Last 5 Days)",
-        "text": "Over the last 5 trading days, moves are mainly sector-driven, accounting for about 54.6% of price changes. Other influences are market 37.9%, and company-specific 7.4%."
+        "text": "Over the last 5 trading days, moves are mainly sector-driven, accounting for about 48.4% of price changes. Other influences are market 38.9%, and company-specific 12.6%."
       },
       {
         "title": "Driver Mix",
-        "text": "Based on the last 5 trading days, current mix is market 37.9%, sector 54.6%, and company-specific 7.4%."
+        "text": "Based on the last 5 trading days, current mix is market 38.9%, sector 48.4%, and company-specific 12.6%."
       },
       {
         "title": "Monthly Trend",
-        "text": "The driver mix has been consistently market-driven across Feb to Apr."
+        "text": "The driver mix has shifted from market-driven to company-driven over Mar to May."
       }
     ],
     "drivers_pie_title": "Current Driver Mix (Last 5 Days)",
-    "drivers_pie_note": "Based on the last 5 trading days, current split is market 37.9%, sector 54.6%, and company-specific 7.4%.",
+    "drivers_pie_note": "Based on the last 5 trading days, current split is market 38.9%, sector 48.4%, and company-specific 12.6%.",
     "lead_lag_title": "",
     "lead_lag_note": "",
     "rolling_title": "Monthly Driver Shift",
     "rolling_latest_label": "Latest: {period}",
     "rolling_note": "Each bar shows the monthly split between market-, sector-, and company-driven moves.",
-    "drivers_bottom_line": "The current tape is being led mainly by sector direction, with sector factors at 54.6%. The order book remains balanced with bid depth at 1.78x ask depth and a 3-tick spread, so near-term trading conditions look orderly even though the broader liquidity profile is weaker.",
+    "drivers_bottom_line": "That matters because 48.4% of the current move is tied to sector factors, while today’s average volume is 41.1% below the one-month average. The backdrop is supportive, but trading remains thinner than the recent norm.",
     "drivers_wtd_title": "Key Reads",
     "drivers_wtd_list": [
-      "Main driver now: sector factors are leading, accounting for 54.6% of current price moves.",
-      "Monthly change: the pattern has shifted from more mixed in February and March to mostly market-driven in April, so the current read still sits within a broader top-down tape."
+      "Main driver now: sector factors account for 48.4% of recent price moves.",
+      "Monthly change: the pattern has become more balanced by May after a more market-led setup in April."
     ],
     "regime_title": "Market State",
-    "regime_subtitle": "The stock remains in a weaker liquidity regime for its size, although the current book looks orderly rather than strained.",
+    "regime_subtitle": "The market looks weak for its size, but current trading conditions appear orderly rather than dislocated.",
     "regime_badge_text": "Stressed / Illiquid",
     "regime_pie_title": "State Mix",
     "transition_title": "State Transitions",
@@ -4749,14 +4749,14 @@ export const REPORT_DATA: ReportData = {
     "transition_note_template": "Rows sum to 100%. Each row shows how states tend to transition across the observed sample.",
     "market_state_strip": [],
     "exec_check_title": "Trading Costs & Market Depth",
-    "exec_check_subtitle": "Combines the final continuous-session displayed book before close, trade-size stress tests based on May 6, 2025 to May 5, 2026 (241 trading days • 145,790 trades), large sell-side orders observed today, and intraday spread/depth during the continuous trading session.",
+    "exec_check_subtitle": "Combines the final continuous-session displayed book before close, trade-size stress tests based on May 22, 2025 to May 22, 2026 (242 trading days • 151,814 trades), large sell-side orders observed today, and intraday spread/depth during the continuous trading session.",
     "order_book_title": "Order Book Depth (Available Liquidity)",
     "order_book_note": "Depth shown is based on the displayed order book.",
     "peer_capacity_title": "Peer Capacity Context",
     "peer_capacity_note": "Immediate displayed depth broadly matches the stronger monthly liquidity read.",
     "impact_summary_title": "Estimated Price Impact (Sell Orders)",
     "impact_summary_subtitle": "Approximate price impact (%) for sell orders.",
-    "exec_check_insight": "The immediate book looks balanced, with bid depth at 1.78x ask depth and a 3-tick spread. That provides a steadier near-term trading picture even though the six-month liquidity score sits below peers.",
+    "exec_check_insight": "The displayed book looks broadly balanced, with bid depth at 0.83x of ask depth and a 3-tick spread. That suggests immediate liquidity is steadier than the weaker six-month peer standing.",
     "trader_composition_title": "Who's Trading Your Stock?",
     "trader_composition_subtitle": "Shows whether trading is mostly retail-like, institution-like, mixed, or unclassified.",
     "trader_retail_threshold": "Retail-like flow",
@@ -4765,9 +4765,9 @@ export const REPORT_DATA: ReportData = {
     "peer_trader_title": "Peer Comparison: Trader Mix",
     "peer_trader_subtitle": "How the trader mix compares with peers.",
     "price_moving_title": "Which Trades Move the Price?",
-    "price_moving_subtitle": "Price-moving trades are 28.5% of total trades.",
+    "price_moving_subtitle": "Price-moving trades are 28.2% of total trades.",
     "intraday_title": "When Does Trading Happen?",
-    "intraday_subtitle": "The current trading picture looks orderly, with balanced displayed depth and a moderate spread.",
+    "intraday_subtitle": "Immediate execution conditions look broadly balanced.",
     "session_dist_title": "Trading by Session",
     "session_period_label": "Period:",
     "session_dist_note": "Shows the share of volume in the opening, continuous, and closing sessions.",
@@ -4783,9 +4783,9 @@ export const REPORT_DATA: ReportData = {
       "Interpretation"
     ],
     "peers_hhi_note": "Peer comparison uses auction share and concentration score.",
-    "intraday_insight": "Displayed bid depth is 1.78x ask depth and the spread is 3 ticks. That points to a balanced near-term book even though the broader liquidity standing remains weaker than peers.",
+    "intraday_insight": "The displayed book is broadly orderly, with bid depth at 0.83x of ask depth and a 3-tick spread. That matters because near-term access looks usable even though structural liquidity screens below peers.",
     "short_title": "Short Selling & Lending",
-    "short_subtitle": "Recent price strength stands out more than any sign of short pressure in the current trading picture.",
+    "short_subtitle": "Current trading is being shaped more by liquidity and sector factors than by short activity.",
     "footer": "Liquidity Analysis Report • Generated by Deltablock",
     "header_title": "Liquidity Analysis Report",
     "header_meta_line1_tokens": [
@@ -4805,7 +4805,7 @@ export const REPORT_DATA: ReportData = {
       "Peers: {peers}"
     ],
     "exec_title": "Executive Summary",
-    "exec_subtitle": "Trading access screens below peers, even with stronger recent returns and a balanced near-term book.",
+    "exec_subtitle": "Trading access screens below peers, while the current book still looks broadly orderly.",
     "exec_takeaways_title": "Key Takeaways:",
     "metric_liquidity_score": "Liquidity Score",
     "metric_spread": "Trading Cost (Spread)",
@@ -4861,8 +4861,8 @@ export const REPORT_DATA: ReportData = {
     "liq_tiles": [
       {
         "title": "Liquidity Score",
-        "value": "67.4/100",
-        "sub": "Peer median 78.5 (-11.2 pts)",
+        "value": "67.9/100",
+        "sub": "Peer median 79.9 (-12.0 pts)",
         "interp": {
           "text": "Weak",
           "cls": "interpretation-bad",
@@ -4871,8 +4871,8 @@ export const REPORT_DATA: ReportData = {
       },
       {
         "title": "Volume vs Peers",
-        "value": "HK$7.9M",
-        "sub": "Peer median HK$20.2M",
+        "value": "HK$8.6M",
+        "sub": "Peer median HK$27.3M",
         "interp": {
           "text": "Weak",
           "cls": "interpretation-bad",
@@ -4882,7 +4882,7 @@ export const REPORT_DATA: ReportData = {
       {
         "title": "Spread",
         "value": "0.35%",
-        "sub": "4.16 ticks; peers 0.28%",
+        "sub": "4.14 ticks; peers 0.28%",
         "interp": {
           "text": "Wider",
           "cls": "interpretation-bad",
@@ -4890,24 +4890,24 @@ export const REPORT_DATA: ReportData = {
         }
       }
     ],
-    "liq_insight": "Liquidity is weak in structural terms. The six-month liquidity score is 67.4 compared with a peer median of 78.5, which means trading access screens below peers for the stock’s size. The current book is more balanced, with displayed bid depth at 1.78x ask depth and a 3-tick spread, so near-term conditions look orderly rather than strained.",
+    "liq_insight": "6M liquidity is weak: score 67.9 vs peer median 79.9 (-12.0 pts). 1D average volume down -41.1% from 1M. Recent flow does not show a clear deterioration from the monthly baseline.",
     "perf_badge": "Context",
     "exec_check_tiles": [
       {
         "title": "Mid Price",
-        "value": "115.650",
+        "value": "120.150",
         "note": "final continuous-session displayed book before close",
         "color": "text-white"
       },
       {
         "title": "Spread",
-        "value": "0.26%",
+        "value": "0.25%",
         "note": "3.00 ticks",
         "color": "text-slate-300"
       },
       {
         "title": "Depth",
-        "value": "1.78x",
+        "value": "0.83x",
         "note": "Bid depth / ask depth on the displayed order book",
         "color": "text-slate-300"
       }
@@ -4915,17 +4915,17 @@ export const REPORT_DATA: ReportData = {
     "impact_summary_cards": [
       {
         "title": "~S$100K sell",
-        "text": "Estimated impact ~-0.17% with 100.0% fill.",
+        "text": "Estimated impact ~-0.24% with 100.0% fill.",
         "cls": "ok"
       },
       {
         "title": "S$1.0M sell",
-        "text": "Estimated impact ~-1.42% with 100.0% fill.",
+        "text": "Estimated impact ~-0.56% with 100.0% fill.",
         "cls": "warn"
       },
       {
         "title": "S$2.5M sell",
-        "text": "Estimated impact ~-4.30% with 91.9% fill.",
+        "text": "Estimated impact ~-4.52% with 66.5% fill.",
         "cls": "warn"
       }
     ],
@@ -4943,12 +4943,12 @@ export const REPORT_DATA: ReportData = {
           "title": "Liquidity Score",
           "body": "Overall liquidity read for the selected window."
         },
-        "value": "67",
+        "value": "68",
         "suffix": "/100",
-        "bar_pct": 67,
+        "bar_pct": 68,
         "color_value": "text-amber-400",
         "color_bar": "bg-amber-500",
-        "subtext": "Rank 838/2566",
+        "subtext": "Rank 827/2571",
         "interpretation": {
           "text": "Moderate",
           "cls": "interpretation-neutral",
@@ -4963,10 +4963,10 @@ export const REPORT_DATA: ReportData = {
         },
         "value": "0.35",
         "suffix": "%",
-        "bar_pct": 4,
+        "bar_pct": 3,
         "color_value": "text-emerald-400",
         "color_bar": "bg-emerald-500",
-        "subtext": "0.35% • 4.16 ticks vs peers 0.28%",
+        "subtext": "0.35% • 4.14 ticks vs peers 0.28%",
         "interpretation": {
           "text": "Strong",
           "cls": "interpretation-good",
@@ -4979,13 +4979,13 @@ export const REPORT_DATA: ReportData = {
           "title": "Average Traded Volume",
           "body": "Average daily trading value in local currency for the selected window."
         },
-        "value": "7.9M",
+        "value": "8.6M",
         "value_prefix": "HK$",
         "suffix": "",
         "bar_pct": 60,
         "color_value": "text-red-400",
         "color_bar": "bg-red-500",
-        "subtext": "Peer median HK$20.2M",
+        "subtext": "Peer median HK$27.3M",
         "interpretation": {
           "text": "Weak",
           "cls": "interpretation-bad",
@@ -4998,12 +4998,12 @@ export const REPORT_DATA: ReportData = {
           "title": "What Drives Price Changes",
           "body": "Shows whether market, sector, or company-specific factors are the main source of recent moves."
         },
-        "value": "54.6",
+        "value": "48.4",
         "suffix": "sector",
-        "bar_pct": 55,
+        "bar_pct": 48,
         "color_value": "text-amber-400",
         "color_bar": "bg-amber-500",
-        "subtext": "Market 37.9% • Company 7.4%",
+        "subtext": "Market 38.9% • Company 12.6%",
         "interpretation": {
           "text": "Sector",
           "cls": "interpretation-neutral",
@@ -5012,9 +5012,9 @@ export const REPORT_DATA: ReportData = {
       }
     ],
     "exec_takeaways": [
-      "Structural liquidity is weak for the stock’s size, with a six-month score of 67.4 compared with a peer median of 78.5. That leaves trading access screening below peers before current conditions are considered.",
-      "Recent price performance is stronger than the main comparison groups, with a one-month return of 7.3% compared with peers at -2.7% and the market at 6.2%. That gives the tape a firmer return backdrop even though the underlying liquidity profile remains weaker.",
-      "The near-term book looks balanced, with displayed bid depth at 1.78x ask depth and a 3-tick spread, while sector factors account for 54.6% of the current driver mix. That means immediate trading conditions look orderly, but the tape is still being shaped mainly by broader sector moves."
+      "Structural liquidity is weak relative to peers, with a six-month liquidity score of 67.9 compared with a peer median of 79.9. That leaves trading access starting from a weaker base for a company of this size.",
+      "Recent flow is thinner than the monthly average, with one-day average volume down 41.1% from one month. That matters because lower daily activity can make access less reliable even without a broader break in conditions.",
+      "The current tape is orderly rather than dislocated, with bid depth at 0.83x of ask depth and a 3-tick spread, while the stock is up 0.8% over one month compared with peers down 6.2%. That matters because relative performance is supportive, but immediacy still looks only moderate."
     ],
     "ofi_tiles_interpretations": [
       {
@@ -5033,100 +5033,102 @@ export const REPORT_DATA: ReportData = {
   },
   "insights": {
     "liquidity": {
-      "overall": "6M liquidity is weak: score 67.4 vs peer median 78.5 (-11.2 pts). Recent trend context is too limited to say whether access has changed from the 1M baseline.",
+      "overall": "6M liquidity is weak: score 67.9 vs peer median 79.9 (-12.0 pts). 1D average volume down -41.1% from 1M. Recent flow does not show a clear deterioration from the monthly baseline.",
       "strengths": [
-        "6M score 67.4 vs peer median 78.5 (-11.2 pts)."
+        "6M score 67.9 vs peer median 79.9 (-12.0 pts)."
       ],
-      "concerns": [],
-      "peer_context": "Primary-period score gap vs peers: -11.2 pts."
+      "concerns": [
+        "1D average volume down -41.1% from 1M."
+      ],
+      "peer_context": "Primary-period score gap vs peers: -12.0 pts."
     },
     "market_comparison": {
       "returns": {
-        "insight": "6M return is 10.6%, better than sector and peers, but worse than market, which shows price performance is mixed across comparison groups.",
-        "vs_market": "Worse than market: 10.6% vs market 13.2%.",
-        "vs_sector": "Better than sector: 10.6% vs sector -7.3%.",
-        "vs_peers": "Better than peers: 10.6% vs peers -17.7%."
+        "insight": "6M return is 12.8%, better than sector and peers, but worse than market, which shows price performance is mixed across comparison groups.",
+        "vs_market": "Worse than market: 12.8% vs market 15.0%.",
+        "vs_sector": "Better than sector: 12.8% vs sector -10.0%.",
+        "vs_peers": "Better than peers: 12.8% vs peers -18.5%."
       },
       "adv": {
-        "insight": "ADV is HK$7.9M, better than market, but worse than sector and peers, which shows trading size is uneven across comparison groups.",
-        "vs_market": "Better than market: HK$7.9M vs market HK$207.7K.",
-        "vs_sector": "Worse than sector: HK$7.9M vs sector HK$30.3M.",
-        "vs_peers": "Worse than peers: HK$7.9M vs peers HK$20.2M."
+        "insight": "ADV is HK$8.6M, better than market, but worse than sector and peers, which shows trading size is uneven across comparison groups.",
+        "vs_market": "Better than market: HK$8.6M vs market HK$211.0K.",
+        "vs_sector": "Worse than sector: HK$8.6M vs sector HK$30.2M.",
+        "vs_peers": "Worse than peers: HK$8.6M vs peers HK$27.3M."
       },
       "spread": {
         "insight": "Spread is 0.35%, better than market, but worse than sector and peers, which shows execution cost is mixed across comparison groups.",
-        "vs_market": "Better than market: 0.35% vs market 2.71%.",
-        "vs_sector": "Worse than sector: 0.35% vs sector 0.22%.",
+        "vs_market": "Better than market: 0.35% vs market 2.77%.",
+        "vs_sector": "Worse than sector: 0.35% vs sector 0.21%.",
         "vs_peers": "Worse than peers: 0.35% vs peers 0.28%."
       },
       "turnover_ratio": {
         "insight": "Turnover ratio is 0.00%, worse than market, sector, and peers, which shows a lighter free-float turnover profile than comparable names.",
         "vs_market": "Worse than market: 0.00% vs market 0.08%.",
         "vs_sector": "Worse than sector: 0.00% vs sector 0.30%.",
-        "vs_peers": "Worse than peers: 0.00% vs peers 0.21%."
+        "vs_peers": "Worse than peers: 0.00% vs peers 0.40%."
       },
       "volatility": {
-        "insight": "Volatility is 32.37%, better than market, which suggests day-to-day price swings are more contained than comparable names.",
-        "vs_market": "Better than market: 32.37% vs market 58.96%.",
-        "vs_sector": "In line with sector: 32.37% vs sector 35.80%.",
-        "vs_peers": "In line with peers: 32.37% vs peers 35.69%."
+        "insight": "Volatility is 33.92%, better than market, which suggests day-to-day price swings are more contained than comparable names.",
+        "vs_market": "Better than market: 33.92% vs market 60.32%.",
+        "vs_sector": "In line with sector: 33.92% vs sector 35.57%.",
+        "vs_peers": "In line with peers: 33.92% vs peers 34.69%."
       },
       "trades": {
-        "insight": "Trades is 264, better than market, but worse than sector and peers, which shows trading frequency is mixed across comparison groups.",
-        "vs_market": "Better than market: 264 vs market 20.",
-        "vs_sector": "Worse than sector: 264 vs sector 1137.",
-        "vs_peers": "Worse than peers: 264 vs peers 941."
+        "insight": "Trades is 271, better than market, but worse than sector and peers, which shows trading frequency is mixed across comparison groups.",
+        "vs_market": "Better than market: 271 vs market 19.",
+        "vs_sector": "Worse than sector: 271 vs sector 1191.",
+        "vs_peers": "Worse than peers: 271 vs peers 1029."
       },
       "amihud": {
-        "insight": "Price impact is 1.33e-09, better than market, but worse than sector and peers, which shows price impact is mixed across comparison groups.",
-        "vs_market": "Better than market: 1.33e-09 vs market 4.74e-08.",
-        "vs_sector": "Worse than sector: 1.33e-09 vs sector 4.23e-10.",
-        "vs_peers": "Worse than peers: 1.33e-09 vs peers 7.71e-10."
+        "insight": "Price impact is 1.38e-09, better than market, but worse than sector and peers, which shows price impact is mixed across comparison groups.",
+        "vs_market": "Better than market: 1.38e-09 vs market 4.76e-08.",
+        "vs_sector": "Worse than sector: 1.38e-09 vs sector 4.23e-10.",
+        "vs_peers": "Worse than peers: 1.38e-09 vs peers 5.79e-10."
       }
     },
     "performance": {
-      "overall": "Recent performance is strong relative to peers and the market, with the stock up 7.3% over one month compared with peers down 2.7% and the market up 6.2%. Liquidity only partly confirms that strength, because the six-month liquidity score of 67.4 is 11.2 points below the peer median, even though the order book is balanced with bid depth at 1.78 times ask depth and a 3-tick spread.",
-      "conclusion": "The move looks mainly sector-linked, with strong relative returns but liquidity that still trails peers."
+      "overall": "Recent returns are stronger than peers, but the liquidity read is mixed rather than fully supportive. The stock rose 0.8% over one month while peers fell 6.2%, yet the six-month liquidity score is 67.9 compared with a peer median of 79.9 and one-day average volume is 41.1% below the one-month average. That matters because the move is happening in a name that already screens weaker than peers on liquidity, with sector factors accounting for 48.4% of current trading.",
+      "conclusion": "The move looks more sector-linked than company-specific, with relative outperformance but only partial confirmation from liquidity."
     },
     "drivers": {
-      "overall": "The stock is moving mainly with its sector right now, with sector factors explaining 54.6% of price action. That matters because the tape is being set more by broader group moves than by company-specific news.",
-      "beta": "Based on the last 5 trading days, current mix is market 37.9%, sector 54.6%, and company-specific 7.4%.",
-      "rolling_change": "The driver mix was more mixed in February and March, then became mostly market-driven in April. That matters because the current sector-led pattern looks more like a continuation of a broader top-down backdrop than a new stock-specific phase."
+      "overall": "Sector moves are the main force in the stock right now, with sector factors accounting for 48.4% of recent price action. That matters because the tape is being shaped more by the industry backdrop than by company-specific news, which fits with the stock outperforming peers over the past month.",
+      "beta": "The current read is mixed rather than fully settled because 1D average volume is 41.1% below the 1M average. Lower activity can make the day-to-day driver mix less durable even when sector influence is leading.",
+      "rolling_change": "The monthly picture is more balanced now. March was more mixed, April was mostly market-driven, and May has moved to a more even split across company, sector, and market factors."
     },
     "regime": {
-      "overall": "Short expected duration points to a short-lived state rather than a durable market backdrop.",
-      "current": "The active state is stressed and illiquid, even though the visible book is not one-sided, with bid depth at 1.78x ask depth and a spread of 3 ticks.",
-      "transitions": "This state looks relatively persistent, with a typical run length of about 7 days, although the read is mixed rather than fully clean-cut.",
-      "trading_implications": "This state looks more persistent, with a typical run length of about 7.0 days."
+      "overall": "The active backdrop matters because liquidity is already weak for the stock's size, with a 6M score of 67.9 compared with a peer median of 79.9, so a stressed state leaves less cushion when trading conditions tighten.",
+      "current": "The stock is currently in a stressed, illiquid state, and recent average volume is 41.1% below the 1M average, which keeps activity thinner than the recent baseline.",
+      "transitions": "This state looks more persistent than fleeting, with a typical run length of about 5.6 days, although the signals are mixed rather than one-way.",
+      "trading_implications": "This state looks more persistent, with a typical run length of about 5.6 days."
     },
     "execution": {
-      "overall": "Displayed liquidity looks balanced at the screen because bid depth is 1.78x ask depth and the spread is 3 ticks. That matters because the immediate book does not show the kind of thin setup that would deepen the broader liquidity concern on the day.",
-      "concern": "The main imbalance is on the buy side, with bid depth stronger than ask depth at 1.78x. That matters because the book is not fully even, so the current picture is supportive but still mixed rather than uniformly strong.",
-      "peer_context": "The displayed book is firmer than the broader liquidity profile, even though the six-month score of 67.4 sits 11.2 points below the peer median of 78.5. That matters because the screen suggests better immediate access than the longer-term peer standing implies."
+      "overall": "Displayed liquidity looks balanced overall because the spread is 3 ticks and bid depth is close to ask depth at 0.83x. That matters because the screen does not point to acute stress in immediate execution conditions.",
+      "concern": "The main watchpoint is that the buy side is thinner than the sell side, with bid depth at 0.83x of ask depth. That matters because liquidity could feel less even if selling pressure builds, especially with 1D average volume down 41.1% from the 1M average.",
+      "peer_context": "The book is more supportive than the broader liquidity profile suggests, even though the six month liquidity score of 67.9 sits 12.0 points below the peer median of 79.9. That matters because the current screen does not fully echo the weaker peer-relative standing."
     },
     "trader_composition": {
       "overall": "By trade count and value, flow looks mainly institution-like.",
-      "retail_heavy": "By trade count and value, flow leans institution-like: institution-like trades are 37.0% of count and 49.7% of value, compared with retail-like at 31.8% of count and 17.4% of value.",
-      "institutional_gap": "The institutional lead is clearer in value than in count. Institution-like trades are ahead by 5.2 points on count and 32.3 points on value, which shows the stronger part of the tape is coming from higher-value trading.",
-      "peer_comparison": "The trader mix looks more institution-like than a retail-dominated tape. Institution-like trades lead retail-like trades on both count and value, which makes the flow profile stand out more positively relative to weaker peer mixes."
+      "retail_heavy": "By trade count and value, flow leans institution-like: institution-like trades are 37.8% of count and 50.7% of value, compared with retail-like at 30.9% of count and 16.7% of value.",
+      "institutional_gap": "The institutional lead is clearer in value than in count. That gap matters because trade value is doing more of the work than trade frequency in shaping the overall flow read.",
+      "peer_comparison": "The mix stands out for stronger institution-like value share than retail-like value share. That matters because the stock’s trading base appears more supported by larger-value participation relative to a more retail-skewed profile."
     },
     "price_moving": {
-      "overall": "Price-moving activity is present, but the signal is mixed rather than clean. Ambiguous or unclear flow accounts for 15.6% of trade count, which tempers how firmly price-setting activity can be read. The main read still leans institution-like because count and value both point the same way, but 15.6% unclear flow means the signal may be treated as directionally useful rather than definitive. The cleaner message is in the mix of participants rather than one-sided price pressure.",
+      "overall": "Price-moving trades account fo% of total trades. The cleaner read comes from the count and value split, which leans institution-like overall. That matters because the direction of participation is still visible even with some noise in the tape. The main asymmetry is between clearer institution-like value share and the portion of trades that remain unclear. That leaves the signal constructive, but not fully clean.",
       "interpretation": "",
       "asymmetry": ""
     },
     "short_selling": {
-      "overall": "Short-selling data is unavailable for this report.",
+      "overall": "Short activity does not appear to be the main issue in the tape. The clearer signals are weaker structural liquidity for the stock’s size, with a 6M liquidity score of 67.9 compared with a peer median of 79.9, while the stock still delivered a 1M return of +0.8% compared with peers at -6.2%, which points away from short pressure as the defining feature.",
       "level": "N/A",
       "correlation": "N/A",
-      "trend": "There is no clear sign that short activity is becoming a bigger influence. The broader picture is still shaped more by sector-led trading and a firmer recent return backdrop, so short selling does not appear to change the liquidity read.",
+      "trend": "There is no clear sign that short activity is changing the picture near term. Recent average volume is down 41.1% from the 1M average, but displayed depth remains broadly balanced at 0.83x bid to ask with a 3 tick spread, so the current setup looks more like generally weak liquidity than a rising short-driven dislocation.",
       "peaks": "N/A"
     },
     "intraday": {
-      "overall": "Session split is open 0.5%, continuous 87.2%, and close 6.1%. Current trading concentration score is 0.194.",
-      "hhi_interpretation": "Intraday activity looks reasonably well distributed. A concentration score of 0.194 suggests trading is not overly concentrated in a narrow part of the day, which supports a steadier liquidity profile.",
-      "best_times": "The continuous session is clearly the best window for liquidity. With 87.2% of activity taking place there, the market looks most usable during regular trading rather than around the open or close.",
-      "peer_ranking": "The intraday profile looks constructive relative to thinner trading patterns. Most activity sits in the continuous session and the concentration score is low enough to suggest liquidity is available across the day rather than in brief bursts."
+      "overall": "Session split is open 0.5%, continuous 89.0%, and close 5.1%. Current trading concentration score is 0.197.",
+      "hhi_interpretation": "The low concentration score points to trading being spread across the session rather than packed into a few moments. That matters because access looks more repeatable during market hours.",
+      "best_times": "The continuous session is the clearest source of liquidity, with 89.0% of activity compared with 0.5% at the open and 5.1% at the close. That makes the middle of the day the most reliable part of the session for observed flow.",
+      "peer_ranking": "Peer concentration score comparison is available in this report."
     },
     "ofi": {
       "overall": "Order flow imbalance data not available.",
@@ -5143,25 +5145,25 @@ export const REPORT_DATA: ReportData = {
     "peers_liquidity": {
       "labels": [
         "2378",
-        "1828",
-        "945",
         "376",
+        "1828",
         "82318",
+        "945",
         "1508",
         "6963",
-        "81299",
-        "6060"
+        "6060",
+        "966"
       ],
       "scores": [
-        67.38113795791114,
-        77.00701480904131,
-        59.392049883086514,
-        81.02104442712394,
-        59.08028059236165,
-        80.08573655494934,
-        86.63289166017148,
-        36.12626656274357,
-        95.20654715510523
+        67.87242318164138,
+        79.77440684558537,
+        76.93504472967717,
+        58.92648774795799,
+        59.50991831971996,
+        79.96888370283936,
+        86.7755737067289,
+        94.71022948269156,
+        95.91598599766627
       ],
       "is_target": [
         true,
@@ -5175,248 +5177,248 @@ export const REPORT_DATA: ReportData = {
         false
       ],
       "adv": [
-        7871677.5,
-        11601638.0,
-        3392360.0,
-        28842920.0,
-        4646563.143961151,
-        30258669.785,
-        48105238.239999995,
-        364171.5813130491,
-        147201748.5
+        8630745.0,
+        24483975.4,
+        11247428.0,
+        4634686.981070053,
+        3587050.0,
+        30156600.0,
+        49337585.0,
+        133765207.5,
+        199305288.68
       ],
-      "total": 2566
+      "total": 2571
     },
     "market_comparison": {
       "sector_name": "Insurance",
       "sector_count": 21,
-      "market_count": 2566,
+      "market_count": 2571,
       "company": {
-        "volatility": 0.3237076081130601,
-        "adv": 7871677.5,
-        "spread_pct": 0.0035401170946083383,
-        "turnover_ratio": 2.695004673061857e-05,
-        "amihud": 1.330364410805972e-09,
-        "trades": 264.5
+        "volatility": 0.33916495668027413,
+        "adv": 8630745.0,
+        "spread_pct": 0.0034695532331077495,
+        "turnover_ratio": 2.8318565607037357e-05,
+        "amihud": 1.3828644341540456e-09,
+        "trades": 271.0
       },
       "market": {
         "volatility": {
           "direction": "lower_is_better",
-          "mean": 0.7412129986443076,
-          "median": 0.5896426700122256,
+          "mean": 0.75822812756525,
+          "median": 0.6031638752731745,
           "min": 0.0,
-          "max": 33.69155621232454,
-          "p5": 0.2234860817568074,
-          "p95": 1.578390762729493,
-          "count": 2565
+          "max": 33.691646467757096,
+          "p5": 0.22550745371131659,
+          "p95": 1.63682605116363,
+          "count": 2571
         },
         "adv": {
           "direction": "higher_is_better",
-          "mean": 55315932.40657849,
-          "median": 207689.25,
+          "mean": 55728659.478669554,
+          "median": 210975.0,
           "min": 0.0,
-          "max": 11376396450.0,
+          "max": 11918065125.0,
           "p5": 0.0,
-          "p95": 209782336.9,
-          "count": 2566
+          "p95": 220259932.29,
+          "count": 2571
         },
         "spread_pct": {
           "direction": "lower_is_better",
-          "mean": 0.04209417686601101,
-          "median": 0.02711283991875178,
-          "min": 0.0005747861018128454,
+          "mean": 0.04207446141121854,
+          "median": 0.027695784679656173,
+          "min": 0.0005771856643019467,
           "max": 0.586235634471959,
-          "p5": 0.0014161011297062487,
-          "p95": 0.13360936257996903,
-          "count": 2566
+          "p5": 0.0014208584315453484,
+          "p95": 0.1324396532286795,
+          "count": 2571
         },
         "turnover_ratio": {
           "direction": "higher_is_better",
-          "mean": 0.0034733871468676488,
-          "median": 0.0008378651147225603,
+          "mean": 0.0035373519647117313,
+          "median": 0.0008301989288898599,
           "min": 0.0,
-          "max": 0.20377282466782026,
+          "max": 0.18523236964248901,
           "p5": 0.0,
-          "p95": 0.013936026148510566,
-          "count": 2551
+          "p95": 0.01457506378368512,
+          "count": 2555
         },
         "amihud": {
           "direction": "lower_is_better",
-          "mean": 6.32076511785314e-07,
-          "median": 4.741943094346306e-08,
+          "mean": 6.114115465324687e-07,
+          "median": 4.764775689033665e-08,
           "min": 0.0,
-          "max": 2.024037584382411e-05,
-          "p5": 5.138318648677789e-11,
-          "p95": 3.4611188554167365e-06,
-          "count": 2566
+          "max": 2.184280144806465e-05,
+          "p5": 5.243088147276305e-11,
+          "p95": 3.143788841813537e-06,
+          "count": 2571
         },
         "trades": {
           "direction": "higher_is_better",
-          "mean": 1012.1938815276695,
-          "median": 19.5,
+          "mean": 1017.7306495527032,
+          "median": 19.0,
           "min": 0.0,
-          "max": 88929.0,
+          "max": 79385.5,
           "p5": 0.0,
-          "p95": 5642.0,
-          "count": 2566
+          "p95": 5533.25,
+          "count": 2571
         }
       },
       "sector": {
         "volatility": {
           "direction": "lower_is_better",
-          "mean": 0.43444582029548695,
-          "median": 0.35797086670343664,
-          "min": 0.21797050446133018,
-          "max": 1.9571164205487641,
-          "p5": 0.2187146042335629,
-          "p95": 0.6359905638859137,
+          "mean": 0.4315190064202189,
+          "median": 0.3557006248134922,
+          "min": 0.21844048650518122,
+          "max": 1.968484818579439,
+          "p5": 0.22826696421155068,
+          "p95": 0.6098940062111264,
           "count": 21
         },
         "adv": {
           "direction": "higher_is_better",
-          "mean": 395134860.5542987,
-          "median": 30258669.785,
+          "mean": 395633931.9010032,
+          "median": 30156600.0,
           "min": 0.0,
-          "max": 2286237750.3,
-          "p5": 50320.0,
-          "p95": 2106529895.55,
+          "max": 2277587334.95,
+          "p5": 27000.0,
+          "p95": 2133859266.3250003,
           "count": 21
         },
         "spread_pct": {
           "direction": "lower_is_better",
-          "mean": 0.00851839082400369,
-          "median": 0.0021718878586147747,
-          "min": 0.0006765261455938876,
-          "max": 0.05035057826935165,
-          "p5": 0.0008478694874768748,
-          "p95": 0.03724201108557803,
+          "mean": 0.008508185857922724,
+          "median": 0.002149718430856517,
+          "min": 0.000675890048809352,
+          "max": 0.052379174494585255,
+          "p5": 0.0008483486664256693,
+          "p95": 0.03625207608907069,
           "count": 21
         },
         "turnover_ratio": {
           "direction": "higher_is_better",
-          "mean": 0.0037184483187270795,
+          "mean": 0.0036545330583630077,
           "median": 0.002980167291234769,
           "min": 0.0,
-          "max": 0.010052468189646493,
-          "p5": 4.3184181293360595e-07,
-          "p95": 0.009846611552401656,
+          "max": 0.009771684565041131,
+          "p5": 3.0845843780971854e-07,
+          "p95": 0.009404131840219713,
           "count": 21
         },
         "amihud": {
           "direction": "lower_is_better",
-          "mean": 2.357352567168868e-08,
+          "mean": 2.811933185913324e-08,
           "median": 4.2320166367483765e-10,
           "min": 4.883409595552578e-12,
-          "max": 1.479553823217473e-07,
-          "p5": 7.214710232545567e-12,
-          "p95": 1.4526121598163848e-07,
+          "max": 2.1603719112949397e-07,
+          "p5": 6.865674918277967e-12,
+          "p95": 1.4097085128208605e-07,
           "count": 21
         },
         "trades": {
           "direction": "higher_is_better",
-          "mean": 4964.285714285715,
-          "median": 1137.0,
+          "mean": 4953.380952380952,
+          "median": 1191.0,
           "min": 0.0,
-          "max": 16971.5,
-          "p5": 3.0,
-          "p95": 16216.5,
+          "max": 17315.0,
+          "p5": 2.0,
+          "p95": 16392.5,
           "count": 21
         }
       },
       "peers": {
         "adv": {
           "direction": "higher_is_better",
-          "mean": 34301663.65628427,
-          "median": 20222279.0,
-          "min": 364171.5813130491,
-          "max": 147201748.5,
-          "p5": 1424037.527853482,
-          "p95": 112517969.90899995,
+          "mean": 57064727.69513376,
+          "median": 27320287.7,
+          "min": 3587050.0,
+          "max": 199305288.68,
+          "p5": 3953722.9433745183,
+          "p95": 176366260.26699996,
           "count": 8
         },
         "trades": {
           "direction": "higher_is_better",
-          "mean": 1571.1875,
-          "median": 941.25,
-          "min": 3.0,
-          "max": 7189.5,
-          "p5": 13.325000000000001,
-          "p95": 5466.274999999998,
+          "mean": 2578.4375,
+          "median": 1029.0,
+          "min": 33.0,
+          "max": 8512.0,
+          "p5": 43.15,
+          "p95": 7893.549999999999,
           "count": 8
         },
         "volatility": {
           "direction": "lower_is_better",
-          "mean": 0.3574678209941948,
-          "median": 0.35688756674148225,
-          "min": 0.21797050446133018,
-          "max": 0.6359905638859137,
-          "p5": 0.21823093938161164,
-          "p95": 0.5472064629719388,
+          "mean": 0.3577681702087466,
+          "median": 0.34690058195360723,
+          "min": 0.21844048650518122,
+          "max": 0.6098940062111264,
+          "p5": 0.22187975370241053,
+          "p95": 0.5421817857014499,
           "count": 8
         },
         "spread_pct": {
           "direction": "lower_is_better",
-          "mean": 0.0032457418722365555,
-          "median": 0.0027692053093815636,
-          "min": 0.001076986982866866,
-          "max": 0.006642108829882296,
-          "p5": 0.0014136252315835346,
-          "p95": 0.005812478225857052,
-          "count": 8
-        },
-        "amihud": {
-          "direction": "lower_is_better",
-          "mean": 4.610700091884382e-09,
-          "median": 7.705990559811574e-10,
-          "min": 9.598714543429525e-11,
-          "max": 2.9911982220572446e-08,
-          "p5": 1.6229873820318147e-10,
-          "p95": 2.0321038762774056e-08,
-          "count": 8
-        },
-        "turnover_ratio": {
-          "direction": "higher_is_better",
-          "mean": 0.002905078040450367,
-          "median": 0.002064316998153081,
-          "min": 4.3184181293360595e-07,
-          "max": 0.007691575418474926,
-          "p5": 2.801154002230877e-06,
-          "p95": 0.00730267275991567,
+          "mean": 0.003256892299740872,
+          "median": 0.00275985846234272,
+          "min": 0.0011371279687285637,
+          "max": 0.006718332424202004,
+          "p5": 0.0012905558195965411,
+          "p95": 0.005939555876428244,
           "count": 8
         },
         "spread_ticks": {
           "direction": "neutral",
-          "mean": 2.5352195554138497,
-          "median": 1.9582609478502433,
-          "min": 1.0770572149604944,
-          "max": 5.966060398078243,
-          "p5": 1.1148431940544847,
-          "p95": 5.230414471660537,
-          "count": 6
+          "mean": 2.503344353259468,
+          "median": 1.3526260713573848,
+          "min": 1.0760004750029686,
+          "max": 6.3194773135302755,
+          "p5": 1.1065479920612944,
+          "p95": 5.5635578200466425,
+          "count": 5
+        },
+        "amihud": {
+          "direction": "lower_is_better",
+          "mean": 9.017777964514821e-10,
+          "median": 5.789557112725479e-10,
+          "min": 8.17055259482872e-11,
+          "max": 2.3920814572436205e-09,
+          "p5": 9.038652222811485e-11,
+          "p95": 2.307093049425563e-09,
+          "count": 8
+        },
+        "turnover_ratio": {
+          "direction": "higher_is_better",
+          "mean": 0.003722318801866455,
+          "median": 0.004007071846044922,
+          "min": 7.406220399854591e-06,
+          "max": 0.007390818235582105,
+          "p5": 9.08281079545301e-06,
+          "p95": 0.007280655172138973,
+          "count": 8
         }
       }
     },
     "returns": [
       {
         "horizon": "1M",
-        "stock": 0.07348837209302217,
-        "market": 0.061764402986667966,
-        "sector": 0.0369669548770839,
-        "peers": -0.027075209681488355
+        "stock": 0.008438818565400963,
+        "market": 0.02086654266861232,
+        "sector": -0.023903913558397716,
+        "peers": -0.06247086488729148
       },
       {
         "horizon": "3M",
-        "stock": -0.08339952343129542,
-        "market": 0.0415245390987562,
-        "sector": -0.11921446832342297,
-        "peers": -0.1928598352178036
+        "stock": 0.031061259706643085,
+        "market": 0.029271276062160734,
+        "sector": -0.11788138148293426,
+        "peers": -0.17549184959233988
       },
       {
         "horizon": "6M",
-        "stock": 0.10642377756471588,
-        "market": 0.13246234055294548,
-        "sector": -0.07271020565986053,
-        "peers": -0.17713068024066558
+        "stock": 0.12842304060434317,
+        "market": 0.15043005670937237,
+        "sector": -0.10017017179734633,
+        "peers": -0.18465185595292855
       },
       {
         "horizon": "LAST_YEAR",
@@ -5427,11 +5429,11 @@ export const REPORT_DATA: ReportData = {
       }
     ],
     "drivers": {
-      "share_market": 0.3793349603854555,
-      "share_sector": 0.5463791636096462,
-      "share_idio": 0.07428587600489825,
-      "beta_market": 0.3485640656875511,
-      "beta_sector": -1.0606429079324493,
+      "share_market": 0.38913472981046404,
+      "share_sector": 0.4843773200892645,
+      "share_idio": 0.12648795010027147,
+      "beta_market": 0.5713380867249417,
+      "beta_sector": 4.483814424521306,
       "driver_model": {
         "valid": true,
         "model_method": "ols_with_hmm_jump_regimes",
@@ -5442,124 +5444,124 @@ export const REPORT_DATA: ReportData = {
         "n_regimes": 4,
         "current_regime": 2,
         "current_regime_label": "Stressed / Illiquid",
-        "current_regime_probability": 0.999999998860542,
-        "current_regime_probability_display": ">99.9%",
+        "current_regime_probability": 0.9984577388326532,
+        "current_regime_probability_display": "99.8%",
         "current_probability_basis": "filtered",
         "historical_probability_basis": "smoothed",
         "current_driver_mix": {
           "market_share": {
-            "median": 0.3793349603854555,
+            "median": 0.38913472981046404,
             "low": null,
             "high": null,
             "range_collapsed": false,
-            "display_value": "37.9%",
+            "display_value": "38.9%",
             "display_range": null,
-            "display_text": "37.9%",
+            "display_text": "38.9%",
             "is_point_estimate": true,
             "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
             "kind": "share_pct",
-            "value_pct": 37.9,
-            "plain_english": "Market explains about 37.9% of price moves in the current state."
+            "value_pct": 38.9,
+            "plain_english": "Market explains about 38.9% of price moves in the current state."
           },
           "sector_share": {
-            "median": 0.5463791636096462,
+            "median": 0.4843773200892645,
             "low": null,
             "high": null,
             "range_collapsed": false,
-            "display_value": "54.6%",
+            "display_value": "48.4%",
             "display_range": null,
-            "display_text": "54.6%",
+            "display_text": "48.4%",
             "is_point_estimate": true,
             "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
             "kind": "share_pct",
-            "value_pct": 54.6,
-            "plain_english": "Sector explains about 54.6% of price moves in the current state."
+            "value_pct": 48.4,
+            "plain_english": "Sector explains about 48.4% of price moves in the current state."
           },
           "company_share": {
-            "median": 0.07428587600489825,
+            "median": 0.12648795010027147,
             "low": null,
             "high": null,
             "range_collapsed": false,
-            "display_value": "7.4%",
+            "display_value": "12.6%",
             "display_range": null,
-            "display_text": "7.4%",
+            "display_text": "12.6%",
             "is_point_estimate": true,
             "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
             "kind": "share_pct",
-            "value_pct": 7.4,
-            "plain_english": "Company-specific explains about 7.4% of price moves in the current state."
+            "value_pct": 12.6,
+            "plain_english": "Company-specific explains about 12.6% of price moves in the current state."
           },
           "basis": "current_state"
         },
         "current_sensitivities": {
           "beta_market": {
-            "median": 0.3485640656875511,
+            "median": 0.5713380867249417,
             "low": null,
             "high": null,
             "range_collapsed": false,
-            "display_value": "0.35",
+            "display_value": "0.57",
             "display_range": null,
-            "display_text": "0.35",
+            "display_text": "0.57",
             "is_point_estimate": true,
             "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
             "kind": "beta",
             "strength_label": "Modest",
-            "plain_english": "Modest market link: a 1% market move has lined up with about a 0.35% stock move in the same direction in this state.",
-            "value_num": 0.35
+            "plain_english": "Modest market link: a 1% market move has lined up with about a 0.57% stock move in the same direction in this state.",
+            "value_num": 0.57
           },
           "beta_stock_lag": {
-            "median": -0.43908847309049115,
+            "median": -0.5572552410366294,
             "low": null,
             "high": null,
             "range_collapsed": false,
-            "display_value": "-0.44",
+            "display_value": "-0.56",
             "display_range": null,
-            "display_text": "-0.44",
+            "display_text": "-0.56",
             "is_point_estimate": true,
             "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
             "kind": "lag_beta",
-            "value_num": -0.44
+            "value_num": -0.56
           },
           "beta_sector": {
-            "median": -1.0606429079324493,
+            "median": 4.483814424521306,
             "low": null,
             "high": null,
             "range_collapsed": false,
-            "display_value": "-1.06",
+            "display_value": "4.48",
             "display_range": null,
-            "display_text": "-1.06",
+            "display_text": "4.48",
             "is_point_estimate": true,
             "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
             "kind": "beta",
-            "strength_label": "Moderate",
-            "plain_english": "Moderate sector link: a 1% sector move has lined up with about a 1.06% stock move in the opposite direction in this state.",
-            "value_num": -1.06
+            "strength_label": "Very high",
+            "plain_english": "Very high sector link: a 1% sector move has lined up with about a 4.48% stock move in the same direction in this state.",
+            "value_num": 4.48
           },
           "beta_market_lag": {
-            "median": 1.6769175581659492,
+            "median": 3.5008677687846657,
             "low": null,
             "high": null,
             "range_collapsed": false,
-            "display_value": "1.68",
+            "display_value": "3.50",
             "display_range": null,
-            "display_text": "1.68",
+            "display_text": "3.50",
             "is_point_estimate": true,
             "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
             "kind": "lag_beta",
-            "value_num": 1.68
+            "value_num": 3.5
           },
           "beta_sector_lag": {
-            "median": -1.781228752943431,
+            "median": -1.5485450298293817,
             "low": null,
             "high": null,
             "range_collapsed": false,
-            "display_value": "-1.78",
+            "display_value": "-1.55",
             "display_range": null,
-            "display_text": "-1.78",
+            "display_text": "-1.55",
             "is_point_estimate": true,
             "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
             "kind": "lag_beta",
-            "value_num": -1.78
+            "value_num": -1.55
           },
           "posterior_source": null,
           "intervals_collapsed": false,
@@ -5569,146 +5571,75 @@ export const REPORT_DATA: ReportData = {
         "rolling_windows": {},
         "monthly_history": [
           {
-            "month_key": "2025-04",
-            "month_label": "April 2025",
-            "month_short_label": "Apr",
-            "period_label": "2025-04-16 to 2025-04-30",
-            "n_obs": 9,
-            "partial_month": true,
-            "dominant_driver": "sector",
-            "dominant_driver_label": "Sector",
-            "regime_id": null,
-            "regime_label": null,
-            "dominant_share": {
-              "median": 0.45103925334935036,
-              "low": null,
-              "high": null,
-              "range_collapsed": false,
-              "display_value": "45.1%",
-              "display_range": null,
-              "display_text": "45.1%",
-              "is_point_estimate": true,
-              "point_estimate_note": "Point estimate only because the current state has 9 trading days.",
-              "kind": "share_pct",
-              "value_pct": 45.1,
-              "plain_english": "Sector explains about 45.1% of price moves in the current state."
-            },
-            "shares": {
-              "market_share": {
-                "median": 0.4436404446758936,
-                "low": null,
-                "high": null,
-                "range_collapsed": false,
-                "display_value": "44.4%",
-                "display_range": null,
-                "display_text": "44.4%",
-                "is_point_estimate": true,
-                "point_estimate_note": "Point estimate only because the current state has 9 trading days.",
-                "kind": "share_pct",
-                "value_pct": 44.4,
-                "plain_english": "Market explains about 44.4% of price moves in the current state."
-              },
-              "sector_share": {
-                "median": 0.45103925334935036,
-                "low": null,
-                "high": null,
-                "range_collapsed": false,
-                "display_value": "45.1%",
-                "display_range": null,
-                "display_text": "45.1%",
-                "is_point_estimate": true,
-                "point_estimate_note": "Point estimate only because the current state has 9 trading days.",
-                "kind": "share_pct",
-                "value_pct": 45.1,
-                "plain_english": "Sector explains about 45.1% of price moves in the current state."
-              },
-              "company_share": {
-                "median": 0.10532030197475606,
-                "low": null,
-                "high": null,
-                "range_collapsed": false,
-                "display_value": "10.5%",
-                "display_range": null,
-                "display_text": "10.5%",
-                "is_point_estimate": true,
-                "point_estimate_note": "Point estimate only because the current state has 9 trading days.",
-                "kind": "share_pct",
-                "value_pct": 10.5,
-                "plain_english": "Company-specific explains about 10.5% of price moves in the current state."
-              }
-            },
-            "summary": "Apr: Mostly sector-driven."
-          },
-          {
             "month_key": "2025-05",
             "month_label": "May 2025",
             "month_short_label": "May",
-            "period_label": "2025-05-02 to 2025-05-30",
-            "n_obs": 20,
+            "period_label": "2025-05-09 to 2025-05-30",
+            "n_obs": 16,
             "partial_month": true,
             "dominant_driver": "company",
             "dominant_driver_label": "Company-specific",
             "regime_id": null,
             "regime_label": null,
             "dominant_share": {
-              "median": 0.4883107134024427,
+              "median": 0.4245159322630158,
               "low": null,
               "high": null,
               "range_collapsed": false,
-              "display_value": "48.8%",
+              "display_value": "42.5%",
               "display_range": null,
-              "display_text": "48.8%",
+              "display_text": "42.5%",
               "is_point_estimate": true,
-              "point_estimate_note": "Point estimate only because the current state has 20 trading days.",
+              "point_estimate_note": "Point estimate only because the current state has 16 trading days.",
               "kind": "share_pct",
-              "value_pct": 48.8,
-              "plain_english": "Company-specific explains about 48.8% of price moves in the current state."
+              "value_pct": 42.5,
+              "plain_english": "Company-specific explains about 42.5% of price moves in the current state."
             },
             "shares": {
               "market_share": {
-                "median": 0.27958120795527386,
+                "median": 0.41608517633152675,
                 "low": null,
                 "high": null,
                 "range_collapsed": false,
-                "display_value": "28.0%",
+                "display_value": "41.6%",
                 "display_range": null,
-                "display_text": "28.0%",
+                "display_text": "41.6%",
                 "is_point_estimate": true,
-                "point_estimate_note": "Point estimate only because the current state has 20 trading days.",
+                "point_estimate_note": "Point estimate only because the current state has 16 trading days.",
                 "kind": "share_pct",
-                "value_pct": 28.0,
-                "plain_english": "Market explains about 28.0% of price moves in the current state."
+                "value_pct": 41.6,
+                "plain_english": "Market explains about 41.6% of price moves in the current state."
               },
               "sector_share": {
-                "median": 0.23210807864228358,
+                "median": 0.1593988914054574,
                 "low": null,
                 "high": null,
                 "range_collapsed": false,
-                "display_value": "23.2%",
+                "display_value": "15.9%",
                 "display_range": null,
-                "display_text": "23.2%",
+                "display_text": "15.9%",
                 "is_point_estimate": true,
-                "point_estimate_note": "Point estimate only because the current state has 20 trading days.",
+                "point_estimate_note": "Point estimate only because the current state has 16 trading days.",
                 "kind": "share_pct",
-                "value_pct": 23.2,
-                "plain_english": "Sector explains about 23.2% of price moves in the current state."
+                "value_pct": 15.9,
+                "plain_english": "Sector explains about 15.9% of price moves in the current state."
               },
               "company_share": {
-                "median": 0.4883107134024427,
+                "median": 0.4245159322630158,
                 "low": null,
                 "high": null,
                 "range_collapsed": false,
-                "display_value": "48.8%",
+                "display_value": "42.5%",
                 "display_range": null,
-                "display_text": "48.8%",
+                "display_text": "42.5%",
                 "is_point_estimate": true,
-                "point_estimate_note": "Point estimate only because the current state has 20 trading days.",
+                "point_estimate_note": "Point estimate only because the current state has 16 trading days.",
                 "kind": "share_pct",
-                "value_pct": 48.8,
-                "plain_english": "Company-specific explains about 48.8% of price moves in the current state."
+                "value_pct": 42.5,
+                "plain_english": "Company-specific explains about 42.5% of price moves in the current state."
               }
             },
-            "summary": "May: Mostly company-driven."
+            "summary": "May: More mixed, though company-driven still has the largest share."
           },
           {
             "month_key": "2025-06",
@@ -6490,151 +6421,222 @@ export const REPORT_DATA: ReportData = {
               }
             },
             "summary": "Apr: Mostly market-driven."
+          },
+          {
+            "month_key": "2026-05",
+            "month_label": "May 2026",
+            "month_short_label": "May",
+            "period_label": "2026-05-04 to 2026-05-22",
+            "n_obs": 15,
+            "partial_month": true,
+            "dominant_driver": "company",
+            "dominant_driver_label": "Company-specific",
+            "regime_id": null,
+            "regime_label": null,
+            "dominant_share": {
+              "median": 0.36784031838420955,
+              "low": null,
+              "high": null,
+              "range_collapsed": false,
+              "display_value": "36.8%",
+              "display_range": null,
+              "display_text": "36.8%",
+              "is_point_estimate": true,
+              "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+              "kind": "share_pct",
+              "value_pct": 36.8,
+              "plain_english": "Company-specific explains about 36.8% of price moves in the current state."
+            },
+            "shares": {
+              "market_share": {
+                "median": 0.2773969845775809,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "27.7%",
+                "display_range": null,
+                "display_text": "27.7%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+                "kind": "share_pct",
+                "value_pct": 27.7,
+                "plain_english": "Market explains about 27.7% of price moves in the current state."
+              },
+              "sector_share": {
+                "median": 0.3547626970382096,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "35.5%",
+                "display_range": null,
+                "display_text": "35.5%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+                "kind": "share_pct",
+                "value_pct": 35.5,
+                "plain_english": "Sector explains about 35.5% of price moves in the current state."
+              },
+              "company_share": {
+                "median": 0.36784031838420955,
+                "low": null,
+                "high": null,
+                "range_collapsed": false,
+                "display_value": "36.8%",
+                "display_range": null,
+                "display_text": "36.8%",
+                "is_point_estimate": true,
+                "point_estimate_note": "Point estimate only because the current state has 15 trading days.",
+                "kind": "share_pct",
+                "value_pct": 36.8,
+                "plain_english": "Company-specific explains about 36.8% of price moves in the current state."
+              }
+            },
+            "summary": "May: Much more balanced across company, sector, and market factors."
           }
         ],
         "regimes": [
           {
             "id": 0,
             "label": "Calm / Liquid",
-            "pct_time": 0.18592406952842683,
-            "expected_duration_days": 4.305361450194776,
-            "current_probability": 1.3492975515257833e-20,
+            "pct_time": 0.1845518371000242,
+            "expected_duration_days": 4.542270017411272,
+            "current_probability": 9.639983651026922e-18,
             "current_probability_display": "<0.1%",
             "current_probability_basis": "filtered",
-            "n_days_effective": 46.66694145163513,
+            "n_days_effective": 46.32251111210608,
             "volatility": {
-              "median": 0.0074381360911349404,
-              "low": 0.0074381360911349404,
-              "high": 0.0074381360911349404
+              "median": 0.0078088952523777,
+              "low": 0.0078088952523777,
+              "high": 0.0078088952523777
             },
             "volatility_label": "Calm / Liquid",
-            "jump_probability": 0.15897601377863665,
-            "jump_rate": 1.114553229853315e-06,
-            "risk_score": 0.011612311978740948,
+            "jump_probability": 0.1803339116380829,
+            "jump_rate": 0.00010114260672673877,
+            "risk_score": 0.01573057144961522,
             "metrics": {
-              "rolling_vol_10d": 0.010321717069063381,
-              "downside_vol_10d": 0.005136716679751229,
-              "drawdown_21d": 0.012336646683893383,
-              "amihud_stress": 0.09947762729866734,
-              "spread_rel": 26.762933398013274,
-              "spread_ticks": 4.317996058376258,
-              "log_notional": 15.730241876363014,
-              "log_trade_count": 5.356313101138973
+              "rolling_vol_10d": 0.010186033340106515,
+              "downside_vol_10d": 0.005026593711083678,
+              "drawdown_21d": 0.011908119019798992,
+              "amihud_stress": 0.09693563436345307,
+              "spread_rel": 27.021717648873654,
+              "spread_ticks": 4.335356150804627,
+              "log_notional": 15.778040634126913,
+              "log_trade_count": 5.406004795625246
             }
           },
           {
             "id": 1,
             "label": "Normal / Active",
-            "pct_time": 0.2737309791936572,
-            "expected_duration_days": 5.408898242605185,
-            "current_probability": 1.897027949509659e-42,
+            "pct_time": 0.27282690608320576,
+            "expected_duration_days": 6.723843433601532,
+            "current_probability": 0.00018251885507725144,
             "current_probability_display": "<0.1%",
             "current_probability_basis": "filtered",
-            "n_days_effective": 68.70647577760795,
+            "n_days_effective": 68.47955342688465,
             "volatility": {
-              "median": 0.01841774002943619,
-              "low": 0.01841774002943619,
-              "high": 0.01841774002943619
+              "median": 0.01713360953942907,
+              "low": 0.01713360953942907,
+              "high": 0.01713360953942907
             },
             "volatility_label": "Normal / Active",
-            "jump_probability": 0.24303022247455539,
-            "jump_rate": 0.04360294175638448,
-            "risk_score": 0.31941745430367363,
+            "jump_probability": 0.2235469297231818,
+            "jump_rate": 0.043742724927105854,
+            "risk_score": 0.26737060272618335,
             "metrics": {
-              "rolling_vol_10d": 0.01615128260797271,
-              "downside_vol_10d": 0.007870323175543476,
-              "drawdown_21d": 0.021294562634280804,
-              "amihud_stress": 0.17219827350835262,
-              "spread_rel": 26.570085383140004,
-              "spread_ticks": 3.2939477261836436,
-              "log_notional": 16.024112658425015,
-              "log_trade_count": 5.594579165253343
+              "rolling_vol_10d": 0.016083095264823877,
+              "downside_vol_10d": 0.007866560006466097,
+              "drawdown_21d": 0.02221525841305102,
+              "amihud_stress": 0.163079097984146,
+              "spread_rel": 26.62298934318184,
+              "spread_ticks": 3.302283345197291,
+              "log_notional": 16.000966753833357,
+              "log_trade_count": 5.561989432665824
             }
           },
           {
             "id": 2,
             "label": "Stressed / Illiquid",
-            "pct_time": 0.3134733362873029,
-            "expected_duration_days": 6.959043338224177,
-            "current_probability": 0.999999998860542,
-            "current_probability_display": ">99.9%",
+            "pct_time": 0.2903680161449006,
+            "expected_duration_days": 5.592530933294633,
+            "current_probability": 0.9984577388326532,
+            "current_probability_display": "99.8%",
             "current_probability_basis": "filtered",
-            "n_days_effective": 78.68180740811303,
+            "n_days_effective": 72.88237205237004,
             "volatility": {
-              "median": 0.010169396290875385,
-              "low": 0.010169396290875385,
-              "high": 0.010169396290875385
+              "median": 0.010130784659521027,
+              "low": 0.010130784659521027,
+              "high": 0.010130784659521027
             },
             "volatility_label": "Stressed / Illiquid",
-            "jump_probability": 0.19860772177205602,
-            "jump_rate": 0.025303721276844715,
-            "risk_score": 0.3508676940591029,
+            "jump_probability": 0.1994900893748884,
+            "jump_rate": 0.013714347688367432,
+            "risk_score": 0.37970521969892884,
             "metrics": {
-              "rolling_vol_10d": 0.016896943394621635,
-              "downside_vol_10d": 0.00828179102442849,
-              "drawdown_21d": 0.01935496851101161,
-              "amihud_stress": 0.08987506944574623,
-              "spread_rel": 33.67693372493178,
-              "spread_ticks": 4.333523939635506,
-              "log_notional": 15.988565489688925,
-              "log_trade_count": 5.592506058694635
+              "rolling_vol_10d": 0.017530270761234014,
+              "downside_vol_10d": 0.00882185767400303,
+              "drawdown_21d": 0.023070569624913637,
+              "amihud_stress": 0.08693123265375194,
+              "spread_rel": 34.516568757379375,
+              "spread_ticks": 4.301264220839396,
+              "log_notional": 15.946851806693969,
+              "log_trade_count": 5.585281083086917
             }
           },
           {
             "id": 3,
             "label": "Jump / Tail Shock",
-            "pct_time": 0.22687161499061306,
-            "expected_duration_days": 5.5849884090559225,
-            "current_probability": 1.139457992972753e-09,
-            "current_probability_display": "<0.1%",
+            "pct_time": 0.2522532406718695,
+            "expected_duration_days": 4.572238030527758,
+            "current_probability": 0.0013597423122694247,
+            "current_probability_display": "0.1%",
             "current_probability_basis": "filtered",
-            "n_days_effective": 56.94477536264388,
+            "n_days_effective": 63.31556340863925,
             "volatility": {
-              "median": 0.02888688114094495,
-              "low": 0.02888688114094495,
-              "high": 0.02888688114094495
+              "median": 0.02971495914931679,
+              "low": 0.02971495914931679,
+              "high": 0.02971495914931679
             },
             "volatility_label": "Jump / Tail Shock",
-            "jump_probability": 0.32931128927506625,
-            "jump_rate": 0.17584055670799345,
+            "jump_probability": 0.347081883753662,
+            "jump_rate": 0.17373766841680838,
             "risk_score": 1.0,
             "metrics": {
-              "rolling_vol_10d": 0.025671671387483275,
-              "downside_vol_10d": 0.01521464545385289,
-              "drawdown_21d": 0.06277439456607813,
-              "amihud_stress": 0.2357047010183241,
-              "spread_rel": 41.34501720246765,
-              "spread_ticks": 4.9083571792959475,
-              "log_notional": 15.897455790886042,
-              "log_trade_count": 5.540088150965479
+              "rolling_vol_10d": 0.025620924731100014,
+              "downside_vol_10d": 0.014736363943419813,
+              "drawdown_21d": 0.06163173899724627,
+              "amihud_stress": 0.23135969825875027,
+              "spread_rel": 39.211772931443754,
+              "spread_ticks": 4.5909910046584965,
+              "log_notional": 16.00671528966338,
+              "log_trade_count": 5.6368889384391805
             }
           }
         ],
         "transitions": {
           "mean": [
             [
-              0.7677314642293832,
-              0.189096248402701,
-              0.0002146464216198664,
-              0.04295764094629607
+              0.7798457607833011,
+              0.17646363487453798,
+              0.00021874042533710048,
+              0.0434718639168237
             ],
             [
-              0.14028150415241325,
-              0.8151194651577782,
-              0.02865966538223331,
-              0.015939365307575375
+              0.11950376532495194,
+              0.8512755375887204,
+              0.00015577726271813708,
+              0.029064919823609505
             ],
             [
-              0.015472166825941137,
-              0.03683109744861972,
-              0.8563020876005664,
-              0.09139464812487276
+              0.02804838435957624,
+              0.013812960959255835,
+              0.8211900815699401,
+              0.13694857311122788
             ],
             [
-              0.00017531508747927374,
-              0.00019266328428101665,
-              0.17868342276965024,
-              0.8209485988585895
+              0.0001577602659467674,
+              0.0001605136102178921,
+              0.21839299909852206,
+              0.7812887270253134
             ]
           ],
           "low": [],
@@ -6642,27 +6644,27 @@ export const REPORT_DATA: ReportData = {
           "counts": [
             [
               36.0,
-              9.0,
+              8.0,
               0.0,
               2.0
             ],
             [
-              10.0,
-              55.0,
+              8.0,
+              59.0,
+              0.0,
+              2.0
+            ],
+            [
               2.0,
-              1.0
-            ],
-            [
               1.0,
-              3.0,
-              67.0,
-              7.0
+              59.0,
+              10.0
             ],
             [
               0.0,
               0.0,
-              10.0,
-              47.0
+              14.0,
+              49.0
             ]
           ]
         },
@@ -6671,35 +6673,35 @@ export const REPORT_DATA: ReportData = {
           {
             "id": 0,
             "label": "Calm / Liquid",
-            "probability": 1.3492975515257833e-20,
+            "probability": 9.639983651026922e-18,
             "probability_display": "<0.1%",
             "basis": "filtered"
           },
           {
             "id": 1,
             "label": "Normal / Active",
-            "probability": 1.897027949509659e-42,
+            "probability": 0.00018251885507725144,
             "probability_display": "<0.1%",
             "basis": "filtered"
           },
           {
             "id": 2,
             "label": "Stressed / Illiquid",
-            "probability": 0.999999998860542,
-            "probability_display": ">99.9%",
+            "probability": 0.9984577388326532,
+            "probability_display": "99.8%",
             "basis": "filtered"
           },
           {
             "id": 3,
             "label": "Jump / Tail Shock",
-            "probability": 1.139457992972753e-09,
-            "probability_display": "<0.1%",
+            "probability": 0.0013597423122694247,
+            "probability_display": "0.1%",
             "basis": "filtered"
           }
         ],
         "jump_risk": {
-          "current_probability": 0.19860772192098725,
-          "current_score": 1.0548442059227112,
+          "current_probability": 0.19969516700960613,
+          "current_score": 0.5525756401451052,
           "current_flag": false,
           "jump_threshold_score": 2.5,
           "method": "robust_residual_and_return_jump_overlay",
@@ -6708,54 +6710,54 @@ export const REPORT_DATA: ReportData = {
         "model_selection": {
           "chosen": 4,
           "criterion": "bic_with_min_state_support",
-          "bic": 11967.325568081922,
-          "loglik": -5455.982028353876,
+          "bic": 11816.571505445525,
+          "loglik": -5380.604997035677,
           "n_params": 191,
-          "bic_delta_vs_next_best": 166.09064869980102,
+          "bic_delta_vs_next_best": 165.00843268413882,
           "candidates": [
             {
               "k": 2,
               "valid": true,
               "reason": "ok",
-              "bic": 12696.537171588867,
-              "loglik": -6096.860477063938,
+              "bic": 12503.496694478257,
+              "loglik": -6000.340238508633,
               "n_params": 91,
               "converged": true,
-              "iterations": 17,
-              "best_seed": 1337,
+              "iterations": 11,
+              "best_seed": 42,
               "seed_runs": [
                 {
                   "seed": 42,
                   "k": 2,
                   "valid": true,
                   "reason": "ok",
-                  "bic": 12696.537184174435,
-                  "loglik": -6096.8604833567215,
+                  "bic": 12503.496694478257,
+                  "loglik": -6000.340238508633,
                   "n_params": 91,
                   "converged": true,
-                  "iterations": 16
+                  "iterations": 11
                 },
                 {
                   "seed": 1337,
                   "k": 2,
                   "valid": true,
                   "reason": "ok",
-                  "bic": 12696.537171588867,
-                  "loglik": -6096.860477063938,
+                  "bic": 12503.496694888183,
+                  "loglik": -6000.340238713596,
                   "n_params": 91,
                   "converged": true,
-                  "iterations": 17
+                  "iterations": 11
                 },
                 {
                   "seed": 2027,
                   "k": 2,
                   "valid": true,
                   "reason": "ok",
-                  "bic": 12696.537194550161,
-                  "loglik": -6096.860488544585,
+                  "bic": 12503.496698115167,
+                  "loglik": -6000.3402403270875,
                   "n_params": 91,
                   "converged": true,
-                  "iterations": 16
+                  "iterations": 11
                 }
               ]
             },
@@ -6763,11 +6765,11 @@ export const REPORT_DATA: ReportData = {
               "k": 3,
               "valid": true,
               "reason": "ok",
-              "bic": 12133.416216781723,
-              "loglik": -5679.926402651637,
+              "bic": 11981.579938129664,
+              "loglik": -5604.008263325607,
               "n_params": 140,
               "converged": true,
-              "iterations": 35,
+              "iterations": 24,
               "best_seed": 42,
               "seed_runs": [
                 {
@@ -6775,33 +6777,33 @@ export const REPORT_DATA: ReportData = {
                   "k": 3,
                   "valid": true,
                   "reason": "ok",
-                  "bic": 12133.416216781723,
-                  "loglik": -5679.926402651637,
+                  "bic": 11981.579938129664,
+                  "loglik": -5604.008263325607,
                   "n_params": 140,
                   "converged": true,
-                  "iterations": 35
+                  "iterations": 24
                 },
                 {
                   "seed": 1337,
                   "k": 3,
                   "valid": true,
                   "reason": "ok",
-                  "bic": 12133.416217123144,
-                  "loglik": -5679.926402822347,
+                  "bic": 11981.57994334027,
+                  "loglik": -5604.00826593091,
                   "n_params": 140,
                   "converged": true,
-                  "iterations": 35
+                  "iterations": 21
                 },
                 {
                   "seed": 2027,
                   "k": 3,
                   "valid": true,
                   "reason": "ok",
-                  "bic": 12194.209561354217,
-                  "loglik": -5710.323074937884,
+                  "bic": 11981.57994103151,
+                  "loglik": -5604.00826477653,
                   "n_params": 140,
                   "converged": true,
-                  "iterations": 18
+                  "iterations": 22
                 }
               ]
             },
@@ -6809,45 +6811,45 @@ export const REPORT_DATA: ReportData = {
               "k": 4,
               "valid": true,
               "reason": "ok",
-              "bic": 11967.325568081922,
-              "loglik": -5455.982028353876,
+              "bic": 11816.571505445525,
+              "loglik": -5380.604997035677,
               "n_params": 191,
               "converged": true,
-              "iterations": 37,
-              "best_seed": 2027,
+              "iterations": 28,
+              "best_seed": 42,
               "seed_runs": [
                 {
                   "seed": 42,
                   "k": 4,
                   "valid": true,
                   "reason": "ok",
-                  "bic": 11967.325569941037,
-                  "loglik": -5455.982029283433,
+                  "bic": 11816.571505445525,
+                  "loglik": -5380.604997035677,
                   "n_params": 191,
                   "converged": true,
-                  "iterations": 37
+                  "iterations": 28
                 },
                 {
                   "seed": 1337,
                   "k": 4,
                   "valid": true,
                   "reason": "ok",
-                  "bic": 11967.325576517162,
-                  "loglik": -5455.982032571495,
+                  "bic": 11816.571618982804,
+                  "loglik": -5380.605053804316,
                   "n_params": 191,
                   "converged": true,
-                  "iterations": 39
+                  "iterations": 28
                 },
                 {
                   "seed": 2027,
                   "k": 4,
                   "valid": true,
                   "reason": "ok",
-                  "bic": 11967.325568081922,
-                  "loglik": -5455.982028353876,
+                  "bic": 11816.571591982169,
+                  "loglik": -5380.605040303999,
                   "n_params": 191,
                   "converged": true,
-                  "iterations": 37
+                  "iterations": 29
                 }
               ]
             }
@@ -6863,21 +6865,21 @@ export const REPORT_DATA: ReportData = {
               {
                 "seed": 42,
                 "selected_states": 4,
-                "bic": 11967.325569941037,
+                "bic": 11816.571505445525,
                 "valid": true,
                 "reason": null
               },
               {
                 "seed": 1337,
                 "selected_states": 4,
-                "bic": 11967.325576517162,
+                "bic": 11816.571618982804,
                 "valid": true,
                 "reason": null
               },
               {
                 "seed": 2027,
                 "selected_states": 4,
-                "bic": 11967.325568081922,
+                "bic": 11816.571591982169,
                 "valid": true,
                 "reason": null
               }
@@ -6902,9 +6904,9 @@ export const REPORT_DATA: ReportData = {
                 ],
                 "selected_states": 4,
                 "bic_by_state": {
-                  "2": 6799.1593836333695,
-                  "3": 6706.225747575181,
-                  "4": 6580.940286392184
+                  "2": 6757.1966092301545,
+                  "3": 6634.928185360642,
+                  "4": 6529.31897877415
                 },
                 "valid": true
               },
@@ -6917,9 +6919,9 @@ export const REPORT_DATA: ReportData = {
                 ],
                 "selected_states": 4,
                 "bic_by_state": {
-                  "2": 9780.77841935878,
-                  "3": 9355.955179194492,
-                  "4": 9293.263960228629
+                  "2": 9741.311671319603,
+                  "3": 9259.144008107347,
+                  "4": 9149.842559500365
                 },
                 "valid": true
               },
@@ -6932,9 +6934,9 @@ export const REPORT_DATA: ReportData = {
                 ],
                 "selected_states": 4,
                 "bic_by_state": {
-                  "2": 12696.53725044719,
-                  "3": 12133.416216781723,
-                  "4": 11967.325628855111
+                  "2": 12503.496694478257,
+                  "3": 11981.579952324388,
+                  "4": 11816.57168619361
                 },
                 "valid": true
               }
@@ -6951,8 +6953,8 @@ export const REPORT_DATA: ReportData = {
             4
           ],
           "selected_states": 4,
-          "bic_delta_vs_next_best": 166.09064869980102,
-          "state_count_interpretation": "251 observations allowed the current rule to test up to 4 states; BIC preferred 4 with a 166.09 improvement versus the next best valid state count.",
+          "bic_delta_vs_next_best": 165.00843268413882,
+          "state_count_interpretation": "251 observations allowed the current rule to test up to 4 states; BIC preferred 4 with a 165.01 improvement versus the next best valid state count.",
           "parameter_count": {
             "formula": "k^2 - 1 + 2*k*d",
             "n_parameters": 191,
@@ -6961,51 +6963,51 @@ export const REPORT_DATA: ReportData = {
           },
           "state_occupancy": {
             "min_effective_days_required": 7.529999999999999,
-            "min_effective_days_observed": 46.66694145163513,
+            "min_effective_days_observed": 46.32251111210608,
             "passes": true,
             "states": [
               {
                 "id": 0,
                 "label": "Calm / Liquid",
-                "effective_days": 46.66694145163513,
-                "pct_time": 0.18592406952842683,
+                "effective_days": 46.32251111210608,
+                "pct_time": 0.1845518371000242,
                 "passes_min_support": true
               },
               {
                 "id": 1,
                 "label": "Normal / Active",
-                "effective_days": 68.70647577760795,
-                "pct_time": 0.2737309791936572,
+                "effective_days": 68.47955342688465,
+                "pct_time": 0.27282690608320576,
                 "passes_min_support": true
               },
               {
                 "id": 2,
                 "label": "Stressed / Illiquid",
-                "effective_days": 78.68180740811303,
-                "pct_time": 0.3134733362873029,
+                "effective_days": 72.88237205237004,
+                "pct_time": 0.2903680161449006,
                 "passes_min_support": true
               },
               {
                 "id": 3,
                 "label": "Jump / Tail Shock",
-                "effective_days": 56.94477536264388,
-                "pct_time": 0.22687161499061306,
+                "effective_days": 63.31556340863925,
+                "pct_time": 0.2522532406718695,
                 "passes_min_support": true
               }
             ]
           },
           "transition_diagnostics": {
             "self_transition_probabilities": [
-              0.7677314642293832,
-              0.8151194651577782,
-              0.8563020876005664,
-              0.8209485988585895
+              0.7798457607833011,
+              0.8512755375887204,
+              0.8211900815699401,
+              0.7812887270253134
             ],
             "expected_duration_days": [
-              4.305361450194776,
-              5.408898242605185,
-              6.959043338224177,
-              5.5849884090559225
+              4.542270017411272,
+              6.723843433601532,
+              5.592530933294633,
+              4.572238030527758
             ],
             "nearly_absorbing_state_ids": [],
             "fast_switching_state_ids": [],
@@ -7022,21 +7024,21 @@ export const REPORT_DATA: ReportData = {
               {
                 "seed": 42,
                 "selected_states": 4,
-                "bic": 11967.325569941037,
+                "bic": 11816.571505445525,
                 "valid": true,
                 "reason": null
               },
               {
                 "seed": 1337,
                 "selected_states": 4,
-                "bic": 11967.325576517162,
+                "bic": 11816.571618982804,
                 "valid": true,
                 "reason": null
               },
               {
                 "seed": 2027,
                 "selected_states": 4,
-                "bic": 11967.325568081922,
+                "bic": 11816.571591982169,
                 "valid": true,
                 "reason": null
               }
@@ -7061,9 +7063,9 @@ export const REPORT_DATA: ReportData = {
                 ],
                 "selected_states": 4,
                 "bic_by_state": {
-                  "2": 6799.1593836333695,
-                  "3": 6706.225747575181,
-                  "4": 6580.940286392184
+                  "2": 6757.1966092301545,
+                  "3": 6634.928185360642,
+                  "4": 6529.31897877415
                 },
                 "valid": true
               },
@@ -7076,9 +7078,9 @@ export const REPORT_DATA: ReportData = {
                 ],
                 "selected_states": 4,
                 "bic_by_state": {
-                  "2": 9780.77841935878,
-                  "3": 9355.955179194492,
-                  "4": 9293.263960228629
+                  "2": 9741.311671319603,
+                  "3": 9259.144008107347,
+                  "4": 9149.842559500365
                 },
                 "valid": true
               },
@@ -7091,9 +7093,9 @@ export const REPORT_DATA: ReportData = {
                 ],
                 "selected_states": 4,
                 "bic_by_state": {
-                  "2": 12696.53725044719,
-                  "3": 12133.416216781723,
-                  "4": 11967.325628855111
+                  "2": 12503.496694478257,
+                  "3": 11981.579952324388,
+                  "4": 11816.57168619361
                 },
                 "valid": true
               }
@@ -7104,62 +7106,62 @@ export const REPORT_DATA: ReportData = {
             {
               "id": 0,
               "label": "Calm / Liquid",
-              "risk_score": 0.011612311978740948,
-              "jump_probability": 0.15897601377863665,
-              "jump_rate": 1.114553229853315e-06,
-              "rolling_vol_10d": 0.010321717069063381,
-              "downside_vol_10d": 0.005136716679751229,
-              "drawdown_21d": 0.012336646683893383,
-              "amihud_stress": 0.09947762729866734,
-              "spread_rel": 26.762933398013274,
-              "spread_ticks": 4.317996058376258,
-              "log_notional": 15.730241876363014,
-              "log_trade_count": 5.356313101138973
+              "risk_score": 0.01573057144961522,
+              "jump_probability": 0.1803339116380829,
+              "jump_rate": 0.00010114260672673877,
+              "rolling_vol_10d": 0.010186033340106515,
+              "downside_vol_10d": 0.005026593711083678,
+              "drawdown_21d": 0.011908119019798992,
+              "amihud_stress": 0.09693563436345307,
+              "spread_rel": 27.021717648873654,
+              "spread_ticks": 4.335356150804627,
+              "log_notional": 15.778040634126913,
+              "log_trade_count": 5.406004795625246
             },
             {
               "id": 1,
               "label": "Normal / Active",
-              "risk_score": 0.31941745430367363,
-              "jump_probability": 0.24303022247455539,
-              "jump_rate": 0.04360294175638448,
-              "rolling_vol_10d": 0.01615128260797271,
-              "downside_vol_10d": 0.007870323175543476,
-              "drawdown_21d": 0.021294562634280804,
-              "amihud_stress": 0.17219827350835262,
-              "spread_rel": 26.570085383140004,
-              "spread_ticks": 3.2939477261836436,
-              "log_notional": 16.024112658425015,
-              "log_trade_count": 5.594579165253343
+              "risk_score": 0.26737060272618335,
+              "jump_probability": 0.2235469297231818,
+              "jump_rate": 0.043742724927105854,
+              "rolling_vol_10d": 0.016083095264823877,
+              "downside_vol_10d": 0.007866560006466097,
+              "drawdown_21d": 0.02221525841305102,
+              "amihud_stress": 0.163079097984146,
+              "spread_rel": 26.62298934318184,
+              "spread_ticks": 3.302283345197291,
+              "log_notional": 16.000966753833357,
+              "log_trade_count": 5.561989432665824
             },
             {
               "id": 2,
               "label": "Stressed / Illiquid",
-              "risk_score": 0.3508676940591029,
-              "jump_probability": 0.19860772177205602,
-              "jump_rate": 0.025303721276844715,
-              "rolling_vol_10d": 0.016896943394621635,
-              "downside_vol_10d": 0.00828179102442849,
-              "drawdown_21d": 0.01935496851101161,
-              "amihud_stress": 0.08987506944574623,
-              "spread_rel": 33.67693372493178,
-              "spread_ticks": 4.333523939635506,
-              "log_notional": 15.988565489688925,
-              "log_trade_count": 5.592506058694635
+              "risk_score": 0.37970521969892884,
+              "jump_probability": 0.1994900893748884,
+              "jump_rate": 0.013714347688367432,
+              "rolling_vol_10d": 0.017530270761234014,
+              "downside_vol_10d": 0.00882185767400303,
+              "drawdown_21d": 0.023070569624913637,
+              "amihud_stress": 0.08693123265375194,
+              "spread_rel": 34.516568757379375,
+              "spread_ticks": 4.301264220839396,
+              "log_notional": 15.946851806693969,
+              "log_trade_count": 5.585281083086917
             },
             {
               "id": 3,
               "label": "Jump / Tail Shock",
               "risk_score": 1.0,
-              "jump_probability": 0.32931128927506625,
-              "jump_rate": 0.17584055670799345,
-              "rolling_vol_10d": 0.025671671387483275,
-              "downside_vol_10d": 0.01521464545385289,
-              "drawdown_21d": 0.06277439456607813,
-              "amihud_stress": 0.2357047010183241,
-              "spread_rel": 41.34501720246765,
-              "spread_ticks": 4.9083571792959475,
-              "log_notional": 15.897455790886042,
-              "log_trade_count": 5.540088150965479
+              "jump_probability": 0.347081883753662,
+              "jump_rate": 0.17373766841680838,
+              "rolling_vol_10d": 0.025620924731100014,
+              "downside_vol_10d": 0.014736363943419813,
+              "drawdown_21d": 0.06163173899724627,
+              "amihud_stress": 0.23135969825875027,
+              "spread_rel": 39.211772931443754,
+              "spread_ticks": 4.5909910046584965,
+              "log_notional": 16.00671528966338,
+              "log_trade_count": 5.6368889384391805
             }
           ],
           "jump_model_definition": {
@@ -7199,194 +7201,194 @@ export const REPORT_DATA: ReportData = {
         ],
         "smoothed_probability_tail": [
           {
-            "trade_date": "2026-04-21",
+            "trade_date": "2026-05-11",
             "state": 2,
             "probabilities": [
-              1.1022671748066476e-24,
-              2.8326423181128235e-13,
-              0.9985048747339836,
-              0.0014951252657331349
+              8.650968503629963e-38,
+              1.563489902338839e-12,
+              0.875937227096799,
+              0.12406277290163761
             ],
             "probability_basis": "smoothed",
             "filtered_probabilities": [
-              4.332325225416755e-21,
-              8.41557392227979e-12,
-              0.9928768018964825,
-              0.007123198095101883
+              4.465345999725096e-37,
+              1.2070159889600012e-11,
+              0.9651466679919146,
+              0.03485333199601518
             ],
-            "jump_probability": 0.07603672061908,
-            "jump_score": 0.07829918236302476
+            "jump_probability": 0.14579041554409533,
+            "jump_score": 0.7126030449320552
           },
           {
-            "trade_date": "2026-04-22",
-            "state": 2,
-            "probabilities": [
-              4.9932942354364866e-14,
-              1.4503046727708136e-13,
-              0.9999947335255545,
-              5.266474250582961e-06
-            ],
-            "probability_basis": "smoothed",
-            "filtered_probabilities": [
-              1.9693678754697699e-10,
-              4.333065619423717e-12,
-              0.9999747683466481,
-              2.5231452082047124e-05
-            ],
-            "jump_probability": 0.1877890989691851,
-            "jump_score": 0.9765734629224694
-          },
-          {
-            "trade_date": "2026-04-23",
-            "state": 2,
-            "probabilities": [
-              8.484056062418346e-13,
-              9.355564146967493e-16,
-              0.9999938759795003,
-              6.1240196504431965e-06
-            ],
-            "probability_basis": "smoothed",
-            "filtered_probabilities": [
-              3.384082531685616e-09,
-              2.7952178136060655e-14,
-              0.9999706493278196,
-              2.934728806987836e-05
-            ],
-            "jump_probability": 0.17393997883474813,
-            "jump_score": 0.8952546563045954
-          },
-          {
-            "trade_date": "2026-04-24",
-            "state": 2,
-            "probabilities": [
-              5.711420667422377e-14,
-              2.2136068048984054e-19,
-              0.9999999313690865,
-              6.863085647326409e-08
-            ],
-            "probability_basis": "smoothed",
-            "filtered_probabilities": [
-              2.2771431176838738e-10,
-              6.613870355769497e-18,
-              0.9999996708780392,
-              3.288942466103498e-07
-            ],
-            "jump_probability": 0.2209405704719684,
-            "jump_score": 1.1541794965151313
-          },
-          {
-            "trade_date": "2026-04-27",
-            "state": 2,
-            "probabilities": [
-              2.994578708093552e-17,
-              3.88197928037259e-29,
-              0.999999684072907,
-              3.1592709308681446e-07
-            ],
-            "probability_basis": "smoothed",
-            "filtered_probabilities": [
-              1.1940610411395007e-13,
-              1.1598667631119587e-27,
-              0.9999984860052576,
-              1.5139946228581138e-06
-            ],
-            "jump_probability": 0.14041641997052168,
-            "jump_score": 0.6744907594765952
-          },
-          {
-            "trade_date": "2026-04-28",
-            "state": 2,
-            "probabilities": [
-              4.0134610113112156e-15,
-              1.6434550782866326e-32,
-              0.9999997394208756,
-              2.605791204301939e-07
-            ],
-            "probability_basis": "smoothed",
-            "filtered_probabilities": [
-              8.53885284841165e-15,
-              9.423401833936962e-32,
-              0.9999999709902037,
-              2.9009787771639247e-08
-            ],
-            "jump_probability": 0.0953377041313865,
-            "jump_score": 0.29335969418121344
-          },
-          {
-            "trade_date": "2026-04-29",
+            "trade_date": "2026-05-12",
             "state": 3,
             "probabilities": [
-              1.74597867463549e-33,
-              9.701302105668195e-30,
-              8.980052440585552e-08,
-              0.9999999101994755
+              3.0629200746739264e-43,
+              2.9543772562380023e-12,
+              0.28988568026601086,
+              0.7101143197310348
             ],
             "probability_basis": "smoothed",
             "filtered_probabilities": [
-              1.2922432247595088e-30,
-              6.064060582521694e-29,
-              1.879236115497633e-08,
-              0.9999999812076388
+              2.6161234793924794e-42,
+              3.774170865499793e-11,
+              0.665301222067074,
+              0.3346987778951843
             ],
-            "jump_probability": 0.7031766699972304,
-            "jump_score": 2.999974830936051
+            "jump_probability": 0.18537036615022057,
+            "jump_score": 0.9627149826260918
           },
           {
-            "trade_date": "2026-04-30",
-            "state": 2,
+            "trade_date": "2026-05-13",
+            "state": 3,
             "probabilities": [
-              2.0534562867195658e-17,
-              3.266559353782374e-28,
-              0.9970688668457265,
-              0.0029311331542734406
+              3.7487814669185014e-41,
+              4.066918601122919e-09,
+              0.05049901136419277,
+              0.9495009845688885
             ],
             "probability_basis": "smoothed",
             "filtered_probabilities": [
-              8.10190230186897e-14,
-              9.652628397872467e-27,
-              0.9861075956793376,
-              0.013892404320581437
+              3.8644063336091197e-38,
+              5.888556667171938e-06,
+              0.01394837412392196,
+              0.9860457373194108
             ],
-            "jump_probability": 0.1560540619076967,
-            "jump_score": 0.7822730954379986
+            "jump_probability": 0.2622429413111345,
+            "jump_score": 1.350571086434105
           },
           {
-            "trade_date": "2026-05-04",
+            "trade_date": "2026-05-14",
             "state": 2,
             "probabilities": [
-              1.888224601572007e-24,
-              5.364567638813983e-44,
-              0.9999999986769862,
-              1.32301385338703e-09
+              2.6412619212723202e-27,
+              2.372127998541085e-11,
+              0.9998987292737874,
+              0.00010127070249123139
             ],
             "probability_basis": "smoothed",
             "filtered_probabilities": [
-              7.532793675697026e-21,
-              1.6028416109671426e-42,
-              0.9999999936597395,
-              6.340260596413049e-09
+              3.2924573493285574e-24,
+              4.308241134598167e-08,
+              0.9996319605831295,
+              0.0003679963344591898
             ],
-            "jump_probability": 0.26113996177458193,
-            "jump_score": 1.3456069617914834
+            "jump_probability": 0.1142240477823509,
+            "jump_score": 0.46886765917884665
           },
           {
-            "trade_date": "2026-05-05",
+            "trade_date": "2026-05-15",
             "state": 2,
             "probabilities": [
-              1.3492975515257833e-20,
-              1.897027949509659e-42,
-              0.999999998860542,
-              1.139457992972753e-09
+              1.3921870647932608e-23,
+              5.008567587123849e-08,
+              0.9983097880045576,
+              0.0016901619097665387
             ],
             "probability_basis": "smoothed",
             "filtered_probabilities": [
-              1.3492975515257833e-20,
-              1.897027949509659e-42,
-              0.999999998860542,
-              1.139457992972753e-09
+              4.4326620895874986e-23,
+              2.3851702464119685e-07,
+              0.9997004610276429,
+              0.00029930045533248576
             ],
-            "jump_probability": 0.20190519095782797,
-            "jump_score": 1.0548442059227112
+            "jump_probability": 0.15987845533409586,
+            "jump_score": 0.8072759086850066
+          },
+          {
+            "trade_date": "2026-05-18",
+            "state": 3,
+            "probabilities": [
+              2.9698882700832984e-36,
+              8.953279325082639e-10,
+              0.009191143015656704,
+              0.9908088560890154
+            ],
+            "probability_basis": "smoothed",
+            "filtered_probabilities": [
+              6.979636239594922e-35,
+              3.1408517203687775e-08,
+              0.008891358135443587,
+              0.9911086104560393
+            ],
+            "jump_probability": 0.2363305173016958,
+            "jump_score": 1.2300836878197032
+          },
+          {
+            "trade_date": "2026-05-19",
+            "state": 3,
+            "probabilities": [
+              6.630682434365497e-32,
+              1.7827676065073007e-08,
+              0.2453515028720136,
+              0.7546484793003104
+            ],
+            "probability_basis": "smoothed",
+            "filtered_probabilities": [
+              5.531460288726098e-31,
+              2.224302965676209e-07,
+              0.6497109862552651,
+              0.3502887913144384
+            ],
+            "jump_probability": 0.17986631316264068,
+            "jump_score": 0.9306491396505062
+          },
+          {
+            "trade_date": "2026-05-20",
+            "state": 3,
+            "probabilities": [
+              1.1932453504570219e-36,
+              4.8854776833831665e-08,
+              2.718424555620021e-06,
+              0.9999972327206677
+            ],
+            "probability_basis": "smoothed",
+            "filtered_probabilities": [
+              2.1383058906764487e-35,
+              1.2863318367041647e-06,
+              1.5507222465793975e-05,
+              0.9999832064456976
+            ],
+            "jump_probability": 0.236708993217459,
+            "jump_score": 1.2319062202124778
+          },
+          {
+            "trade_date": "2026-05-21",
+            "state": 3,
+            "probabilities": [
+              1.4758254677873188e-44,
+              1.4791917197657097e-07,
+              4.1991893169964303e-10,
+              0.9999998516609091
+            ],
+            "probability_basis": "smoothed",
+            "filtered_probabilities": [
+              7.321697592735371e-44,
+              1.5281565276101362e-07,
+              1.1137599908715911e-10,
+              0.9999998470729713
+            ],
+            "jump_probability": 0.33219152590202095,
+            "jump_score": 1.6427915398482427
+          },
+          {
+            "trade_date": "2026-05-22",
+            "state": 2,
+            "probabilities": [
+              9.639983651026922e-18,
+              0.00018251885507725144,
+              0.9984577388326532,
+              0.0013597423122694247
+            ],
+            "probability_basis": "smoothed",
+            "filtered_probabilities": [
+              9.639983651026922e-18,
+              0.00018251885507725144,
+              0.9984577388326532,
+              0.0013597423122694247
+            ],
+            "jump_probability": 0.12433130351304691,
+            "jump_score": 0.5525756401451052
           }
         ],
         "methodology": {
@@ -7408,11 +7410,11 @@ export const REPORT_DATA: ReportData = {
           "sector_proxy_equals_market": false
         },
         "client_read": {
-          "market_link_display": "0.35",
-          "sector_link_display": "-1.06",
-          "market_link_explainer": "Modest market link. A 1% market move has lined up with about a 0.35% stock move in the same direction in this state. This is a point estimate from 251 trading days.",
-          "sector_link_explainer": "Moderate sector link. A 1% sector move has lined up with about a 1.06% stock move in the opposite direction in this state. This is a point estimate from 251 trading days.",
-          "stock_persistence_display": "-0.44",
+          "market_link_display": "0.57",
+          "sector_link_display": "4.48",
+          "market_link_explainer": "Modest market link. A 1% market move has lined up with about a 0.57% stock move in the same direction in this state. This is a point estimate from 251 trading days.",
+          "sector_link_explainer": "Very high sector link. A 1% sector move has lined up with about a 4.48% stock move in the same direction in this state. This is a point estimate from 251 trading days.",
+          "stock_persistence_display": "-0.56",
           "point_estimate_note": "Point estimate only because the current state has 251 trading days.",
           "history_limited_note": "Read is based on 251 trading days versus the 252-day target."
         },
@@ -7420,11 +7422,11 @@ export const REPORT_DATA: ReportData = {
           "regime_label": "Stressed / Illiquid",
           "dominant_driver": "sector",
           "dominant_driver_label": "Sector",
-          "driver_share_pct": 54.6,
-          "driver_share_display": "54.6%",
+          "driver_share_pct": 48.4,
+          "driver_share_display": "48.4%",
           "confidence_label": "High, limited history",
-          "confidence_pct": 99.9,
-          "confidence_display": ">99.9%",
+          "confidence_pct": 99.8,
+          "confidence_display": "99.8%",
           "probability_basis": "filtered",
           "display_confidence_pct": null,
           "confidence_note": "Based on 251 trading days relative to the 252-day target.",
@@ -7432,15 +7434,15 @@ export const REPORT_DATA: ReportData = {
           "history_limited": true,
           "volatility_label": "Stressed / Illiquid",
           "jump_risk_label": "Contained",
-          "jump_risk_probability": 19.9,
-          "jump_risk_score": 1.05,
+          "jump_risk_probability": 20.0,
+          "jump_risk_score": 0.55,
           "jump_risk_note": "Jump risk is contained based on recent residual and return shocks.",
           "lead_signal_text": "No stable lead signal.",
           "state_term": "state",
-          "stay_probability": 0.8563020876005664,
-          "effective_days": 78.7,
-          "persistence_note": "This state looks more persistent, with a typical run length of about 7.0 days.",
-          "expected_duration_days": 7.0
+          "stay_probability": 0.8211900815699401,
+          "effective_days": 72.9,
+          "persistence_note": "This state looks more persistent, with a typical run length of about 5.6 days.",
+          "expected_duration_days": 5.6
         },
         "display_notes": {
           "collapsed_interval": "When only one number is shown, the run produced a point estimate instead of a wider uncertainty range."
@@ -7483,42 +7485,23 @@ export const REPORT_DATA: ReportData = {
       },
       "monthly_history": [
         {
-          "month_key": "2025-04",
-          "month_label": "April 2025",
-          "month_short_label": "Apr",
-          "period_label": "2025-04-16 to 2025-04-30",
-          "n_obs": 9,
-          "partial_month": true,
-          "dominant_driver": "sector",
-          "dominant_driver_label": "Sector",
-          "regime_label": null,
-          "summary": "Apr: Mostly sector-driven.",
-          "share_market": 0.4436404446758936,
-          "share_sector": 0.45103925334935036,
-          "share_company": 0.10532030197475606,
-          "share_market_display": "44.4%",
-          "share_sector_display": "45.1%",
-          "share_company_display": "10.5%",
-          "dominant_share_display": "45.1%"
-        },
-        {
           "month_key": "2025-05",
           "month_label": "May 2025",
           "month_short_label": "May",
-          "period_label": "2025-05-02 to 2025-05-30",
-          "n_obs": 20,
+          "period_label": "2025-05-09 to 2025-05-30",
+          "n_obs": 16,
           "partial_month": true,
           "dominant_driver": "company",
           "dominant_driver_label": "Company-specific",
           "regime_label": null,
-          "summary": "May: Mostly company-driven.",
-          "share_market": 0.27958120795527386,
-          "share_sector": 0.23210807864228358,
-          "share_company": 0.4883107134024427,
-          "share_market_display": "28.0%",
-          "share_sector_display": "23.2%",
-          "share_company_display": "48.8%",
-          "dominant_share_display": "48.8%"
+          "summary": "May: More mixed, though company-driven still has the largest share.",
+          "share_market": 0.41608517633152675,
+          "share_sector": 0.1593988914054574,
+          "share_company": 0.4245159322630158,
+          "share_market_display": "41.6%",
+          "share_sector_display": "15.9%",
+          "share_company_display": "42.5%",
+          "dominant_share_display": "42.5%"
         },
         {
           "month_key": "2025-06",
@@ -7728,6 +7711,25 @@ export const REPORT_DATA: ReportData = {
           "share_sector_display": "24.5%",
           "share_company_display": "25.9%",
           "dominant_share_display": "49.6%"
+        },
+        {
+          "month_key": "2026-05",
+          "month_label": "May 2026",
+          "month_short_label": "May",
+          "period_label": "2026-05-04 to 2026-05-22",
+          "n_obs": 15,
+          "partial_month": true,
+          "dominant_driver": "company",
+          "dominant_driver_label": "Company-specific",
+          "regime_label": null,
+          "summary": "May: Much more balanced across company, sector, and market factors.",
+          "share_market": 0.2773969845775809,
+          "share_sector": 0.3547626970382096,
+          "share_company": 0.36784031838420955,
+          "share_market_display": "27.7%",
+          "share_sector_display": "35.5%",
+          "share_company_display": "36.8%",
+          "dominant_share_display": "36.8%"
         }
       ],
       "regime": {
@@ -7735,7 +7737,7 @@ export const REPORT_DATA: ReportData = {
         "regime_method": "hmm_jump_aware",
         "n_regimes": 4,
         "current_regime_label": "Stressed / Illiquid",
-        "current_regime_probability": 0.999999998860542,
+        "current_regime_probability": 0.9984577388326532,
         "labels": [
           "Calm / Liquid",
           "Normal / Active",
@@ -7743,154 +7745,154 @@ export const REPORT_DATA: ReportData = {
           "Jump / Tail Shock"
         ],
         "pct_time": [
-          0.18592406952842683,
-          0.2737309791936572,
-          0.3134733362873029,
-          0.22687161499061306
+          0.1845518371000242,
+          0.27282690608320576,
+          0.2903680161449006,
+          0.2522532406718695
         ],
         "current_regime": 2,
         "regimes": [
           {
             "id": 0,
             "label": "Calm / Liquid",
-            "pct_time": 0.18592406952842683,
-            "expected_duration_days": 4.305361450194776,
-            "current_probability": 1.3492975515257833e-20,
+            "pct_time": 0.1845518371000242,
+            "expected_duration_days": 4.542270017411272,
+            "current_probability": 9.639983651026922e-18,
             "current_probability_display": "<0.1%",
             "current_probability_basis": "filtered",
-            "n_days_effective": 46.66694145163513,
+            "n_days_effective": 46.32251111210608,
             "volatility": {
-              "median": 0.0074381360911349404,
-              "low": 0.0074381360911349404,
-              "high": 0.0074381360911349404
+              "median": 0.0078088952523777,
+              "low": 0.0078088952523777,
+              "high": 0.0078088952523777
             },
             "volatility_label": "Calm / Liquid",
-            "jump_probability": 0.15897601377863665,
-            "jump_rate": 1.114553229853315e-06,
-            "risk_score": 0.011612311978740948,
+            "jump_probability": 0.1803339116380829,
+            "jump_rate": 0.00010114260672673877,
+            "risk_score": 0.01573057144961522,
             "metrics": {
-              "rolling_vol_10d": 0.010321717069063381,
-              "downside_vol_10d": 0.005136716679751229,
-              "drawdown_21d": 0.012336646683893383,
-              "amihud_stress": 0.09947762729866734,
-              "spread_rel": 26.762933398013274,
-              "spread_ticks": 4.317996058376258,
-              "log_notional": 15.730241876363014,
-              "log_trade_count": 5.356313101138973
+              "rolling_vol_10d": 0.010186033340106515,
+              "downside_vol_10d": 0.005026593711083678,
+              "drawdown_21d": 0.011908119019798992,
+              "amihud_stress": 0.09693563436345307,
+              "spread_rel": 27.021717648873654,
+              "spread_ticks": 4.335356150804627,
+              "log_notional": 15.778040634126913,
+              "log_trade_count": 5.406004795625246
             }
           },
           {
             "id": 1,
             "label": "Normal / Active",
-            "pct_time": 0.2737309791936572,
-            "expected_duration_days": 5.408898242605185,
-            "current_probability": 1.897027949509659e-42,
+            "pct_time": 0.27282690608320576,
+            "expected_duration_days": 6.723843433601532,
+            "current_probability": 0.00018251885507725144,
             "current_probability_display": "<0.1%",
             "current_probability_basis": "filtered",
-            "n_days_effective": 68.70647577760795,
+            "n_days_effective": 68.47955342688465,
             "volatility": {
-              "median": 0.01841774002943619,
-              "low": 0.01841774002943619,
-              "high": 0.01841774002943619
+              "median": 0.01713360953942907,
+              "low": 0.01713360953942907,
+              "high": 0.01713360953942907
             },
             "volatility_label": "Normal / Active",
-            "jump_probability": 0.24303022247455539,
-            "jump_rate": 0.04360294175638448,
-            "risk_score": 0.31941745430367363,
+            "jump_probability": 0.2235469297231818,
+            "jump_rate": 0.043742724927105854,
+            "risk_score": 0.26737060272618335,
             "metrics": {
-              "rolling_vol_10d": 0.01615128260797271,
-              "downside_vol_10d": 0.007870323175543476,
-              "drawdown_21d": 0.021294562634280804,
-              "amihud_stress": 0.17219827350835262,
-              "spread_rel": 26.570085383140004,
-              "spread_ticks": 3.2939477261836436,
-              "log_notional": 16.024112658425015,
-              "log_trade_count": 5.594579165253343
+              "rolling_vol_10d": 0.016083095264823877,
+              "downside_vol_10d": 0.007866560006466097,
+              "drawdown_21d": 0.02221525841305102,
+              "amihud_stress": 0.163079097984146,
+              "spread_rel": 26.62298934318184,
+              "spread_ticks": 3.302283345197291,
+              "log_notional": 16.000966753833357,
+              "log_trade_count": 5.561989432665824
             }
           },
           {
             "id": 2,
             "label": "Stressed / Illiquid",
-            "pct_time": 0.3134733362873029,
-            "expected_duration_days": 6.959043338224177,
-            "current_probability": 0.999999998860542,
-            "current_probability_display": ">99.9%",
+            "pct_time": 0.2903680161449006,
+            "expected_duration_days": 5.592530933294633,
+            "current_probability": 0.9984577388326532,
+            "current_probability_display": "99.8%",
             "current_probability_basis": "filtered",
-            "n_days_effective": 78.68180740811303,
+            "n_days_effective": 72.88237205237004,
             "volatility": {
-              "median": 0.010169396290875385,
-              "low": 0.010169396290875385,
-              "high": 0.010169396290875385
+              "median": 0.010130784659521027,
+              "low": 0.010130784659521027,
+              "high": 0.010130784659521027
             },
             "volatility_label": "Stressed / Illiquid",
-            "jump_probability": 0.19860772177205602,
-            "jump_rate": 0.025303721276844715,
-            "risk_score": 0.3508676940591029,
+            "jump_probability": 0.1994900893748884,
+            "jump_rate": 0.013714347688367432,
+            "risk_score": 0.37970521969892884,
             "metrics": {
-              "rolling_vol_10d": 0.016896943394621635,
-              "downside_vol_10d": 0.00828179102442849,
-              "drawdown_21d": 0.01935496851101161,
-              "amihud_stress": 0.08987506944574623,
-              "spread_rel": 33.67693372493178,
-              "spread_ticks": 4.333523939635506,
-              "log_notional": 15.988565489688925,
-              "log_trade_count": 5.592506058694635
+              "rolling_vol_10d": 0.017530270761234014,
+              "downside_vol_10d": 0.00882185767400303,
+              "drawdown_21d": 0.023070569624913637,
+              "amihud_stress": 0.08693123265375194,
+              "spread_rel": 34.516568757379375,
+              "spread_ticks": 4.301264220839396,
+              "log_notional": 15.946851806693969,
+              "log_trade_count": 5.585281083086917
             }
           },
           {
             "id": 3,
             "label": "Jump / Tail Shock",
-            "pct_time": 0.22687161499061306,
-            "expected_duration_days": 5.5849884090559225,
-            "current_probability": 1.139457992972753e-09,
-            "current_probability_display": "<0.1%",
+            "pct_time": 0.2522532406718695,
+            "expected_duration_days": 4.572238030527758,
+            "current_probability": 0.0013597423122694247,
+            "current_probability_display": "0.1%",
             "current_probability_basis": "filtered",
-            "n_days_effective": 56.94477536264388,
+            "n_days_effective": 63.31556340863925,
             "volatility": {
-              "median": 0.02888688114094495,
-              "low": 0.02888688114094495,
-              "high": 0.02888688114094495
+              "median": 0.02971495914931679,
+              "low": 0.02971495914931679,
+              "high": 0.02971495914931679
             },
             "volatility_label": "Jump / Tail Shock",
-            "jump_probability": 0.32931128927506625,
-            "jump_rate": 0.17584055670799345,
+            "jump_probability": 0.347081883753662,
+            "jump_rate": 0.17373766841680838,
             "risk_score": 1.0,
             "metrics": {
-              "rolling_vol_10d": 0.025671671387483275,
-              "downside_vol_10d": 0.01521464545385289,
-              "drawdown_21d": 0.06277439456607813,
-              "amihud_stress": 0.2357047010183241,
-              "spread_rel": 41.34501720246765,
-              "spread_ticks": 4.9083571792959475,
-              "log_notional": 15.897455790886042,
-              "log_trade_count": 5.540088150965479
+              "rolling_vol_10d": 0.025620924731100014,
+              "downside_vol_10d": 0.014736363943419813,
+              "drawdown_21d": 0.06163173899724627,
+              "amihud_stress": 0.23135969825875027,
+              "spread_rel": 39.211772931443754,
+              "spread_ticks": 4.5909910046584965,
+              "log_notional": 16.00671528966338,
+              "log_trade_count": 5.6368889384391805
             }
           }
         ],
         "transitions": [
           [
-            0.7677314642293832,
-            0.189096248402701,
-            0.0002146464216198664,
-            0.04295764094629607
+            0.7798457607833011,
+            0.17646363487453798,
+            0.00021874042533710048,
+            0.0434718639168237
           ],
           [
-            0.14028150415241325,
-            0.8151194651577782,
-            0.02865966538223331,
-            0.015939365307575375
+            0.11950376532495194,
+            0.8512755375887204,
+            0.00015577726271813708,
+            0.029064919823609505
           ],
           [
-            0.015472166825941137,
-            0.03683109744861972,
-            0.8563020876005664,
-            0.09139464812487276
+            0.02804838435957624,
+            0.013812960959255835,
+            0.8211900815699401,
+            0.13694857311122788
           ],
           [
-            0.00017531508747927374,
-            0.00019266328428101665,
-            0.17868342276965024,
-            0.8209485988585895
+            0.0001577602659467674,
+            0.0001605136102178921,
+            0.21839299909852206,
+            0.7812887270253134
           ]
         ]
       }
@@ -7899,485 +7901,509 @@ export const REPORT_DATA: ReportData = {
       "bids": [
         {
           "level": 1,
-          "price": 115.5,
-          "quantity": 500.0,
-          "value": 57750.0
+          "price": 120.0,
+          "quantity": 50.0,
+          "value": 6000.0
         },
         {
           "level": 2,
-          "price": 115.4,
-          "quantity": 3000.0,
-          "value": 346200.0
+          "price": 119.9,
+          "quantity": 450.0,
+          "value": 53955.0
         },
         {
           "level": 3,
-          "price": 115.0,
-          "quantity": 100.0,
-          "value": 11500.0
+          "price": 119.8,
+          "quantity": 4000.0,
+          "value": 479200.0
         },
         {
           "level": 4,
-          "price": 114.7,
-          "quantity": 100.0,
-          "value": 11470.0
+          "price": 119.7,
+          "quantity": 450.0,
+          "value": 53865.0
         },
         {
           "level": 5,
-          "price": 114.6,
-          "quantity": 50.0,
-          "value": 5730.0
+          "price": 119.6,
+          "quantity": 600.0,
+          "value": 71760.0
         },
         {
           "level": 6,
-          "price": 114.5,
-          "quantity": 200.0,
-          "value": 22900.0
+          "price": 119.5,
+          "quantity": 450.0,
+          "value": 53775.0
         },
         {
           "level": 7,
-          "price": 114.4,
-          "quantity": 300.0,
-          "value": 34320.0
+          "price": 119.4,
+          "quantity": 450.0,
+          "value": 53730.0
         },
         {
           "level": 8,
-          "price": 114.2,
-          "quantity": 200.0,
-          "value": 22840.0
+          "price": 119.3,
+          "quantity": 250.0,
+          "value": 29825.0
         },
         {
           "level": 9,
-          "price": 114.1,
-          "quantity": 200.0,
-          "value": 22820.0
+          "price": 119.2,
+          "quantity": 150.0,
+          "value": 17880.0
         },
         {
           "level": 10,
-          "price": 114.0,
-          "quantity": 200.0,
-          "value": 22800.0
+          "price": 119.1,
+          "quantity": 150.0,
+          "value": 17865.0
         },
         {
           "level": 11,
-          "price": 113.9,
-          "quantity": 200.0,
-          "value": 22780.0
+          "price": 118.9,
+          "quantity": 250.0,
+          "value": 29725.0
         },
         {
           "level": 12,
-          "price": 113.8,
-          "quantity": 200.0,
-          "value": 22760.0
+          "price": 118.8,
+          "quantity": 150.0,
+          "value": 17820.0
         },
         {
           "level": 13,
-          "price": 113.7,
-          "quantity": 300.0,
-          "value": 34110.0
+          "price": 118.6,
+          "quantity": 250.0,
+          "value": 29650.0
         },
         {
           "level": 14,
-          "price": 113.3,
-          "quantity": 100.0,
-          "value": 11330.0
+          "price": 118.4,
+          "quantity": 150.0,
+          "value": 17760.0
         },
         {
           "level": 15,
-          "price": 113.0,
-          "quantity": 200.0,
-          "value": 22600.0
+          "price": 118.3,
+          "quantity": 250.0,
+          "value": 29575.0
         },
         {
           "level": 16,
-          "price": 112.9,
-          "quantity": 500.0,
-          "value": 56450.0
+          "price": 118.0,
+          "quantity": 100.0,
+          "value": 11800.0
         },
         {
           "level": 17,
-          "price": 112.7,
+          "price": 117.6,
           "quantity": 100.0,
-          "value": 11270.0
+          "value": 11760.0
         },
         {
           "level": 18,
-          "price": 112.4,
+          "price": 117.3,
           "quantity": 100.0,
-          "value": 11240.0
+          "value": 11730.0
         },
         {
           "level": 19,
-          "price": 112.3,
-          "quantity": 1000.0,
-          "value": 112300.0
+          "price": 117.0,
+          "quantity": 500.0,
+          "value": 58500.0
         },
         {
           "level": 20,
-          "price": 112.2,
-          "quantity": 200.0,
-          "value": 22440.0
+          "price": 116.0,
+          "quantity": 300.0,
+          "value": 34800.0
         },
         {
           "level": 21,
-          "price": 112.0,
-          "quantity": 4000.0,
-          "value": 448000.0
+          "price": 115.0,
+          "quantity": 450.0,
+          "value": 51750.0
         },
         {
           "level": 22,
-          "price": 111.1,
-          "quantity": 300.0,
-          "value": 33330.0
+          "price": 112.3,
+          "quantity": 200.0,
+          "value": 22460.0
         },
         {
           "level": 23,
-          "price": 111.0,
-          "quantity": 450.0,
-          "value": 49950.0
+          "price": 111.8,
+          "quantity": 100.0,
+          "value": 11180.0
         },
         {
           "level": 24,
-          "price": 110.5,
-          "quantity": 500.0,
-          "value": 55250.0
+          "price": 111.0,
+          "quantity": 200.0,
+          "value": 22200.0
         },
         {
           "level": 25,
-          "price": 110.3,
-          "quantity": 1000.0,
-          "value": 110300.0
+          "price": 110.0,
+          "quantity": 600.0,
+          "value": 66000.0
         },
         {
           "level": 26,
-          "price": 110.2,
-          "quantity": 500.0,
-          "value": 55100.0
-        },
-        {
-          "level": 27,
-          "price": 110.0,
-          "quantity": 1250.0,
-          "value": 137500.0
-        },
-        {
-          "level": 28,
-          "price": 109.0,
-          "quantity": 600.0,
-          "value": 65400.0
-        },
-        {
-          "level": 29,
           "price": 108.0,
           "quantity": 100.0,
           "value": 10800.0
         },
         {
-          "level": 30,
+          "level": 27,
           "price": 107.8,
           "quantity": 200.0,
           "value": 21560.0
         },
         {
-          "level": 31,
+          "level": 28,
           "price": 105.5,
           "quantity": 700.0,
           "value": 73850.0
         },
         {
-          "level": 32,
+          "level": 29,
           "price": 105.0,
-          "quantity": 600.0,
-          "value": 63000.0
+          "quantity": 1400.0,
+          "value": 147000.0
         },
         {
-          "level": 33,
+          "level": 30,
           "price": 104.8,
           "quantity": 500.0,
           "value": 52400.0
         },
         {
-          "level": 34,
+          "level": 31,
           "price": 104.0,
           "quantity": 500.0,
           "value": 52000.0
         },
         {
-          "level": 35,
+          "level": 32,
           "price": 103.2,
           "quantity": 400.0,
           "value": 41280.0
-        },
-        {
-          "level": 36,
-          "price": 101.0,
-          "quantity": 1000.0,
-          "value": 101000.0
-        },
-        {
-          "level": 37,
-          "price": 100.6,
-          "quantity": 400.0,
-          "value": 40240.0
         }
       ],
       "asks": [
         {
           "level": 1,
-          "price": 115.8,
-          "quantity": 850.0,
-          "value": 98430.0
+          "price": 120.3,
+          "quantity": 350.0,
+          "value": 42105.0
         },
         {
           "level": 2,
-          "price": 116.1,
-          "quantity": 3500.0,
-          "value": 406350.0
+          "price": 120.5,
+          "quantity": 3000.0,
+          "value": 361500.0
         },
         {
           "level": 3,
-          "price": 116.2,
-          "quantity": 600.0,
-          "value": 69720.0
+          "price": 120.7,
+          "quantity": 300.0,
+          "value": 36210.0
         },
         {
           "level": 4,
-          "price": 116.3,
-          "quantity": 300.0,
-          "value": 34890.0
+          "price": 120.8,
+          "quantity": 1050.0,
+          "value": 126840.0
         },
         {
           "level": 5,
-          "price": 116.4,
-          "quantity": 500.0,
-          "value": 58200.0
+          "price": 120.9,
+          "quantity": 1000.0,
+          "value": 120900.0
         },
         {
           "level": 6,
-          "price": 116.5,
-          "quantity": 600.0,
-          "value": 69900.0
+          "price": 121.0,
+          "quantity": 150.0,
+          "value": 18150.0
         },
         {
           "level": 7,
-          "price": 116.6,
-          "quantity": 300.0,
-          "value": 34980.0
+          "price": 121.1,
+          "quantity": 100.0,
+          "value": 12110.0
         },
         {
           "level": 8,
-          "price": 116.8,
-          "quantity": 200.0,
-          "value": 23360.0
+          "price": 121.2,
+          "quantity": 800.0,
+          "value": 96960.0
         },
         {
           "level": 9,
-          "price": 116.9,
-          "quantity": 300.0,
-          "value": 35070.0
+          "price": 121.3,
+          "quantity": 700.0,
+          "value": 84910.0
         },
         {
           "level": 10,
-          "price": 117.0,
-          "quantity": 200.0,
-          "value": 23400.0
+          "price": 121.4,
+          "quantity": 250.0,
+          "value": 30350.0
         },
         {
           "level": 11,
-          "price": 117.2,
-          "quantity": 300.0,
-          "value": 35160.0
+          "price": 121.5,
+          "quantity": 250.0,
+          "value": 30375.0
         },
         {
           "level": 12,
-          "price": 117.4,
-          "quantity": 100.0,
-          "value": 11740.0
+          "price": 121.6,
+          "quantity": 50.0,
+          "value": 6080.0
         },
         {
           "level": 13,
-          "price": 117.7,
-          "quantity": 100.0,
-          "value": 11770.0
+          "price": 121.7,
+          "quantity": 350.0,
+          "value": 42595.0
         },
         {
           "level": 14,
-          "price": 117.9,
-          "quantity": 100.0,
-          "value": 11790.0
+          "price": 121.8,
+          "quantity": 150.0,
+          "value": 18270.0
         },
         {
           "level": 15,
-          "price": 119.1,
-          "quantity": 100.0,
-          "value": 11910.0
+          "price": 122.0,
+          "quantity": 450.0,
+          "value": 54900.0
         },
         {
           "level": 16,
-          "price": 119.5,
-          "quantity": 1050.0,
-          "value": 125475.0
+          "price": 122.3,
+          "quantity": 100.0,
+          "value": 12230.0
         },
         {
           "level": 17,
-          "price": 120.0,
-          "quantity": 1000.0,
-          "value": 120000.0
+          "price": 122.6,
+          "quantity": 100.0,
+          "value": 12260.0
         },
         {
           "level": 18,
-          "price": 122.0,
-          "quantity": 650.0,
-          "value": 79300.0
+          "price": 122.7,
+          "quantity": 1300.0,
+          "value": 159510.0
         },
         {
           "level": 19,
-          "price": 126.0,
+          "price": 122.9,
           "quantity": 100.0,
-          "value": 12600.0
+          "value": 12290.0
         },
         {
           "level": 20,
-          "price": 126.1,
-          "quantity": 50.0,
-          "value": 6305.0
+          "price": 123.0,
+          "quantity": 1200.0,
+          "value": 147600.0
         },
         {
           "level": 21,
+          "price": 123.2,
+          "quantity": 100.0,
+          "value": 12320.0
+        },
+        {
+          "level": 22,
+          "price": 125.0,
+          "quantity": 1950.0,
+          "value": 243750.0
+        },
+        {
+          "level": 23,
+          "price": 126.8,
+          "quantity": 100.0,
+          "value": 12680.0
+        },
+        {
+          "level": 24,
+          "price": 128.8,
+          "quantity": 500.0,
+          "value": 64400.00000000001
+        },
+        {
+          "level": 25,
+          "price": 129.0,
+          "quantity": 300.0,
+          "value": 38700.0
+        },
+        {
+          "level": 26,
+          "price": 129.5,
+          "quantity": 100.0,
+          "value": 12950.0
+        },
+        {
+          "level": 27,
+          "price": 130.0,
+          "quantity": 200.0,
+          "value": 26000.0
+        },
+        {
+          "level": 28,
           "price": 131.0,
           "quantity": 50.0,
           "value": 6550.0
+        },
+        {
+          "level": 29,
+          "price": 132.0,
+          "quantity": 200.0,
+          "value": 26400.0
+        },
+        {
+          "level": 30,
+          "price": 135.0,
+          "quantity": 1000.0,
+          "value": 135000.0
         }
       ]
     },
     "execution_dynamic": {
       "snapshot": {
         "valid": true,
-        "snapshot_time": "2026-05-05 07:59:58.138000000",
+        "snapshot_time": "2026-05-22 07:59:57.377000000",
         "snapshot_basis": "last_continuous_session_snapshot",
         "snapshot_label": "final continuous-session displayed book before close",
         "snapshot_note": "Final continuous-session displayed book before close",
         "snapshot_mic": "XHKG",
-        "mid_price": 115.65,
-        "spread_pct": 0.002594033722438367,
+        "mid_price": 120.15,
+        "spread_pct": 0.0024968789013732596,
         "spread_ticks": 3.0,
         "tick_size": 0.1,
         "displayed_levels_per_side": 100,
-        "bid_depth_notional_displayed": 2296570.0,
-        "ask_depth_notional_displayed": 1286900.0,
-        "bid_depth_notional_top10": 2296570.0,
-        "ask_depth_notional_top10": 1286900.0,
-        "bid_ask_depth_ratio": 1.7846
+        "bid_depth_notional_displayed": 1663455.0,
+        "ask_depth_notional_displayed": 2004895.0,
+        "bid_depth_notional_top10": 1663455.0,
+        "ask_depth_notional_top10": 2004895.0,
+        "bid_ask_depth_ratio": 0.8297
       },
       "historical_trade_scenarios": {
         "valid": true,
         "requested_lookback_calendar_days": 365,
         "lookback_calendar_days": 365,
-        "effective_calendar_days": 365,
+        "effective_calendar_days": 366,
         "history_limited": false,
-        "trade_days_used": 241,
-        "n_trades_used": 145790,
-        "first_trade_date": "2025-05-06",
-        "last_trade_date": "2026-05-05",
-        "window_label": "May 6, 2025 to May 5, 2026",
-        "window_short_label": "May 6, 2025 to May 5, 2026",
-        "trade_days_label": "241 trading days",
-        "trade_count_label": "145,790 trades",
-        "window_detail_label": "241 trading days • 145,790 trades",
-        "history_note": "Trade-size percentiles use May 6, 2025 to May 5, 2026 history (241 trading days • 145,790 trades).",
+        "trade_days_used": 242,
+        "n_trades_used": 151814,
+        "first_trade_date": "2025-05-22",
+        "last_trade_date": "2026-05-22",
+        "window_label": "May 22, 2025 to May 22, 2026",
+        "window_short_label": "May 22, 2025 to May 22, 2026",
+        "trade_days_label": "242 trading days",
+        "trade_count_label": "151,814 trades",
+        "window_detail_label": "242 trading days • 151,814 trades",
+        "history_note": "Trade-size percentiles use May 22, 2025 to May 22, 2026 history (242 trading days • 151,814 trades).",
         "scenarios": [
           {
             "key": "p90",
             "label": "90th percentile trade",
             "quantile": 0.9,
-            "trade_notional": 35260.0,
-            "impact_pct": -0.0012970000000000002,
+            "trade_notional": 35770.0,
+            "impact_pct": -0.001941,
             "filled_pct": 100.0,
-            "levels_consumed": 1,
-            "pct_of_bid_depth": 1.54,
-            "pct_of_adv": 0.5
+            "levels_consumed": 2,
+            "pct_of_bid_depth": 2.15,
+            "pct_of_adv": 0.35
           },
           {
             "key": "p95",
             "label": "95th percentile trade",
             "quantile": 0.95,
-            "trade_notional": 54400.0,
-            "impact_pct": -0.0012970000000000002,
+            "trade_notional": 55780.5,
+            "impact_pct": -0.001991,
             "filled_pct": 100.0,
-            "levels_consumed": 1,
-            "pct_of_bid_depth": 2.37,
-            "pct_of_adv": 0.77
+            "levels_consumed": 2,
+            "pct_of_bid_depth": 3.35,
+            "pct_of_adv": 0.55
           },
           {
             "key": "p99_99",
             "label": "99.99th percentile trade",
             "quantile": 0.9999,
-            "trade_notional": 8262035.44,
-            "impact_pct": -0.042991,
-            "filled_pct": 27.8,
-            "levels_consumed": 37,
-            "pct_of_bid_depth": 359.76,
-            "pct_of_adv": 116.31
+            "trade_notional": 6815650.72,
+            "impact_pct": -0.045185,
+            "filled_pct": 24.4,
+            "levels_consumed": 32,
+            "pct_of_bid_depth": 409.73,
+            "pct_of_adv": 67.01
           }
         ]
       },
       "l3_sell_order_scenarios": {
         "valid": true,
-        "trade_date": "2026-05-05",
+        "trade_date": "2026-05-22",
         "selection_method": "largest_observed_ask_orders_during_day",
         "orders": [
           {
             "rank": 1,
-            "order_id": "16032771",
-            "timestamp": "2026-05-05 01:20:20.888000000",
-            "local_timestamp": "2026-05-05 09:20:20",
-            "posted_price": 116.5,
-            "size_shares": 10500.0,
-            "notional": 1223250.0,
-            "impact_pct": -0.017415,
+            "order_id": "16228609",
+            "timestamp": "2026-05-22 01:20:28.973000000",
+            "local_timestamp": "2026-05-22 09:20:28",
+            "posted_price": 120.3,
+            "size_shares": 7000.0,
+            "notional": 842100.0,
+            "impact_pct": -0.003832,
             "filled_pct": 100.0,
-            "levels_consumed": 21,
-            "pct_of_bid_depth": 53.26,
-            "price_vs_mid_pct": 0.735,
+            "levels_consumed": 11,
+            "pct_of_bid_depth": 50.62,
+            "price_vs_mid_pct": 0.125,
             "executed_event_count": 0,
             "event_count": 1
           },
           {
             "rank": 2,
-            "order_id": "3345098499",
-            "timestamp": "2026-05-05 07:59:30.515000000",
-            "local_timestamp": "2026-05-05 15:59:30",
-            "posted_price": 116.1,
-            "size_shares": 3000.0,
-            "notional": 348300.0,
-            "impact_pct": -0.0020180000000000003,
+            "order_id": "5041118209",
+            "timestamp": "2026-05-22 07:55:20.733000000",
+            "local_timestamp": "2026-05-22 15:55:20",
+            "posted_price": 120.5,
+            "size_shares": 3550.0,
+            "notional": 427775.0,
+            "impact_pct": -0.002785,
             "filled_pct": 100.0,
-            "levels_consumed": 2,
-            "pct_of_bid_depth": 15.17,
-            "price_vs_mid_pct": 0.389,
+            "levels_consumed": 3,
+            "pct_of_bid_depth": 25.72,
+            "price_vs_mid_pct": 0.291,
             "executed_event_count": 0,
-            "event_count": 1
+            "event_count": 14
           },
           {
             "rank": 3,
-            "order_id": "3310446851",
-            "timestamp": "2026-05-05 07:55:02.318000000",
-            "local_timestamp": "2026-05-05 15:55:02",
-            "posted_price": 116.0,
-            "size_shares": 3000.0,
-            "notional": 348000.0,
-            "impact_pct": -0.0020180000000000003,
+            "order_id": "16230401",
+            "timestamp": "2026-05-22 01:20:28.973000000",
+            "local_timestamp": "2026-05-22 09:20:28",
+            "posted_price": 121.9,
+            "size_shares": 3500.0,
+            "notional": 426650.0,
+            "impact_pct": -0.002784,
             "filled_pct": 100.0,
-            "levels_consumed": 2,
-            "pct_of_bid_depth": 15.15,
-            "price_vs_mid_pct": 0.303,
+            "levels_consumed": 3,
+            "pct_of_bid_depth": 25.65,
+            "price_vs_mid_pct": 1.457,
             "executed_event_count": 0,
-            "event_count": 2
+            "event_count": 1
           }
         ]
       },
       "intraday_liquidity_profile": {
         "valid": true,
-        "trade_date": "2026-05-05",
+        "trade_date": "2026-05-22",
         "bucket_minutes": 30,
         "displayed_levels_per_side": 100,
         "tick_size": 0.1,
@@ -8390,139 +8416,139 @@ export const REPORT_DATA: ReportData = {
         "rows": [
           {
             "bucket": "09:30",
-            "spread_pct": 0.0061919504643963095,
-            "spread_ticks": 7.000000000000028,
-            "bid_depth_notional": 1323380.0,
-            "ask_depth_notional": 735200.0,
-            "mid_price": 113.05000000000001
+            "spread_pct": 0.0008309098462817493,
+            "spread_ticks": 1.0000000000000853,
+            "bid_depth_notional": 1212010.0,
+            "ask_depth_notional": 1256970.0,
+            "mid_price": 120.35
           },
           {
             "bucket": "10:00",
-            "spread_pct": 0.00264666960741065,
-            "spread_ticks": 2.9999999999999716,
-            "bid_depth_notional": 1578620.0,
-            "ask_depth_notional": 955680.0,
-            "mid_price": 113.35
+            "spread_pct": 0.0033112582781457426,
+            "spread_ticks": 4.000000000000057,
+            "bid_depth_notional": 2025585.0,
+            "ask_depth_notional": 1217170.0,
+            "mid_price": 120.8
           },
           {
             "bucket": "10:30",
-            "spread_pct": 0.001759014951627114,
-            "spread_ticks": 2.0000000000000284,
-            "bid_depth_notional": 1658255.0,
-            "ask_depth_notional": 951300.0,
-            "mid_price": 113.69999999999999
+            "spread_pct": 0.000827472072817613,
+            "spread_ticks": 1.0000000000000853,
+            "bid_depth_notional": 2236015.0,
+            "ask_depth_notional": 1327380.0,
+            "mid_price": 120.85
           },
           {
             "bucket": "11:00",
-            "spread_pct": 0.002637362637362737,
-            "spread_ticks": 3.0000000000001137,
-            "bid_depth_notional": 1703730.0,
-            "ask_depth_notional": 871785.0,
-            "mid_price": 113.75
+            "spread_pct": 0.0016515276630883803,
+            "spread_ticks": 2.0000000000000284,
+            "bid_depth_notional": 2565530.0,
+            "ask_depth_notional": 1340875.0,
+            "mid_price": 121.1
           },
           {
             "bucket": "11:30",
-            "spread_pct": 0.0035180299032542277,
+            "spread_pct": 0.003300330033003347,
             "spread_ticks": 4.000000000000057,
-            "bid_depth_notional": 1198290.0,
-            "ask_depth_notional": 734175.0,
-            "mid_price": 113.7
+            "bid_depth_notional": 1226045.0,
+            "ask_depth_notional": 1366860.0,
+            "mid_price": 121.2
           },
           {
             "bucket": "13:00",
-            "spread_pct": 0.0008722197993895204,
-            "spread_ticks": 1.0000000000000853,
-            "bid_depth_notional": 1786560.0,
-            "ask_depth_notional": 875575.0,
-            "mid_price": 114.65
+            "spread_pct": 0.002470152326060084,
+            "spread_ticks": 2.9999999999999716,
+            "bid_depth_notional": 1250230.0,
+            "ask_depth_notional": 1318855.0,
+            "mid_price": 121.44999999999999
           },
           {
             "bucket": "13:30",
-            "spread_pct": 0.003493449781659438,
-            "spread_ticks": 4.000000000000057,
-            "bid_depth_notional": 1713335.0,
-            "ask_depth_notional": 973200.0,
-            "mid_price": 114.5
+            "spread_pct": 0.004930156121610471,
+            "spread_ticks": 5.999999999999943,
+            "bid_depth_notional": 2206965.0,
+            "ask_depth_notional": 1413430.0,
+            "mid_price": 121.7
           },
           {
             "bucket": "14:00",
-            "spread_pct": 0.0026212319790301195,
-            "spread_ticks": 2.9999999999999716,
-            "bid_depth_notional": 1763340.0,
-            "ask_depth_notional": 771080.0,
-            "mid_price": 114.44999999999999
+            "spread_pct": 0.003303055326176643,
+            "spread_ticks": 3.9999999999999147,
+            "bid_depth_notional": 2312425.0,
+            "ask_depth_notional": 1861025.0,
+            "mid_price": 121.1
           },
           {
             "bucket": "14:30",
-            "spread_pct": 0.004387889425186485,
-            "spread_ticks": 5.0,
-            "bid_depth_notional": 1600860.0,
-            "ask_depth_notional": 1137535.0,
-            "mid_price": 113.95
+            "spread_pct": 0.003319502074688844,
+            "spread_ticks": 4.000000000000057,
+            "bid_depth_notional": 1627465.0,
+            "ask_depth_notional": 1985395.0,
+            "mid_price": 120.5
           },
           {
             "bucket": "15:00",
-            "spread_pct": 0.001742160278745669,
+            "spread_pct": 0.0016638935108153317,
             "spread_ticks": 2.0000000000000284,
-            "bid_depth_notional": 2870840.0,
-            "ask_depth_notional": 981180.0,
-            "mid_price": 114.80000000000001
+            "bid_depth_notional": 1501890.0,
+            "ask_depth_notional": 2336815.0,
+            "mid_price": 120.19999999999999
           },
           {
             "bucket": "15:30",
-            "spread_pct": 0.002594033722438367,
+            "spread_pct": 0.0024968789013732596,
             "spread_ticks": 2.9999999999999716,
-            "bid_depth_notional": 2296570.0,
-            "ask_depth_notional": 1286900.0,
-            "mid_price": 115.65
+            "bid_depth_notional": 1663455.0,
+            "ask_depth_notional": 2004895.0,
+            "mid_price": 120.15
           }
         ],
         "summary": {
-          "median_spread_pct": 0.002637362637362737,
+          "median_spread_pct": 0.0024968789013732596,
           "median_spread_ticks": 2.9999999999999716,
-          "median_bid_depth_notional": 1703730.0,
-          "median_ask_depth_notional": 951300.0,
-          "tightest_bucket": "13:00",
-          "widest_bucket": "09:30",
-          "deepest_bid_bucket": "15:00",
-          "thinnest_bid_bucket": "11:30"
+          "median_bid_depth_notional": 1663455.0,
+          "median_ask_depth_notional": 1366860.0,
+          "tightest_bucket": "10:30",
+          "widest_bucket": "13:30",
+          "deepest_bid_bucket": "11:00",
+          "thinnest_bid_bucket": "09:30"
         }
       }
     },
     "peer_capacity": {
-      "bx_ticket_pct_adv_50k": 0.7,
+      "bx_ticket_pct_adv_50k": 0.5,
       "peers": [
         {
+          "ticker": "966",
+          "pct": 0.5
+        },
+        {
           "ticker": "6060",
-          "pct": 1.1
+          "pct": 1.2
         },
         {
           "ticker": "6963",
-          "pct": 1.8
+          "pct": 1.7
         },
         {
           "ticker": "1508",
-          "pct": 2.6
+          "pct": 3.6
         },
         {
           "ticker": "376",
-          "pct": 9.0
+          "pct": 8.2
         },
         {
           "ticker": "1828",
-          "pct": 16.7
-        },
-        {
-          "ticker": "945",
-          "pct": 21.3
+          "pct": 17.6
         },
         {
           "ticker": "82318",
-          "pct": 26.8
+          "pct": 18.1
         },
         {
-          "ticker": "81299",
-          "pct": 490.1
+          "ticker": "945",
+          "pct": 26.8
         }
       ]
     },
@@ -8532,11 +8558,11 @@ export const REPORT_DATA: ReportData = {
         "1d": {
           "valid": true,
           "currency": "HKD",
-          "n_trades": 1100,
-          "n_runs": 288,
+          "n_trades": 488,
+          "n_runs": 170,
           "n_trade_days": 1,
-          "first_trade_date": "2026-05-05",
-          "last_trade_date": "2026-05-05",
+          "first_trade_date": "2026-05-22",
+          "last_trade_date": "2026-05-22",
           "period_days": 1,
           "method": {
             "key": "persona_v4_l2_only",
@@ -8549,162 +8575,123 @@ export const REPORT_DATA: ReportData = {
             "instit_min": 50000.0
           },
           "composition": {
-            "retail_pct": 0.2190909090909091,
-            "mixed_pct": 0.1290909090909091,
-            "instit_pct": 0.4036363636363636,
-            "ambiguous_pct": 0.24818181818181817,
+            "retail_pct": 0.3483606557377049,
+            "mixed_pct": 0.19057377049180327,
+            "instit_pct": 0.32581967213114754,
+            "ambiguous_pct": 0.13524590163934427,
             "unobservable_pct": 0.0,
-            "unclear_pct": 0.24818181818181817,
-            "retail_qty_pct": 0.14787271306550265,
-            "mixed_qty_pct": 0.15021690512758332,
-            "instit_qty_pct": 0.48601568183655325,
-            "ambiguous_qty_pct": 0.2158946999703608,
+            "unclear_pct": 0.13524590163934427,
+            "retail_qty_pct": 0.20557089491635536,
+            "mixed_qty_pct": 0.2647393210979373,
+            "instit_qty_pct": 0.39710898164690595,
+            "ambiguous_qty_pct": 0.13258080233880137,
             "unobservable_qty_pct": 0.0,
-            "unclear_qty_pct": 0.2158946999703608,
-            "retail_notional_pct": 0.14774554692463537,
-            "mixed_notional_pct": 0.14983915778954712,
-            "instit_notional_pct": 0.4860879644664825,
-            "ambiguous_notional_pct": 0.21632733081933495,
+            "unclear_qty_pct": 0.13258080233880137,
+            "retail_notional_pct": 0.20520312874027902,
+            "mixed_notional_pct": 0.26502279616548435,
+            "instit_notional_pct": 0.39720372343981236,
+            "ambiguous_notional_pct": 0.1325703516544243,
             "unobservable_notional_pct": 0.0,
-            "unclear_notional_pct": 0.21632733081933495
+            "unclear_notional_pct": 0.1325703516544243
           },
           "run_composition": {
-            "retail_pct": 0.3958333333333333,
-            "mixed_pct": 0.1527777777777778,
-            "instit_pct": 0.2777777777777778,
-            "ambiguous_pct": 0.1736111111111111,
+            "retail_pct": 0.47058823529411764,
+            "mixed_pct": 0.2235294117647059,
+            "instit_pct": 0.1588235294117647,
+            "ambiguous_pct": 0.14705882352941177,
             "unobservable_pct": 0.0,
-            "unclear_pct": 0.1736111111111111,
-            "retail_notional_pct": 0.09634677437321224,
-            "mixed_notional_pct": 0.11676224015476852,
-            "instit_notional_pct": 0.6479267796630539,
-            "unclear_notional_pct": 0.1389642058089653
+            "unclear_pct": 0.14705882352941177,
+            "retail_notional_pct": 0.1575156114146556,
+            "mixed_notional_pct": 0.21090378265947957,
+            "instit_notional_pct": 0.49326758189040987,
+            "unclear_notional_pct": 0.13831302403545503
           },
           "counts": {
             "trades": {
-              "retail": 241,
-              "mixed": 142,
-              "institutional": 444,
-              "ambiguous": 273,
+              "retail": 170,
+              "mixed": 93,
+              "institutional": 159,
+              "ambiguous": 66,
               "unobservable": 0,
-              "unclear": 273
+              "unclear": 66
             },
             "runs": {
-              "retail": 114,
-              "mixed": 44,
-              "institutional": 80,
-              "ambiguous": 50,
+              "retail": 80,
+              "mixed": 38,
+              "institutional": 27,
+              "ambiguous": 25,
               "unobservable": 0,
-              "unclear": 50
+              "unclear": 25
             }
           },
           "confidence": {
-            "high": 0.6736111111111112,
-            "medium": 0.1527777777777778,
-            "low": 0.1736111111111111,
+            "high": 0.6294117647058823,
+            "medium": 0.2235294117647059,
+            "low": 0.14705882352941177,
             "na": 0.0
           },
           "confidence_counts": {
-            "high": 194,
-            "medium": 44,
-            "low": 50,
+            "high": 107,
+            "medium": 38,
+            "low": 25,
             "na": 0
           },
           "trade_confidence": {
-            "high": 0.5,
-            "medium": 0.11363636363636363,
-            "low": 0.38636363636363635,
+            "high": 0.4487704918032787,
+            "medium": 0.17008196721311475,
+            "low": 0.38114754098360654,
             "na": 0.0
           },
           "trade_confidence_counts": {
-            "high": 550,
-            "medium": 125,
-            "low": 425,
+            "high": 219,
+            "medium": 83,
+            "low": 186,
             "na": 0
           },
           "observability": {
-            "avg_feature_coverage": 0.8838541666666665,
+            "avg_feature_coverage": 0.8817647058823528,
             "observable_run_pct": 1.0,
-            "ambiguous_run_pct": 0.1736111111111111,
+            "ambiguous_run_pct": 0.14705882352941177,
             "unobservable_run_pct": 0.0
           },
           "dominant_bucket": "RETAIL",
           "dominant_label": "Retail-led",
-          "dominant_share": 0.3958333333333333,
-          "dominance_gap": 0.11805555555555552,
+          "dominant_share": 0.47058823529411764,
+          "dominance_gap": 0.24705882352941175,
           "diagnostics": {
             "d1_cluster_mechanic": {
-              "SINGLE_FILL": 503,
-              "UNOBSERVABLE": 308,
-              "WALK_BOOK": 289
+              "SINGLE_FILL": 280,
+              "UNOBSERVABLE": 143,
+              "WALK_BOOK": 65
             },
             "d2_information": {
-              "UNOBSERVABLE": 1100
+              "UNOBSERVABLE": 488
             },
             "d3_urgency": {
-              "UNOBSERVABLE": 288
+              "UNOBSERVABLE": 170
             },
             "participant_confidence": {
-              "HIGH": 194,
-              "LOW": 50,
-              "MEDIUM": 44
+              "HIGH": 107,
+              "MEDIUM": 38,
+              "LOW": 25
             }
           },
           "trade_size": {
-            "avg": 15372.180272727273,
-            "median": 11240.0
+            "avg": 15238.443237704918,
+            "median": 6060.0
           },
           "run_size": {
-            "avg": 42065.68854166667,
-            "median": 23040.0,
-            "avg_length": 1.4166666666666667
+            "avg": 26786.678235294115,
+            "median": 12145.0,
+            "avg_length": 1.3176470588235294
           },
           "recent_trades": [
             {
-              "trade_id": "1101",
-              "timestamp": "2026-05-05T07:59:36.797219",
-              "price": 115.8,
+              "trade_id": "488",
+              "timestamp": "2026-05-22T07:59:51.761034",
+              "price": 120.2,
               "size": 50.0,
-              "notional": 5790.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46555,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1100",
-              "timestamp": "2026-05-05T07:59:30.215434",
-              "price": 115.5,
-              "size": 800.0,
-              "notional": 92400.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46554,
-              "d1": "WALK_BOOK",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1099",
-              "timestamp": "2026-05-05T07:59:00.032787",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46553,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1098",
-              "timestamp": "2026-05-05T07:58:06.512397",
-              "price": 115.6,
-              "size": 100.0,
-              "notional": 11560.0,
+              "notional": 6010.0,
               "bucket": "RETAIL",
               "confidence": "LOW",
               "run_id": null,
@@ -8713,339 +8700,378 @@ export const REPORT_DATA: ReportData = {
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1097",
-              "timestamp": "2026-05-05T07:58:06.512397",
-              "price": 115.6,
+              "trade_id": "487",
+              "timestamp": "2026-05-22T07:59:51.760405",
+              "price": 120.2,
               "size": 50.0,
-              "notional": 5780.0,
+              "notional": 6010.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46552,
+              "run_id": 47548,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1096",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1095",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1094",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1093",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 300.0,
-              "notional": 34710.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1092",
-              "timestamp": "2026-05-05T07:57:02.422111",
-              "price": 115.6,
-              "size": 50.0,
-              "notional": 5780.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46550,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1091",
-              "timestamp": "2026-05-05T07:56:00.762882",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1090",
-              "timestamp": "2026-05-05T07:56:00.715195",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1089",
-              "timestamp": "2026-05-05T07:56:00.668567",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1088",
-              "timestamp": "2026-05-05T07:56:00.613256",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1087",
-              "timestamp": "2026-05-05T07:56:00.575446",
-              "price": 115.7,
+              "trade_id": "486",
+              "timestamp": "2026-05-22T07:59:43.357173",
+              "price": 119.8,
               "size": 100.0,
-              "notional": 11570.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1086",
-              "timestamp": "2026-05-05T07:56:00.564533",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1085",
-              "timestamp": "2026-05-05T07:56:00.519110",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1084",
-              "timestamp": "2026-05-05T07:56:00.444906",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1083",
-              "timestamp": "2026-05-05T07:56:00.421953",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1082",
-              "timestamp": "2026-05-05T07:56:00.421953",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1081",
-              "timestamp": "2026-05-05T07:56:00.363607",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1080",
-              "timestamp": "2026-05-05T07:56:00.313988",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1079",
-              "timestamp": "2026-05-05T07:56:00.268096",
-              "price": 115.7,
-              "size": 100.0,
-              "notional": 11570.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1078",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
+              "notional": 11980.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46548,
+              "run_id": 47547,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1077",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
+              "trade_id": "485",
+              "timestamp": "2026-05-22T07:59:42.776714",
+              "price": 119.9,
               "size": 50.0,
-              "notional": 5775.0,
+              "notional": 5995.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46548,
+              "run_id": 47546,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1076",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 100.0,
-              "notional": 11550.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46548,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1075",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46548,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1074",
-              "timestamp": "2026-05-05T07:54:55.552062",
-              "price": 115.4,
+              "trade_id": "484",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
               "size": 200.0,
-              "notional": 23080.0,
+              "notional": 23980.0,
               "bucket": "INSTITUTIONAL",
               "confidence": "HIGH",
-              "run_id": 46547,
+              "run_id": 47545,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1073",
-              "timestamp": "2026-05-05T07:54:55.551763",
-              "price": 115.4,
-              "size": 300.0,
-              "notional": 34620.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46547,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1072",
-              "timestamp": "2026-05-05T07:54:55.499318",
-              "price": 115.4,
+              "trade_id": "483",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
               "size": 50.0,
-              "notional": 5770.0,
+              "notional": 5995.0,
               "bucket": "INSTITUTIONAL",
               "confidence": "HIGH",
-              "run_id": 46547,
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "482",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "HIGH",
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "481",
+              "timestamp": "2026-05-22T07:59:42.210716",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "HIGH",
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "480",
+              "timestamp": "2026-05-22T07:59:37.444597",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47544,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "479",
+              "timestamp": "2026-05-22T07:59:16.334556",
+              "price": 119.9,
+              "size": 100.0,
+              "notional": 11990.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47543,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "478",
+              "timestamp": "2026-05-22T07:59:15.769716",
+              "price": 119.9,
+              "size": 200.0,
+              "notional": 23980.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47543,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "477",
+              "timestamp": "2026-05-22T07:59:07.561097",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47542,
+              "d1": "WALK_BOOK",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "476",
+              "timestamp": "2026-05-22T07:59:07.561097",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47542,
+              "d1": "WALK_BOOK",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "475",
+              "timestamp": "2026-05-22T07:58:50.073447",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47541,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "474",
+              "timestamp": "2026-05-22T07:58:49.498511",
+              "price": 119.9,
+              "size": 150.0,
+              "notional": 17985.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47541,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "473",
+              "timestamp": "2026-05-22T07:58:39.364303",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47540,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "472",
+              "timestamp": "2026-05-22T07:58:39.362733",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47540,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "471",
+              "timestamp": "2026-05-22T07:58:20.145823",
+              "price": 119.9,
+              "size": 100.0,
+              "notional": 11990.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47539,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "470",
+              "timestamp": "2026-05-22T07:58:00.200736",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "469",
+              "timestamp": "2026-05-22T07:57:59.619128",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "468",
+              "timestamp": "2026-05-22T07:57:50.011625",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "467",
+              "timestamp": "2026-05-22T07:57:23.887857",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47537,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "466",
+              "timestamp": "2026-05-22T07:57:23.887214",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47536,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "465",
+              "timestamp": "2026-05-22T07:57:23.320380",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47535,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "464",
+              "timestamp": "2026-05-22T07:57:01.414950",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47534,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "463",
+              "timestamp": "2026-05-22T07:56:52.536804",
+              "price": 119.9,
+              "size": 250.0,
+              "notional": 29975.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47533,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "462",
+              "timestamp": "2026-05-22T07:56:51.944814",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47533,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "461",
+              "timestamp": "2026-05-22T07:56:16.237442",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47532,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "460",
+              "timestamp": "2026-05-22T07:56:16.236766",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": null,
+              "d1": "UNOBSERVABLE",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "459",
+              "timestamp": "2026-05-22T07:55:21.306864",
+              "price": 120.2,
+              "size": 200.0,
+              "notional": 24040.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47531,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
@@ -9056,11 +9082,11 @@ export const REPORT_DATA: ReportData = {
         "30d": {
           "valid": true,
           "currency": "HKD",
-          "n_trades": 13338,
-          "n_runs": 4928,
+          "n_trades": 16664,
+          "n_runs": 5270,
           "n_trade_days": 21,
-          "first_trade_date": "2026-04-01",
-          "last_trade_date": "2026-05-05",
+          "first_trade_date": "2026-04-23",
+          "last_trade_date": "2026-05-22",
           "period_days": 21,
           "method": {
             "key": "persona_v4_l2_only",
@@ -9073,162 +9099,123 @@ export const REPORT_DATA: ReportData = {
             "instit_min": 50000.0
           },
           "composition": {
-            "retail_pct": 0.31676413255360625,
-            "mixed_pct": 0.1473984105563053,
-            "instit_pct": 0.36332283700704754,
-            "ambiguous_pct": 0.17251461988304093,
+            "retail_pct": 0.2602016322611618,
+            "mixed_pct": 0.16112578012481998,
+            "instit_pct": 0.425048007681229,
+            "ambiguous_pct": 0.15362457993278925,
             "unobservable_pct": 0.0,
-            "unclear_pct": 0.17251461988304093,
-            "retail_qty_pct": 0.1654588403481312,
-            "mixed_qty_pct": 0.1619259483664149,
-            "instit_qty_pct": 0.5209731120041106,
-            "ambiguous_qty_pct": 0.15164209928134334,
+            "unclear_pct": 0.15362457993278925,
+            "retail_qty_pct": 0.12743092800944433,
+            "mixed_qty_pct": 0.19304569031850655,
+            "instit_qty_pct": 0.5545517394375611,
+            "ambiguous_qty_pct": 0.12497164223448799,
             "unobservable_qty_pct": 0.0,
-            "unclear_qty_pct": 0.15164209928134334,
-            "retail_notional_pct": 0.1651809621352715,
-            "mixed_notional_pct": 0.16149172526388045,
-            "instit_notional_pct": 0.5223288589461548,
-            "ambiguous_notional_pct": 0.15099845365469325,
+            "unclear_qty_pct": 0.12497164223448799,
+            "retail_notional_pct": 0.12708601858840823,
+            "mixed_notional_pct": 0.19313316992688995,
+            "instit_notional_pct": 0.5552009587571802,
+            "ambiguous_notional_pct": 0.12457985272752171,
             "unobservable_notional_pct": 0.0,
-            "unclear_notional_pct": 0.15099845365469325
+            "unclear_notional_pct": 0.12457985272752171
           },
           "run_composition": {
-            "retail_pct": 0.4981737012987013,
-            "mixed_pct": 0.19703733766233766,
-            "instit_pct": 0.18405032467532467,
-            "ambiguous_pct": 0.12073863636363637,
+            "retail_pct": 0.4815939278937381,
+            "mixed_pct": 0.19127134724857686,
+            "instit_pct": 0.20113851992409867,
+            "ambiguous_pct": 0.12599620493358635,
             "unobservable_pct": 0.0,
-            "unclear_pct": 0.12073863636363637,
-            "retail_notional_pct": 0.11383970760898512,
-            "mixed_notional_pct": 0.14196667820309616,
-            "instit_notional_pct": 0.6478682319590982,
-            "unclear_notional_pct": 0.09632538222882055
+            "unclear_pct": 0.12599620493358635,
+            "retail_notional_pct": 0.09933970022499884,
+            "mixed_notional_pct": 0.15114737027001574,
+            "instit_notional_pct": 0.6559987650241005,
+            "unclear_notional_pct": 0.09351416448088494
           },
           "counts": {
             "trades": {
-              "retail": 4225,
-              "mixed": 1966,
-              "institutional": 4846,
-              "ambiguous": 2301,
+              "retail": 4336,
+              "mixed": 2685,
+              "institutional": 7083,
+              "ambiguous": 2560,
               "unobservable": 0,
-              "unclear": 2301
+              "unclear": 2560
             },
             "runs": {
-              "retail": 2455,
-              "mixed": 971,
-              "institutional": 907,
-              "ambiguous": 595,
+              "retail": 2538,
+              "mixed": 1008,
+              "institutional": 1060,
+              "ambiguous": 664,
               "unobservable": 0,
-              "unclear": 595
+              "unclear": 664
             }
           },
           "confidence": {
-            "high": 0.682224025974026,
-            "medium": 0.19703733766233766,
-            "low": 0.12073863636363637,
+            "high": 0.6827324478178368,
+            "medium": 0.19127134724857686,
+            "low": 0.12599620493358635,
             "na": 0.0
           },
           "confidence_counts": {
-            "high": 3362,
-            "medium": 971,
-            "low": 595,
+            "high": 3598,
+            "medium": 1008,
+            "low": 664,
             "na": 0
           },
           "trade_confidence": {
-            "high": 0.5104213525266157,
-            "medium": 0.13150397360923677,
-            "low": 0.35807467386414754,
+            "high": 0.5266442630820931,
+            "medium": 0.13964234277484397,
+            "low": 0.3337133941430629,
             "na": 0.0
           },
           "trade_confidence_counts": {
-            "high": 6808,
-            "medium": 1754,
-            "low": 4776,
+            "high": 8776,
+            "medium": 2327,
+            "low": 5561,
             "na": 0
           },
           "observability": {
-            "avg_feature_coverage": 0.8783685064935064,
+            "avg_feature_coverage": 0.887201138519924,
             "observable_run_pct": 1.0,
-            "ambiguous_run_pct": 0.12073863636363637,
+            "ambiguous_run_pct": 0.12599620493358635,
             "unobservable_run_pct": 0.0
           },
           "dominant_bucket": "RETAIL",
           "dominant_label": "Retail-led",
-          "dominant_share": 0.4981737012987013,
-          "dominance_gap": 0.30113636363636365,
+          "dominant_share": 0.4815939278937381,
+          "dominance_gap": 0.2804554079696394,
           "diagnostics": {
             "d1_cluster_mechanic": {
-              "SINGLE_FILL": 7330,
-              "UNOBSERVABLE": 3665,
-              "WALK_BOOK": 2343
+              "SINGLE_FILL": 9515,
+              "UNOBSERVABLE": 4128,
+              "WALK_BOOK": 3021
             },
             "d2_information": {
-              "UNOBSERVABLE": 13338
+              "UNOBSERVABLE": 16664
             },
             "d3_urgency": {
-              "UNOBSERVABLE": 4928
+              "UNOBSERVABLE": 5270
             },
             "participant_confidence": {
-              "HIGH": 3362,
-              "MEDIUM": 971,
-              "LOW": 595
+              "HIGH": 3598,
+              "MEDIUM": 1008,
+              "LOW": 664
             }
           },
           "trade_size": {
-            "avg": 17608.30514319988,
-            "median": 5955.0
+            "avg": 20023.792540806528,
+            "median": 11430.0
           },
           "run_size": {
-            "avg": 34779.54222808442,
-            "median": 11820.0,
-            "avg_length": 1.3098620129870129
+            "avg": 45195.42137571158,
+            "median": 17700.0,
+            "avg_length": 1.4648956356736242
           },
           "recent_trades": [
             {
-              "trade_id": "1101",
-              "timestamp": "2026-05-05T07:59:36.797219",
-              "price": 115.8,
+              "trade_id": "488",
+              "timestamp": "2026-05-22T07:59:51.761034",
+              "price": 120.2,
               "size": 50.0,
-              "notional": 5790.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46555,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1100",
-              "timestamp": "2026-05-05T07:59:30.215434",
-              "price": 115.5,
-              "size": 800.0,
-              "notional": 92400.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46554,
-              "d1": "WALK_BOOK",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1099",
-              "timestamp": "2026-05-05T07:59:00.032787",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46553,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1098",
-              "timestamp": "2026-05-05T07:58:06.512397",
-              "price": 115.6,
-              "size": 100.0,
-              "notional": 11560.0,
+              "notional": 6010.0,
               "bucket": "RETAIL",
               "confidence": "LOW",
               "run_id": null,
@@ -9237,339 +9224,378 @@ export const REPORT_DATA: ReportData = {
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1097",
-              "timestamp": "2026-05-05T07:58:06.512397",
-              "price": 115.6,
+              "trade_id": "487",
+              "timestamp": "2026-05-22T07:59:51.760405",
+              "price": 120.2,
               "size": 50.0,
-              "notional": 5780.0,
+              "notional": 6010.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46552,
+              "run_id": 47548,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1096",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1095",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1094",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1093",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 300.0,
-              "notional": 34710.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1092",
-              "timestamp": "2026-05-05T07:57:02.422111",
-              "price": 115.6,
-              "size": 50.0,
-              "notional": 5780.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46550,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1091",
-              "timestamp": "2026-05-05T07:56:00.762882",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1090",
-              "timestamp": "2026-05-05T07:56:00.715195",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1089",
-              "timestamp": "2026-05-05T07:56:00.668567",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1088",
-              "timestamp": "2026-05-05T07:56:00.613256",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1087",
-              "timestamp": "2026-05-05T07:56:00.575446",
-              "price": 115.7,
+              "trade_id": "486",
+              "timestamp": "2026-05-22T07:59:43.357173",
+              "price": 119.8,
               "size": 100.0,
-              "notional": 11570.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1086",
-              "timestamp": "2026-05-05T07:56:00.564533",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1085",
-              "timestamp": "2026-05-05T07:56:00.519110",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1084",
-              "timestamp": "2026-05-05T07:56:00.444906",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1083",
-              "timestamp": "2026-05-05T07:56:00.421953",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1082",
-              "timestamp": "2026-05-05T07:56:00.421953",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1081",
-              "timestamp": "2026-05-05T07:56:00.363607",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1080",
-              "timestamp": "2026-05-05T07:56:00.313988",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1079",
-              "timestamp": "2026-05-05T07:56:00.268096",
-              "price": 115.7,
-              "size": 100.0,
-              "notional": 11570.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1078",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
+              "notional": 11980.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46548,
+              "run_id": 47547,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1077",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
+              "trade_id": "485",
+              "timestamp": "2026-05-22T07:59:42.776714",
+              "price": 119.9,
               "size": 50.0,
-              "notional": 5775.0,
+              "notional": 5995.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46548,
+              "run_id": 47546,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1076",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 100.0,
-              "notional": 11550.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46548,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1075",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46548,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1074",
-              "timestamp": "2026-05-05T07:54:55.552062",
-              "price": 115.4,
+              "trade_id": "484",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
               "size": 200.0,
-              "notional": 23080.0,
+              "notional": 23980.0,
               "bucket": "INSTITUTIONAL",
               "confidence": "HIGH",
-              "run_id": 46547,
+              "run_id": 47545,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1073",
-              "timestamp": "2026-05-05T07:54:55.551763",
-              "price": 115.4,
-              "size": 300.0,
-              "notional": 34620.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46547,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1072",
-              "timestamp": "2026-05-05T07:54:55.499318",
-              "price": 115.4,
+              "trade_id": "483",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
               "size": 50.0,
-              "notional": 5770.0,
+              "notional": 5995.0,
               "bucket": "INSTITUTIONAL",
               "confidence": "HIGH",
-              "run_id": 46547,
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "482",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "HIGH",
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "481",
+              "timestamp": "2026-05-22T07:59:42.210716",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "HIGH",
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "480",
+              "timestamp": "2026-05-22T07:59:37.444597",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47544,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "479",
+              "timestamp": "2026-05-22T07:59:16.334556",
+              "price": 119.9,
+              "size": 100.0,
+              "notional": 11990.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47543,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "478",
+              "timestamp": "2026-05-22T07:59:15.769716",
+              "price": 119.9,
+              "size": 200.0,
+              "notional": 23980.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47543,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "477",
+              "timestamp": "2026-05-22T07:59:07.561097",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47542,
+              "d1": "WALK_BOOK",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "476",
+              "timestamp": "2026-05-22T07:59:07.561097",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47542,
+              "d1": "WALK_BOOK",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "475",
+              "timestamp": "2026-05-22T07:58:50.073447",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47541,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "474",
+              "timestamp": "2026-05-22T07:58:49.498511",
+              "price": 119.9,
+              "size": 150.0,
+              "notional": 17985.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47541,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "473",
+              "timestamp": "2026-05-22T07:58:39.364303",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47540,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "472",
+              "timestamp": "2026-05-22T07:58:39.362733",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47540,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "471",
+              "timestamp": "2026-05-22T07:58:20.145823",
+              "price": 119.9,
+              "size": 100.0,
+              "notional": 11990.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47539,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "470",
+              "timestamp": "2026-05-22T07:58:00.200736",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "469",
+              "timestamp": "2026-05-22T07:57:59.619128",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "468",
+              "timestamp": "2026-05-22T07:57:50.011625",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "467",
+              "timestamp": "2026-05-22T07:57:23.887857",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47537,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "466",
+              "timestamp": "2026-05-22T07:57:23.887214",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47536,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "465",
+              "timestamp": "2026-05-22T07:57:23.320380",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47535,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "464",
+              "timestamp": "2026-05-22T07:57:01.414950",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47534,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "463",
+              "timestamp": "2026-05-22T07:56:52.536804",
+              "price": 119.9,
+              "size": 250.0,
+              "notional": 29975.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47533,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "462",
+              "timestamp": "2026-05-22T07:56:51.944814",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47533,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "461",
+              "timestamp": "2026-05-22T07:56:16.237442",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47532,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "460",
+              "timestamp": "2026-05-22T07:56:16.236766",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": null,
+              "d1": "UNOBSERVABLE",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "459",
+              "timestamp": "2026-05-22T07:55:21.306864",
+              "price": 120.2,
+              "size": 200.0,
+              "notional": 24040.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47531,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
@@ -9580,11 +9606,11 @@ export const REPORT_DATA: ReportData = {
         "3m": {
           "valid": true,
           "currency": "HKD",
-          "n_trades": 37170,
-          "n_runs": 13755,
+          "n_trades": 40515,
+          "n_runs": 14455,
           "n_trade_days": 63,
-          "first_trade_date": "2026-01-28",
-          "last_trade_date": "2026-05-05",
+          "first_trade_date": "2026-02-16",
+          "last_trade_date": "2026-05-22",
           "period_days": 63,
           "method": {
             "key": "persona_v4_l2_only",
@@ -9597,162 +9623,123 @@ export const REPORT_DATA: ReportData = {
             "instit_min": 50000.0
           },
           "composition": {
-            "retail_pct": 0.3268227064837234,
-            "mixed_pct": 0.15404896421845574,
-            "instit_pct": 0.36287328490718324,
-            "ambiguous_pct": 0.15625504439063762,
+            "retail_pct": 0.3079600148093299,
+            "mixed_pct": 0.15707762557077626,
+            "instit_pct": 0.37746513636924595,
+            "ambiguous_pct": 0.1574972232506479,
             "unobservable_pct": 0.0,
-            "unclear_pct": 0.15625504439063762,
-            "retail_qty_pct": 0.18854164268364282,
-            "mixed_qty_pct": 0.18827507137347899,
-            "instit_qty_pct": 0.4870272226507189,
-            "ambiguous_qty_pct": 0.1361560632921593,
+            "unclear_pct": 0.1574972232506479,
+            "retail_qty_pct": 0.17031576813745386,
+            "mixed_qty_pct": 0.1826263569798819,
+            "instit_qty_pct": 0.513748342042174,
+            "ambiguous_qty_pct": 0.13330953284049027,
             "unobservable_qty_pct": 0.0,
-            "unclear_qty_pct": 0.1361560632921593,
-            "retail_notional_pct": 0.18715177872209046,
-            "mixed_notional_pct": 0.18885052822727716,
-            "instit_notional_pct": 0.48832566118876464,
-            "ambiguous_notional_pct": 0.13567203186186777,
+            "unclear_qty_pct": 0.13330953284049027,
+            "retail_notional_pct": 0.16850600011896652,
+            "mixed_notional_pct": 0.18268815217108417,
+            "instit_notional_pct": 0.5159251111198152,
+            "ambiguous_notional_pct": 0.13288073659013414,
             "unobservable_notional_pct": 0.0,
-            "unclear_notional_pct": 0.13567203186186777
+            "unclear_notional_pct": 0.13288073659013414
           },
           "run_composition": {
-            "retail_pct": 0.49909123954925483,
-            "mixed_pct": 0.20319883678662304,
-            "instit_pct": 0.1896764812795347,
-            "ambiguous_pct": 0.10803344238458742,
+            "retail_pct": 0.49629885852646144,
+            "mixed_pct": 0.20124524386025597,
+            "instit_pct": 0.18796264268419233,
+            "ambiguous_pct": 0.11449325492909028,
             "unobservable_pct": 0.0,
-            "unclear_pct": 0.10803344238458742,
-            "retail_notional_pct": 0.14126022601650734,
-            "mixed_notional_pct": 0.15428611828638444,
-            "instit_notional_pct": 0.6109151274743356,
-            "unclear_notional_pct": 0.0935385282227726
+            "unclear_pct": 0.11449325492909028,
+            "retail_notional_pct": 0.13057862614208338,
+            "mixed_notional_pct": 0.15269014689786112,
+            "instit_notional_pct": 0.6229697657041586,
+            "unclear_notional_pct": 0.0937614612558969
           },
           "counts": {
             "trades": {
-              "retail": 12148,
-              "mixed": 5726,
-              "institutional": 13488,
-              "ambiguous": 5808,
+              "retail": 12477,
+              "mixed": 6364,
+              "institutional": 15293,
+              "ambiguous": 6381,
               "unobservable": 0,
-              "unclear": 5808
+              "unclear": 6381
             },
             "runs": {
-              "retail": 6865,
-              "mixed": 2795,
-              "institutional": 2609,
-              "ambiguous": 1486,
+              "retail": 7174,
+              "mixed": 2909,
+              "institutional": 2717,
+              "ambiguous": 1655,
               "unobservable": 0,
-              "unclear": 1486
+              "unclear": 1655
             }
           },
           "confidence": {
-            "high": 0.6885496183206107,
-            "medium": 0.2034169392948019,
-            "low": 0.10803344238458742,
+            "high": 0.6840539605672777,
+            "medium": 0.20145278450363197,
+            "low": 0.11449325492909028,
             "na": 0.0
           },
           "confidence_counts": {
-            "high": 9471,
-            "medium": 2798,
-            "low": 1486,
+            "high": 9888,
+            "medium": 2912,
+            "low": 1655,
             "na": 0
           },
           "trade_confidence": {
-            "high": 0.5072370191014259,
-            "medium": 0.13666935700834007,
-            "low": 0.3560936238902341,
+            "high": 0.5134394668641244,
+            "medium": 0.1402690361594471,
+            "low": 0.34629149697642847,
             "na": 0.0
           },
           "trade_confidence_counts": {
-            "high": 18854,
-            "medium": 5080,
-            "low": 13236,
+            "high": 20802,
+            "medium": 5683,
+            "low": 14030,
             "na": 0
           },
           "observability": {
-            "avg_feature_coverage": 0.8768084332969828,
+            "avg_feature_coverage": 0.8798062953995156,
             "observable_run_pct": 1.0,
-            "ambiguous_run_pct": 0.10803344238458742,
+            "ambiguous_run_pct": 0.11449325492909028,
             "unobservable_run_pct": 0.0
           },
           "dominant_bucket": "RETAIL",
           "dominant_label": "Retail-led",
-          "dominant_share": 0.49909123954925483,
-          "dominance_gap": 0.2958924027626318,
+          "dominant_share": 0.49629885852646144,
+          "dominance_gap": 0.2950536146662055,
           "diagnostics": {
             "d1_cluster_mechanic": {
-              "SINGLE_FILL": 19820,
-              "UNOBSERVABLE": 10495,
-              "WALK_BOOK": 6855
+              "SINGLE_FILL": 22302,
+              "UNOBSERVABLE": 10793,
+              "WALK_BOOK": 7420
             },
             "d2_information": {
-              "UNOBSERVABLE": 37170
+              "UNOBSERVABLE": 40515
             },
             "d3_urgency": {
-              "UNOBSERVABLE": 13755
+              "UNOBSERVABLE": 14455
             },
             "participant_confidence": {
-              "HIGH": 9471,
-              "MEDIUM": 2798,
-              "LOW": 1486
+              "HIGH": 9888,
+              "MEDIUM": 2912,
+              "LOW": 1655
             }
           },
           "trade_size": {
-            "avg": 17489.3856881894,
-            "median": 6480.0
+            "avg": 18188.656369986424,
+            "median": 6235.0
           },
           "run_size": {
-            "avg": 32963.234484187575,
-            "median": 11820.0,
-            "avg_length": 1.282079243911305
+            "avg": 36286.539223798,
+            "median": 11940.0,
+            "avg_length": 1.3326184711172604
           },
           "recent_trades": [
             {
-              "trade_id": "1101",
-              "timestamp": "2026-05-05T07:59:36.797219",
-              "price": 115.8,
+              "trade_id": "488",
+              "timestamp": "2026-05-22T07:59:51.761034",
+              "price": 120.2,
               "size": 50.0,
-              "notional": 5790.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46555,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1100",
-              "timestamp": "2026-05-05T07:59:30.215434",
-              "price": 115.5,
-              "size": 800.0,
-              "notional": 92400.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46554,
-              "d1": "WALK_BOOK",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1099",
-              "timestamp": "2026-05-05T07:59:00.032787",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46553,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1098",
-              "timestamp": "2026-05-05T07:58:06.512397",
-              "price": 115.6,
-              "size": 100.0,
-              "notional": 11560.0,
+              "notional": 6010.0,
               "bucket": "RETAIL",
               "confidence": "LOW",
               "run_id": null,
@@ -9761,339 +9748,378 @@ export const REPORT_DATA: ReportData = {
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1097",
-              "timestamp": "2026-05-05T07:58:06.512397",
-              "price": 115.6,
+              "trade_id": "487",
+              "timestamp": "2026-05-22T07:59:51.760405",
+              "price": 120.2,
               "size": 50.0,
-              "notional": 5780.0,
+              "notional": 6010.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46552,
+              "run_id": 47548,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1096",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1095",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1094",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1093",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 300.0,
-              "notional": 34710.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1092",
-              "timestamp": "2026-05-05T07:57:02.422111",
-              "price": 115.6,
-              "size": 50.0,
-              "notional": 5780.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46550,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1091",
-              "timestamp": "2026-05-05T07:56:00.762882",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1090",
-              "timestamp": "2026-05-05T07:56:00.715195",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1089",
-              "timestamp": "2026-05-05T07:56:00.668567",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1088",
-              "timestamp": "2026-05-05T07:56:00.613256",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1087",
-              "timestamp": "2026-05-05T07:56:00.575446",
-              "price": 115.7,
+              "trade_id": "486",
+              "timestamp": "2026-05-22T07:59:43.357173",
+              "price": 119.8,
               "size": 100.0,
-              "notional": 11570.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1086",
-              "timestamp": "2026-05-05T07:56:00.564533",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1085",
-              "timestamp": "2026-05-05T07:56:00.519110",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1084",
-              "timestamp": "2026-05-05T07:56:00.444906",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1083",
-              "timestamp": "2026-05-05T07:56:00.421953",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1082",
-              "timestamp": "2026-05-05T07:56:00.421953",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1081",
-              "timestamp": "2026-05-05T07:56:00.363607",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1080",
-              "timestamp": "2026-05-05T07:56:00.313988",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1079",
-              "timestamp": "2026-05-05T07:56:00.268096",
-              "price": 115.7,
-              "size": 100.0,
-              "notional": 11570.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1078",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
+              "notional": 11980.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46548,
+              "run_id": 47547,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1077",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
+              "trade_id": "485",
+              "timestamp": "2026-05-22T07:59:42.776714",
+              "price": 119.9,
               "size": 50.0,
-              "notional": 5775.0,
+              "notional": 5995.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46548,
+              "run_id": 47546,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1076",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 100.0,
-              "notional": 11550.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46548,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1075",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46548,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1074",
-              "timestamp": "2026-05-05T07:54:55.552062",
-              "price": 115.4,
+              "trade_id": "484",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
               "size": 200.0,
-              "notional": 23080.0,
+              "notional": 23980.0,
               "bucket": "INSTITUTIONAL",
               "confidence": "HIGH",
-              "run_id": 46547,
+              "run_id": 47545,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1073",
-              "timestamp": "2026-05-05T07:54:55.551763",
-              "price": 115.4,
-              "size": 300.0,
-              "notional": 34620.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46547,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1072",
-              "timestamp": "2026-05-05T07:54:55.499318",
-              "price": 115.4,
+              "trade_id": "483",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
               "size": 50.0,
-              "notional": 5770.0,
+              "notional": 5995.0,
               "bucket": "INSTITUTIONAL",
               "confidence": "HIGH",
-              "run_id": 46547,
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "482",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "HIGH",
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "481",
+              "timestamp": "2026-05-22T07:59:42.210716",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "HIGH",
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "480",
+              "timestamp": "2026-05-22T07:59:37.444597",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47544,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "479",
+              "timestamp": "2026-05-22T07:59:16.334556",
+              "price": 119.9,
+              "size": 100.0,
+              "notional": 11990.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47543,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "478",
+              "timestamp": "2026-05-22T07:59:15.769716",
+              "price": 119.9,
+              "size": 200.0,
+              "notional": 23980.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47543,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "477",
+              "timestamp": "2026-05-22T07:59:07.561097",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47542,
+              "d1": "WALK_BOOK",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "476",
+              "timestamp": "2026-05-22T07:59:07.561097",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47542,
+              "d1": "WALK_BOOK",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "475",
+              "timestamp": "2026-05-22T07:58:50.073447",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47541,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "474",
+              "timestamp": "2026-05-22T07:58:49.498511",
+              "price": 119.9,
+              "size": 150.0,
+              "notional": 17985.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47541,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "473",
+              "timestamp": "2026-05-22T07:58:39.364303",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47540,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "472",
+              "timestamp": "2026-05-22T07:58:39.362733",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47540,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "471",
+              "timestamp": "2026-05-22T07:58:20.145823",
+              "price": 119.9,
+              "size": 100.0,
+              "notional": 11990.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47539,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "470",
+              "timestamp": "2026-05-22T07:58:00.200736",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "469",
+              "timestamp": "2026-05-22T07:57:59.619128",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "468",
+              "timestamp": "2026-05-22T07:57:50.011625",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "467",
+              "timestamp": "2026-05-22T07:57:23.887857",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47537,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "466",
+              "timestamp": "2026-05-22T07:57:23.887214",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47536,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "465",
+              "timestamp": "2026-05-22T07:57:23.320380",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47535,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "464",
+              "timestamp": "2026-05-22T07:57:01.414950",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47534,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "463",
+              "timestamp": "2026-05-22T07:56:52.536804",
+              "price": 119.9,
+              "size": 250.0,
+              "notional": 29975.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47533,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "462",
+              "timestamp": "2026-05-22T07:56:51.944814",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47533,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "461",
+              "timestamp": "2026-05-22T07:56:16.237442",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47532,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "460",
+              "timestamp": "2026-05-22T07:56:16.236766",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": null,
+              "d1": "UNOBSERVABLE",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "459",
+              "timestamp": "2026-05-22T07:55:21.306864",
+              "price": 120.2,
+              "size": 200.0,
+              "notional": 24040.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47531,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
@@ -10104,11 +10130,11 @@ export const REPORT_DATA: ReportData = {
         "6m": {
           "valid": true,
           "currency": "HKD",
-          "n_trades": 79299,
-          "n_runs": 28342,
+          "n_trades": 85202,
+          "n_runs": 29852,
           "n_trade_days": 126,
-          "first_trade_date": "2025-10-17",
-          "last_trade_date": "2026-05-05",
+          "first_trade_date": "2025-11-06",
+          "last_trade_date": "2026-05-22",
           "period_days": 126,
           "method": {
             "key": "persona_v4_l2_only",
@@ -10121,162 +10147,123 @@ export const REPORT_DATA: ReportData = {
             "instit_min": 50000.0
           },
           "composition": {
-            "retail_pct": 0.3180367974375465,
-            "mixed_pct": 0.1556513953517699,
-            "instit_pct": 0.3700677183823251,
-            "ambiguous_pct": 0.1562440888283585,
+            "retail_pct": 0.30910072533508604,
+            "mixed_pct": 0.15740240839416916,
+            "instit_pct": 0.3779840848806366,
+            "ambiguous_pct": 0.1555127813901082,
             "unobservable_pct": 0.0,
-            "unclear_pct": 0.1562440888283585,
-            "retail_qty_pct": 0.1750116957656392,
-            "mixed_qty_pct": 0.19065474983185984,
-            "instit_qty_pct": 0.49640570632118675,
-            "ambiguous_qty_pct": 0.1379278480813142,
+            "unclear_pct": 0.1555127813901082,
+            "retail_qty_pct": 0.16810721013197574,
+            "mixed_qty_pct": 0.1908014157339225,
+            "instit_qty_pct": 0.5055395102582014,
+            "ambiguous_qty_pct": 0.1355518638759003,
             "unobservable_qty_pct": 0.0,
-            "unclear_qty_pct": 0.1379278480813142,
-            "retail_notional_pct": 0.17446712830064523,
-            "mixed_notional_pct": 0.19067282459625481,
-            "instit_notional_pct": 0.4969708108208684,
-            "ambiguous_notional_pct": 0.1378892362822315,
+            "unclear_qty_pct": 0.1355518638759003,
+            "retail_notional_pct": 0.1670155962880455,
+            "mixed_notional_pct": 0.19095039973971004,
+            "instit_notional_pct": 0.506793105445345,
+            "ambiguous_notional_pct": 0.13524089852689958,
             "unobservable_notional_pct": 0.0,
-            "unclear_notional_pct": 0.1378892362822315
+            "unclear_notional_pct": 0.13524089852689958
           },
           "run_composition": {
-            "retail_pct": 0.499682450074095,
-            "mixed_pct": 0.2068661350645685,
-            "instit_pct": 0.18488462352692117,
-            "ambiguous_pct": 0.10856679133441535,
+            "retail_pct": 0.4988610478359909,
+            "mixed_pct": 0.20521238107999465,
+            "instit_pct": 0.18574969851266246,
+            "ambiguous_pct": 0.110176872571352,
             "unobservable_pct": 0.0,
-            "unclear_pct": 0.10856679133441535,
-            "retail_notional_pct": 0.12934557787579878,
-            "mixed_notional_pct": 0.15906119746803396,
-            "instit_notional_pct": 0.6184338500023752,
-            "unclear_notional_pct": 0.09315937465379212
+            "unclear_pct": 0.110176872571352,
+            "retail_notional_pct": 0.12561134664894558,
+            "mixed_notional_pct": 0.15889420202489796,
+            "instit_notional_pct": 0.6224336787635772,
+            "unclear_notional_pct": 0.09306077256257926
           },
           "counts": {
             "trades": {
-              "retail": 25220,
-              "mixed": 12343,
-              "institutional": 29346,
-              "ambiguous": 12390,
+              "retail": 26336,
+              "mixed": 13411,
+              "institutional": 32205,
+              "ambiguous": 13250,
               "unobservable": 0,
-              "unclear": 12390
+              "unclear": 13250
             },
             "runs": {
-              "retail": 14162,
-              "mixed": 5863,
-              "institutional": 5240,
-              "ambiguous": 3077,
+              "retail": 14892,
+              "mixed": 6126,
+              "institutional": 5545,
+              "ambiguous": 3289,
               "unobservable": 0,
-              "unclear": 3077
+              "unclear": 3289
             }
           },
           "confidence": {
-            "high": 0.6844612236257145,
-            "medium": 0.20697198503987016,
-            "low": 0.10856679133441535,
+            "high": 0.6845102505694761,
+            "medium": 0.2053128768591719,
+            "low": 0.110176872571352,
             "na": 0.0
           },
           "confidence_counts": {
-            "high": 19399,
-            "medium": 5866,
-            "low": 3077,
+            "high": 20434,
+            "medium": 6129,
+            "low": 3289,
             "na": 0
           },
           "trade_confidence": {
-            "high": 0.5066520384872445,
-            "medium": 0.13890465201326624,
-            "low": 0.35444330949948927,
+            "high": 0.5096593976667214,
+            "medium": 0.13975024060468064,
+            "low": 0.3505903617285979,
             "na": 0.0
           },
           "trade_confidence_counts": {
-            "high": 40177,
-            "medium": 11015,
-            "low": 28107,
+            "high": 43424,
+            "medium": 11907,
+            "low": 29871,
             "na": 0
           },
           "observability": {
-            "avg_feature_coverage": 0.8778526568343801,
+            "avg_feature_coverage": 0.8793732413238643,
             "observable_run_pct": 1.0,
-            "ambiguous_run_pct": 0.10856679133441535,
+            "ambiguous_run_pct": 0.110176872571352,
             "unobservable_run_pct": 0.0
           },
           "dominant_bucket": "RETAIL",
           "dominant_label": "Retail-led",
-          "dominant_share": 0.499682450074095,
-          "dominance_gap": 0.29281631500952654,
+          "dominant_share": 0.4988610478359909,
+          "dominance_gap": 0.2936486667559962,
           "diagnostics": {
             "d1_cluster_mechanic": {
-              "SINGLE_FILL": 42132,
-              "UNOBSERVABLE": 22289,
-              "WALK_BOOK": 14878
+              "SINGLE_FILL": 46059,
+              "UNOBSERVABLE": 23488,
+              "WALK_BOOK": 15655
             },
             "d2_information": {
-              "UNOBSERVABLE": 79299
+              "UNOBSERVABLE": 85202
             },
             "d3_urgency": {
-              "UNOBSERVABLE": 28342
+              "UNOBSERVABLE": 29852
             },
             "participant_confidence": {
-              "HIGH": 19399,
-              "MEDIUM": 5866,
-              "LOW": 3077
+              "HIGH": 20434,
+              "MEDIUM": 6129,
+              "LOW": 3289
             }
           },
           "trade_size": {
-            "avg": 16863.92263622492,
-            "median": 6390.0
+            "avg": 17431.034733104854,
+            "median": 6409.999999999999
           },
           "run_size": {
-            "avg": 33062.246709124265,
-            "median": 11960.0,
-            "avg_length": 1.3025545127372804
+            "avg": 34970.98832507035,
+            "median": 12160.0,
+            "avg_length": 1.331602572691947
           },
           "recent_trades": [
             {
-              "trade_id": "1101",
-              "timestamp": "2026-05-05T07:59:36.797219",
-              "price": 115.8,
+              "trade_id": "488",
+              "timestamp": "2026-05-22T07:59:51.761034",
+              "price": 120.2,
               "size": 50.0,
-              "notional": 5790.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46555,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1100",
-              "timestamp": "2026-05-05T07:59:30.215434",
-              "price": 115.5,
-              "size": 800.0,
-              "notional": 92400.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46554,
-              "d1": "WALK_BOOK",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1099",
-              "timestamp": "2026-05-05T07:59:00.032787",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46553,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1098",
-              "timestamp": "2026-05-05T07:58:06.512397",
-              "price": 115.6,
-              "size": 100.0,
-              "notional": 11560.0,
+              "notional": 6010.0,
               "bucket": "RETAIL",
               "confidence": "LOW",
               "run_id": null,
@@ -10285,339 +10272,378 @@ export const REPORT_DATA: ReportData = {
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1097",
-              "timestamp": "2026-05-05T07:58:06.512397",
-              "price": 115.6,
+              "trade_id": "487",
+              "timestamp": "2026-05-22T07:59:51.760405",
+              "price": 120.2,
               "size": 50.0,
-              "notional": 5780.0,
+              "notional": 6010.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46552,
+              "run_id": 47548,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1096",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1095",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1094",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1093",
-              "timestamp": "2026-05-05T07:57:11.407821",
-              "price": 115.7,
-              "size": 300.0,
-              "notional": 34710.0,
-              "bucket": "AMBIGUOUS",
-              "confidence": "LOW",
-              "run_id": 46551,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1092",
-              "timestamp": "2026-05-05T07:57:02.422111",
-              "price": 115.6,
-              "size": 50.0,
-              "notional": 5780.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46550,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1091",
-              "timestamp": "2026-05-05T07:56:00.762882",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1090",
-              "timestamp": "2026-05-05T07:56:00.715195",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1089",
-              "timestamp": "2026-05-05T07:56:00.668567",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1088",
-              "timestamp": "2026-05-05T07:56:00.613256",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1087",
-              "timestamp": "2026-05-05T07:56:00.575446",
-              "price": 115.7,
+              "trade_id": "486",
+              "timestamp": "2026-05-22T07:59:43.357173",
+              "price": 119.8,
               "size": 100.0,
-              "notional": 11570.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1086",
-              "timestamp": "2026-05-05T07:56:00.564533",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1085",
-              "timestamp": "2026-05-05T07:56:00.519110",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1084",
-              "timestamp": "2026-05-05T07:56:00.444906",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1083",
-              "timestamp": "2026-05-05T07:56:00.421953",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1082",
-              "timestamp": "2026-05-05T07:56:00.421953",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1081",
-              "timestamp": "2026-05-05T07:56:00.363607",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1080",
-              "timestamp": "2026-05-05T07:56:00.313988",
-              "price": 115.7,
-              "size": 50.0,
-              "notional": 5785.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1079",
-              "timestamp": "2026-05-05T07:56:00.268096",
-              "price": 115.7,
-              "size": 100.0,
-              "notional": 11570.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46549,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1078",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
+              "notional": 11980.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46548,
+              "run_id": 47547,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1077",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
+              "trade_id": "485",
+              "timestamp": "2026-05-22T07:59:42.776714",
+              "price": 119.9,
               "size": 50.0,
-              "notional": 5775.0,
+              "notional": 5995.0,
               "bucket": "RETAIL",
               "confidence": "HIGH",
-              "run_id": 46548,
+              "run_id": 47546,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1076",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 100.0,
-              "notional": 11550.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46548,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1075",
-              "timestamp": "2026-05-05T07:56:00.086277",
-              "price": 115.5,
-              "size": 50.0,
-              "notional": 5775.0,
-              "bucket": "RETAIL",
-              "confidence": "HIGH",
-              "run_id": 46548,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1074",
-              "timestamp": "2026-05-05T07:54:55.552062",
-              "price": 115.4,
+              "trade_id": "484",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
               "size": 200.0,
-              "notional": 23080.0,
+              "notional": 23980.0,
               "bucket": "INSTITUTIONAL",
               "confidence": "HIGH",
-              "run_id": 46547,
+              "run_id": 47545,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
             },
             {
-              "trade_id": "1073",
-              "timestamp": "2026-05-05T07:54:55.551763",
-              "price": 115.4,
-              "size": 300.0,
-              "notional": 34620.0,
-              "bucket": "INSTITUTIONAL",
-              "confidence": "HIGH",
-              "run_id": 46547,
-              "d1": "SINGLE_FILL",
-              "d2": "UNOBSERVABLE",
-              "d3": "UNOBSERVABLE"
-            },
-            {
-              "trade_id": "1072",
-              "timestamp": "2026-05-05T07:54:55.499318",
-              "price": 115.4,
+              "trade_id": "483",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
               "size": 50.0,
-              "notional": 5770.0,
+              "notional": 5995.0,
               "bucket": "INSTITUTIONAL",
               "confidence": "HIGH",
-              "run_id": 46547,
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "482",
+              "timestamp": "2026-05-22T07:59:42.212901",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "HIGH",
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "481",
+              "timestamp": "2026-05-22T07:59:42.210716",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "INSTITUTIONAL",
+              "confidence": "HIGH",
+              "run_id": 47545,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "480",
+              "timestamp": "2026-05-22T07:59:37.444597",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47544,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "479",
+              "timestamp": "2026-05-22T07:59:16.334556",
+              "price": 119.9,
+              "size": 100.0,
+              "notional": 11990.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47543,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "478",
+              "timestamp": "2026-05-22T07:59:15.769716",
+              "price": 119.9,
+              "size": 200.0,
+              "notional": 23980.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47543,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "477",
+              "timestamp": "2026-05-22T07:59:07.561097",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47542,
+              "d1": "WALK_BOOK",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "476",
+              "timestamp": "2026-05-22T07:59:07.561097",
+              "price": 120.0,
+              "size": 50.0,
+              "notional": 6000.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47542,
+              "d1": "WALK_BOOK",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "475",
+              "timestamp": "2026-05-22T07:58:50.073447",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47541,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "474",
+              "timestamp": "2026-05-22T07:58:49.498511",
+              "price": 119.9,
+              "size": 150.0,
+              "notional": 17985.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47541,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "473",
+              "timestamp": "2026-05-22T07:58:39.364303",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47540,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "472",
+              "timestamp": "2026-05-22T07:58:39.362733",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47540,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "471",
+              "timestamp": "2026-05-22T07:58:20.145823",
+              "price": 119.9,
+              "size": 100.0,
+              "notional": 11990.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47539,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "470",
+              "timestamp": "2026-05-22T07:58:00.200736",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "469",
+              "timestamp": "2026-05-22T07:57:59.619128",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "468",
+              "timestamp": "2026-05-22T07:57:50.011625",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47538,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "467",
+              "timestamp": "2026-05-22T07:57:23.887857",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47537,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "466",
+              "timestamp": "2026-05-22T07:57:23.887214",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47536,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "465",
+              "timestamp": "2026-05-22T07:57:23.320380",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47535,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "464",
+              "timestamp": "2026-05-22T07:57:01.414950",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47534,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "463",
+              "timestamp": "2026-05-22T07:56:52.536804",
+              "price": 119.9,
+              "size": 250.0,
+              "notional": 29975.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47533,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "462",
+              "timestamp": "2026-05-22T07:56:51.944814",
+              "price": 119.9,
+              "size": 50.0,
+              "notional": 5995.0,
+              "bucket": "MIXED",
+              "confidence": "MEDIUM",
+              "run_id": 47533,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "461",
+              "timestamp": "2026-05-22T07:56:16.237442",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "HIGH",
+              "run_id": 47532,
+              "d1": "SINGLE_FILL",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "460",
+              "timestamp": "2026-05-22T07:56:16.236766",
+              "price": 120.2,
+              "size": 50.0,
+              "notional": 6010.0,
+              "bucket": "RETAIL",
+              "confidence": "LOW",
+              "run_id": null,
+              "d1": "UNOBSERVABLE",
+              "d2": "UNOBSERVABLE",
+              "d3": "UNOBSERVABLE"
+            },
+            {
+              "trade_id": "459",
+              "timestamp": "2026-05-22T07:55:21.306864",
+              "price": 120.2,
+              "size": 200.0,
+              "notional": 24040.0,
+              "bucket": "AMBIGUOUS",
+              "confidence": "LOW",
+              "run_id": 47531,
               "d1": "SINGLE_FILL",
               "d2": "UNOBSERVABLE",
               "d3": "UNOBSERVABLE"
@@ -10628,11 +10654,11 @@ export const REPORT_DATA: ReportData = {
       },
       "valid": true,
       "currency": "HKD",
-      "n_trades": 79299,
-      "n_runs": 28342,
+      "n_trades": 85202,
+      "n_runs": 29852,
       "n_trade_days": 126,
-      "first_trade_date": "2025-10-17",
-      "last_trade_date": "2026-05-05",
+      "first_trade_date": "2025-11-06",
+      "last_trade_date": "2026-05-22",
       "period_days": 126,
       "method": {
         "key": "persona_v4_l2_only",
@@ -10645,94 +10671,94 @@ export const REPORT_DATA: ReportData = {
         "instit_min": 50000.0
       },
       "composition": {
-        "retail_pct": 0.3180367974375465,
-        "mixed_pct": 0.1556513953517699,
-        "instit_pct": 0.3700677183823251,
-        "ambiguous_pct": 0.1562440888283585,
+        "retail_pct": 0.30910072533508604,
+        "mixed_pct": 0.15740240839416916,
+        "instit_pct": 0.3779840848806366,
+        "ambiguous_pct": 0.1555127813901082,
         "unobservable_pct": 0.0,
-        "unclear_pct": 0.1562440888283585,
-        "retail_qty_pct": 0.1750116957656392,
-        "mixed_qty_pct": 0.19065474983185984,
-        "instit_qty_pct": 0.49640570632118675,
-        "ambiguous_qty_pct": 0.1379278480813142,
+        "unclear_pct": 0.1555127813901082,
+        "retail_qty_pct": 0.16810721013197574,
+        "mixed_qty_pct": 0.1908014157339225,
+        "instit_qty_pct": 0.5055395102582014,
+        "ambiguous_qty_pct": 0.1355518638759003,
         "unobservable_qty_pct": 0.0,
-        "unclear_qty_pct": 0.1379278480813142,
-        "retail_notional_pct": 0.17446712830064523,
-        "mixed_notional_pct": 0.19067282459625481,
-        "instit_notional_pct": 0.4969708108208684,
-        "ambiguous_notional_pct": 0.1378892362822315,
+        "unclear_qty_pct": 0.1355518638759003,
+        "retail_notional_pct": 0.1670155962880455,
+        "mixed_notional_pct": 0.19095039973971004,
+        "instit_notional_pct": 0.506793105445345,
+        "ambiguous_notional_pct": 0.13524089852689958,
         "unobservable_notional_pct": 0.0,
-        "unclear_notional_pct": 0.1378892362822315
+        "unclear_notional_pct": 0.13524089852689958
       },
       "run_composition": {
-        "retail_pct": 0.499682450074095,
-        "mixed_pct": 0.2068661350645685,
-        "instit_pct": 0.18488462352692117,
-        "ambiguous_pct": 0.10856679133441535,
+        "retail_pct": 0.4988610478359909,
+        "mixed_pct": 0.20521238107999465,
+        "instit_pct": 0.18574969851266246,
+        "ambiguous_pct": 0.110176872571352,
         "unobservable_pct": 0.0,
-        "unclear_pct": 0.10856679133441535
+        "unclear_pct": 0.110176872571352
       },
       "trade_size": {
-        "avg": 16863.92263622492,
-        "median": 6390.0
+        "avg": 17431.034733104854,
+        "median": 6409.999999999999
       },
       "run_size": {
-        "avg": 33062.246709124265,
-        "median": 11960.0,
-        "avg_length": 1.3025545127372804
+        "avg": 34970.98832507035,
+        "median": 12160.0,
+        "avg_length": 1.331602572691947
       },
       "confidence": {
-        "high": 0.6844612236257145,
-        "medium": 0.20697198503987016,
-        "low": 0.10856679133441535,
+        "high": 0.6845102505694761,
+        "medium": 0.2053128768591719,
+        "low": 0.110176872571352,
         "na": 0.0
       },
       "confidence_counts": {
-        "high": 19399,
-        "medium": 5866,
-        "low": 3077,
+        "high": 20434,
+        "medium": 6129,
+        "low": 3289,
         "na": 0
       },
       "trade_confidence": {
-        "high": 0.5066520384872445,
-        "medium": 0.13890465201326624,
-        "low": 0.35444330949948927,
+        "high": 0.5096593976667214,
+        "medium": 0.13975024060468064,
+        "low": 0.3505903617285979,
         "na": 0.0
       },
       "trade_confidence_counts": {
-        "high": 40177,
-        "medium": 11015,
-        "low": 28107,
+        "high": 43424,
+        "medium": 11907,
+        "low": 29871,
         "na": 0
       },
       "counts": {
         "trades": {
-          "retail": 25220,
-          "mixed": 12343,
-          "institutional": 29346,
-          "ambiguous": 12390,
+          "retail": 26336,
+          "mixed": 13411,
+          "institutional": 32205,
+          "ambiguous": 13250,
           "unobservable": 0,
-          "unclear": 12390
+          "unclear": 13250
         },
         "runs": {
-          "retail": 14162,
-          "mixed": 5863,
-          "institutional": 5240,
-          "ambiguous": 3077,
+          "retail": 14892,
+          "mixed": 6126,
+          "institutional": 5545,
+          "ambiguous": 3289,
           "unobservable": 0,
-          "unclear": 3077
+          "unclear": 3289
         }
       },
       "observability": {
-        "avg_feature_coverage": 0.8778526568343801,
+        "avg_feature_coverage": 0.8793732413238643,
         "observable_run_pct": 1.0,
-        "ambiguous_run_pct": 0.10856679133441535,
+        "ambiguous_run_pct": 0.110176872571352,
         "unobservable_run_pct": 0.0
       },
       "dominant_bucket": "RETAIL",
       "dominant_label": "Retail-led",
-      "dominant_share": 0.499682450074095,
-      "dominance_gap": 0.29281631500952654,
+      "dominant_share": 0.4988610478359909,
+      "dominance_gap": 0.2936486667559962,
       "over_time": {
         "valid": true,
         "periods": [
@@ -10923,38 +10949,38 @@ export const REPORT_DATA: ReportData = {
           },
           {
             "month": "2026-05",
-            "n_trades": 2443,
-            "n_runs": 671,
-            "retail_pct": 0.25501432664756446,
-            "mixed_pct": 0.1322144903806795,
-            "instit_pct": 0.42898076135898483,
-            "ambiguous_pct": 0.18379042161277118,
+            "n_trades": 14830,
+            "n_runs": 4479,
+            "retail_pct": 0.251652056641942,
+            "mixed_pct": 0.16129467296021577,
+            "instit_pct": 0.43270397842211733,
+            "ambiguous_pct": 0.1543492919757249,
             "unobservable_pct": 0.0,
-            "unclear_pct": 0.18379042161277118,
-            "avg_trade_size": 14127.318829308228,
-            "avg_run_notional": 33966.11758569299,
-            "retail_qty_pct": 0.16710064117660717,
-            "mixed_qty_pct": 0.1520845702988951,
-            "instit_qty_pct": 0.5055111998593591,
-            "ambiguous_qty_pct": 0.17530358866513862,
+            "unclear_pct": 0.1543492919757249,
+            "avg_trade_size": 20539.157842211735,
+            "avg_run_notional": 48251.76547220361,
+            "retail_qty_pct": 0.12224874080423388,
+            "mixed_qty_pct": 0.19366332584958854,
+            "instit_qty_pct": 0.561804984881787,
+            "ambiguous_qty_pct": 0.12228294846439061,
             "unobservable_qty_pct": 0.0,
-            "unclear_qty_pct": 0.17530358866513862,
-            "retail_notional_pct": 0.1671137899388573,
-            "mixed_notional_pct": 0.15189650100917365,
-            "instit_notional_pct": 0.5055232761458373,
-            "ambiguous_notional_pct": 0.17546643290613181,
+            "unclear_qty_pct": 0.12228294846439061,
+            "retail_notional_pct": 0.1219239318979931,
+            "mixed_notional_pct": 0.1937714629827939,
+            "instit_notional_pct": 0.5624126996078501,
+            "ambiguous_notional_pct": 0.12189190551136284,
             "unobservable_notional_pct": 0.0,
-            "unclear_notional_pct": 0.17546643290613181,
-            "run_retail_pct": 0.42921013412816694,
-            "run_mixed_pct": 0.18181818181818182,
-            "run_instit_pct": 0.2488822652757079,
-            "run_ambiguous_pct": 0.14008941877794337,
+            "unclear_notional_pct": 0.12189190551136284,
+            "run_retail_pct": 0.477561955793704,
+            "run_mixed_pct": 0.19044429560169682,
+            "run_instit_pct": 0.20495646349631613,
+            "run_ambiguous_pct": 0.1270372851082831,
             "run_unobservable_pct": 0.0,
-            "run_unclear_pct": 0.14008941877794337,
-            "avg_feature_coverage": 0.8853204172876303,
-            "high_confidence_pct": 0.6780923994038748,
-            "medium_confidence_pct": 0.18181818181818182,
-            "low_confidence_pct": 0.14008941877794337,
+            "run_unclear_pct": 0.1270372851082831,
+            "avg_feature_coverage": 0.8891493636972538,
+            "high_confidence_pct": 0.6825184192900201,
+            "medium_confidence_pct": 0.19044429560169682,
+            "low_confidence_pct": 0.1270372851082831,
             "na_confidence_pct": 0.0,
             "total_quantity": null
           }
@@ -10971,50 +10997,11 @@ export const REPORT_DATA: ReportData = {
       "peer_activity_reason": "Disabled for XHKG to avoid fetching peer L2/L3 history.",
       "recent_trades": [
         {
-          "trade_id": "1101",
-          "timestamp": "2026-05-05T07:59:36.797219",
-          "price": 115.8,
+          "trade_id": "488",
+          "timestamp": "2026-05-22T07:59:51.761034",
+          "price": 120.2,
           "size": 50.0,
-          "notional": 5790.0,
-          "bucket": "RETAIL",
-          "confidence": "HIGH",
-          "run_id": 46555,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1100",
-          "timestamp": "2026-05-05T07:59:30.215434",
-          "price": 115.5,
-          "size": 800.0,
-          "notional": 92400.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46554,
-          "d1": "WALK_BOOK",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1099",
-          "timestamp": "2026-05-05T07:59:00.032787",
-          "price": 115.5,
-          "size": 50.0,
-          "notional": 5775.0,
-          "bucket": "RETAIL",
-          "confidence": "HIGH",
-          "run_id": 46553,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1098",
-          "timestamp": "2026-05-05T07:58:06.512397",
-          "price": 115.6,
-          "size": 100.0,
-          "notional": 11560.0,
+          "notional": 6010.0,
           "bucket": "RETAIL",
           "confidence": "LOW",
           "run_id": null,
@@ -11023,339 +11010,378 @@ export const REPORT_DATA: ReportData = {
           "d3": "UNOBSERVABLE"
         },
         {
-          "trade_id": "1097",
-          "timestamp": "2026-05-05T07:58:06.512397",
-          "price": 115.6,
+          "trade_id": "487",
+          "timestamp": "2026-05-22T07:59:51.760405",
+          "price": 120.2,
           "size": 50.0,
-          "notional": 5780.0,
+          "notional": 6010.0,
           "bucket": "RETAIL",
           "confidence": "HIGH",
-          "run_id": 46552,
+          "run_id": 47548,
           "d1": "SINGLE_FILL",
           "d2": "UNOBSERVABLE",
           "d3": "UNOBSERVABLE"
         },
         {
-          "trade_id": "1096",
-          "timestamp": "2026-05-05T07:57:11.407821",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "AMBIGUOUS",
-          "confidence": "LOW",
-          "run_id": 46551,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1095",
-          "timestamp": "2026-05-05T07:57:11.407821",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "AMBIGUOUS",
-          "confidence": "LOW",
-          "run_id": 46551,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1094",
-          "timestamp": "2026-05-05T07:57:11.407821",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "AMBIGUOUS",
-          "confidence": "LOW",
-          "run_id": 46551,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1093",
-          "timestamp": "2026-05-05T07:57:11.407821",
-          "price": 115.7,
-          "size": 300.0,
-          "notional": 34710.0,
-          "bucket": "AMBIGUOUS",
-          "confidence": "LOW",
-          "run_id": 46551,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1092",
-          "timestamp": "2026-05-05T07:57:02.422111",
-          "price": 115.6,
-          "size": 50.0,
-          "notional": 5780.0,
-          "bucket": "RETAIL",
-          "confidence": "HIGH",
-          "run_id": 46550,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1091",
-          "timestamp": "2026-05-05T07:56:00.762882",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1090",
-          "timestamp": "2026-05-05T07:56:00.715195",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1089",
-          "timestamp": "2026-05-05T07:56:00.668567",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1088",
-          "timestamp": "2026-05-05T07:56:00.613256",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1087",
-          "timestamp": "2026-05-05T07:56:00.575446",
-          "price": 115.7,
+          "trade_id": "486",
+          "timestamp": "2026-05-22T07:59:43.357173",
+          "price": 119.8,
           "size": 100.0,
-          "notional": 11570.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1086",
-          "timestamp": "2026-05-05T07:56:00.564533",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1085",
-          "timestamp": "2026-05-05T07:56:00.519110",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1084",
-          "timestamp": "2026-05-05T07:56:00.444906",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1083",
-          "timestamp": "2026-05-05T07:56:00.421953",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1082",
-          "timestamp": "2026-05-05T07:56:00.421953",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1081",
-          "timestamp": "2026-05-05T07:56:00.363607",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1080",
-          "timestamp": "2026-05-05T07:56:00.313988",
-          "price": 115.7,
-          "size": 50.0,
-          "notional": 5785.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1079",
-          "timestamp": "2026-05-05T07:56:00.268096",
-          "price": 115.7,
-          "size": 100.0,
-          "notional": 11570.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46549,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1078",
-          "timestamp": "2026-05-05T07:56:00.086277",
-          "price": 115.5,
-          "size": 50.0,
-          "notional": 5775.0,
+          "notional": 11980.0,
           "bucket": "RETAIL",
           "confidence": "HIGH",
-          "run_id": 46548,
+          "run_id": 47547,
           "d1": "SINGLE_FILL",
           "d2": "UNOBSERVABLE",
           "d3": "UNOBSERVABLE"
         },
         {
-          "trade_id": "1077",
-          "timestamp": "2026-05-05T07:56:00.086277",
-          "price": 115.5,
+          "trade_id": "485",
+          "timestamp": "2026-05-22T07:59:42.776714",
+          "price": 119.9,
           "size": 50.0,
-          "notional": 5775.0,
+          "notional": 5995.0,
           "bucket": "RETAIL",
           "confidence": "HIGH",
-          "run_id": 46548,
+          "run_id": 47546,
           "d1": "SINGLE_FILL",
           "d2": "UNOBSERVABLE",
           "d3": "UNOBSERVABLE"
         },
         {
-          "trade_id": "1076",
-          "timestamp": "2026-05-05T07:56:00.086277",
-          "price": 115.5,
-          "size": 100.0,
-          "notional": 11550.0,
-          "bucket": "RETAIL",
-          "confidence": "HIGH",
-          "run_id": 46548,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1075",
-          "timestamp": "2026-05-05T07:56:00.086277",
-          "price": 115.5,
-          "size": 50.0,
-          "notional": 5775.0,
-          "bucket": "RETAIL",
-          "confidence": "HIGH",
-          "run_id": 46548,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1074",
-          "timestamp": "2026-05-05T07:54:55.552062",
-          "price": 115.4,
+          "trade_id": "484",
+          "timestamp": "2026-05-22T07:59:42.212901",
+          "price": 119.9,
           "size": 200.0,
-          "notional": 23080.0,
+          "notional": 23980.0,
           "bucket": "INSTITUTIONAL",
           "confidence": "HIGH",
-          "run_id": 46547,
+          "run_id": 47545,
           "d1": "SINGLE_FILL",
           "d2": "UNOBSERVABLE",
           "d3": "UNOBSERVABLE"
         },
         {
-          "trade_id": "1073",
-          "timestamp": "2026-05-05T07:54:55.551763",
-          "price": 115.4,
-          "size": 300.0,
-          "notional": 34620.0,
-          "bucket": "INSTITUTIONAL",
-          "confidence": "HIGH",
-          "run_id": 46547,
-          "d1": "SINGLE_FILL",
-          "d2": "UNOBSERVABLE",
-          "d3": "UNOBSERVABLE"
-        },
-        {
-          "trade_id": "1072",
-          "timestamp": "2026-05-05T07:54:55.499318",
-          "price": 115.4,
+          "trade_id": "483",
+          "timestamp": "2026-05-22T07:59:42.212901",
+          "price": 119.9,
           "size": 50.0,
-          "notional": 5770.0,
+          "notional": 5995.0,
           "bucket": "INSTITUTIONAL",
           "confidence": "HIGH",
-          "run_id": 46547,
+          "run_id": 47545,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "482",
+          "timestamp": "2026-05-22T07:59:42.212901",
+          "price": 119.9,
+          "size": 50.0,
+          "notional": 5995.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "HIGH",
+          "run_id": 47545,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "481",
+          "timestamp": "2026-05-22T07:59:42.210716",
+          "price": 119.9,
+          "size": 50.0,
+          "notional": 5995.0,
+          "bucket": "INSTITUTIONAL",
+          "confidence": "HIGH",
+          "run_id": 47545,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "480",
+          "timestamp": "2026-05-22T07:59:37.444597",
+          "price": 120.0,
+          "size": 50.0,
+          "notional": 6000.0,
+          "bucket": "RETAIL",
+          "confidence": "HIGH",
+          "run_id": 47544,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "479",
+          "timestamp": "2026-05-22T07:59:16.334556",
+          "price": 119.9,
+          "size": 100.0,
+          "notional": 11990.0,
+          "bucket": "MIXED",
+          "confidence": "MEDIUM",
+          "run_id": 47543,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "478",
+          "timestamp": "2026-05-22T07:59:15.769716",
+          "price": 119.9,
+          "size": 200.0,
+          "notional": 23980.0,
+          "bucket": "MIXED",
+          "confidence": "MEDIUM",
+          "run_id": 47543,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "477",
+          "timestamp": "2026-05-22T07:59:07.561097",
+          "price": 120.0,
+          "size": 50.0,
+          "notional": 6000.0,
+          "bucket": "MIXED",
+          "confidence": "MEDIUM",
+          "run_id": 47542,
+          "d1": "WALK_BOOK",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "476",
+          "timestamp": "2026-05-22T07:59:07.561097",
+          "price": 120.0,
+          "size": 50.0,
+          "notional": 6000.0,
+          "bucket": "MIXED",
+          "confidence": "MEDIUM",
+          "run_id": 47542,
+          "d1": "WALK_BOOK",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "475",
+          "timestamp": "2026-05-22T07:58:50.073447",
+          "price": 119.9,
+          "size": 50.0,
+          "notional": 5995.0,
+          "bucket": "MIXED",
+          "confidence": "MEDIUM",
+          "run_id": 47541,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "474",
+          "timestamp": "2026-05-22T07:58:49.498511",
+          "price": 119.9,
+          "size": 150.0,
+          "notional": 17985.0,
+          "bucket": "MIXED",
+          "confidence": "MEDIUM",
+          "run_id": 47541,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "473",
+          "timestamp": "2026-05-22T07:58:39.364303",
+          "price": 120.2,
+          "size": 50.0,
+          "notional": 6010.0,
+          "bucket": "RETAIL",
+          "confidence": "HIGH",
+          "run_id": 47540,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "472",
+          "timestamp": "2026-05-22T07:58:39.362733",
+          "price": 120.2,
+          "size": 50.0,
+          "notional": 6010.0,
+          "bucket": "RETAIL",
+          "confidence": "HIGH",
+          "run_id": 47540,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "471",
+          "timestamp": "2026-05-22T07:58:20.145823",
+          "price": 119.9,
+          "size": 100.0,
+          "notional": 11990.0,
+          "bucket": "RETAIL",
+          "confidence": "HIGH",
+          "run_id": 47539,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "470",
+          "timestamp": "2026-05-22T07:58:00.200736",
+          "price": 119.9,
+          "size": 50.0,
+          "notional": 5995.0,
+          "bucket": "AMBIGUOUS",
+          "confidence": "LOW",
+          "run_id": 47538,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "469",
+          "timestamp": "2026-05-22T07:57:59.619128",
+          "price": 119.9,
+          "size": 50.0,
+          "notional": 5995.0,
+          "bucket": "AMBIGUOUS",
+          "confidence": "LOW",
+          "run_id": 47538,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "468",
+          "timestamp": "2026-05-22T07:57:50.011625",
+          "price": 119.9,
+          "size": 50.0,
+          "notional": 5995.0,
+          "bucket": "AMBIGUOUS",
+          "confidence": "LOW",
+          "run_id": 47538,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "467",
+          "timestamp": "2026-05-22T07:57:23.887857",
+          "price": 120.2,
+          "size": 50.0,
+          "notional": 6010.0,
+          "bucket": "RETAIL",
+          "confidence": "HIGH",
+          "run_id": 47537,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "466",
+          "timestamp": "2026-05-22T07:57:23.887214",
+          "price": 119.9,
+          "size": 50.0,
+          "notional": 5995.0,
+          "bucket": "RETAIL",
+          "confidence": "HIGH",
+          "run_id": 47536,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "465",
+          "timestamp": "2026-05-22T07:57:23.320380",
+          "price": 120.2,
+          "size": 50.0,
+          "notional": 6010.0,
+          "bucket": "RETAIL",
+          "confidence": "HIGH",
+          "run_id": 47535,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "464",
+          "timestamp": "2026-05-22T07:57:01.414950",
+          "price": 120.2,
+          "size": 50.0,
+          "notional": 6010.0,
+          "bucket": "RETAIL",
+          "confidence": "HIGH",
+          "run_id": 47534,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "463",
+          "timestamp": "2026-05-22T07:56:52.536804",
+          "price": 119.9,
+          "size": 250.0,
+          "notional": 29975.0,
+          "bucket": "MIXED",
+          "confidence": "MEDIUM",
+          "run_id": 47533,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "462",
+          "timestamp": "2026-05-22T07:56:51.944814",
+          "price": 119.9,
+          "size": 50.0,
+          "notional": 5995.0,
+          "bucket": "MIXED",
+          "confidence": "MEDIUM",
+          "run_id": 47533,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "461",
+          "timestamp": "2026-05-22T07:56:16.237442",
+          "price": 120.2,
+          "size": 50.0,
+          "notional": 6010.0,
+          "bucket": "RETAIL",
+          "confidence": "HIGH",
+          "run_id": 47532,
+          "d1": "SINGLE_FILL",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "460",
+          "timestamp": "2026-05-22T07:56:16.236766",
+          "price": 120.2,
+          "size": 50.0,
+          "notional": 6010.0,
+          "bucket": "RETAIL",
+          "confidence": "LOW",
+          "run_id": null,
+          "d1": "UNOBSERVABLE",
+          "d2": "UNOBSERVABLE",
+          "d3": "UNOBSERVABLE"
+        },
+        {
+          "trade_id": "459",
+          "timestamp": "2026-05-22T07:55:21.306864",
+          "price": 120.2,
+          "size": 200.0,
+          "notional": 24040.0,
+          "bucket": "AMBIGUOUS",
+          "confidence": "LOW",
+          "run_id": 47531,
           "d1": "SINGLE_FILL",
           "d2": "UNOBSERVABLE",
           "d3": "UNOBSERVABLE"
@@ -11377,50 +11403,50 @@ export const REPORT_DATA: ReportData = {
       }
     },
     "price_moving_trades": {
-      "total_trades": 79298,
-      "price_moving_trades": 22570,
-      "pct_price_moving": 28.462256299023935,
+      "total_trades": 85201,
+      "price_moving_trades": 24068,
+      "pct_price_moving": 28.248494735977275,
       "all_movers": {
-        "count": 22570,
-        "avg_size": 18327.199367744794,
-        "median_size": 6300.0,
-        "retail_count": 9592,
-        "mixed_count": 4442,
-        "institutional_count": 6111,
-        "ambiguous_count": 2425,
+        "count": 24068,
+        "avg_size": 18495.580313279042,
+        "median_size": 6315.0,
+        "retail_count": 10229,
+        "mixed_count": 4673,
+        "institutional_count": 6544,
+        "ambiguous_count": 2622,
         "unobservable_count": 0,
-        "retail_pct": 42.49889233495791,
-        "mixed_pct": 19.680992467877715,
-        "instit_pct": 27.075764288879046,
-        "unclear_pct": 10.744350908285334
+        "retail_pct": 42.50041548944657,
+        "mixed_pct": 19.41582183812531,
+        "instit_pct": 27.18962938341366,
+        "unclear_pct": 10.894133289014459
       },
       "positive_movers": {
-        "count": 11353,
-        "avg_size": 17874.322394961684,
-        "median_size": 6355.0,
-        "retail_count": 4530,
-        "mixed_count": 2456,
-        "institutional_count": 3091,
-        "ambiguous_count": 1276,
+        "count": 12049,
+        "avg_size": 17954.225035272637,
+        "median_size": 6365.0,
+        "retail_count": 4866,
+        "mixed_count": 2545,
+        "institutional_count": 3268,
+        "ambiguous_count": 1370,
         "unobservable_count": 0,
-        "retail_pct": 39.90134766141108,
-        "mixed_pct": 21.63304853342729,
-        "instit_pct": 27.226283801638335,
-        "unclear_pct": 11.239320003523298
+        "retail_pct": 40.385094198688684,
+        "mixed_pct": 21.12208482031704,
+        "instit_pct": 27.122582786953274,
+        "unclear_pct": 11.370238194040999
       },
       "negative_movers": {
-        "count": 11217,
-        "avg_size": 18785.567226531155,
-        "median_size": 6250.0,
-        "retail_count": 5062,
-        "mixed_count": 1986,
-        "institutional_count": 3020,
-        "ambiguous_count": 1149,
+        "count": 12019,
+        "avg_size": 19038.28684000333,
+        "median_size": 6285.0,
+        "retail_count": 5363,
+        "mixed_count": 2128,
+        "institutional_count": 3276,
+        "ambiguous_count": 1252,
         "unobservable_count": 0,
-        "retail_pct": 45.127930819292146,
-        "mixed_pct": 17.70526878844611,
-        "instit_pct": 26.923419809218153,
-        "unclear_pct": 10.243380583043594
+        "retail_pct": 44.62101672352109,
+        "mixed_pct": 17.70529994175888,
+        "instit_pct": 27.256843331391963,
+        "unclear_pct": 10.416840003328064
       }
     },
     "short_selling": {
@@ -11435,103 +11461,103 @@ export const REPORT_DATA: ReportData = {
       ],
       "session": {
         "1D": {
-          "opening": 0.017788017247280328,
-          "continuous": 0.9434450285795335,
-          "closing": 0.0028350062526362224,
-          "auctions": 0.02062302349991655,
-          "other": 0.0359319479205497
+          "opening": 8.949674022140403e-05,
+          "continuous": 0.9366293850430728,
+          "closing": 0.007477025399753531,
+          "auctions": 0.007566522139974934,
+          "other": 0.05580409281695235
         },
         "1M": {
-          "opening": 0.005259119868002959,
-          "continuous": 0.8708336104511177,
-          "closing": 0.011745100576827405,
-          "auctions": 0.017004220444830364,
-          "other": 0.1121621691040518
+          "opening": 0.0039090912795327285,
+          "continuous": 0.9424563238538305,
+          "closing": 0.004975680844040681,
+          "auctions": 0.00888477212357341,
+          "other": 0.04865890402259608
         },
         "3M": {
-          "opening": 0.004095759704196938,
-          "continuous": 0.8494955836487249,
-          "closing": 0.06054368992983095,
-          "auctions": 0.06463944963402789,
-          "other": 0.08586496671724725
+          "opening": 0.003609219580862208,
+          "continuous": 0.8755981381299236,
+          "closing": 0.04391325567330444,
+          "auctions": 0.04752247525416665,
+          "other": 0.07687938661590964
         },
         "6M": {
-          "opening": 0.004985923014431287,
-          "continuous": 0.8716566343259744,
-          "closing": 0.061084393114861316,
-          "auctions": 0.06607031612929261,
-          "other": 0.06227304954473304
+          "opening": 0.004572859724350887,
+          "continuous": 0.8899239139904012,
+          "closing": 0.05127813366810581,
+          "auctions": 0.055850993392456694,
+          "other": 0.0542250926171422
         }
       },
       "hhi": {
-        "1D": 0.14543396922492924,
-        "1M": 0.18533767123687853,
-        "3M": 0.2057639540953969,
-        "6M": 0.19394646303376528
+        "1D": 0.23136475835833034,
+        "1M": 0.2001319953551163,
+        "3M": 0.2050715479574311,
+        "6M": 0.19749145987497763
       },
       "profile_buckets": [
         {
           "time": "09:00",
-          "avg_share": 0.007
+          "avg_share": 0.0071
         },
         {
           "time": "09:30",
-          "avg_share": 0.1363
+          "avg_share": 0.1208
         },
         {
           "time": "10:00",
-          "avg_share": 0.0479
+          "avg_share": 0.0497
         },
         {
           "time": "10:30",
-          "avg_share": 0.0486
+          "avg_share": 0.0502
         },
         {
           "time": "11:00",
-          "avg_share": 0.0313
+          "avg_share": 0.0317
         },
         {
           "time": "11:30",
-          "avg_share": 0.0328
+          "avg_share": 0.0341
         },
         {
           "time": "12:00",
-          "avg_share": 0.0319
+          "avg_share": 0.0331
         },
         {
           "time": "13:00",
-          "avg_share": 0.0869
+          "avg_share": 0.0731
         },
         {
           "time": "13:30",
-          "avg_share": 0.0542
+          "avg_share": 0.0574
         },
         {
           "time": "14:00",
-          "avg_share": 0.0545
+          "avg_share": 0.0562
         },
         {
           "time": "14:30",
-          "avg_share": 0.084
+          "avg_share": 0.0909
         },
         {
           "time": "15:00",
-          "avg_share": 0.1054
+          "avg_share": 0.1141
         },
         {
           "time": "15:30",
-          "avg_share": 0.2486
+          "avg_share": 0.2582
         },
         {
           "time": "16:00",
-          "avg_share": 0.0306
+          "avg_share": 0.0236
         }
       ],
       "peers_hhi_rows": [
         {
           "ticker": "2378",
-          "auctions_pct": 4.9202657898039215,
-          "hhi": 0.20262853171088474,
+          "auctions_pct": 4.648350611007603,
+          "hhi": 0.20234899235118806,
           "interp": {
             "text": "Moderate",
             "cls": "bg-amber-500/20 text-amber-400",
@@ -11539,27 +11565,18 @@ export const REPORT_DATA: ReportData = {
           }
         },
         {
-          "ticker": "1828",
-          "auctions_pct": 8.191027060778612,
-          "hhi": 0.16728848404669158,
-          "interp": {
-            "text": "Moderate",
-            "cls": "bg-amber-500/20 text-amber-400"
-          }
-        },
-        {
-          "ticker": "945",
-          "auctions_pct": 2.999924850203015,
-          "hhi": 0.21072223526368475,
-          "interp": {
-            "text": "Moderate",
-            "cls": "bg-amber-500/20 text-amber-400"
-          }
-        },
-        {
           "ticker": "376",
-          "auctions_pct": 1.2597945983518555,
-          "hhi": 0.15053957244445124,
+          "auctions_pct": 1.2599636237892704,
+          "hhi": 0.14873719403140437,
+          "interp": {
+            "text": "Spread out",
+            "cls": "bg-emerald-500/20 text-emerald-400"
+          }
+        },
+        {
+          "ticker": "1828",
+          "auctions_pct": 8.73253294712064,
+          "hhi": 0.16712719324012232,
           "interp": {
             "text": "Moderate",
             "cls": "bg-amber-500/20 text-amber-400"
@@ -11567,8 +11584,17 @@ export const REPORT_DATA: ReportData = {
         },
         {
           "ticker": "82318",
-          "auctions_pct": 0.2194216026280462,
-          "hhi": 0.23597958730529697,
+          "auctions_pct": 0.10256911023850572,
+          "hhi": 0.2346324621574511,
+          "interp": {
+            "text": "Moderate",
+            "cls": "bg-amber-500/20 text-amber-400"
+          }
+        },
+        {
+          "ticker": "945",
+          "auctions_pct": 3.1002244420548264,
+          "hhi": 0.21346978237105532,
           "interp": {
             "text": "Moderate",
             "cls": "bg-amber-500/20 text-amber-400"
@@ -11576,35 +11602,35 @@ export const REPORT_DATA: ReportData = {
         },
         {
           "ticker": "1508",
-          "auctions_pct": 4.146478371636627,
-          "hhi": 0.1492500654046926,
+          "auctions_pct": 4.6335147089893365,
+          "hhi": 0.15195970358643585,
           "interp": {
-            "text": "Spread out",
-            "cls": "bg-emerald-500/20 text-emerald-400"
+            "text": "Moderate",
+            "cls": "bg-amber-500/20 text-amber-400"
           }
         },
         {
           "ticker": "6963",
-          "auctions_pct": 4.353867094516565,
-          "hhi": 0.14324668116401748,
+          "auctions_pct": 5.241260120750817,
+          "hhi": 0.14167521933075308,
           "interp": {
             "text": "Spread out",
             "cls": "bg-emerald-500/20 text-emerald-400"
           }
         },
         {
-          "ticker": "81299",
-          "auctions_pct": 3.576713187521125,
-          "hhi": 0.6007355705924442,
+          "ticker": "6060",
+          "auctions_pct": 5.244677264317238,
+          "hhi": 0.1214913750760316,
           "interp": {
-            "text": "Concentrated",
-            "cls": "bg-red-500/20 text-red-400"
+            "text": "Spread out",
+            "cls": "bg-emerald-500/20 text-emerald-400"
           }
         },
         {
-          "ticker": "6060",
-          "auctions_pct": 4.411264837908146,
-          "hhi": 0.12316901432615193,
+          "ticker": "966",
+          "auctions_pct": 5.192066083306269,
+          "hhi": 0.11504255635553876,
           "interp": {
             "text": "Spread out",
             "cls": "bg-emerald-500/20 text-emerald-400"

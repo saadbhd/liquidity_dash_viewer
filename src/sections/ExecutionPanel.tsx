@@ -178,29 +178,58 @@ export function ExecutionPanel() {
   const sortedAsks = [...(order_book?.asks ?? [])].sort((a, b) => a.price - b.price);
   const displayedBidDepth = safeNumber(snapshot?.bid_depth_notional_displayed) ?? safeNumber(snapshot?.bid_depth_notional_top10);
   const displayedAskDepth = safeNumber(snapshot?.ask_depth_notional_displayed) ?? safeNumber(snapshot?.ask_depth_notional_top10);
-  const displayedLevelsPerSide = Math.max(
-    safeNumber(snapshot?.displayed_levels_per_side) ?? 0,
-    sortedBids.length,
-    sortedAsks.length,
-  );
-  const visibleLevelsPerSide = Math.min(displayedLevelsPerSide || Math.max(sortedBids.length, sortedAsks.length), 18);
+  const visibleLevelsPerSide = Math.min(Math.max(sortedBids.length, sortedAsks.length), 10);
   const visibleBids = sortedBids.slice(0, visibleLevelsPerSide);
   const visibleAsks = sortedAsks.slice(0, visibleLevelsPerSide);
-  const bidByPrice = new Map(visibleBids.map((level) => [level.price, level]));
-  const askByPrice = new Map(visibleAsks.map((level) => [level.price, level]));
-  const orderBookData = [...new Set([...visibleBids.map((level) => level.price), ...visibleAsks.map((level) => level.price)])]
-    .sort((a, b) => b - a)
-    .map((price) => ({
-      price,
-      priceLabel: formatPrice(price),
-      bidDepth: bidByPrice.has(price) ? -Math.abs(bidByPrice.get(price)!.value) : 0,
-      askDepth: askByPrice.has(price) ? Math.abs(askByPrice.get(price)!.value) : 0,
-      bidQuantity: bidByPrice.get(price)?.quantity ?? null,
-      askQuantity: askByPrice.get(price)?.quantity ?? null,
-    }));
+  const bidDepthByPrice = new Map<number, { depth: number; quantity: number | null }>();
+  const askDepthByPrice = new Map<number, { depth: number; quantity: number | null }>();
+  let runningBidDepth = 0;
+  let runningAskDepth = 0;
+
+  visibleBids.forEach((level) => {
+    runningBidDepth += Math.abs(level.value);
+    bidDepthByPrice.set(level.price, {
+      depth: runningBidDepth,
+      quantity: level.quantity ?? null,
+    });
+  });
+
+  visibleAsks.forEach((level) => {
+    runningAskDepth += Math.abs(level.value);
+    askDepthByPrice.set(level.price, {
+      depth: runningAskDepth,
+      quantity: level.quantity ?? null,
+    });
+  });
+
+  const bestBidPrice = safeNumber(visibleBids[0]?.price);
+  const bestAskPrice = safeNumber(visibleAsks[0]?.price);
+  const midPrice =
+    safeNumber(snapshot?.mid_price) ??
+    (bestBidPrice != null && bestAskPrice != null ? (bestBidPrice + bestAskPrice) / 2 : null);
+  const orderBookPrices = new Set([...visibleBids.map((level) => level.price), ...visibleAsks.map((level) => level.price)]);
+  if (midPrice != null && !orderBookPrices.has(midPrice)) {
+    orderBookPrices.add(midPrice);
+  }
+  const orderBookData = [...orderBookPrices]
+    .sort((a, b) => a - b)
+    .map((price) => {
+      const bidLevel = bidDepthByPrice.get(price);
+      const askLevel = askDepthByPrice.get(price);
+      const isMidAnchor = midPrice != null && price === midPrice && !bidLevel && !askLevel;
+      return {
+        price,
+        priceLabel: formatPrice(price),
+        bidDepth: isMidAnchor ? 0 : bidLevel?.depth ?? null,
+        askDepth: isMidAnchor ? 0 : askLevel?.depth ?? null,
+        bidQuantity: bidLevel?.quantity ?? null,
+        askQuantity: askLevel?.quantity ?? null,
+      };
+    });
+  const displayedLevelCount = Math.max(visibleBids.length, visibleAsks.length);
   const orderBookDomainMax = Math.max(
     1,
-    ...orderBookData.map((row) => Math.max(Math.abs(row.bidDepth), Math.abs(row.askDepth))),
+    ...orderBookData.map((row) => Math.max(row.bidDepth ?? 0, row.askDepth ?? 0)),
   ) * 1.1;
 
   const spreadChartData = intradayRows.map((row) => ({
@@ -479,33 +508,61 @@ export function ExecutionPanel() {
           </div>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={orderBookData} layout="vertical" margin={{ top: 10, right: 12, left: 0, bottom: 6 }} barCategoryGap={2}>
-                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} horizontal={false} />
-                <XAxis type="number" hide domain={[-orderBookDomainMax, orderBookDomainMax]} />
+              <LineChart data={orderBookData} margin={{ top: 10, right: 18, left: 0, bottom: 20 }}>
+                <CartesianGrid strokeDasharray="4 6" stroke={chartTheme.gridStroke} vertical={false} />
+                <XAxis
+                  type="number"
+                  dataKey="price"
+                  domain={['dataMin', 'dataMax']}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
+                  axisLine={{ stroke: chartTheme.axisLineStroke }}
+                  tickLine={false}
+                  tickFormatter={(value) => formatPrice(Number(value))}
+                />
                 <YAxis
-                  type="category"
-                  dataKey="priceLabel"
-                  width={52}
                   tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
                   axisLine={false}
                   tickLine={false}
+                  domain={[0, orderBookDomainMax]}
+                  tickFormatter={(value) => formatMoney(Number(value))}
                 />
                 <Tooltip
                   contentStyle={chartTheme.tooltipContentStyle}
                   formatter={(value: unknown, name: string) => {
                     if (typeof value !== 'number' || !Number.isFinite(value)) return ['N/A', name];
-                    return [formatMoney(Math.abs(value)), name];
+                    return [formatMoney(value), name];
                   }}
+                  labelFormatter={(value) => `Price ${formatPrice(Number(value))}`}
                 />
-                <Legend wrapperStyle={{ paddingTop: '10px' }} />
-                <ReferenceLine x={0} stroke="rgba(148, 163, 184, 0.35)" />
-                <Bar dataKey="bidDepth" name="Bid depth" fill="#10b981" radius={[4, 0, 0, 4]} maxBarSize={10} />
-                <Bar dataKey="askDepth" name="Ask depth" fill="#f87171" radius={[0, 4, 4, 0]} maxBarSize={10} />
-              </BarChart>
+                <Legend iconType="circle" wrapperStyle={{ paddingTop: '10px' }} />
+                {midPrice != null ? (
+                  <ReferenceLine x={midPrice} stroke="rgba(148, 163, 184, 0.28)" strokeDasharray="4 4" />
+                ) : null}
+                <Line
+                  type="linear"
+                  dataKey="bidDepth"
+                  name="Bid depth"
+                  stroke="#10b981"
+                  strokeWidth={2.5}
+                  dot={{ r: 3.5, fill: '#10b981', strokeWidth: 0 }}
+                  activeDot={{ r: 5 }}
+                  connectNulls={false}
+                />
+                <Line
+                  type="linear"
+                  dataKey="askDepth"
+                  name="Ask depth"
+                  stroke="#f87171"
+                  strokeWidth={2.5}
+                  dot={{ r: 3.5, fill: '#f87171', strokeWidth: 0 }}
+                  activeDot={{ r: 5 }}
+                  connectNulls={false}
+                />
+              </LineChart>
             </ResponsiveContainer>
           </div>
           <p className="text-xs text-muted-foreground mt-2">
-            Showing the nearest displayed price levels from the {snapshotLabel}. Bid/ask depth ratio on that snapshot: {formatRatio(snapshot?.bid_ask_depth_ratio)}.
+            Top {displayedLevelCount || 10} levels per side from the {snapshotLabel}. Bid/ask depth ratio on that snapshot: {formatRatio(snapshot?.bid_ask_depth_ratio)}.
           </p>
         </motion.div>
 

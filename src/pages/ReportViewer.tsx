@@ -177,7 +177,7 @@ export function ReportViewer() {
                 setLoading(true);
                 setError(null);
                 const { reportData: data, peerMethodology: peers } = await loadReportData(id);
-                setReportData(data);
+                setReportData(peers ? { ...data, peer_methodology: peers } : data);
                 setPeerMethodology(peers);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'Failed to load report');

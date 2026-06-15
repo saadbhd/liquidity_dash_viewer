@@ -218,9 +218,10 @@ function buildMetricMeaning(metricKey: MarketTabKey, outcome: ComparisonOutcome)
 
 function buildLegacyQ01(report: ReportData): Q01PeriodData {
   const { series, meta } = report;
+  const seriesPeerTickers = series.peers_liquidity.tickers ?? series.peers_liquidity.labels;
   const targetIdx = series.peers_liquidity.is_target.findIndex(Boolean);
   const effectiveTargetIdx =
-    targetIdx >= 0 ? targetIdx : series.peers_liquidity.labels.findIndex((t) => t === meta.ticker);
+    targetIdx >= 0 ? targetIdx : seriesPeerTickers.findIndex((t) => t === meta.ticker);
 
   const targetScore = effectiveTargetIdx >= 0 ? series.peers_liquidity.scores[effectiveTargetIdx] : 0;
   const targetAdv = effectiveTargetIdx >= 0 ? series.peers_liquidity.adv[effectiveTargetIdx] : series.market_comparison.company.adv;
@@ -265,19 +266,23 @@ function buildLegacyQ01(report: ReportData): Q01PeriodData {
       peer_median_turnover_ratio: series.market_comparison.peers.turnover_ratio.median,
       target_vs_peer: {},
     },
-    peer_liquidity: series.peers_liquidity.labels.map((ticker, idx) => ({
-      ticker,
-      score_pca: series.peers_liquidity.scores[idx] ?? 0,
-      rank_pca: idx + 1,
-      adv: series.peers_liquidity.adv[idx] ?? 0,
-      trades: null,
-      volatility: null,
-      spread_pct: null,
-      spread_ticks: null,
-      amihud: null,
-      turnover_ratio: null,
-      is_target: series.peers_liquidity.is_target[idx] ?? ticker === meta.ticker,
-    })),
+    peer_liquidity: series.peers_liquidity.labels.map((label, idx) => {
+      const ticker = seriesPeerTickers[idx] ?? label;
+      return {
+        ticker,
+        label,
+        score_pca: series.peers_liquidity.scores[idx] ?? 0,
+        rank_pca: idx + 1,
+        adv: series.peers_liquidity.adv[idx] ?? 0,
+        trades: null,
+        volatility: null,
+        spread_pct: null,
+        spread_ticks: null,
+        amihud: null,
+        turnover_ratio: null,
+        is_target: series.peers_liquidity.is_target[idx] ?? ticker === meta.ticker,
+      };
+    }),
     market_comparison: {
       sector_name: series.market_comparison.sector_name,
       sector_count: series.market_comparison.sector_count,
@@ -399,14 +404,32 @@ export function LiquidityScore() {
   const liquiditySubtitle = String(report.labels.liq_subtitle || '').trim();
   const selectedWindowLabel = `Window: ${period.window_days}D`;
 
+  const peerNameByTicker = new Map(
+    (report.peer_methodology?.peers ?? [])
+      .map((peer) => [String(peer.ticker || '').trim(), String(peer.name || '').trim()] as const)
+      .filter(([ticker, name]) => ticker && name),
+  );
+
+  const formatPeerLabel = (ticker: string, companyName?: string | null) => {
+    const cleanTicker = String(ticker || '').trim();
+    const cleanName = String(companyName || '').trim();
+    if (cleanName && cleanTicker) return `${cleanName} (${cleanTicker})`;
+    return cleanName || cleanTicker;
+  };
+
   const peerRows = period.peer_liquidity ?? [];
   const targetPeer = peerRows.find((row) => row.is_target) ?? peerRows.find((row) => row.ticker === report.meta.ticker);
-  const peerChartData = peerRows.map((row) => ({
-    ticker: row.ticker,
-    score: row.score_pca,
-    adv: row.adv,
-    isTarget: row.is_target || row.ticker === report.meta.ticker,
-  }));
+  const peerChartData = peerRows.map((row) => {
+    const fallbackLabel = formatPeerLabel(row.ticker, row.company_name || peerNameByTicker.get(row.ticker));
+    const label = String(row.label || fallbackLabel || '').trim();
+    return {
+      ticker: row.ticker,
+      label: label || row.ticker,
+      score: row.score_pca,
+      adv: row.adv,
+      isTarget: row.is_target || row.ticker === report.meta.ticker,
+    };
+  });
 
   const marketMetricRows = [
     {
@@ -768,34 +791,44 @@ export function LiquidityScore() {
             </h3>
             <span className="text-xs text-slate-500">Liquidity score</span>
           </div>
-          <div className="h-64">
+          <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={peerChartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
+              <BarChart data={peerChartData} layout="vertical" margin={{ top: 8, right: 24, left: 18, bottom: 8 }}>
                 <XAxis
-                  dataKey="ticker"
+                  type="number"
+                  domain={[0, 100]}
                   tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
-                  axisLine={{ stroke: chartTheme.axisLineStroke }}
+                  axisLine={false}
                   tickLine={false}
                 />
-                <YAxis tick={{ fill: chartTheme.tickFill, fontSize: 11 }} axisLine={false} tickLine={false} domain={[0, 100]} />
+                <YAxis
+                  type="category"
+                  dataKey="label"
+                  width={190}
+                  tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
+                  axisLine={{ stroke: chartTheme.axisLineStroke }}
+                  tickLine={false}
+                  interval={0}
+                />
                 <Tooltip
                   cursor={{ fill: 'rgba(51, 65, 85, 0.3)' }}
                   content={({ active, payload }) => {
                     if (!active || !payload || payload.length === 0) return null;
-                    const p = payload[0].payload as { ticker: string; score: number; adv: number };
+                    const p = payload[0].payload as { ticker: string; label: string; score: number; adv: number };
                     return (
                       <div className="chart-tooltip">
-                        <p className="font-semibold text-foreground">{p.ticker}</p>
+                        <p className="font-semibold text-foreground">{p.label}</p>
+                        {p.label !== p.ticker ? <p className="text-xs text-slate-500">Ticker: {p.ticker}</p> : null}
                         <p className="text-sm text-sky-400">Score: {p.score.toFixed(1)}</p>
                         <p className="text-sm text-slate-400">ADV: {formatMoney(p.adv, reportCurrency)}</p>
                       </div>
                     );
                   }}
                 />
-                <ReferenceLine y={targetPeer?.score_pca ?? period.liquidity.score_pca} stroke="#10b981" strokeDasharray="3 3" />
-                <Bar dataKey="score" radius={[4, 4, 0, 0]} maxBarSize={38}>
+                <ReferenceLine x={targetPeer?.score_pca ?? period.liquidity.score_pca} stroke="#10b981" strokeDasharray="3 3" />
+                <Bar dataKey="score" radius={[0, 4, 4, 0]} maxBarSize={24}>
                   {peerChartData.map((entry, idx) => (
-                    <Cell key={`peer-${entry.ticker}-${idx}`} fill={entry.isTarget ? '#0ea5e9' : '#475569'} />
+                    <Cell key={`peer-${entry.ticker}-${entry.label}-${idx}`} fill={entry.isTarget ? '#0ea5e9' : '#475569'} />
                   ))}
                 </Bar>
               </BarChart>

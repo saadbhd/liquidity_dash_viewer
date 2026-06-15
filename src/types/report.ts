@@ -153,6 +153,7 @@ export interface IndexTableRow {
 
 export interface PeersLiquidity {
   labels: string[];
+  tickers?: string[];
   scores: number[];
   is_target: boolean[];
   adv: number[];
@@ -692,6 +693,8 @@ export interface Q01PeerSummary {
 
 export interface Q01PeerLiquidityRow {
   ticker: string;
+  company_name?: string;
+  label?: string;
   score_pca: number;
   rank_pca: number;
   adv: number;
@@ -1336,6 +1339,12 @@ export interface PeerMethodology {
 export interface ReportData {
   report_kind?: 'equity' | 'etf';
   meta: Meta;
+  peer_methodology?: {
+    peers?: Array<{
+      ticker?: string;
+      name?: string;
+    }>;
+  };
   theme: Theme;
   labels: Labels;
   content: Content;

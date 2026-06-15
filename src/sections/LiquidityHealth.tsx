@@ -18,14 +18,24 @@ export function LiquidityHealth() {
   const { labels, content, theme, series } = report;
   const { peers_liquidity } = series;
   const reportCurrency = resolveReportCurrency(report);
+  const peerNameByTicker = new Map(
+    (report.peer_methodology?.peers ?? [])
+      .map((peer) => [String(peer.ticker || '').trim(), String(peer.name || '').trim()] as const)
+      .filter(([ticker, name]) => ticker && name),
+  );
 
   // Prepare chart data
-  const chartData = peers_liquidity.labels.map((label, index) => ({
-    ticker: label,
-    score: peers_liquidity.scores[index],
-    adv: peers_liquidity.adv[index],
-    isTarget: peers_liquidity.is_target[index],
-  }));
+  const chartData = peers_liquidity.labels.map((label, index) => {
+    const ticker = peers_liquidity.tickers?.[index] ?? label;
+    const fallbackLabel = peerNameByTicker.has(ticker) ? `${peerNameByTicker.get(ticker)} (${ticker})` : label;
+    return {
+      ticker,
+      label: label === ticker ? fallbackLabel : label,
+      score: peers_liquidity.scores[index],
+      adv: peers_liquidity.adv[index],
+      isTarget: peers_liquidity.is_target[index],
+    };
+  });
 
   const formatMoney = (value: number) => {
     return formatCompactMoney(value, reportCurrency);
@@ -36,7 +46,8 @@ export function LiquidityHealth() {
       const data = payload[0].payload;
       return (
         <div className="bg-slate-900/95 border border-slate-700 rounded-lg p-3 shadow-xl">
-          <p className="font-semibold text-slate-200">{data.ticker}</p>
+          <p className="font-semibold text-slate-200">{data.label}</p>
+          {data.label !== data.ticker && <p className="text-xs text-slate-500">Ticker: {data.ticker}</p>}
           <p className="text-sm text-sky-400">Score: {data.score.toFixed(1)}</p>
           <p className="text-sm text-slate-400">ADV: {formatMoney(data.adv)}</p>
           {data.isTarget && (
@@ -95,25 +106,28 @@ export function LiquidityHealth() {
       {/* Peer Comparison Chart */}
       <div className="bg-slate-900/30 rounded-xl p-4 border border-slate-700/50">
         <h4 className="text-sm font-semibold text-slate-300 mb-4">Liquidity Score vs Peers</h4>
-        <div className="h-64">
+        <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(148, 163, 184, 0.1)" vertical={false} />
+            <BarChart data={chartData} layout="vertical" margin={{ top: 8, right: 20, left: 16, bottom: 8 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(148, 163, 184, 0.1)" horizontal={false} />
               <XAxis
-                dataKey="ticker"
-                tick={{ fill: '#94a3b8', fontSize: 11 }}
-                axisLine={{ stroke: 'rgba(148, 163, 184, 0.2)' }}
-                tickLine={false}
-              />
-              <YAxis
+                type="number"
+                domain={[0, 100]}
                 tick={{ fill: '#94a3b8', fontSize: 11 }}
                 axisLine={false}
                 tickLine={false}
-                domain={[0, 100]}
-                label={{ value: 'Score (percentile)', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11 }}
+              />
+              <YAxis
+                type="category"
+                dataKey="label"
+                width={190}
+                tick={{ fill: '#94a3b8', fontSize: 10 }}
+                axisLine={{ stroke: 'rgba(148, 163, 184, 0.2)' }}
+                tickLine={false}
+                interval={0}
               />
               <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(148, 163, 184, 0.05)' }} />
-              <Bar dataKey="score" radius={[4, 4, 0, 0]} maxBarSize={50}>
+              <Bar dataKey="score" radius={[0, 4, 4, 0]} maxBarSize={24}>
                 {chartData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
@@ -127,7 +141,7 @@ export function LiquidityHealth() {
         <div className="flex items-center justify-center gap-4 mt-3 text-xs text-slate-500">
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded bg-sky-400" />
-            <span>Target (1828)</span>
+            <span>Target ({report.meta.ticker})</span>
           </div>
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded bg-slate-400/45" />

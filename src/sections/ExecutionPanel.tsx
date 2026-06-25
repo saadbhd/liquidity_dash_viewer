@@ -13,6 +13,8 @@ import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import { formatCompactMoney, resolveReportCurrency } from '@/lib/currency';
 import {
+  Area,
+  AreaChart,
   Bar,
   BarChart,
   CartesianGrid,
@@ -227,10 +229,32 @@ export function ExecutionPanel() {
       };
     });
   const displayedLevelCount = Math.max(visibleBids.length, visibleAsks.length);
-  const orderBookDomainMax = Math.max(
-    1,
-    ...orderBookData.map((row) => Math.max(row.bidDepth ?? 0, row.askDepth ?? 0)),
-  ) * 1.1;
+  let bidLadderDepth = 0;
+  let askLadderDepth = 0;
+  const bidLadderDepths = visibleBids.map((level) => {
+    bidLadderDepth += Math.abs(level.value);
+    return bidLadderDepth;
+  });
+  const askLadderDepths = visibleAsks.map((level) => {
+    askLadderDepth += Math.abs(level.value);
+    return askLadderDepth;
+  });
+  const maxLadderDepth = Math.max(1, ...bidLadderDepths, ...askLadderDepths);
+  const orderBookLadderRows = Array.from({ length: displayedLevelCount }, (_, index) => {
+    const bid = visibleBids[index];
+    const ask = visibleAsks[index];
+    const bidDepth = bidLadderDepths[index] ?? null;
+    const askDepth = askLadderDepths[index] ?? null;
+    return {
+      level: index + 1,
+      bid,
+      ask,
+      bidDepth,
+      askDepth,
+      bidWidth: bidDepth == null ? 0 : Math.max(8, Math.min(100, (bidDepth / maxLadderDepth) * 100)),
+      askWidth: askDepth == null ? 0 : Math.max(8, Math.min(100, (askDepth / maxLadderDepth) * 100)),
+    };
+  });
 
   const spreadChartData = intradayRows.map((row) => ({
     bucket: row.bucket,
@@ -345,17 +369,39 @@ export function ExecutionPanel() {
             <Activity className="w-4 h-4 text-muted-foreground" />
             <h3 className="text-sm font-semibold text-foreground">{labels.order_book_title}</h3>
           </div>
+          <div className="flex items-center justify-between gap-4 mb-3">
+            <span className="rounded-xl border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-xs font-bold text-emerald-200 shadow-[0_0_24px_rgba(16,185,129,0.08)]">
+              BID
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">Spread</span>
+            <span className="rounded-xl border border-rose-400/40 bg-rose-400/10 px-4 py-2 text-xs font-bold text-rose-200 shadow-[0_0_24px_rgba(248,113,113,0.08)]">
+              ASK
+            </span>
+          </div>
           <div className="h-56">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={orderBookData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
-                <XAxis dataKey="price" tick={{ fill: chartTheme.tickFill, fontSize: 10 }} axisLine={{ stroke: chartTheme.axisLineStroke }} tickLine={false} tickFormatter={(v) => Number(v).toFixed(3)} />
+              <AreaChart data={orderBookData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
+                <defs>
+                  <linearGradient id="fallbackBidDepthFill" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#10b981" stopOpacity={0.45} />
+                    <stop offset="100%" stopColor="#10b981" stopOpacity={0.1} />
+                  </linearGradient>
+                  <linearGradient id="fallbackAskDepthFill" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#f87171" stopOpacity={0.1} />
+                    <stop offset="100%" stopColor="#f87171" stopOpacity={0.45} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="4 6" stroke={chartTheme.gridStroke} vertical={false} />
+                <XAxis dataKey="price" type="number" domain={['dataMin', 'dataMax']} tick={{ fill: chartTheme.tickFill, fontSize: 10 }} axisLine={{ stroke: chartTheme.axisLineStroke }} tickLine={false} tickFormatter={(v) => Number(v).toFixed(3)} />
                 <YAxis tick={{ fill: chartTheme.tickFill, fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => formatMoney(v)} />
                 <Tooltip contentStyle={chartTheme.tooltipContentStyle} formatter={(value: unknown) => value != null && typeof value === 'number' ? [formatMoney(value), ''] : ['—', '']} />
                 <Legend iconType="line" wrapperStyle={{ paddingTop: '10px' }} />
-                <Line type="monotone" dataKey="bids" name="Bid depth" stroke="#10b981" strokeWidth={2} dot={{ r: 3, fill: '#10b981' }} connectNulls={false} />
-                <Line type="monotone" dataKey="asks" name="Ask depth" stroke="#f87171" strokeWidth={2} dot={{ r: 3, fill: '#f87171' }} connectNulls={false} />
-              </LineChart>
+                {midPrice != null ? (
+                  <ReferenceLine x={midPrice} stroke="rgba(148, 163, 184, 0.3)" strokeDasharray="4 4" />
+                ) : null}
+                <Area type="linear" dataKey="bids" name="Bid depth" stroke="#10b981" strokeWidth={2.5} fill="url(#fallbackBidDepthFill)" dot={{ r: 3.5, fill: '#10b981', strokeWidth: 0 }} activeDot={{ r: 5 }} connectNulls={false} />
+                <Area type="linear" dataKey="asks" name="Ask depth" stroke="#f87171" strokeWidth={2.5} fill="url(#fallbackAskDepthFill)" dot={{ r: 3.5, fill: '#f87171', strokeWidth: 0 }} activeDot={{ r: 5 }} connectNulls={false} />
+              </AreaChart>
             </ResponsiveContainer>
           </div>
           <p className="text-xs text-muted-foreground mt-2">{labels.order_book_note}</p>
@@ -497,174 +543,172 @@ export function ExecutionPanel() {
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-          <div className="flex items-center gap-2 mb-4">
-            <Activity className="w-4 h-4 text-muted-foreground" />
-            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              Current Displayed Order Book
-              <MethodologyTooltip methodKey="impact_simulation" />
-            </h3>
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 items-stretch">
+        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-6">
+          <div className="mb-4 space-y-3">
+            <div className="flex items-center gap-2">
+              <Activity className="w-4 h-4 text-muted-foreground" />
+              <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                Current Displayed Order Book
+                <MethodologyTooltip methodKey="impact_simulation" />
+              </h3>
+            </div>
+            <div className="flex items-center justify-between gap-4">
+              <span className="rounded-xl border border-emerald-400/40 bg-emerald-400/10 px-6 py-3 text-sm font-bold text-emerald-200 shadow-[0_0_24px_rgba(16,185,129,0.08)]">
+                BID
+              </span>
+              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">Spread</span>
+              <span className="rounded-xl border border-rose-400/40 bg-rose-400/10 px-6 py-3 text-sm font-bold text-rose-200 shadow-[0_0_24px_rgba(248,113,113,0.08)]">
+                ASK
+              </span>
+            </div>
           </div>
-          <div className="h-56">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={orderBookData} margin={{ top: 10, right: 18, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="4 6" stroke={chartTheme.gridStroke} vertical={false} />
-                <XAxis
-                  type="number"
-                  dataKey="price"
-                  domain={['dataMin', 'dataMax']}
-                  tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
-                  axisLine={{ stroke: chartTheme.axisLineStroke }}
-                  tickLine={false}
-                  tickFormatter={(value) => formatPrice(Number(value))}
-                />
-                <YAxis
-                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
-                  axisLine={false}
-                  tickLine={false}
-                  domain={[0, orderBookDomainMax]}
-                  tickFormatter={(value) => formatMoney(Number(value))}
-                />
-                <Tooltip
-                  contentStyle={chartTheme.tooltipContentStyle}
-                  formatter={(value: unknown, name: string) => {
-                    if (typeof value !== 'number' || !Number.isFinite(value)) return ['N/A', name];
-                    return [formatMoney(value), name];
-                  }}
-                  labelFormatter={(value) => `Price ${formatPrice(Number(value))}`}
-                />
-                <Legend iconType="circle" wrapperStyle={{ paddingTop: '10px' }} />
-                {midPrice != null ? (
-                  <ReferenceLine x={midPrice} stroke="rgba(148, 163, 184, 0.28)" strokeDasharray="4 4" />
-                ) : null}
-                <Line
-                  type="linear"
-                  dataKey="bidDepth"
-                  name="Bid depth"
-                  stroke="#10b981"
-                  strokeWidth={2.5}
-                  dot={{ r: 3.5, fill: '#10b981', strokeWidth: 0 }}
-                  activeDot={{ r: 5 }}
-                  connectNulls={false}
-                />
-                <Line
-                  type="linear"
-                  dataKey="askDepth"
-                  name="Ask depth"
-                  stroke="#f87171"
-                  strokeWidth={2.5}
-                  dot={{ r: 3.5, fill: '#f87171', strokeWidth: 0 }}
-                  activeDot={{ r: 5 }}
-                  connectNulls={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+          <div className="relative h-[520px] overflow-hidden rounded-xl border border-white/10 bg-slate-950/45 px-5 py-5 shadow-inner">
+            <div className="absolute left-1/2 top-5 bottom-12 w-px -translate-x-1/2 bg-slate-400/25" />
+            <div className="absolute inset-x-5 bottom-8 h-px bg-slate-400/20" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-[11px] font-extrabold uppercase tracking-[0.22em] text-slate-100">
+              Spread
+            </div>
+            <div className="relative z-10 flex h-[calc(100%-3rem)] flex-col justify-between">
+              {orderBookLadderRows.map((row) => (
+                <div key={row.level} className="grid min-h-[32px] grid-cols-[74px_minmax(0,1fr)_58px_minmax(0,1fr)_74px] items-center gap-0">
+                  <div className="relative z-20 justify-self-start rounded bg-slate-800/85 px-2.5 py-1 text-center text-[10px] leading-tight text-emerald-300 ring-1 ring-emerald-300/10">
+                    <div className="font-semibold uppercase text-slate-200">Buy</div>
+                    <div className="font-mono">{row.bid ? formatPrice(row.bid.price) : '—'}</div>
+                    <div className="font-mono text-[9px] text-emerald-200/80">{row.bid ? formatMoney(row.bidDepth) : '—'}</div>
+                  </div>
+                  <div className="relative h-full min-h-[15px]">
+                    <div
+                      className="absolute right-0 top-0 h-full rounded-l-sm border-r border-emerald-200/25 bg-gradient-to-l from-emerald-400/75 via-emerald-500/45 to-emerald-500/10 shadow-[0_0_18px_rgba(16,185,129,0.16)]"
+                      style={{ width: `${row.bidWidth}%` }}
+                      title={row.bid ? `Bid ${formatPrice(row.bid.price)} · ${formatMoney(row.bidDepth)}` : undefined}
+                    />
+                  </div>
+                  <div className="relative z-20 text-center text-[9px] font-medium text-slate-300">
+                    {row.bid && row.ask ? formatPrice((row.bid.price + row.ask.price) / 2) : ''}
+                  </div>
+                  <div className="relative h-full min-h-[15px]">
+                    <div
+                      className="absolute left-0 top-0 h-full rounded-r-sm border-l border-rose-200/25 bg-gradient-to-r from-rose-400/75 via-rose-500/45 to-rose-500/10 shadow-[0_0_18px_rgba(248,113,113,0.16)]"
+                      style={{ width: `${row.askWidth}%` }}
+                      title={row.ask ? `Ask ${formatPrice(row.ask.price)} · ${formatMoney(row.askDepth)}` : undefined}
+                    />
+                  </div>
+                  <div className="relative z-20 justify-self-end rounded bg-slate-800/85 px-2.5 py-1 text-center text-[10px] leading-tight text-rose-300 ring-1 ring-rose-300/10">
+                    <div className="font-semibold uppercase text-slate-200">Sell</div>
+                    <div className="font-mono">{row.ask ? formatPrice(row.ask.price) : '—'}</div>
+                    <div className="font-mono text-[9px] text-rose-200/80">{row.ask ? formatMoney(row.askDepth) : '—'}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
           <p className="text-xs text-muted-foreground mt-2">
             Top {displayedLevelCount || 10} levels per side from the {snapshotLabel}. Bid/ask depth ratio on that snapshot: {formatRatio(snapshot?.bid_ask_depth_ratio)}.
           </p>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-          <div className="flex items-center gap-2 mb-4">
-            <Clock3 className="w-4 h-4 text-muted-foreground" />
-            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              Spread Through The Day
-              <MethodologyTooltip methodKey="intraday_book_profile" />
-            </h3>
-          </div>
-          <div className="h-56">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={spreadChartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
-                <XAxis
-                  dataKey="bucket"
-                  tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
-                  axisLine={{ stroke: chartTheme.axisLineStroke }}
-                  tickLine={false}
-                />
-                <YAxis
-                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={(v) => `${Number(v).toFixed(2)}%`}
-                />
-                <Tooltip
-                  contentStyle={chartTheme.tooltipContentStyle}
-                  formatter={(value: unknown, name: string) => {
-                    if (typeof value !== 'number' || !Number.isFinite(value)) return ['N/A', name];
-                    if (name === 'Spread (ticks)') return [value.toFixed(1), name];
-                    return [`${value.toFixed(2)}%`, name];
-                  }}
-                />
-                <Legend iconType="line" wrapperStyle={{ paddingTop: '10px' }} />
-                <Line
-                  type="monotone"
-                  dataKey="spreadPct"
-                  name="Spread (%)"
-                  stroke="#f59e0b"
-                  strokeWidth={2}
-                  dot={{ r: 2, fill: '#f59e0b' }}
-                  connectNulls
-                />
-                <Line
-                  type="monotone"
-                  dataKey="spreadTicks"
-                  name="Spread (ticks)"
-                  stroke="#60a5fa"
-                  strokeWidth={2}
-                  dot={{ r: 2, fill: '#60a5fa' }}
-                  connectNulls
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-          <p className="text-xs text-muted-foreground mt-2">
-            {sessionBucketNote} Tightest bucket: {intradaySummary?.tightest_bucket ?? 'N/A'} • Widest bucket: {intradaySummary?.widest_bucket ?? 'N/A'}
-          </p>
-        </motion.div>
+        <div className="space-y-6">
+          <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Clock3 className="w-4 h-4 text-muted-foreground" />
+              <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                Spread Through The Day
+                <MethodologyTooltip methodKey="intraday_book_profile" />
+              </h3>
+            </div>
+            <div className="h-56">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={spreadChartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
+                  <XAxis
+                    dataKey="bucket"
+                    tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
+                    axisLine={{ stroke: chartTheme.axisLineStroke }}
+                    tickLine={false}
+                  />
+                  <YAxis
+                    tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                    axisLine={false}
+                    tickLine={false}
+                    tickFormatter={(v) => `${Number(v).toFixed(2)}%`}
+                  />
+                  <Tooltip
+                    contentStyle={chartTheme.tooltipContentStyle}
+                    formatter={(value: unknown, name: string) => {
+                      if (typeof value !== 'number' || !Number.isFinite(value)) return ['N/A', name];
+                      if (name === 'Spread (ticks)') return [value.toFixed(1), name];
+                      return [`${value.toFixed(2)}%`, name];
+                    }}
+                  />
+                  <Legend iconType="line" wrapperStyle={{ paddingTop: '10px' }} />
+                  <Line
+                    type="monotone"
+                    dataKey="spreadPct"
+                    name="Spread (%)"
+                    stroke="#f59e0b"
+                    strokeWidth={2}
+                    dot={{ r: 2, fill: '#f59e0b' }}
+                    connectNulls
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="spreadTicks"
+                    name="Spread (ticks)"
+                    stroke="#60a5fa"
+                    strokeWidth={2}
+                    dot={{ r: 2, fill: '#60a5fa' }}
+                    connectNulls
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              {sessionBucketNote} Tightest bucket: {intradaySummary?.tightest_bucket ?? 'N/A'} • Widest bucket: {intradaySummary?.widest_bucket ?? 'N/A'}
+            </p>
+          </motion.div>
 
-        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
-          <div className="flex items-center gap-2 mb-4">
-            <BarChart3 className="w-4 h-4 text-muted-foreground" />
-            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              Displayed Depth Through The Day
-              <MethodologyTooltip methodKey="intraday_book_profile" />
-            </h3>
-          </div>
-          <div className="h-56">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={depthChartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
-                <XAxis
-                  dataKey="bucket"
-                  tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
-                  axisLine={{ stroke: chartTheme.axisLineStroke }}
-                  tickLine={false}
-                />
-                <YAxis
-                  tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
-                  axisLine={false}
-                  tickLine={false}
-                  tickFormatter={(v) => formatMoney(v)}
-                />
-                <Tooltip
-                  contentStyle={chartTheme.tooltipContentStyle}
-                  formatter={(value: unknown, name: string) =>
-                    value != null && typeof value === 'number' ? [formatMoney(value), name] : ['N/A', name]
-                  }
-                />
-                <Legend wrapperStyle={{ paddingTop: '10px' }} />
-                <Bar dataKey="bidDepth" name="Bid depth" fill="#10b981" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="askDepth" name="Ask depth" fill="#f87171" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <p className="text-xs text-muted-foreground mt-2">
-            Deepest bid bucket: {intradaySummary?.deepest_bid_bucket ?? 'N/A'} • Thinnest bid bucket: {intradaySummary?.thinnest_bid_bucket ?? 'N/A'}
-          </p>
-        </motion.div>
+          <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <BarChart3 className="w-4 h-4 text-muted-foreground" />
+              <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+                Displayed Depth Through The Day
+                <MethodologyTooltip methodKey="intraday_book_profile" />
+              </h3>
+            </div>
+            <div className="h-56">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={depthChartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartTheme.gridStroke} vertical={false} />
+                  <XAxis
+                    dataKey="bucket"
+                    tick={{ fill: chartTheme.tickFill, fontSize: 10 }}
+                    axisLine={{ stroke: chartTheme.axisLineStroke }}
+                    tickLine={false}
+                  />
+                  <YAxis
+                    tick={{ fill: chartTheme.tickFill, fontSize: 11 }}
+                    axisLine={false}
+                    tickLine={false}
+                    tickFormatter={(v) => formatMoney(v)}
+                  />
+                  <Tooltip
+                    contentStyle={chartTheme.tooltipContentStyle}
+                    formatter={(value: unknown, name: string) =>
+                      value != null && typeof value === 'number' ? [formatMoney(value), name] : ['N/A', name]
+                    }
+                  />
+                  <Legend wrapperStyle={{ paddingTop: '10px' }} />
+                  <Bar dataKey="bidDepth" name="Bid depth" fill="#10b981" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="askDepth" name="Ask depth" fill="#f87171" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Deepest bid bucket: {intradaySummary?.deepest_bid_bucket ?? 'N/A'} • Thinnest bid bucket: {intradaySummary?.thinnest_bid_bucket ?? 'N/A'}
+            </p>
+          </motion.div>
+        </div>
       </div>
 
       <motion.div variants={itemVariants} className="glass-panel rounded-xl p-4 border-l-2 border-rose-500/50">

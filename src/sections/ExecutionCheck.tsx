@@ -3,8 +3,8 @@ import { Target, TrendingDown, DollarSign, Activity, AlertTriangle } from 'lucid
 import { useReport } from '@/context/ReportContext';
 import { formatCompactMoney, getCurrencyCodeLabel, resolveReportCurrency } from '@/lib/currency';
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -14,6 +14,7 @@ import {
   BarChart,
   Bar,
   Cell,
+  ReferenceLine,
 } from 'recharts';
 
 export function ExecutionCheck() {
@@ -23,31 +24,52 @@ export function ExecutionCheck() {
   const reportCurrency = resolveReportCurrency(report);
   const currencyLabel = getCurrencyCodeLabel(reportCurrency);
 
-  // Prepare order book data: bids and asks each have their own prices (from report/book_snapshot).
-  // Build merged price axis (all unique bid + ask prices, sorted) and cumulative depth with carry-forward.
   const sortedBids = [...order_book.bids].sort((a, b) => b.price - a.price);
   const sortedAsks = [...order_book.asks].sort((a, b) => a.price - b.price);
-  const bidCumulative = sortedBids.reduce((acc: number[], bid, index) => {
-    const prev = index > 0 ? acc[index - 1] : 0;
-    acc.push(prev + bid.value);
-    return acc;
-  }, []);
-  const askCumulative = sortedAsks.reduce((acc: number[], ask, index) => {
-    const prev = index > 0 ? acc[index - 1] : 0;
-    acc.push(prev + ask.value);
-    return acc;
-  }, []);
-
-  const bidPriceToCum = new Map(sortedBids.map((b, i) => [b.price, bidCumulative[i]]));
-  const askPriceToCum = new Map(sortedAsks.map((a, i) => [a.price, askCumulative[i]]));
-  const allPrices = [...new Set([...sortedBids.map((b) => b.price), ...sortedAsks.map((a) => a.price)])].sort((a, b) => a - b);
-
-  // Only plot depth at prices where that side has a level; use null elsewhere so no line is drawn.
-  const orderBookData = allPrices.map((price) => ({
-    price,
-    bids: bidPriceToCum.has(price) ? bidPriceToCum.get(price)! : null,
-    asks: askPriceToCum.has(price) ? askPriceToCum.get(price)! : null,
-  }));
+  const displayedBids = sortedBids.slice(0, 10);
+  const displayedAsks = sortedAsks.slice(0, 10);
+  const bestBid = displayedBids[0]?.price;
+  const bestAsk = displayedAsks[0]?.price;
+  const midPrice = bestBid != null && bestAsk != null ? (bestBid + bestAsk) / 2 : (bestBid ?? bestAsk ?? 0);
+  const totalBidDepth = displayedBids.reduce((sum, row) => sum + row.value, 0);
+  const totalAskDepth = displayedAsks.reduce((sum, row) => sum + row.value, 0);
+  const bidAskDepthRatio = totalAskDepth > 0 ? totalBidDepth / totalAskDepth : null;
+  let bidDepthRemaining = totalBidDepth;
+  const bidProfile = [...displayedBids]
+    .sort((a, b) => a.price - b.price)
+    .map((row) => {
+      const point = {
+        price: row.price,
+        bidDepth: bidDepthRemaining,
+        askDepth: null as number | null,
+        side: 'Bid',
+        level: row.level,
+        quantity: row.quantity,
+        levelValue: row.value,
+      };
+      bidDepthRemaining -= row.value;
+      return point;
+    });
+  let askDepthCumulative = 0;
+  const askProfile = [...displayedAsks]
+    .sort((a, b) => a.price - b.price)
+    .map((row) => {
+      askDepthCumulative += row.value;
+      return {
+        price: row.price,
+        bidDepth: null as number | null,
+        askDepth: askDepthCumulative,
+        side: 'Ask',
+        level: row.level,
+        quantity: row.quantity,
+        levelValue: row.value,
+      };
+    });
+  const orderBookData = [
+    ...bidProfile,
+    { price: midPrice, bidDepth: 0, askDepth: 0, side: 'Spread', level: 0, quantity: 0, levelValue: 0 },
+    ...askProfile,
+  ].sort((a, b) => a.price - b.price);
 
   // Peer capacity data
   const capacityData = [
@@ -61,28 +83,25 @@ export function ExecutionCheck() {
 
   const OrderBookTooltip = ({ active, payload, label }: { active?: boolean; payload?: any[]; label?: string }) => {
     if (active && payload && payload.length) {
-      const price = payload[0]?.payload?.price ?? (typeof label === 'number' ? label : 0);
-      const bidLevel = sortedBids.find((b) => b.price === price);
-      const askLevel = sortedAsks.find((a) => a.price === price);
+      const visibleEntry = payload.find((entry) => entry.value != null);
+      const point = visibleEntry?.payload ?? payload[0]?.payload;
+      const price = point?.price ?? (typeof label === 'number' ? label : 0);
       const priceLabel = typeof price === 'number' ? price.toFixed(3) : String(price);
+      const isBid = point?.side === 'Bid';
+      const isAsk = point?.side === 'Ask';
       return (
         <div className="bg-slate-900/95 border border-slate-700 rounded-lg p-3 shadow-xl">
           <p className="font-semibold text-slate-200 mb-2">Price: {priceLabel}</p>
-          {payload.map((entry, index) => {
-            if (entry.value == null) return null;
-            const isBid = entry.name === 'Bid cum value';
-            const level = isBid ? bidLevel : askLevel;
-            return (
-              <div key={index} className="text-sm" style={{ color: entry.color }}>
-                <p>{entry.name}: {formatMoney(entry.value)}</p>
-                {level && (
-                  <p className="text-xs text-slate-400">
-                    Price: {level.price.toFixed(3)} • Qty: {level.quantity.toLocaleString()}
-                  </p>
-                )}
-              </div>
-            );
-          })}
+          {point?.side === 'Spread' ? (
+            <p className="text-sm text-slate-400">Spread midpoint</p>
+          ) : (
+            <div className="text-sm" style={{ color: isBid ? '#34d399' : '#fb7185' }}>
+              <p>{isBid ? 'Bid depth' : isAsk ? 'Ask depth' : 'Depth'}: {formatMoney(visibleEntry?.value ?? 0)}</p>
+              <p className="text-xs text-slate-400">
+                Level {point?.level} • Qty: {point?.quantity?.toLocaleString()} • Level value: {formatMoney(point?.levelValue ?? 0)}
+              </p>
+            </div>
+          )}
         </div>
       );
     }
@@ -128,14 +147,37 @@ export function ExecutionCheck() {
       </div>
 
       {/* Order Book Chart */}
-      <div className="bg-slate-900/30 rounded-xl p-4 border border-slate-700/50 mb-6">
-        <h4 className="text-sm font-semibold text-slate-300 mb-4">{labels.order_book_title}</h4>
-        <div className="h-56">
+      <div className="bg-slate-950/45 rounded-xl p-5 border border-slate-700/50 mb-6 overflow-hidden">
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <div className="inline-flex items-center gap-2 rounded-xl border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-200 shadow-[0_0_24px_rgba(16,185,129,0.08)]">
+            BID
+          </div>
+          <div className="text-center">
+            <h4 className="text-base font-bold text-slate-100">Current Displayed Order Book</h4>
+            <p className="text-xs text-slate-500">Top {Math.max(displayedBids.length, displayedAsks.length)} levels per side • spread shown at midpoint</p>
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-xl border border-rose-400/40 bg-rose-400/10 px-4 py-2 text-sm font-bold text-rose-200 shadow-[0_0_24px_rgba(248,113,113,0.08)]">
+            ASK
+          </div>
+        </div>
+        <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={orderBookData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(148, 163, 184, 0.1)" vertical={false} />
+            <AreaChart data={orderBookData} margin={{ top: 12, right: 26, left: 4, bottom: 18 }}>
+              <defs>
+                <linearGradient id="bidDepthFill" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#10b981" stopOpacity={0.42} />
+                  <stop offset="100%" stopColor="#10b981" stopOpacity={0.12} />
+                </linearGradient>
+                <linearGradient id="askDepthFill" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#fb7185" stopOpacity={0.12} />
+                  <stop offset="100%" stopColor="#fb7185" stopOpacity={0.42} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="4 5" stroke="rgba(148, 163, 184, 0.12)" vertical={false} />
               <XAxis
                 dataKey="price"
+                type="number"
+                domain={['dataMin', 'dataMax']}
                 tick={{ fill: '#94a3b8', fontSize: 10 }}
                 axisLine={{ stroke: 'rgba(148, 163, 184, 0.2)' }}
                 tickLine={false}
@@ -147,36 +189,44 @@ export function ExecutionCheck() {
                 axisLine={false}
                 tickLine={false}
                 tickFormatter={(v) => formatMoney(v)}
-                label={{ value: currencyLabel ? `Cumulative depth (${currencyLabel})` : 'Cumulative depth', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11 }}
+                label={{ value: currencyLabel ? `Displayed depth (${currencyLabel})` : 'Displayed depth', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11 }}
               />
               <Tooltip content={<OrderBookTooltip />} />
               <Legend iconType="line" wrapperStyle={{ paddingTop: '10px' }} />
-              <Line
-                type="monotone"
-                dataKey="bids"
-                name="Bid cum value"
+              <ReferenceLine
+                x={midPrice}
+                stroke="rgba(148, 163, 184, 0.4)"
+                strokeDasharray="4 4"
+                label={{ value: 'SPREAD', position: 'bottom', fill: '#cbd5e1', fontSize: 11, fontWeight: 700 }}
+              />
+              <Area
+                type="stepAfter"
+                dataKey="bidDepth"
+                name="Bid depth"
                 stroke="#34d399"
-                strokeWidth={2}
-                fill="rgba(52, 211, 153, 0.1)"
-                dot={{ r: 3, fill: '#34d399' }}
+                strokeWidth={2.5}
+                fill="url(#bidDepthFill)"
+                dot={{ r: 3.5, fill: '#10b981', stroke: '#0f172a', strokeWidth: 1 }}
                 activeDot={{ r: 5 }}
                 connectNulls={false}
               />
-              <Line
-                type="monotone"
-                dataKey="asks"
-                name="Ask cum value"
-                stroke="#f87171"
-                strokeWidth={2}
-                fill="rgba(248, 113, 113, 0.1)"
-                dot={{ r: 3, fill: '#f87171' }}
+              <Area
+                type="stepAfter"
+                dataKey="askDepth"
+                name="Ask depth"
+                stroke="#fb7185"
+                strokeWidth={2.5}
+                fill="url(#askDepthFill)"
+                dot={{ r: 3.5, fill: '#fb7185', stroke: '#0f172a', strokeWidth: 1 }}
                 activeDot={{ r: 5 }}
                 connectNulls={false}
               />
-            </LineChart>
+            </AreaChart>
           </ResponsiveContainer>
         </div>
-        <p className="text-xs text-slate-500 mt-2">{labels.order_book_note}</p>
+        <p className="text-xs text-slate-500 mt-3">
+          {labels.order_book_note} Bid/ask displayed-depth ratio: {bidAskDepthRatio == null ? 'N/A' : `${bidAskDepthRatio.toFixed(2)}x`}.
+        </p>
       </div>
 
       {/* Peer Capacity & Impact Summary */}

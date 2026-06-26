@@ -23,14 +23,17 @@ import {
     Cpu,
     Gift,
     DollarSign,
-    LineChart
+    LineChart,
+    Download
 } from 'lucide-react';
 import { loadReportData } from '@/data/reportsIndex';
 import { ReportProvider } from '@/context/ReportContext';
 import { HelpProvider } from '@/context/HelpContext';
 import { FloatingHelp } from '@/components/FloatingHelp';
+import { downloadReportWorkbook } from '@/utils/reportExport';
 import { HeroSection } from '@/sections/HeroSection';
 import { LiquidityScore } from '@/sections/LiquidityScore';
+import { PerformanceContext } from '@/sections/PerformanceContext';
 import { DriversAnalysis } from '@/sections/DriversAnalysis';
 import { MarketStateAnalysis } from '@/sections/MarketStateAnalysis';
 import { ExecutionPanel } from '@/sections/ExecutionPanel';
@@ -123,6 +126,7 @@ function buildTabs(report: ReportData): TabDef[] {
             id: 'liquidity-profile', label: 'Liquidity Profile', icon: BarChart3,
             subSections: [
                 { id: 'liquidity', label: 'Liquidity & Market', icon: Activity },
+                { id: 'performance', label: 'Performance', icon: TrendingUp },
                 { id: 'drivers', label: 'What Drives Price', icon: PieChart },
                 { id: 'market-state', label: 'Market State', icon: TrendingUp },
                 { id: 'execution', label: 'Trading Costs', icon: Target },
@@ -315,6 +319,15 @@ export function ReportViewer() {
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => downloadReportWorkbook(reportData)}
+                                    className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-accent/45 px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-accent"
+                                    aria-label="Download report data as Excel"
+                                >
+                                    <Download className="h-3.5 w-3.5" />
+                                    <span className="hidden sm:inline">Export Excel</span>
+                                </button>
                                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                     <span className="hidden sm:inline">Live Data</span>
@@ -405,6 +418,9 @@ export function ReportViewer() {
                                 <>
                                     <section id="liquidity">
                                         <LiquidityScore />
+                                    </section>
+                                    <section id="performance">
+                                        <PerformanceContext />
                                     </section>
                                     <section id="drivers">
                                         <DriversAnalysis />

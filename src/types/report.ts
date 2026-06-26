@@ -162,10 +162,75 @@ export interface PeersLiquidity {
 
 export interface ReturnData {
   horizon: string;
-  stock: number;
-  market: number;
-  sector: number;
-  peers: number;
+  stock: number | null;
+  market: number | null;
+  sector: number | null;
+  peers: number | null;
+}
+
+export interface TotalReturnRow {
+  key: string;
+  label?: string | null;
+  value?: number | null;
+  n_obs?: number | null;
+  available?: boolean;
+  note?: string | null;
+  name?: string | null;
+  stock_code?: string | null;
+  is_target?: boolean;
+  is_index?: boolean;
+  ytd_total_return?: TotalReturnMetric | null;
+  one_year_total_return?: TotalReturnMetric | null;
+  since_listing_total_return?: TotalReturnMetric | null;
+}
+
+export interface TotalReturnMetric {
+  value: number | null;
+  n_obs?: number | null;
+  available?: boolean;
+  note?: string | null;
+  start_date?: string | null;
+  end_date?: string | null;
+}
+
+export interface TotalReturnsBlock {
+  scope?: string | null;
+  title?: string | null;
+  basis?: string | null;
+  window_start?: string | null;
+  window_end?: string | null;
+  rows: TotalReturnRow[];
+}
+
+export interface MarketPerformanceExtreme {
+  value: number | null;
+  month?: string | null;
+  available?: boolean;
+  n_months?: number | null;
+}
+
+export interface MarketPerformanceRow {
+  key: string;
+  label?: string | null;
+  name?: string | null;
+  stock_code?: string | null;
+  is_target?: boolean;
+  is_index?: boolean;
+  best_month?: MarketPerformanceExtreme | null;
+  worst_month?: MarketPerformanceExtreme | null;
+  history_window?: {
+    start_date?: string | null;
+    end_date?: string | null;
+    n_obs?: number | null;
+  } | null;
+}
+
+export interface MarketPerformanceBlock {
+  basis?: string | null;
+  window_note?: string | null;
+  window_start?: string | null;
+  window_end?: string | null;
+  rows: MarketPerformanceRow[];
 }
 
 export interface LeadLag {
@@ -752,6 +817,8 @@ export interface Q01PeriodData {
 export interface Q01 {
   primary_liquidity_period: Q01PeriodKey;
   periods: Partial<Record<Q01PeriodKey, Q01PeriodData>>;
+  total_returns?: TotalReturnsBlock | null;
+  market_performance?: MarketPerformanceBlock | null;
   period_insights?: Partial<
     Record<
       Q01PeriodKey,
@@ -1173,6 +1240,8 @@ export interface Series {
   peers_liquidity: PeersLiquidity;
   market_comparison: MarketComparison;
   returns: ReturnData[];
+  total_returns?: TotalReturnsBlock | null;
+  market_performance?: MarketPerformanceBlock | null;
   drivers: Drivers;
   order_book: {
     bids: OrderBookLevel[];

@@ -668,9 +668,14 @@ export function LiquidityScore() {
     { key: 'market', label: 'Market median', value: marketReturns.market, cls: 'bg-purple-500' },
   ] as const;
   const returnsBarData = returnsMarkers.filter((m) => m.value !== null && m.value !== undefined && Number.isFinite(m.value));
-  const returnsAbsMax = Math.max(...returnsBarData.map((m) => Math.abs(m.value as number)), 1e-12);
+  const returnsValues = returnsBarData.map((m) => m.value as number);
   const returnsMin = returnsBarData.length > 0 ? Math.min(...returnsBarData.map((m) => m.value as number)) : null;
   const returnsMax = returnsBarData.length > 0 ? Math.max(...returnsBarData.map((m) => m.value as number)) : null;
+  const returnsScaleMin = returnsValues.length > 0 ? Math.min(...returnsValues, 0) : 0;
+  const returnsScaleMax = returnsValues.length > 0 ? Math.max(...returnsValues, 0) : 0;
+  const returnsScaleSpan = Math.max(returnsScaleMax - returnsScaleMin, 1e-12);
+  const returnsZeroPct = ((0 - returnsScaleMin) / returnsScaleSpan) * 100;
+  const returnsZeroMarkerPct = Math.min(99.5, Math.max(0.5, returnsZeroPct));
   const returnsStockIsFavorable =
     marketReturns.stock !== null &&
       marketReturns.stock !== undefined &&
@@ -917,8 +922,11 @@ export function LiquidityScore() {
                 <>
                   <div className="space-y-3">
                     {returnsBarData.map((marker) => {
-                      const absVal = Math.abs(marker.value as number);
-                      const widthPct = Math.max((absVal / returnsAbsMax) * 100, 2);
+                      const value = marker.value as number;
+                      const valuePct = ((value - returnsScaleMin) / returnsScaleSpan) * 100;
+                      const rawWidthPct = Math.abs(valuePct - returnsZeroPct);
+                      const widthPct = rawWidthPct > 0 ? Math.max(rawWidthPct, 1.5) : 0;
+                      const leftPct = value < 0 ? Math.max(0, returnsZeroPct - widthPct) : returnsZeroPct;
 
                       let barBg: string;
                       if (marker.key === 'stock') {
@@ -953,10 +961,14 @@ export function LiquidityScore() {
                             <span className="text-xs text-slate-400 truncate">{marker.label}</span>
                           </div>
                           <div className="flex-1 relative h-7 bg-slate-800/50 rounded-lg overflow-hidden">
+                            <span
+                              className="absolute inset-y-0 w-px bg-slate-300/40"
+                              style={{ left: `${returnsZeroMarkerPct}%` }}
+                            />
                             <motion.div
-                              className={`absolute inset-y-0 left-0 rounded-lg ${barBg}`}
-                              initial={{ width: 0 }}
-                              animate={{ width: `${widthPct}%` }}
+                              className={`absolute inset-y-0 rounded-lg ${barBg}`}
+                              initial={{ left: `${returnsZeroPct}%`, width: 0 }}
+                              animate={{ left: `${leftPct}%`, width: `${widthPct}%` }}
                               transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                             />
                             <span className="absolute inset-y-0 right-3 flex items-center text-xs font-medium text-slate-200">
@@ -972,7 +984,7 @@ export function LiquidityScore() {
                       Return range: {formatSignedPct(returnsMin)} – {formatSignedPct(returnsMax)}
                     </span>
                     <span className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-slate-800/60 text-slate-400">
-                      ↑ Higher is better
+                      0% baseline
                     </span>
                   </div>
                 </>

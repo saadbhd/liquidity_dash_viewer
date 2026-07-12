@@ -38,6 +38,7 @@ import { DriversAnalysis } from '@/sections/DriversAnalysis';
 import { MarketStateAnalysis } from '@/sections/MarketStateAnalysis';
 import { ExecutionPanel } from '@/sections/ExecutionPanel';
 import { TraderComposition } from '@/sections/TraderComposition';
+import { PeerTraderComposition } from '@/sections/PeerTraderComposition';
 import { PriceMovingTrades } from '@/sections/PriceMovingTrades';
 import { IntradayPanel } from '@/sections/IntradayPanel';
 import { ShortSellingAndLending } from '@/sections/ShortSellingAndLending';
@@ -61,6 +62,21 @@ type TabDef = {
     icon: React.ElementType;
     subSections?: SubSection[];
 };
+
+function hasPeerTraderRows(report: ReportData): boolean {
+    if (!report.peer_analysis?.enabled) return false;
+    const trader = report.series?.trader_composition as any;
+    if (Array.isArray(trader?.peer_comparison) && trader.peer_comparison.length > 0) return true;
+    if (trader?.peer_comparison_periods && typeof trader.peer_comparison_periods === 'object') {
+        return Object.values(trader.peer_comparison_periods).some((rows) => Array.isArray(rows) && rows.length > 0);
+    }
+    if (trader?.periods && typeof trader.periods === 'object') {
+        return Object.values(trader.periods).some((period: any) => (
+            Array.isArray(period?.peer_comparison) && period.peer_comparison.length > 0
+        ));
+    }
+    return false;
+}
 
 function buildTabs(report: ReportData): TabDef[] {
     const isEtfReport = report.report_kind === 'etf' || Boolean(report.etf);
@@ -119,24 +135,39 @@ function buildTabs(report: ReportData): TabDef[] {
     }
 
     const showShort = report.meta.market === 'XSES' && !!report.series.short_selling?.data_available;
+    const showPeerAnalysis = Boolean(report.peer_analysis?.enabled);
+    const showPeerTraderTypes = hasPeerTraderRows(report);
+
+    const liquidityProfileLabel = showPeerAnalysis ? 'Liquidity & Peers' : 'Liquidity Profile';
+    const liquiditySubSections: SubSection[] = showPeerAnalysis
+        ? [
+            { id: 'liquidity', label: 'Peer Liquidity', icon: Users },
+            { id: 'performance', label: 'Peer Performance', icon: TrendingUp },
+            { id: 'drivers', label: 'Peer Drivers', icon: PieChart },
+            { id: 'market-state', label: 'Market State', icon: TrendingUp },
+            { id: 'execution', label: 'Trading Costs', icon: Target },
+            ...(showShort ? [{ id: 'short', label: 'Short Selling', icon: TrendingDown }] : []),
+        ]
+        : [
+            { id: 'liquidity', label: 'Liquidity & Market', icon: Activity },
+            { id: 'performance', label: 'Performance', icon: TrendingUp },
+            { id: 'drivers', label: 'What Drives Price', icon: PieChart },
+            { id: 'market-state', label: 'Market State', icon: TrendingUp },
+            { id: 'execution', label: 'Trading Costs', icon: Target },
+            ...(showShort ? [{ id: 'short', label: 'Short Selling', icon: TrendingDown }] : []),
+        ];
 
     return [
         { id: 'overview', label: 'Overview', icon: LayoutDashboard },
         {
-            id: 'liquidity-profile', label: 'Liquidity Profile', icon: BarChart3,
-            subSections: [
-                { id: 'liquidity', label: 'Liquidity & Market', icon: Activity },
-                { id: 'performance', label: 'Performance', icon: TrendingUp },
-                { id: 'drivers', label: 'What Drives Price', icon: PieChart },
-                { id: 'market-state', label: 'Market State', icon: TrendingUp },
-                { id: 'execution', label: 'Trading Costs', icon: Target },
-                ...(showShort ? [{ id: 'short', label: 'Short Selling', icon: TrendingDown }] : []),
-            ],
+            id: 'liquidity-profile', label: liquidityProfileLabel, icon: BarChart3,
+            subSections: liquiditySubSections,
         },
         {
             id: 'trading-activity', label: 'Trading Activity', icon: Activity,
             subSections: [
                 { id: 'traders', label: 'Trader Types', icon: Users },
+                ...(showPeerTraderTypes ? [{ id: 'peer-traders', label: 'Peer Trader Types', icon: Users }] : []),
                 { id: 'price-moving', label: 'Price-Moving Trades', icon: Activity },
                 { id: 'intraday', label: 'Trading Times', icon: Clock },
             ],
@@ -161,6 +192,7 @@ export function ReportViewer() {
     const tabs = useMemo(() => reportData ? buildTabs(reportData) : [], [reportData]);
     const currentTab = tabs.find(t => t.id === activeTab);
     const isEtfReport = reportData?.report_kind === 'etf' || Boolean(reportData?.etf);
+    const showPeerTraderTypes = reportData ? hasPeerTraderRows(reportData) : false;
 
     useEffect(() => {
         if (!tabs.length) return;
@@ -453,6 +485,16 @@ export function ReportViewer() {
                                             onModeChange={setTraderPersonaMode}
                                         />
                                     </section>
+                                    {showPeerTraderTypes && (
+                                        <section id="peer-traders">
+                                            <PeerTraderComposition
+                                                selectedPeriod={traderPersonaPeriod}
+                                                onSelectedPeriodChange={setTraderPersonaPeriod}
+                                                mode={traderPersonaMode}
+                                                onModeChange={setTraderPersonaMode}
+                                            />
+                                        </section>
+                                    )}
                                     <section id="price-moving">
                                         <PriceMovingTrades />
                                     </section>

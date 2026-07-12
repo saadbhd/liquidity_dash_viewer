@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import { Activity, HelpCircle, TrendingUp } from 'lucide-react';
+import { Activity, Gauge, HelpCircle, TrendingUp } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
-import type { Q02RegimeItem, Q02RegimeSwitching } from '@/types/report';
+import type { PeerAnalysisPeerProfile, Q02RegimeItem, Q02RegimeSwitching } from '@/types/report';
 import {
   Dialog,
   DialogContent,
@@ -109,10 +109,17 @@ const relativeLabel = (
   return labels.mid;
 };
 
+const peerProfileLabel = (profile: PeerAnalysisPeerProfile) => {
+  const identity = profile.identity ?? {};
+  const name = identity.company_name || identity.ticker || 'N/A - data unavailable';
+  const ticker = identity.ticker;
+  return ticker && !String(name).includes(String(ticker)) ? `${name} (${ticker})` : String(name);
+};
+
 
 export function MarketStateAnalysis() {
   const report = useReport();
-  const { labels, q02, series, insights } = report;
+  const { labels, q02, series, insights, peer_analysis: peerAnalysis } = report;
   const { drivers } = series;
 
   const driverModel = q02?.driver_model?.valid ? q02.driver_model : null;
@@ -166,6 +173,9 @@ export function MarketStateAnalysis() {
   const currentRead = insights?.regime?.current || regimeSubtitle;
   const transitionRead = insights?.regime?.transitions || insights?.regime?.overall || regimeSubtitle;
   const whyItMatters = insights?.regime?.overall || insights?.regime?.trading_implications || regimeSubtitle;
+  const peerStateProfiles = peerAnalysis?.enabled
+    ? (peerAnalysis.peers ?? []).filter((profile) => profile.valid && profile.market_state?.valid)
+    : [];
 
   return (
     <TooltipProvider>
@@ -174,7 +184,7 @@ export function MarketStateAnalysis() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
-        className="space-y-5"
+        className="flex flex-col gap-5"
       >
         <motion.div variants={itemVariants} className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -287,6 +297,77 @@ export function MarketStateAnalysis() {
             <span className="text-xs font-medium text-emerald-400">{badgeText}</span>
           </div>
         </motion.div>
+
+        {peerStateProfiles.length > 0 ? (
+          <motion.div variants={itemVariants} className="glass-panel order-last rounded-xl p-5 border-l-2 border-cyan-500/40 space-y-4">
+            <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center">
+                  <Gauge className="w-5 h-5 text-cyan-400" />
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-foreground">Peer State Profiles</h3>
+                  <p className="text-xs text-muted-foreground">
+                    Active state and inferred state cards for other companies in the peer set.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              {peerStateProfiles.map((profile) => {
+                const state = profile.market_state;
+                const stateCards = state?.state_profiles ?? [];
+                const activeCard = stateCards.find((stateCard) => stateCard.label === state?.active_state_label);
+                const visibleStateCards = [
+                  activeCard,
+                  ...stateCards.filter((stateCard) => stateCard.label !== activeCard?.label),
+                ].filter((stateCard): stateCard is NonNullable<typeof stateCards[number]> => Boolean(stateCard)).slice(0, 3);
+                const detailText = state?.summary || state?.limitation || (state?.transitions?.length ? `Transition matrix available for ${state.transitions.length} inferred states.` : 'No additional peer state summary available.');
+                return (
+                  <div key={`${profile.identity?.listing_id ?? profile.identity?.ticker}-state-profile`} className="rounded-lg border border-border/60 bg-card/20 px-3 py-2.5">
+                    <div className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(170px,1fr)_minmax(190px,1.05fr)_minmax(340px,1.85fr)_minmax(240px,1.3fr)] lg:items-center">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-foreground">{peerProfileLabel(profile)}</p>
+                        <p className="text-[11px] text-muted-foreground">{profile.identity?.ticker || 'N/A'}</p>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Active state</p>
+                        <p className="truncate text-xs text-muted-foreground">
+                          <span className="font-medium text-cyan-300">{state?.active_state_label ?? 'Not available'}</span>
+                          <span className="ml-1">{formatPosterior(state?.active_state_probability, state?.active_state_probability_display)}</span>
+                        </p>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">State mix</p>
+                        <div className="mt-1 flex min-w-0 flex-wrap gap-1.5 lg:flex-nowrap">
+                          {visibleStateCards.map((stateCard, index) => {
+                            const isActive = stateCard.label === state?.active_state_label;
+                            return (
+                              <span
+                                key={`${profile.identity?.ticker}-state-pill-${stateCard.id ?? index}`}
+                                className={`min-w-0 max-w-[130px] truncate rounded-full border px-2 py-0.5 text-[11px] ${isActive ? 'border-cyan-500/30 bg-cyan-500/15 text-cyan-200' : 'border-border/50 bg-background/30 text-muted-foreground'}`}
+                                title={`${stateCard.label ?? `State ${index + 1}`}: ${formatPct(stateCard.pct_time)} time, ${formatDays(stateCard.expected_duration_days)} avg duration`}
+                              >
+                                {stateCard.label ?? `State ${index + 1}`} · {formatPct(stateCard.pct_time)}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </div>
+                      <div className="flex min-w-0 items-center gap-3">
+                        <p className="min-w-0 flex-1 truncate text-xs text-muted-foreground" title={detailText}>{detailText}</p>
+                        <span className="shrink-0 rounded-full border border-cyan-500/20 bg-cyan-500/15 px-2.5 py-1 text-[11px] text-cyan-300">
+                          {stateCards.length} states
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        ) : null}
 
         {hasRegimeCards ? (
           <motion.div variants={itemVariants} className="space-y-4">

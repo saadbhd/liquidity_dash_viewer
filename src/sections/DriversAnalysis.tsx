@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
-import { Brain, PieChart as PieIcon, TrendingUp } from 'lucide-react';
+import { Brain, PieChart as PieIcon, TrendingUp, Users } from 'lucide-react';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { SectionTooltip } from '@/components/SectionTooltip';
-import type { DriverMonthlyHistory, Q02Interval, Q02MonthlyHistoryItem } from '@/types/report';
+import type { DriverMonthlyHistory, PeerAnalysisPeerProfile, Q02Interval, Q02MonthlyHistoryItem } from '@/types/report';
 import {
   PieChart,
   Pie,
@@ -66,6 +66,17 @@ const driverLabel = (value?: string | null) => {
   return value;
 };
 
+const peerProfileLabel = (profile: PeerAnalysisPeerProfile) => {
+  const identity = profile.identity ?? {};
+  const name = identity.company_name || identity.ticker || 'N/A - data unavailable';
+  const ticker = identity.ticker;
+  return ticker && !String(name).includes(String(ticker)) ? `${name} (${ticker})` : String(name);
+};
+
+const peerDriverShare = (profile: PeerAnalysisPeerProfile, key: 'market_share' | 'sector_share' | 'company_share') => (
+  intervalPctValue(profile.drivers?.driver_mix?.[key]) ?? 0
+);
+
 const buildShiftPointFromQ02 = (item: Q02MonthlyHistoryItem): ShiftPoint => ({
   period: item.month_short_label || item.month_label || item.month_key || 'Month',
   fullPeriod: item.month_label || item.month_key || item.period_label || 'Month',
@@ -91,7 +102,7 @@ const buildShiftPointFromLegacy = (item: DriverMonthlyHistory): ShiftPoint => ({
 
 export function DriversAnalysis() {
   const report = useReport();
-  const { labels, series, q02, insights } = report;
+  const { labels, series, q02, insights, peer_analysis: peerAnalysis } = report;
   const chartTheme = useChartTheme();
   const { drivers } = series;
 
@@ -203,6 +214,9 @@ export function DriversAnalysis() {
     ? suppliedStrips
     : generatedStrips;
   const takeaways = Array.isArray(labels.drivers_wtd_list) ? labels.drivers_wtd_list.filter(Boolean) : [];
+  const peerDriverProfiles = peerAnalysis?.enabled
+    ? (peerAnalysis.peers ?? []).filter((profile) => profile.valid && profile.drivers?.valid)
+    : [];
   const monthlyCards = shiftData.slice(-3);
   const rawBottomLine = labels.drivers_bottom_line || insights?.drivers?.overall || '';
   const danglingEndings = / (has|have|had|is|are|was|were|been|will|would|could|should|may|might|can|and|but|or|so|in|of|to|for|with|by|as|than|from|because|which|that|while)\s*\.?$/i;
@@ -215,7 +229,7 @@ export function DriversAnalysis() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
-        className="space-y-5"
+        className="flex flex-col gap-5"
       >
         <motion.div variants={itemVariants} className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -246,6 +260,77 @@ export function DriversAnalysis() {
                 <p className="text-xs text-foreground leading-relaxed">{item.text}</p>
               </div>
             ))}
+          </motion.div>
+        ) : null}
+
+        {peerDriverProfiles.length > 0 ? (
+          <motion.div variants={itemVariants} className="glass-panel order-last rounded-xl p-4 border-l-2 border-emerald-500/40">
+            <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-emerald-400" />
+                <div>
+                  <h3 className="text-sm font-semibold text-foreground">Peer Driver Profiles</h3>
+                  <p className="text-xs text-muted-foreground">
+                    Market, sector, and company-specific movement mix for each peer.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {peerDriverProfiles.map((profile) => {
+                const market = peerDriverShare(profile, 'market_share');
+                const sector = peerDriverShare(profile, 'sector_share');
+                const company = peerDriverShare(profile, 'company_share');
+                const total = Math.max(1, market + sector + company);
+                return (
+                  <div key={`${profile.identity?.listing_id ?? profile.identity?.ticker}-driver-profile`} className="rounded-lg border border-border bg-muted/10 px-3 py-3">
+                    <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between mb-2">
+                      <span className="text-sm font-medium text-foreground truncate">{peerProfileLabel(profile)}</span>
+                      <span className="text-xs text-emerald-300">{profile.drivers?.dominant_driver_label ?? 'Mixed'}</span>
+                    </div>
+                    <div className="h-3 rounded-full bg-slate-800 overflow-hidden flex">
+                      <div
+                        className="h-full bg-sky-400"
+                        style={{ width: `${Math.max(0, market / total * 100)}%` }}
+                        title={`Market ${formatPctDisplay(market)}`}
+                      />
+                      <div
+                        className="h-full bg-emerald-400"
+                        style={{ width: `${Math.max(0, sector / total * 100)}%` }}
+                        title={`Sector ${formatPctDisplay(sector)}`}
+                      />
+                      <div
+                        className="h-full bg-amber-400"
+                        style={{ width: `${Math.max(0, company / total * 100)}%` }}
+                        title={`Company-specific ${formatPctDisplay(company)}`}
+                      />
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 mt-2 text-[11px] text-muted-foreground">
+                      <span>Market {formatPctDisplay(market)}</span>
+                      <span>Sector {formatPctDisplay(sector)}</span>
+                      <span>Company {formatPctDisplay(company)}</span>
+                    </div>
+                    {profile.drivers?.summary ? (
+                      <p className="text-xs text-muted-foreground mt-2">{profile.drivers.summary}</p>
+                    ) : null}
+                    {profile.drivers?.monthly_history?.length ? (
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3">
+                        {profile.drivers.monthly_history.slice(-3).map((month) => (
+                          <div key={`${profile.identity?.ticker}-${month.month_key ?? month.month_label}`} className="rounded-md border border-border/50 bg-background/30 p-2">
+                            <p className="text-[11px] text-muted-foreground">{month.month_short_label || month.month_label || month.month_key}</p>
+                            <p className="text-xs font-medium text-foreground truncate">{month.dominant_driver_label || driverLabel(month.dominant_driver)}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              {peerDriverProfiles[0]?.drivers?.limitation || 'Company-specific means residual movement after market and sector factors; it is not a news or causality label.'}
+            </p>
           </motion.div>
         ) : null}
 

@@ -699,6 +699,73 @@ export interface IndexBlock {
   levers: string[];
 }
 
+export interface ExecutionPeerImpactRow {
+  valid?: boolean;
+  trade_size_sgd?: number | null;
+  impact_pct?: number | null;
+  vwap?: number | null;
+  filled_pct?: number | null;
+  levels_consumed?: number | null;
+  pct_of_adv?: number | null;
+  model?: string | null;
+  reason?: string | null;
+}
+
+export interface ExecutionPeerMetricsRow {
+  ticker?: string | null;
+  listing_id?: number | null;
+  company_name?: string | null;
+  currency?: string | null;
+  valid?: boolean;
+  reason?: string | null;
+  adv_metrics?: {
+    valid?: boolean;
+    adv_sgd?: number | null;
+  };
+  current_book_snapshot?: {
+    valid?: boolean;
+    snapshot_time?: string | null;
+    snapshot_label?: string | null;
+    mid_price?: number | null;
+    spread_pct?: number | null;
+    spread_ticks?: number | null;
+    displayed_levels_per_side?: number | null;
+    bid_depth_notional_displayed?: number | null;
+    ask_depth_notional_displayed?: number | null;
+    bid_ask_depth_ratio?: number | null;
+  };
+  sell_impact?: ExecutionPeerImpactRow[];
+  historical_trade_scenarios?: {
+    valid?: boolean;
+    reason?: string | null;
+    trade_days_used?: number | null;
+    n_trades_used?: number | null;
+    scenarios?: Array<{
+      key?: string | null;
+      label?: string | null;
+      quantile?: number | null;
+      trade_notional?: number | null;
+      impact_pct?: number | null;
+      filled_pct?: number | null;
+      pct_of_bid_depth?: number | null;
+      pct_of_adv?: number | null;
+    }>;
+  };
+}
+
+export interface ExecutionDynamic {
+  snapshot?: Record<string, unknown>;
+  historical_trade_scenarios?: Record<string, unknown>;
+  l3_sell_order_scenarios?: Record<string, unknown>;
+  intraday_liquidity_profile?: Record<string, unknown>;
+  peer_execution_metrics?: {
+    valid?: boolean;
+    source?: string | null;
+    reason?: string | null;
+    rows?: ExecutionPeerMetricsRow[];
+  };
+}
+
 export interface MetricStats {
   direction: 'higher_is_better' | 'lower_is_better';
   mean: number;
@@ -782,6 +849,15 @@ export interface Q01Returns {
   vs_market: number | null;
   vs_sector: number | null;
   vs_peers: number | null;
+  peer_rows?: Array<{
+    listing_id?: number | null;
+    name?: string | null;
+    stock_code?: string | null;
+    ticker?: string | null;
+    return?: number | null;
+    n_obs?: number | null;
+    is_target?: boolean;
+  }>;
 }
 
 export interface Q01MarketComparisonMetrics {
@@ -828,6 +904,154 @@ export interface Q01 {
       }
     >
   >;
+}
+
+export interface PeerReturnSummary {
+  target_return?: number | null;
+  peer_median_return?: number | null;
+  peer_rank?: number | null;
+  peer_count?: number | null;
+  peers_up?: number | null;
+  peers_down?: number | null;
+  dispersion?: number | null;
+}
+
+export interface PeerPerformancePeriod {
+  period_key?: Q01PeriodKey | string;
+  label?: string | null;
+  window_days?: number | null;
+  n_obs?: number | null;
+  rows?: NonNullable<Q01Returns['peer_rows']>;
+  summary?: PeerReturnSummary;
+  takeaway?: string | null;
+}
+
+export interface PeerBreadthContext {
+  period_key?: Q01PeriodKey | string;
+  label?: string | null;
+  window_days?: number | null;
+  target_return?: number | null;
+  peer_median_return?: number | null;
+  peer_up_count?: number | null;
+  peer_down_count?: number | null;
+  peer_count?: number | null;
+  dispersion?: number | null;
+  interpretation?: string | null;
+}
+
+export interface PeerMarketStateSummary {
+  target?: Partial<Record<'score_pca' | 'adv' | 'trades' | 'volatility' | 'spread_pct' | 'spread_ticks' | 'amihud' | 'turnover_ratio', number | null>>;
+  peer_medians?: Partial<Record<'score_pca' | 'adv' | 'trades' | 'volatility' | 'spread_pct' | 'spread_ticks' | 'amihud' | 'turnover_ratio', number | null>>;
+  peer_count?: number | null;
+}
+
+export interface PeerMarketStatePeriod {
+  period_key?: Q01PeriodKey | string;
+  label?: string | null;
+  window_days?: number | null;
+  rows?: Q01PeerLiquidityRow[];
+  summary?: PeerMarketStateSummary;
+  takeaways?: string[];
+}
+
+export interface PeerAnalysisPeriod {
+  label?: string | null;
+  window_days?: number | null;
+  market_comparison?: {
+    returns?: Q01Returns | null;
+    metric_rows?: Q01PeerLiquidityRow[];
+  };
+  liquidity?: {
+    rows?: Q01PeerLiquidityRow[];
+    summary?: Q01PeerSummary;
+  };
+  takeaways?: string[];
+  performance?: PeerPerformancePeriod;
+  drivers?: {
+    breadth_context?: PeerBreadthContext;
+  };
+  market_state?: PeerMarketStatePeriod;
+}
+
+export interface PeerAnalysisIdentity {
+  listing_id?: number | null;
+  ticker?: string | null;
+  company_name?: string | null;
+  sector?: string | null;
+  industry?: string | null;
+  market_mic?: string | null;
+}
+
+export interface PeerAnalysisDriverProfile {
+  valid?: boolean;
+  driver_mix?: {
+    market_share?: Q02Interval | null;
+    sector_share?: Q02Interval | null;
+    company_share?: Q02Interval | null;
+  };
+  dominant_driver?: string | null;
+  dominant_driver_label?: string | null;
+  dominant_share?: number | null;
+  monthly_history?: Q02MonthlyHistoryItem[];
+  summary?: string | null;
+  limitation?: string | null;
+  source?: string | null;
+}
+
+export interface PeerAnalysisMarketStateProfile {
+  valid?: boolean;
+  active_state_label?: string | null;
+  active_state_probability?: number | null;
+  active_state_probability_display?: string | null;
+  state_profiles?: Q02RegimeItem[];
+  transitions?: number[][];
+  state_probabilities?: Q02StateProbability[];
+  summary?: string | null;
+  limitation?: string | null;
+  source?: string | null;
+}
+
+export interface PeerAnalysisPeerProfile {
+  identity?: PeerAnalysisIdentity;
+  valid?: boolean;
+  reason?: string | null;
+  drivers?: PeerAnalysisDriverProfile;
+  market_state?: PeerAnalysisMarketStateProfile;
+}
+
+export interface PeerAnalysisCoverageItem {
+  available?: boolean;
+  status?: string | null;
+  source?: string | null;
+  reason?: string | null;
+}
+
+export interface PeerAnalysis {
+  enabled: boolean;
+  scope?: string;
+  excluded_sections?: string[];
+  periods?: Partial<Record<Q01PeriodKey, PeerAnalysisPeriod>>;
+  peers?: PeerAnalysisPeerProfile[];
+  coverage?: {
+    drivers?: PeerAnalysisCoverageItem;
+    market_state?: PeerAnalysisCoverageItem;
+    trading_costs?: PeerAnalysisCoverageItem;
+    trader_types?: PeerAnalysisCoverageItem;
+  };
+  limitations?: string[];
+  performance?: {
+    source?: string;
+    periods?: Partial<Record<Q01PeriodKey, PeerPerformancePeriod>>;
+  };
+  drivers?: {
+    source?: string;
+    method?: string;
+    breadth_context?: Partial<Record<Q01PeriodKey, PeerBreadthContext>>;
+  };
+  market_state?: {
+    source?: string;
+    periods?: Partial<Record<Q01PeriodKey, PeerMarketStatePeriod>>;
+  };
 }
 
 export interface Q02Interval {
@@ -1249,7 +1473,7 @@ export interface Series {
   };
   peer_capacity: PeerCapacity;
   trader_composition: TraderComposition;
-  execution_dynamic?: any;
+  execution_dynamic?: ExecutionDynamic;
   price_moving_trades: PriceMovingTrades;
   short_selling?: ShortSelling;
   intraday: Intraday;
@@ -1419,6 +1643,7 @@ export interface ReportData {
   content: Content;
   insights: Insights;
   series: Series;
+  peer_analysis?: PeerAnalysis;
   q01?: Q01;
   q02?: Q02;
   etf?: Record<string, unknown>;

@@ -6,7 +6,7 @@ import { SectionTooltip } from '@/components/SectionTooltip';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import { formatCompactMoney, resolveReportCurrency } from '@/lib/currency';
-import type { Q01PeriodData, Q01PeriodKey, ReportData } from '@/types/report';
+import type { Q01PeerLiquidityRow, Q01PeriodData, Q01PeriodKey, ReportData } from '@/types/report';
 import {
   BarChart,
   Bar,
@@ -31,6 +31,7 @@ const PERIOD_LABELS: Record<string, string> = {
 };
 
 type MarketTabKey = 'returns' | 'adv' | 'spread_pct' | 'turnover_ratio' | 'trades' | 'volatility' | 'amihud';
+type PeerDetailMetricKey = 'returns' | 'adv' | 'spread_pct' | 'turnover_ratio' | 'trades' | 'volatility' | 'amihud';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -70,6 +71,13 @@ function formatCount(value: number | null | undefined): string {
 
 function formatMoney(value: number | null | undefined, currency: string): string {
   return formatCompactMoney(value, currency);
+}
+
+function peerLabel(row: Q01PeerLiquidityRow): string {
+  const ticker = String(row.ticker || '').trim();
+  const label = String(row.label || row.company_name || '').trim();
+  if (label && ticker && !label.includes(ticker)) return `${label} (${ticker})`;
+  return label || ticker || 'N/A';
 }
 
 function normalizeReturn(value: number | null | undefined): number | null {
@@ -351,6 +359,7 @@ export function LiquidityScore() {
   const q01View = useMemo(() => getQ01Periods(report), [report]);
   const [activePeriod, setActivePeriod] = useState<Q01PeriodKey>(q01View.primaryKey);
   const [activeMarketTab, setActiveMarketTab] = useState<MarketTabKey>('adv');
+  const [activePeerMetric, setActivePeerMetric] = useState<PeerDetailMetricKey>('adv');
   const availableSignature = q01View.availableKeys.join('|');
 
   useEffect(() => {
@@ -512,6 +521,118 @@ export function LiquidityScore() {
   }>;
 
   const selectedMetric = marketMetricRows.find((m) => m.key === activeMarketTab);
+  const peerAnalysisEnabled = Boolean(report.peer_analysis?.enabled);
+  const peerAnalysisPeriod = report.peer_analysis?.periods?.[activePeriod];
+  const peerDetailRows = peerAnalysisEnabled
+    ? (peerAnalysisPeriod?.market_comparison?.metric_rows ?? peerAnalysisPeriod?.liquidity?.rows ?? [])
+    : [];
+  const peerReturnRows = peerAnalysisEnabled
+    ? (peerAnalysisPeriod?.market_comparison?.returns?.peer_rows ?? [])
+    : [];
+  const peerReturnByTicker = new Map(
+    peerReturnRows
+      .map((row) => [String(row.ticker ?? row.stock_code ?? '').trim(), row.return] as const)
+      .filter(([ticker]) => ticker.length > 0),
+  );
+  const peerDetailMetricSpecs = [
+    {
+      key: 'returns',
+      tabLabel: 'Returns',
+      chartLabel: 'Returns',
+      direction: 'higher_is_better' as const,
+      signed: true,
+      value: (row: Q01PeerLiquidityRow) => peerReturnByTicker.get(String(row.ticker || '').trim()),
+      format: formatSignedPct,
+    },
+    {
+      key: 'adv',
+      tabLabel: 'Volume',
+      chartLabel: 'ADV (Notional)',
+      direction: 'higher_is_better' as const,
+      signed: false,
+      value: (row: Q01PeerLiquidityRow) => row.adv,
+      format: (value: number | null | undefined) => formatMoney(value, reportCurrency),
+    },
+    {
+      key: 'spread_pct',
+      tabLabel: 'Spread',
+      chartLabel: 'Spread',
+      direction: 'lower_is_better' as const,
+      signed: false,
+      value: (row: Q01PeerLiquidityRow) => row.spread_pct,
+      format: formatPct,
+    },
+    {
+      key: 'turnover_ratio',
+      tabLabel: 'Turnover',
+      chartLabel: 'Turnover',
+      direction: 'higher_is_better' as const,
+      signed: false,
+      value: (row: Q01PeerLiquidityRow) => row.turnover_ratio,
+      format: formatPct,
+    },
+    {
+      key: 'trades',
+      tabLabel: 'Trades',
+      chartLabel: 'Trades',
+      direction: 'higher_is_better' as const,
+      signed: false,
+      value: (row: Q01PeerLiquidityRow) => row.trades,
+      format: formatCount,
+    },
+    {
+      key: 'volatility',
+      tabLabel: 'Volatility',
+      chartLabel: 'Volatility',
+      direction: 'lower_is_better' as const,
+      signed: false,
+      value: (row: Q01PeerLiquidityRow) => row.volatility,
+      format: formatPct,
+    },
+    {
+      key: 'amihud',
+      tabLabel: 'Price Impact',
+      chartLabel: 'Price Impact',
+      direction: 'lower_is_better' as const,
+      signed: false,
+      value: (row: Q01PeerLiquidityRow) => row.amihud,
+      format: (value: number | null | undefined) =>
+        value === null || value === undefined || !Number.isFinite(value) ? 'N/A' : value.toExponential(2),
+    },
+  ] as const satisfies Array<{
+    key: PeerDetailMetricKey;
+    tabLabel: string;
+    chartLabel: string;
+    direction: 'higher_is_better' | 'lower_is_better';
+    signed: boolean;
+    value: (row: Q01PeerLiquidityRow) => number | null | undefined;
+    format: (value: number | null | undefined) => string;
+  }>;
+  const selectedPeerMetric = peerDetailMetricSpecs.find((metric) => metric.key === activePeerMetric) ?? peerDetailMetricSpecs[0];
+  const selectedPeerRows = peerDetailRows
+    .map((row) => {
+      const ticker = String(row.ticker || '').trim();
+      const value = selectedPeerMetric.value(row);
+      return {
+        ticker,
+        label: peerLabel(row),
+        value,
+        formatted: selectedPeerMetric.format(value),
+        isTarget: Boolean(row.is_target || ticker === report.meta.ticker),
+      };
+    })
+    .filter((row) => row.value !== null && row.value !== undefined && Number.isFinite(row.value));
+  const selectedPeerValues = selectedPeerRows.map((row) => row.value as number);
+  const selectedPeerMin = selectedPeerMetric.signed && selectedPeerValues.length > 0 ? Math.min(0, ...selectedPeerValues) : 0;
+  const selectedPeerMax = selectedPeerMetric.signed && selectedPeerValues.length > 0
+    ? Math.max(0, ...selectedPeerValues)
+    : selectedPeerValues.length > 0
+      ? Math.max(...selectedPeerValues.map((value) => Math.abs(value)), 1e-12)
+      : 1;
+  const selectedPeerSpan = selectedPeerMetric.signed
+    ? Math.max(selectedPeerMax - selectedPeerMin, 1e-12)
+    : Math.max(selectedPeerMax, 1e-12);
+  const selectedPeerZeroPct = selectedPeerMetric.signed ? ((0 - selectedPeerMin) / selectedPeerSpan) * 100 : 0;
   const metricMin = selectedMetric?.market?.min ?? 0;
   const metricMax = selectedMetric?.market?.max ?? 1;
   const toPos = (value: number | null | undefined) => {
@@ -702,6 +823,11 @@ export function LiquidityScore() {
           <div className="space-y-1">
             <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
               {liquidityTitle}
+              {peerAnalysisEnabled ? (
+                <span className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-300">
+                  Peer mode
+                </span>
+              ) : null}
               <SectionTooltip sectionKey="liquidity" size="md" />
             </h2>
             {liquiditySubtitle ? (
@@ -1145,6 +1271,132 @@ export function LiquidityScore() {
                 <div className="text-sm text-slate-400">This metric is not available for {PERIOD_LABELS[activePeriod] ?? activePeriod.toUpperCase()}.</div>
               )}
             </div>
+          </div>
+        ) : null}
+
+        {peerAnalysisEnabled ? (
+          <div className="mt-5 border-t border-slate-800 pt-4">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between mb-4">
+              <div>
+                <h4 className="text-sm font-semibold text-foreground">Peer Detail</h4>
+                <p className="text-xs text-slate-500">
+                  {PERIOD_LABELS[activePeriod] ?? activePeriod.toUpperCase()} window · {selectedPeerMetric.tabLabel}
+                </p>
+              </div>
+              <div className="flex flex-col gap-2 lg:items-end">
+                <span className="text-xs text-slate-500">
+                  {peerDetailRows.length > 0 ? `${Math.max(peerDetailRows.length - 1, 0)} peers + target` : 'No peer rows'}
+                </span>
+                <div className="flex flex-wrap gap-2 lg:justify-end">
+                  {q01View.availableKeys.map((periodKey) => (
+                    <button
+                      key={`peer-detail-period-${periodKey}`}
+                      onClick={() => setActivePeriod(periodKey)}
+                      className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activePeriod === periodKey
+                        ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                        : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
+                        }`}
+                    >
+                      {PERIOD_LABELS[periodKey] ?? periodKey.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-4">
+              {peerDetailMetricSpecs.map((metric) => (
+                <button
+                  key={`peer-detail-metric-${metric.key}`}
+                  onClick={() => setActivePeerMetric(metric.key)}
+                  className={`px-3 py-1.5 rounded-lg text-xs border transition-colors ${activePeerMetric === metric.key
+                    ? 'bg-sky-500/20 text-sky-300 border-sky-500/40'
+                    : 'bg-slate-900/40 text-slate-400 border-slate-700/50 hover:text-slate-200'
+                    }`}
+                >
+                  {metric.tabLabel}
+                </button>
+              ))}
+            </div>
+
+            {peerDetailRows.length > 0 ? (
+              <div>
+                <h5 className="text-sm font-semibold text-foreground mb-3">{selectedPeerMetric.chartLabel}</h5>
+                <div className="rounded-xl border border-slate-800 bg-slate-900/30 p-4">
+                  {selectedPeerRows.length > 0 ? (
+                    <>
+                    <div className="space-y-3">
+                      {selectedPeerRows.map((row) => {
+                        const value = row.value as number;
+                        const isNegative = selectedPeerMetric.signed && value < 0;
+                        const leftPct = selectedPeerMetric.signed
+                          ? isNegative
+                            ? ((value - selectedPeerMin) / selectedPeerSpan) * 100
+                            : selectedPeerZeroPct
+                          : 0;
+                        const widthPct = Math.max((Math.abs(value) / selectedPeerSpan) * 100, 1.5);
+                        const barBg = row.isTarget
+                          ? 'bg-rose-500/80'
+                          : selectedPeerMetric.signed
+                            ? value >= 0
+                              ? 'bg-emerald-500/65'
+                              : 'bg-red-400/60'
+                            : selectedPeerMetric.direction === 'lower_is_better'
+                              ? 'bg-teal-500/60'
+                              : 'bg-emerald-500/55';
+
+                        return (
+                          <div key={`peer-detail-chart-${activePeriod}-${selectedPeerMetric.key}-${row.ticker}`} className="flex items-center gap-3">
+                            <div className="w-36 shrink-0 flex items-center gap-2 text-xs text-slate-400">
+                              <span className={`h-2.5 w-2.5 rounded-full shrink-0 ${row.isTarget ? 'bg-rose-400' : 'bg-emerald-400'}`} />
+                              <span className="truncate">{row.label}</span>
+                            </div>
+                            <div className="relative h-8 flex-1 overflow-hidden rounded-lg bg-slate-800/50">
+                              {selectedPeerMetric.signed ? (
+                                <span
+                                  className="absolute inset-y-0 w-px bg-slate-300/40"
+                                  style={{ left: `${Math.min(100, Math.max(0, selectedPeerZeroPct))}%` }}
+                                />
+                              ) : null}
+                              <motion.div
+                                className={`absolute inset-y-0 rounded-lg ${barBg}`}
+                                initial={{ left: selectedPeerMetric.signed ? `${selectedPeerZeroPct}%` : '0%', width: 0 }}
+                                animate={{ left: `${Math.min(100, Math.max(0, leftPct))}%`, width: `${Math.min(100, widthPct)}%` }}
+                                transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
+                              />
+                              <span className="absolute inset-y-0 right-3 flex items-center text-xs font-medium text-slate-100">
+                                {row.formatted}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    <div className="flex items-center justify-between mt-4 text-[11px] text-slate-500">
+                      <span>
+                        {selectedPeerMetric.signed
+                          ? `Peer range: ${selectedPeerMetric.format(selectedPeerMin)} – ${selectedPeerMetric.format(selectedPeerMax)}`
+                          : `Peer range: ${selectedPeerMetric.format(0)} – ${selectedPeerMetric.format(selectedPeerMax)}`}
+                      </span>
+                      <span className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-slate-800/60 text-slate-400">
+                        {selectedPeerMetric.direction === 'lower_is_better' ? '↓' : '↑'}
+                        {selectedPeerMetric.direction === 'lower_is_better' ? ' Lower is better' : ' Higher is better'}
+                      </span>
+                    </div>
+                    </>
+                  ) : (
+                    <div className="rounded-lg border border-slate-800 bg-slate-900/30 p-4 text-sm text-slate-400">
+                      {selectedPeerMetric.tabLabel} data is not available for this period.
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="rounded-lg border border-slate-800 bg-slate-900/30 p-4 text-sm text-slate-400">
+                Peer detail rows are not available for this period.
+              </div>
+            )}
           </div>
         ) : null}
       </motion.div>

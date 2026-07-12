@@ -6,6 +6,7 @@ import {
   Clock3,
   Layers3,
   Target,
+  Users,
 } from 'lucide-react';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { SectionTooltip } from '@/components/SectionTooltip';
@@ -72,18 +73,51 @@ type IntradayRow = {
   ask_depth_notional?: number | null;
 };
 
+type PeerExecutionImpact = {
+  valid?: boolean;
+  trade_size_sgd?: number | null;
+  impact_pct?: number | null;
+  filled_pct?: number | null;
+  pct_of_adv?: number | null;
+  reason?: string | null;
+};
+
+type PeerExecutionRow = {
+  ticker?: string | null;
+  company_name?: string | null;
+  valid?: boolean;
+  reason?: string | null;
+  adv_metrics?: {
+    adv_sgd?: number | null;
+  };
+  current_book_snapshot?: {
+    valid?: boolean;
+    spread_pct?: number | null;
+    spread_ticks?: number | null;
+    bid_depth_notional_displayed?: number | null;
+    ask_depth_notional_displayed?: number | null;
+    bid_ask_depth_ratio?: number | null;
+  };
+  sell_impact?: PeerExecutionImpact[];
+};
+
 export function ExecutionPanel() {
   const report = useReport();
   const { labels, content, series, meta, insights } = report;
   const chartTheme = useChartTheme();
   const { order_book } = series;
-  const execution = series.execution_dynamic;
+  const execution = series.execution_dynamic as any;
   const reportCurrency = resolveReportCurrency(report);
 
   const snapshot = execution?.snapshot;
   const historical = execution?.historical_trade_scenarios;
   const l3Orders = execution?.l3_sell_order_scenarios;
   const intraday = execution?.intraday_liquidity_profile;
+  const peerExecutionRows = (
+    report.peer_analysis?.enabled && Array.isArray(execution?.peer_execution_metrics?.rows)
+      ? execution.peer_execution_metrics.rows
+      : []
+  ) as PeerExecutionRow[];
 
   const formatMoney = (value?: number | null) => {
     return formatCompactMoney(value, reportCurrency);
@@ -97,6 +131,11 @@ export function ExecutionPanel() {
   const formatRatio = (value?: number | null) => {
     if (value == null || !Number.isFinite(value)) return 'N/A';
     return `${value.toFixed(value >= 10 ? 1 : 2)}x`;
+  };
+
+  const formatFill = (value?: number | null) => {
+    if (value == null || !Number.isFinite(value)) return 'N/A';
+    return `${value.toFixed(1)}%`;
   };
 
   const formatPrice = (value?: number | null) => {
@@ -301,6 +340,22 @@ export function ExecutionPanel() {
     },
   ];
 
+  const peerExecutionCards = peerExecutionRows.map((row) => {
+    const impacts = Array.isArray(row.sell_impact) ? row.sell_impact : [];
+    const preferredImpact =
+      impacts.find((impact) => impact.valid && safeNumber(impact.trade_size_sgd) === 50000) ??
+      impacts.find((impact) => impact.valid) ??
+      impacts[0];
+    return {
+      row,
+      snapshot: row.current_book_snapshot,
+      impact: preferredImpact,
+      label: row.company_name && row.ticker && !String(row.company_name).includes(String(row.ticker))
+        ? `${row.company_name} (${row.ticker})`
+        : row.company_name || row.ticker || 'Peer',
+    };
+  });
+
   const fallbackInsightParts: string[] = [];
   if (snapshot?.valid) {
     fallbackInsightParts.push(
@@ -433,7 +488,7 @@ export function ExecutionPanel() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
-      className="space-y-6"
+      className="flex flex-col gap-6"
     >
       <motion.div variants={itemVariants} className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -464,6 +519,79 @@ export function ExecutionPanel() {
           </div>
         ))}
       </motion.div>
+
+      {peerExecutionCards.length > 0 ? (
+        <motion.div variants={itemVariants} className="glass-panel order-last rounded-xl p-5 border-l-2 border-sky-500/40">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center">
+              <Users className="w-5 h-5 text-sky-400" />
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">Peer Trading Costs</h3>
+              <p className="text-xs text-muted-foreground">
+                Current displayed-book spread, depth, and sell-impact replay for peers with available L2.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4">
+            {peerExecutionCards.map(({ row, snapshot: peerSnapshot, impact, label }) => {
+              const isAvailable = Boolean(row.valid && peerSnapshot?.valid);
+              return (
+                <div key={`${row.ticker ?? label}-peer-execution`} className="rounded-xl border border-border/60 bg-card/30 p-4">
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-foreground truncate">{label}</p>
+                      <p className="text-xs text-muted-foreground">{row.ticker || 'N/A'}</p>
+                    </div>
+                    <span className={`shrink-0 rounded-full px-2 py-1 text-[11px] border ${isAvailable ? 'border-sky-500/30 bg-sky-500/10 text-sky-300' : 'border-amber-500/30 bg-amber-500/10 text-amber-300'}`}>
+                      {isAvailable ? 'L2 available' : 'N/A'}
+                    </span>
+                  </div>
+
+                  {isAvailable ? (
+                    <>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="rounded-lg border border-border/50 bg-background/30 p-3">
+                          <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Spread</p>
+                          <p className="text-sm font-semibold text-foreground">{formatPercent(peerSnapshot?.spread_pct)}</p>
+                          <p className="text-[11px] text-muted-foreground">{peerSnapshot?.spread_ticks != null ? `${peerSnapshot.spread_ticks.toFixed(1)} ticks` : 'Ticks N/A'}</p>
+                        </div>
+                        <div className="rounded-lg border border-border/50 bg-background/30 p-3">
+                          <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Bid depth</p>
+                          <p className="text-sm font-semibold text-foreground">{formatMoney(peerSnapshot?.bid_depth_notional_displayed)}</p>
+                          <p className="text-[11px] text-muted-foreground">Ask {formatMoney(peerSnapshot?.ask_depth_notional_displayed)}</p>
+                        </div>
+                      </div>
+                      <div className="mt-3 rounded-lg border border-border/50 bg-background/30 p-3">
+                        <p className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Sell replay</p>
+                        <div className="mt-1 grid grid-cols-3 gap-2 text-xs">
+                          <div>
+                            <p className="text-muted-foreground">Size</p>
+                            <p className="font-medium text-foreground">{formatMoney(impact?.trade_size_sgd)}</p>
+                          </div>
+                          <div>
+                            <p className="text-muted-foreground">Impact</p>
+                            <p className="font-medium text-foreground">{formatPercent(impact?.impact_pct)}</p>
+                          </div>
+                          <div>
+                            <p className="text-muted-foreground">Fill</p>
+                            <p className="font-medium text-foreground">{formatFill(impact?.filled_pct)}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <p className="rounded-lg border border-border/50 bg-background/30 p-3 text-xs leading-5 text-muted-foreground">
+                      {row.reason || impact?.reason || 'N/A - data unavailable'}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
+      ) : null}
 
       <div className="grid grid-cols-1 xl:[grid-template-columns:minmax(0,1.3fr)_minmax(340px,0.95fr)] gap-6 items-start">
         <motion.div variants={itemVariants} className="glass-panel rounded-xl p-5">

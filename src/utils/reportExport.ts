@@ -372,6 +372,152 @@ function buildMarketPerformanceSheet(report: ReportData): Row[] {
   return rows;
 }
 
+function buildPeerAnalysisSheet(report: ReportData): Row[] {
+  const rows: Row[] = [];
+  const periods = asRecord(report.peer_analysis?.periods);
+  const peerProfiles = asArray<AnyRecord>(report.peer_analysis?.peers);
+  if (!report.peer_analysis?.enabled) return rows;
+
+  if (Object.keys(periods).length) {
+    pushSection(rows, 'Peer Market Comparison Detail');
+    rows.push([
+      'Period',
+      'Company',
+      'Ticker',
+      'Return',
+      'ADV',
+      'Trades',
+      'Volatility',
+      'Spread pct',
+      'Spread ticks',
+      'Amihud',
+      'Turnover ratio',
+      'Score PCA',
+      'Rank PCA',
+      'Target',
+    ]);
+    Object.entries(periods).forEach(([key, rawPeriod]) => {
+      const period = asRecord(rawPeriod);
+      const liquidity = asRecord(period.liquidity);
+      const marketComparison = asRecord(period.market_comparison);
+      const metricRows = asArray<AnyRecord>(liquidity.rows).length
+        ? asArray<AnyRecord>(liquidity.rows)
+        : asArray<AnyRecord>(marketComparison.metric_rows);
+      const returns = asRecord(marketComparison.returns);
+      const returnRows = asArray<AnyRecord>(returns.peer_rows);
+      metricRows.forEach((peer) => {
+        const peerTicker = String(valueAt(peer, 'ticker') || '');
+        const returnRow = returnRows.find((row) => String(valueAt(row, 'ticker') || valueAt(row, 'stock_code')) === peerTicker);
+        rows.push([
+          periodLabel(key),
+          valueAt(peer, 'label') || valueAt(peer, 'company_name') || valueAt(peer, 'ticker'),
+          valueAt(peer, 'ticker'),
+          pctCell(returnRow ? returnRow.return : ''),
+          valueAt(peer, 'adv'),
+          valueAt(peer, 'trades'),
+          valueAt(peer, 'volatility'),
+          valueAt(peer, 'spread_pct'),
+          valueAt(peer, 'spread_ticks'),
+          valueAt(peer, 'amihud'),
+          valueAt(peer, 'turnover_ratio'),
+          valueAt(peer, 'score_pca'),
+          valueAt(peer, 'rank_pca'),
+          valueAt(peer, 'is_target'),
+        ]);
+      });
+    });
+
+    pushSection(rows, 'Peer Takeaways');
+    rows.push(['Period', 'Takeaway']);
+    Object.entries(periods).forEach(([key, rawPeriod]) => {
+      asArray<CellValue>(asRecord(rawPeriod).takeaways).forEach((line) => {
+        rows.push([periodLabel(key), line]);
+      });
+    });
+
+    pushSection(rows, 'Peer Performance');
+    rows.push(['Period', 'Company', 'Ticker', 'Return', 'Observations', 'Target']);
+    const performancePeriods = asRecord(asRecord(report.peer_analysis?.performance).periods);
+    Object.entries(periods).forEach(([key, rawPeriod]) => {
+      const period = asRecord(rawPeriod);
+      const marketComparison = asRecord(period.market_comparison);
+      const returns = asRecord(marketComparison.returns);
+      const explicitPerformance = asRecord(performancePeriods[key] ?? period.performance);
+      const performanceRows = asArray<AnyRecord>(explicitPerformance.rows).length
+        ? asArray<AnyRecord>(explicitPerformance.rows)
+        : asArray<AnyRecord>(returns.peer_rows);
+      performanceRows.forEach((peer) => {
+        rows.push([
+          periodLabel(key),
+          valueAt(peer, 'name') || valueAt(peer, 'stock_code') || valueAt(peer, 'ticker'),
+          valueAt(peer, 'ticker') || valueAt(peer, 'stock_code'),
+          pctCell(valueAt(peer, 'return')),
+          valueAt(peer, 'n_obs'),
+          valueAt(peer, 'is_target'),
+        ]);
+      });
+    });
+  }
+
+  if (peerProfiles.length) {
+    pushSection(rows, 'Peer Driver Profiles');
+    rows.push(['Company', 'Ticker', 'Valid', 'Dominant driver', 'Market share', 'Sector share', 'Company-specific share', 'Summary', 'Limitation']);
+    peerProfiles.forEach((profile) => {
+      const identity = asRecord(profile.identity);
+      const drivers = asRecord(profile.drivers);
+      const driverMix = asRecord(drivers.driver_mix);
+      rows.push([
+        valueAt(identity, 'company_name') || valueAt(identity, 'ticker'),
+        valueAt(identity, 'ticker'),
+        valueAt(profile, 'valid'),
+        valueAt(drivers, 'dominant_driver_label') || valueAt(drivers, 'dominant_driver'),
+        pctCell(valueAt(asRecord(driverMix.market_share), 'median')),
+        pctCell(valueAt(asRecord(driverMix.sector_share), 'median')),
+        pctCell(valueAt(asRecord(driverMix.company_share), 'median')),
+        valueAt(drivers, 'summary'),
+        valueAt(drivers, 'limitation'),
+      ]);
+    });
+
+    pushSection(rows, 'Peer Driver Monthly History');
+    rows.push(['Company', 'Ticker', 'Month', 'Dominant driver']);
+    peerProfiles.forEach((profile) => {
+      const identity = asRecord(profile.identity);
+      const drivers = asRecord(profile.drivers);
+      asArray<AnyRecord>(drivers.monthly_history).slice(-3).forEach((month) => {
+        rows.push([
+          valueAt(identity, 'company_name') || valueAt(identity, 'ticker'),
+          valueAt(identity, 'ticker'),
+          valueAt(month, 'month_short_label') || valueAt(month, 'month_label') || valueAt(month, 'month_key'),
+          valueAt(month, 'dominant_driver_label') || valueAt(month, 'dominant_driver'),
+        ]);
+      });
+    });
+
+    pushSection(rows, 'Peer State Profiles');
+    rows.push(['Company', 'Ticker', 'Active state', 'Active probability', 'State', 'Pct time', 'Avg duration', 'Summary', 'Limitation']);
+    peerProfiles.forEach((profile) => {
+      const identity = asRecord(profile.identity);
+      const state = asRecord(profile.market_state);
+      asArray<AnyRecord>(state.state_profiles).forEach((stateProfile) => {
+        rows.push([
+          valueAt(identity, 'company_name') || valueAt(identity, 'ticker'),
+          valueAt(identity, 'ticker'),
+          valueAt(state, 'active_state_label'),
+          valueAt(state, 'active_state_probability_display') || valueAt(state, 'active_state_probability'),
+          valueAt(stateProfile, 'label'),
+          valueAt(stateProfile, 'pct_time'),
+          valueAt(stateProfile, 'expected_duration_days'),
+          valueAt(state, 'summary'),
+          valueAt(state, 'limitation'),
+        ]);
+      });
+    });
+  }
+
+  return rows;
+}
+
 function buildDriversSheet(report: ReportData): Row[] {
   const rows: Row[] = [];
   const drivers = asRecord(report.series?.drivers);
@@ -553,6 +699,51 @@ function buildExecutionSheet(report: ReportData): Row[] {
       ['Bid depth notional', 'bid_depth_notional'],
       ['Ask depth notional', 'ask_depth_notional'],
     ]));
+  }
+
+  const peerExecutionRows = asArray<AnyRecord>(asRecord(execution.peer_execution_metrics).rows);
+  if (peerExecutionRows.length) {
+    pushSection(rows, 'Peer Trading Costs');
+    rows.push([
+      'Company',
+      'Ticker',
+      'L2 available',
+      'Reason',
+      'Spread pct',
+      'Spread ticks',
+      'Bid depth displayed',
+      'Ask depth displayed',
+      'ADV',
+      'Replay size',
+      'Replay impact pct',
+      'Replay fill pct',
+      'Replay pct ADV',
+    ]);
+    peerExecutionRows.forEach((peer) => {
+      const snapshot = asRecord(peer.current_book_snapshot);
+      const advMetrics = asRecord(peer.adv_metrics);
+      const impacts = asArray<AnyRecord>(peer.sell_impact);
+      const preferredImpact =
+        impacts.find((impact) => valueAt(impact, 'valid') === true && valueAt(impact, 'trade_size_sgd') === 50000) ??
+        impacts.find((impact) => valueAt(impact, 'valid') === true) ??
+        impacts[0] ??
+        {};
+      rows.push([
+        valueAt(peer, 'company_name') || valueAt(peer, 'ticker'),
+        valueAt(peer, 'ticker'),
+        valueAt(peer, 'valid'),
+        valueAt(peer, 'reason'),
+        valueAt(snapshot, 'spread_pct'),
+        valueAt(snapshot, 'spread_ticks'),
+        valueAt(snapshot, 'bid_depth_notional_displayed'),
+        valueAt(snapshot, 'ask_depth_notional_displayed'),
+        valueAt(advMetrics, 'adv_sgd'),
+        valueAt(preferredImpact, 'trade_size_sgd'),
+        valueAt(preferredImpact, 'impact_pct'),
+        valueAt(preferredImpact, 'filled_pct'),
+        valueAt(preferredImpact, 'pct_of_adv'),
+      ]);
+    });
   }
 
   const etf = asRecord(report.etf);
@@ -1222,6 +1413,7 @@ function buildWorkbookSheets(report: ReportData): Sheet[] {
   addSheet(sheets, 'Liquidity', buildLiquiditySheet(report));
   addSheet(sheets, 'Performance Returns', buildPerformanceReturnsSheet(report));
   addSheet(sheets, 'Market Performance', buildMarketPerformanceSheet(report));
+  addSheet(sheets, 'Peer Analysis', buildPeerAnalysisSheet(report));
   addSheet(sheets, 'Drivers', buildDriversSheet(report));
   addSheet(sheets, 'Market State', buildMarketStateSheet(report));
   addSheet(sheets, 'Execution', buildExecutionSheet(report));

@@ -685,7 +685,7 @@ export function ExecutionPanel() {
               <span className="rounded-xl border border-emerald-400/40 bg-emerald-400/10 px-6 py-3 text-sm font-bold text-emerald-200 shadow-[0_0_24px_rgba(16,185,129,0.08)]">
                 BID
               </span>
-              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-400">Spread</span>
+              <span aria-hidden="true" />
               <span className="rounded-xl border border-rose-400/40 bg-rose-400/10 px-6 py-3 text-sm font-bold text-rose-200 shadow-[0_0_24px_rgba(248,113,113,0.08)]">
                 ASK
               </span>
@@ -694,9 +694,6 @@ export function ExecutionPanel() {
           <div className="relative h-[520px] overflow-hidden rounded-xl border border-white/10 bg-slate-950/45 px-5 py-5 shadow-inner">
             <div className="absolute left-1/2 top-5 bottom-12 w-px -translate-x-1/2 bg-slate-400/25" />
             <div className="absolute inset-x-5 bottom-8 h-px bg-slate-400/20" />
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-[11px] font-extrabold uppercase tracking-[0.22em] text-slate-100">
-              Spread
-            </div>
             <div className="relative z-10 flex h-[calc(100%-3rem)] flex-col justify-between">
               {orderBookLadderRows.map((row) => (
                 <div key={row.level} className="grid min-h-[32px] grid-cols-[74px_minmax(0,1fr)_58px_minmax(0,1fr)_74px] items-center gap-0">
@@ -712,9 +709,7 @@ export function ExecutionPanel() {
                       title={row.bid ? `Bid ${formatPrice(row.bid.price)} · ${formatMoney(row.bidDepth)}` : undefined}
                     />
                   </div>
-                  <div className="relative z-20 text-center text-[9px] font-medium text-slate-300">
-                    {row.bid && row.ask ? formatPrice((row.bid.price + row.ask.price) / 2) : ''}
-                  </div>
+                  <div className="relative z-20" aria-hidden="true" />
                   <div className="relative h-full min-h-[15px]">
                     <div
                       className="absolute left-0 top-0 h-full rounded-r-sm border-l border-rose-200/25 bg-gradient-to-r from-rose-400/75 via-rose-500/45 to-rose-500/10 shadow-[0_0_18px_rgba(248,113,113,0.16)]"

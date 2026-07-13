@@ -137,16 +137,6 @@ const normalizeMix = (breakdown: { retail: number; mixed: number; instit: number
   };
 };
 
-const confidenceText = (row: any) => {
-  const values = [
-    `H ${fmtPct(row.high_confidence_pct ?? 0)}`,
-    `M ${fmtPct(row.medium_confidence_pct ?? 0)}`,
-    `L ${fmtPct(row.low_confidence_pct ?? 0)}`,
-    `N ${fmtPct(row.na_confidence_pct ?? 0)}`,
-  ];
-  return values.join(' • ');
-};
-
 const dominantLabelFromKey = (key: 'retail' | 'mixed' | 'instit' | 'unclear') => {
   if (key === 'retail') return 'Retail-led';
   if (key === 'instit') return 'Institution-led';
@@ -353,7 +343,6 @@ export function PeerTraderComposition({ selectedPeriod: controlledSelectedPeriod
                 <TableHead className="text-right">Mixed</TableHead>
                 <TableHead className="text-right">Institution-like</TableHead>
                 <TableHead className="text-right">Unclassified</TableHead>
-                <TableHead className="text-right">Run Confidence (H/M/L/N)</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -374,7 +363,6 @@ export function PeerTraderComposition({ selectedPeriod: controlledSelectedPeriod
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.mixed)}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.instit)}</TableCell>
                     <TableCell className="text-right text-muted-foreground">{fmtPct(breakdown.unclear)}</TableCell>
-                    <TableCell className="text-right text-xs text-muted-foreground">{confidenceText(row)}</TableCell>
                   </TableRow>
                 );
               })}

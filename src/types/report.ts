@@ -591,25 +591,51 @@ export interface PriceMovingTrades {
 
 export interface ShortSellingPeriodStats {
   valid: boolean;
-  avg_short_ratio: number;
-  max_short_ratio: number;
+  avg_short_ratio: number | null;
+  max_short_ratio: number | null;
   interpretation: string;
+  n_days?: number | null;
+  n_missing_ratio_days?: number | null;
 }
 
 export interface ShortSelling {
   data_available: boolean;
-  security_name: string;
+  market_mic?: string;
+  security_name?: string | null;
   methodology?: {
     primary_period?: string;
-    [key: string]: string | number | null | undefined;
+    source?: string;
+    ratio_basis?: string;
+    coverage_scope?: string;
+    data_kind?: string;
+    limitations?: string[];
+    periods_days?: Record<string, number>;
+    [key: string]: string | number | string[] | Record<string, number> | null | undefined;
   };
   mapping?: {
-    ticker_to_security: string;
-    confidence: string;
-  };
+    ticker_to_security?: string | null;
+    confidence?: string | null;
+  } | null;
   coverage?: {
     n_days_short_data: number;
     window_days: number;
+    n_days_observations?: number;
+    n_days_valid_ratio?: number;
+    n_days_official_complete?: number;
+    n_days_partial?: number;
+    n_days_vendor?: number;
+    n_days_legacy?: number;
+    source_counts?: Record<string, number>;
+    sources?: string[];
+    source_urls?: string[];
+    fetched_at?: string[];
+    data_quality_counts?: Record<string, number>;
+    day_coverage_counts?: Record<string, number>;
+    listing_asof?: string[];
+    listing_basis?: string[];
+    scope?: string;
+    extracted_at_utc?: string | null;
+    unavailable_reason?: string | null;
   };
   // Optional: Securities Borrowing & Lending (SBL) lending pool context (XSES).
   // Present only when the pipeline finds an SBL pool mapping for the ticker.
@@ -626,46 +652,138 @@ export interface ShortSelling {
     liquidity_risk?: string;
     impact_interpretation?: string;
     timestamp?: string;
-  };
-  periods: Record<
+  } | null;
+  periods?: Record<
     string,
     {
       stats: ShortSellingPeriodStats;
     }
   >;
-  correlation: {
-    valid: boolean;
-    correlation: number;
-    interpretation: string;
+  correlation?: {
+    valid?: boolean;
+    correlation?: number | null;
+    interpretation?: string | null;
   };
-  peaks: {
+  peaks?: {
     date: string;
-    short_ratio: number;
-    return_pct: number;
+    short_ratio: number | null;
+    return_pct: number | null;
   }[];
   short_interest_change?: {
-    valid: boolean;
-    monthly_data: { month: string; avg_short_ratio: number }[];
-    mom_change: { month: string; avg_short_ratio: number; change_pct: number | null }[];
-    interpretation: string;
+    valid?: boolean;
+    monthly_data?: { month: string; avg_short_ratio: number | null }[];
+    mom_change?: { month: string; avg_short_ratio: number | null; change_pct: number | null }[];
+    interpretation?: string | null;
   };
   short_series?: {
-    valid: boolean;
-    rows: {
+    valid?: boolean;
+    n_days?: number | null;
+    rows?: {
       date: string;
-      short_ratio: number;
-      short_vol: number;
-      total_vol: number;
-      return: number;
-      close?: number;
+      short_ratio: number | null;
+      short_vol: number | null;
+      total_vol: number | null;
+      return: number | null;
+      close?: number | null;
+      Security?: string | null;
+      source?: string | null;
+      source_url?: string | null;
+      fetched_at?: string | null;
+      mic?: string | null;
+      board?: string | null;
+      session?: string | null;
+      designated?: boolean | 0 | 1 | null;
+      Curr?: string | null;
+      currency?: string | null;
+      data_quality?: string | null;
+      day_coverage?: string | null;
+      short_value_resolution?: number | null;
+      total_value_resolution?: number | null;
+      short_value?: number | null;
+      total_value?: number | null;
+      ShortSaleValue?: number | null;
+      DOLLARS?: number | null;
+      short_value_ratio?: number | null;
+      short_volume_ratio?: number | null;
+      listing_mic?: string | null;
+      listing_asof?: string | null;
+      listing_basis?: string | null;
+      is_etf?: boolean | 0 | 1 | null;
+      reporting_facilities?: string | null;
+      coverage?: string | null;
+      short_exempt_volume?: number | null;
+      short_non_exempt_volume?: number | null;
+      exempt_share_of_short?: number | null;
+      ratio_basis?: string | null;
     }[];
   };
   peer_comparison?: {
     ticker: string;
-    avg_short_ratio: number;
-    max_short_ratio: number;
+    avg_short_ratio: number | null;
+    max_short_ratio: number | null;
     is_target: boolean;
   }[];
+  days_to_cover?: {
+    valid?: boolean;
+    reason?: string | null;
+    current_days_to_cover?: number | null;
+    avg_days_to_cover?: number | null;
+    max_days_to_cover?: number | null;
+    interpretation?: string | null;
+  };
+  unusual_activity?: {
+    valid?: boolean;
+    reason?: string | null;
+    unusual_day_count?: number | null;
+    unusual_days_pct?: number | null;
+    recent_unusual_days?: number | null;
+    latest_ratio?: number | null;
+    latest_z_score?: number | null;
+    latest_threshold?: number | null;
+    is_currently_unusual?: boolean | null;
+    peak_episodes?: { date: string; short_ratio: number | null; z_score: number | null }[];
+  };
+  granger_causality?: {
+    valid?: boolean;
+    reason?: string | null;
+    test_lag?: number | null;
+    p_value?: number | null;
+    f_statistic?: number | null;
+    causality_detected?: boolean | null;
+    direction?: string | null;
+    correlation_at_lag?: number | null;
+    interpretation?: string | null;
+  };
+  recent_activity?: {
+    valid?: boolean;
+    reason?: string | null;
+    lookback_days?: number | null;
+    days?: (Omit<NonNullable<NonNullable<ShortSelling['short_series']>['rows']>[number], 'short_vol' | 'total_vol' | 'return'> & {
+      short_ratio_pct?: number | null;
+      short_volume?: number | null;
+      total_volume?: number | null;
+      return_pct?: number | null;
+      is_elevated?: boolean | null;
+    })[];
+    summary?: {
+      total_short_volume?: number | null;
+      avg_short_ratio?: number | null;
+      avg_short_ratio_pct?: number | null;
+      max_short_ratio?: number | null;
+      max_short_ratio_pct?: number | null;
+      elevated_days?: number | null;
+      n_days?: number | null;
+      n_ratio_days?: number | null;
+    };
+    comparison?: {
+      historical_avg?: number | null;
+      historical_avg_pct?: number | null;
+      vs_avg_pct?: number | null;
+    };
+    trend?: string | null;
+    trend_pct?: number | null;
+    interpretation?: string | null;
+  };
 }
 
 export interface Intraday {

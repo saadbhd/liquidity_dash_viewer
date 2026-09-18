@@ -1047,10 +1047,41 @@ function buildShortSellingSheet(report: ReportData): Row[] {
   const short = asRecord(report.series.short_selling ?? asRecord(report.etf).short_block);
   if (!Object.keys(short).length) return rows;
 
+  const methodology = asRecord(short.methodology);
+  const coverage = asRecord(short.coverage);
+  if (hasKeys(methodology) || hasKeys(coverage)) {
+    pushSection(rows, 'Short Selling Source and Coverage');
+    rows.push(['Field', 'Value']);
+    rows.push(...metricRows(methodology, [
+      ['Source', 'source'],
+      ['Ratio basis', 'ratio_basis'],
+      ['Coverage scope', 'coverage_scope'],
+      ['Data kind', 'data_kind'],
+    ]));
+    rows.push(...metricRows(coverage, [
+      ['Days of short data', 'n_days_short_data'],
+      ['Days with a valid share ratio', 'n_days_valid_ratio'],
+      ['Window days', 'window_days'],
+      ['Complete official days', 'n_days_official_complete'],
+      ['Partial official days', 'n_days_partial'],
+      ['Vendor days', 'n_days_vendor'],
+      ['Unverified legacy days', 'n_days_legacy'],
+      ['Extracted at UTC', 'extracted_at_utc'],
+      ['Unavailable reason', 'unavailable_reason'],
+    ]));
+    for (const key of ['sources', 'listing_asof', 'listing_basis']) {
+      const values = asArray<string>(coverage[key]);
+      if (values.length) rows.push([key, values.join(', ')]);
+    }
+    for (const limitation of asArray<string>(methodology.limitations)) {
+      rows.push(['Coverage limitation', limitation]);
+    }
+  }
+
   const periods = asRecord(short.periods);
   if (Object.keys(periods).length) {
     pushSection(rows, 'Short Selling Periods');
-    rows.push(['Period', 'Valid', 'Average short ratio', 'Max short ratio', 'Interpretation']);
+    rows.push(['Period', 'Valid', 'Average short ratio', 'Max short ratio', 'Interpretation', 'Observed days', 'Days missing ratio']);
     Object.entries(periods).forEach(([key, rawPeriod]) => {
       const stats = asRecord(asRecord(rawPeriod).stats ?? rawPeriod);
       rows.push([
@@ -1059,6 +1090,8 @@ function buildShortSellingSheet(report: ReportData): Row[] {
         valueAt(stats, 'avg_short_ratio'),
         valueAt(stats, 'max_short_ratio'),
         valueAt(stats, 'interpretation'),
+        valueAt(stats, 'n_days'),
+        valueAt(stats, 'n_missing_ratio_days'),
       ]);
     });
   } else {
@@ -1072,7 +1105,7 @@ function buildShortSellingSheet(report: ReportData): Row[] {
   }
 
   const sblPool = asRecord(short.sbl_pool);
-  if (Object.keys(sblPool).length) {
+  if (report.meta.market === 'XSES' && sblPool.valid === true) {
     pushSection(rows, 'SBL Lending Pool');
     rows.push(...metricRows(sblPool, [
       ['Valid', 'valid'],
@@ -1131,6 +1164,25 @@ function buildShortSellingSheet(report: ReportData): Row[] {
         ['Total volume', 'total_vol'],
         ['Return', 'return'],
         ['Close', 'close'],
+        ['Source', 'source'],
+        ['Source URL', 'source_url'],
+        ['Fetched at UTC', 'fetched_at'],
+        ['Data quality', 'data_quality'],
+        ['Day coverage', 'day_coverage'],
+        ['Coverage scope', 'coverage'],
+        ['Ratio basis', 'ratio_basis'],
+        ['Short value', 'short_value'],
+        ['Total value', 'total_value'],
+        ['Currency', 'currency'],
+        ['Short value ratio', 'short_value_ratio'],
+        ['Short value resolution', 'short_value_resolution'],
+        ['Total value resolution', 'total_value_resolution'],
+        ['Short-exempt shares (included in short volume)', 'short_exempt_volume'],
+        ['Short non-exempt shares', 'short_non_exempt_volume'],
+        ['Listing market', 'listing_mic'],
+        ['Listing snapshot', 'listing_asof'],
+        ['Listing basis', 'listing_basis'],
+        ['Reporting facilities', 'reporting_facilities'],
       ]));
     }
   }

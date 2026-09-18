@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingDown, Info, Activity, ShieldAlert } from 'lucide-react';
+import { TrendingDown, Info, Activity, ShieldAlert, HelpCircle } from 'lucide-react';
 import { MethodologyTooltip } from '@/components/MethodologyTooltip';
 import { SectionTooltip } from '@/components/SectionTooltip';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useReport } from '@/context/ReportContext';
 import { useChartTheme } from '@/hooks/useChartTheme';
 import { getCurrencyCodeLabel, resolveReportCurrency } from '@/lib/currency';
@@ -46,36 +48,95 @@ const safeText = (v: unknown): string => {
   return '';
 };
 
+function ShortSellingHelp({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          type="button"
+          aria-label={`${title} details`}
+          className="inline-flex shrink-0 rounded-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        >
+          <HelpCircle className="w-3.5 h-3.5" aria-hidden="true" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        align="start"
+        aria-label={title}
+        className="w-[28rem] max-w-[calc(100vw-2rem)] max-h-80 overflow-y-auto space-y-2 text-xs text-muted-foreground leading-relaxed"
+      >
+        <p className="font-semibold text-sm text-sky-600 dark:text-sky-400">{title}</p>
+        {children}
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 export function ShortSellingAndLending() {
   const report = useReport();
   const { labels, theme, insights, series, meta } = report;
   const chartTheme = useChartTheme();
   const reportCurrency = resolveReportCurrency(report);
 
-  // Only show for Singapore (XSES) reports *with* short selling data.
   const short = series.short_selling;
-  if (meta.market !== 'XSES' || !short?.data_available) return null;
+  if (!['XSES', 'XHKG', 'XNAS'].includes(meta.market) || !short) return null;
+  if (!short.data_available) {
+    if (meta.market === 'XSES') return null;
+    const source = short.methodology?.source ?? short.coverage?.sources?.join(', ');
+    const scope = short.methodology?.coverage_scope ?? short.coverage?.scope;
+    return (
+      <section className="space-y-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+              <TrendingDown className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <h2 className="text-xl font-bold text-foreground">Short Selling</h2>
+          </div>
+          <span className="rounded-full border border-border px-4 py-2 text-sm text-muted-foreground">
+            Data unavailable
+          </span>
+        </div>
+        <div className="glass-panel rounded-xl p-5 space-y-3 text-sm text-muted-foreground">
+          <p className="font-medium text-foreground">
+            {short.coverage?.unavailable_reason
+              ? 'Short-selling data could not be loaded for this report.'
+              : 'No short-selling observations were found for this security in the report window.'}
+          </p>
+          <p>Missing observations do not establish zero short selling.</p>
+          {(source || scope) && (
+            <div className="space-y-1 text-xs">
+              {source && <p>Source: {source}</p>}
+              {scope && <p>Coverage: {scope}</p>}
+            </div>
+          )}
+        </div>
+      </section>
+    );
+  }
 
   const shortInsights = insights.short_selling;
   const sbl = short.sbl_pool;
-  const showSbl = !!sbl?.valid;
+  const showSbl = meta.market === 'XSES' && !!sbl?.valid;
 
-  const ratioToPct = (v: number) => (v <= 1 ? v * 100 : v);
-  const fmtPct = (v: number | null | undefined, digits = 2) => `${ratioToPct(Number(v ?? 0)).toFixed(digits)}%`;
-  const fmtNum = (n: number) => new Intl.NumberFormat('en-US').format(n);
+  // The analysis payload uses fractional ratios; unavailable denominators stay unknown.
+  const ratioToPct = (v: number) => v * 100;
+  const fmtPct = (v: number | null | undefined, digits = 2) =>
+    v == null || !Number.isFinite(v) ? '—' : `${ratioToPct(v).toFixed(digits)}%`;
+  const fmtNum = (n: number) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 6 }).format(n);
 
   const periodKeys = Object.keys(short.periods ?? {});
-  // Use the same period for both Avg Short% and Max Short%; prefer 1M when available.
+  // Match the report's selected period for its metrics and narrative.
   const primaryPeriodKey =
-    (periodKeys.includes("1M") ? "1M" : null) ??
     short.methodology?.primary_period ??
+    (periodKeys.includes("1M") ? "1M" : null) ??
     (periodKeys.length > 1 ? periodKeys[periodKeys.length - 2] : periodKeys[0]) ??
     "1M";
   const p = short.periods?.[primaryPeriodKey]?.stats;
-  const avgShort = p?.valid ? (p.avg_short_ratio ?? 0) : 0;
-  const maxShort = p?.valid ? (p.max_short_ratio ?? 0) : 0;
+  const avgShort = p?.valid ? p.avg_short_ratio : null;
+  const maxShort = p?.valid ? p.max_short_ratio : null;
 
-  const corr = short.correlation?.valid ? (short.correlation.correlation ?? 0) : 0;
+  const corr = short.correlation?.valid ? short.correlation.correlation : null;
   const corrLabel = short.correlation?.interpretation ?? '—';
 
   const trendText = short.short_interest_change?.interpretation ?? 'No trend data';
@@ -84,13 +145,13 @@ export function ShortSellingAndLending() {
   const badgeText = p?.interpretation ?? theme.badges.short.text;
 
   const rawRows = short.short_series?.valid
-    ? short.short_series.rows.slice().sort((a, b) => a.date.localeCompare(b.date))
+    ? (short.short_series.rows ?? []).slice().sort((a, b) => a.date.localeCompare(b.date))
     : [];
-  const hasPrice = rawRows.some((r: { close?: number }) => r.close != null);
-  const seriesRows = rawRows.map((r: { date: string; short_ratio: number; close?: number }) => ({
+  const hasPrice = rawRows.some((r) => r.close != null && Number.isFinite(r.close));
+  const seriesRows = rawRows.map((r) => ({
     date: r.date,
-    shortPct: ratioToPct(r.short_ratio),
-    ...(r.close != null ? { price: r.close } : {}),
+    shortPct: r.short_ratio != null && Number.isFinite(r.short_ratio) ? ratioToPct(r.short_ratio) : null,
+    ...(r.close != null && Number.isFinite(r.close) ? { price: r.close } : {}),
   }));
   const currencyLabel = getCurrencyCodeLabel(reportCurrency);
   const priceAxisLabel = `Close Price${currencyLabel ? ` (${currencyLabel})` : ''}`;
@@ -112,10 +173,35 @@ export function ShortSellingAndLending() {
 
   const peaks = (short.peaks ?? []).slice(0, 5);
 
-  const SectionTitle = labels.short_title ?? 'Short Selling & Lending';
+  const SectionTitle = meta.market === 'XSES' ? (labels.short_title ?? 'Short Selling & Lending') : 'Short Selling';
   const SectionSubtitle =
     labels.short_subtitle ??
     'Short participation context and how it relates to returns';
+  const ratioBasis = short.methodology?.ratio_basis ?? 'Short-sale shares / total reported shares';
+  const coverageScope = short.methodology?.coverage_scope ?? short.coverage?.scope;
+  const sourceLabel = short.methodology?.source ?? short.coverage?.sources?.join(', ');
+  const limitations = short.methodology?.limitations ?? [];
+  const coverageDetail = meta.market === 'XHKG' ? [
+    short.coverage?.n_days_official_complete != null ? `${short.coverage.n_days_official_complete} complete official days` : null,
+    short.coverage?.n_days_partial != null ? `${short.coverage.n_days_partial} partial official days` : null,
+    short.coverage?.n_days_vendor != null ? `${short.coverage.n_days_vendor} vendor days` : null,
+    short.coverage?.n_days_legacy != null ? `${short.coverage.n_days_legacy} unverified legacy days` : null,
+  ].filter(Boolean).join(' · ') : '';
+
+  const compactSourceHelp = meta.market === 'XHKG' || meta.market === 'XNAS';
+  const sourceSummary = meta.market === 'XNAS'
+    ? 'FINRA off-exchange short-sale activity.'
+    : 'HKEX short-sale activity with supplemental coverage.';
+  const sourceDetails = (
+    <>
+      {sourceLabel && <p>{sourceLabel}{coverageScope ? ` · ${coverageScope}` : ''}</p>}
+      {!sourceLabel && coverageScope && <p>{coverageScope}</p>}
+      <p>Short%: {ratioBasis}. Unavailable ratios remain gaps.</p>
+      {coverageDetail && <p>{coverageDetail}</p>}
+      {!!short.coverage?.listing_asof?.length && <p>Listing snapshot: {short.coverage.listing_asof.join(', ')}.</p>}
+      {limitations.map((limitation, index) => <p key={index}>{limitation}</p>)}
+    </>
+  );
 
   return (
     <motion.section
@@ -146,19 +232,33 @@ export function ShortSellingAndLending() {
         </span>
       </motion.div>
 
+      {(sourceLabel || coverageScope || coverageDetail || limitations.length > 0) && (
+        <motion.div variants={itemVariants} className="glass-panel rounded-xl p-4 space-y-2 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <p className="font-semibold text-foreground">Source and coverage</p>
+            {compactSourceHelp && (
+              <ShortSellingHelp title="Short-selling source and coverage">
+                {sourceDetails}
+              </ShortSellingHelp>
+            )}
+          </div>
+          {compactSourceHelp ? <p>{sourceSummary}</p> : sourceDetails}
+        </motion.div>
+      )}
+
       {/* Tiles */}
       <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="glass-panel rounded-xl p-4">
           <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">Avg Short% ({primaryPeriodKey}) <MethodologyTooltip methodKey="short_ratio" /></p>
           <p className="text-3xl font-bold text-foreground">{fmtPct(avgShort, 2)}</p>
           <p className="text-xs text-muted-foreground mt-1">
-            Max: {p?.valid ? fmtPct(p.max_short_ratio ?? 0, 1) : '—'}
+            Max: {p?.valid ? fmtPct(p.max_short_ratio, 1) : '—'}
           </p>
         </div>
 
         <div className="glass-panel rounded-xl p-4">
           <p className="text-xs text-muted-foreground mb-2 flex items-center gap-1">Short% → Return corr <MethodologyTooltip methodKey="correlation_short_return" /></p>
-          <p className="text-3xl font-bold text-foreground">{(corr ?? 0).toFixed(3)}</p>
+          <p className="text-3xl font-bold text-foreground">{corr != null && Number.isFinite(corr) ? corr.toFixed(3) : '—'}</p>
           <p className="text-xs text-muted-foreground mt-1">{corrLabel}</p>
         </div>
 
@@ -172,6 +272,7 @@ export function ShortSellingAndLending() {
           <p className="text-xs text-muted-foreground mb-2">Coverage</p>
           <p className="text-3xl font-bold text-foreground">{coverageDays ?? '—'}</p>
           <p className="text-xs text-muted-foreground mt-1">days of short data</p>
+          {short.coverage?.n_days_valid_ratio != null && <p className="text-xs text-muted-foreground mt-1">{short.coverage.n_days_valid_ratio} days with a valid share ratio</p>}
         </div>
       </motion.div>
 
@@ -211,11 +312,18 @@ export function ShortSellingAndLending() {
           <div className="flex items-center gap-2 mb-3">
             <Activity className="w-4 h-4 text-muted-foreground" />
             <h3 className="text-sm font-semibold text-foreground">Short% over time</h3>
+            {compactSourceHelp && (
+              <ShortSellingHelp title="Short% over time">
+                <p>Short%: {ratioBasis}.</p>
+                <p>Unavailable ratios remain gaps.</p>
+                {coverageScope && <p>{coverageScope}</p>}
+              </ShortSellingHelp>
+            )}
           </div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground mb-2">
             <span className="inline-flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              Short% (ShortSaleVolume / TotalVolume)
+              {compactSourceHelp ? 'Short%' : `Short% (${ratioBasis})`}
             </span>
             {hasPrice ? (
               <span className="inline-flex items-center gap-2">
@@ -279,7 +387,7 @@ export function ShortSellingAndLending() {
                     formatter={(v: number, name: string) =>
                       name === 'price'
                         ? [Number(v).toFixed(3), priceAxisLabel]
-                        : [`${Number(v).toFixed(2)}%`, 'Short % (ShortSaleVolume / TotalVolume)']
+                        : [`${Number(v).toFixed(2)}%`, compactSourceHelp ? 'Short%' : `Short % (${ratioBasis})`]
                     }
                     labelFormatter={(label) => `Date: ${label}`}
                   />
@@ -290,6 +398,7 @@ export function ShortSellingAndLending() {
                     stroke="#34d399"
                     strokeWidth={2}
                     dot={false}
+                    connectNulls={false}
                     activeDot={{ r: 4 }}
                   />
                   {hasPrice ? (
@@ -384,9 +493,9 @@ export function ShortSellingAndLending() {
                 {peaks.map((p) => (
                   <TableRow key={p.date} className="border-slate-800">
                     <TableCell className="text-slate-300 text-sm">{p.date}</TableCell>
-                    <TableCell className="text-right text-slate-400 text-sm">{fmtPct(p.short_ratio ?? 0, 1)}</TableCell>
-                    <TableCell className={`text-right text-sm ${(p.return_pct ?? 0) >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
-                      {(p.return_pct ?? 0).toFixed(1)}%
+                    <TableCell className="text-right text-slate-400 text-sm">{fmtPct(p.short_ratio, 1)}</TableCell>
+                    <TableCell className={`text-right text-sm ${p.return_pct == null ? 'text-muted-foreground' : p.return_pct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'}`}>
+                      {p.return_pct != null && Number.isFinite(p.return_pct) ? `${p.return_pct.toFixed(1)}%` : '—'}
                     </TableCell>
                   </TableRow>
                 ))}

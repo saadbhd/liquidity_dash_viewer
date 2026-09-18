@@ -134,7 +134,10 @@ function buildTabs(report: ReportData): TabDef[] {
         ];
     }
 
-    const showShort = report.meta.market === 'XSES' && !!report.series.short_selling?.data_available;
+    const showShort = Boolean(report.series.short_selling) && (
+        ['XHKG', 'XNAS'].includes(report.meta.market) ||
+        (report.meta.market === 'XSES' && report.series.short_selling?.data_available)
+    );
     const showPeerAnalysis = Boolean(report.peer_analysis?.enabled);
     const showPeerTraderTypes = hasPeerTraderRows(report);
 
@@ -463,7 +466,10 @@ export function ReportViewer() {
                                     <section id="execution">
                                         <ExecutionPanel />
                                     </section>
-                                    {reportData.meta.market === 'XSES' && reportData.series.short_selling?.data_available && (
+                                    {reportData.series.short_selling && (
+                                        ['XHKG', 'XNAS'].includes(reportData.meta.market) ||
+                                        (reportData.meta.market === 'XSES' && reportData.series.short_selling.data_available)
+                                    ) && (
                                         <section id="short">
                                             <ShortSellingAndLending />
                                         </section>

@@ -81,7 +81,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   short_selling: {
     title: "Short Selling Analysis",
-    body: "Shows how much trading is coming from short sellers, whether short activity has spiked, and how much stock is available to borrow. It helps you see whether short interest is low, normal, or unusually high.",
+    body: "Shows reported daily short-sale volume and its share of trading within the source's coverage. Check the report's source and coverage notes when comparing dates or markets. This measures trading activity, not outstanding short interest. Borrow availability is shown only for SGX when lending data is available.",
     glossaryKey: "short_selling",
   },
   spread: {
@@ -156,7 +156,7 @@ export const METHODOLOGY: Record<string, MethodologyEntry> = {
   },
   short_ratio: {
     title: "Short Ratio",
-    body: "Shows what share of trading came from short sellers. Higher levels mean short activity is a bigger part of the market in this stock.",
+    body: "Reported short-sale shares divided by total shares within the same source coverage. Nasdaq uses FINRA off-exchange volume, not whole-market volume. Missing denominators remain unavailable. A higher ratio means more short-sale activity in the covered trading, not necessarily more outstanding short positions.",
     glossaryKey: "short_ratio",
   },
   days_to_cover: {

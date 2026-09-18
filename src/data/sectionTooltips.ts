@@ -35,10 +35,10 @@ export const SECTION_TOOLTIPS: Record<string, SectionTooltipEntry> = {
     },
     short: {
         glossaryKey: "short_selling",
-        title: "Short Selling & Lending",
+        title: "Short Selling",
         description:
-            "Shows how active short sellers have been and whether that activity is low, normal, or elevated. " +
-            "It also shows how many shares are available to borrow.",
+            "Shows daily short-sale participation within the reported source coverage and how it relates to returns. " +
+            "Daily short-sale volume is not outstanding short interest. Borrow availability is shown only for SGX when lending data is available.",
     },
     traders: {
         glossaryKey: "trader_composition",

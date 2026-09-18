@@ -357,17 +357,14 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Short Selling Analysis",
         section: "Short Selling",
         explanation:
-            "Comprehensive analysis of short-selling activity, trends, and lending availability.",
+            "Reported daily short-sale activity and trends, with lending availability for SGX when supplied.",
         methodology:
-            "Data source: SGX ShortSaleVolume/Value (MySQL MarketDataHub.short_sells). " +
-            "Ticker mapped to Security via correspondence table + fuzzy text fallback. " +
-            "Short ratio = ShortSaleVolume_t / TotalVolume_t (daily). " +
-            "Stats computed over 1M, 3M, 6M windows. " +
-            "Peak detection: days where short_ratio > 15%, ranked by intensity. " +
-            "Correlation: Pearson corr(short_ratio, return) over ~100 calendar days. " +
-            "Unusual activity: short_ratio > rolling_mean_60 + 2 × rolling_std_60. " +
-            "Recent activity: last 14 days vs 3M average. " +
-            "Available only for SGX-listed stocks with short-sale reporting.",
+            "SGX uses MarketDataHub.short_sells. Hong Kong uses the HK analysis view, retaining HKEX, legacy and vendor provenance. " +
+            "Nasdaq uses the FINRA CNMS off-exchange subset matched to an ingestion-time listing snapshot, not a historical listing universe. " +
+            "Short ratio = reported short-sale shares / total shares from the same source coverage. " +
+            "Statistics use available ratios within each report window; missing rows or denominators are not zero. " +
+            "HK vendor or legacy observations do not establish complete official coverage. " +
+            "Daily short-sale volume is not outstanding short interest, a borrow balance or a measure of naked shorts.",
         plainLanguage:
             "This shows whether short selling is a small part of trading or a meaningful force in the stock.",
     },
@@ -376,11 +373,12 @@ export const GLOSSARY: Record<string, GlossaryEntry> = {
         term: "Short Ratio",
         section: "Short Selling",
         explanation:
-            "The proportion of daily volume that comes from short sellers. Higher = more bearish positioning.",
+            "The share of reported daily volume classified as short sales within the source coverage.",
         methodology:
-            "Daily: ShortSaleVolume / TotalVolume. " +
+            "Daily: short-sale shares / total shares from the same report coverage. " +
             "Average and max are reported over the selected period (1M, 3M, 6M). " +
-            "Interpretation levels: <5% low, 5-15% moderate, >15% high short interest.",
+            "Nasdaq ratios cover FINRA off-exchange activity, with short-exempt volume already included in short volume. " +
+            "HK rows without reliable total shares have no share ratio. Ratios do not measure outstanding short interest or directional conviction.",
         plainLanguage:
             "This shows how much of trading came from short sellers.",
     },

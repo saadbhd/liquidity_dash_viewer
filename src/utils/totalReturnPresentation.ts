@@ -11,7 +11,7 @@ function reportScope(report: ReturnReport): string {
 }
 
 export function isScopedReturnsReport(report: ReturnReport): boolean {
-  return ['XSES:CRPU', 'XSES:5E2'].includes(reportScope(report));
+  return reportScope(report) === 'XSES:CRPU';
 }
 
 /** Resolve the payload contract identically for rendering and workbook exports. */

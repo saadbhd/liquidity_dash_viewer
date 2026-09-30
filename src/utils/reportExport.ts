@@ -303,7 +303,11 @@ function buildLiquiditySheet(report: ReportData): Row[] {
 function buildPerformanceReturnsSheet(report: ReportData): Row[] {
   const rows: Row[] = [];
   const returnPresentation = resolveTotalReturns(report);
-  const totalReturns = isScopedReturnsReport(report)
+  // Keep the original export path for other companies; retire only Seatrium v2.
+  const usesScopedReturnContract = isScopedReturnsReport(report)
+    || (report.meta.market?.trim().toUpperCase() === 'XSES'
+      && report.meta.ticker?.trim().toUpperCase() === '5E2');
+  const totalReturns = usesScopedReturnContract
     ? returnPresentation.block
     : report.series.total_returns ?? report.q01?.total_returns;
   const q01Periods = asRecord(report.q01?.periods);

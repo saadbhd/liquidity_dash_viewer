@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, Lightbulb, Table2 } from 'lucide-react';
+import { TrendingUp, Lightbulb, Table2, HelpCircle } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useReport } from '@/context/ReportContext';
-import type { MarketPerformanceBlock, MarketPerformanceRow, PeerAnalysis, PeerPerformancePeriod, PeerReturnSummary, Q01PeriodKey, Q01Returns, TotalReturnRow } from '@/types/report';
+import { isScopedReturnsReport, resolveTotalReturns } from '@/utils/totalReturnPresentation';
+import type { MarketPerformanceBlock, MarketPerformanceRow, PeerAnalysis, PeerPerformancePeriod, PeerReturnSummary, Q01PeriodKey, Q01Returns, TotalReturnMetric, TotalReturnRow } from '@/types/report';
 
 function isFiniteNumber(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value);
@@ -25,6 +27,48 @@ function formatReturnMetricCell(metric: TotalReturnRow['ytd_total_return']): str
   return metric?.note || 'N/A - data unavailable';
 }
 
+function TotalReturnMetricCell({ metric }: { metric?: TotalReturnMetric | null }) {
+  const available = metric?.available !== false && isFiniteNumber(metric?.value);
+  const unavailableReason = metric?.note || 'Data unavailable for this period.';
+  const hasDetails = !available || metric?.note || metric?.basis || metric?.basis_label || metric?.source || metric?.coverage_note;
+  return (
+    <div>
+      <div className="inline-flex items-center justify-end gap-1.5">
+        <span>{available ? formatPercent(metric?.value) : 'N/A'}</span>
+        {hasDetails && (
+          <Popover>
+            <PopoverTrigger asChild>
+              <button
+                type="button"
+                aria-label={available ? 'Return calculation details' : `Unavailable return: ${unavailableReason}`}
+                className="inline-flex shrink-0 rounded-sm text-slate-500 hover:text-slate-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              >
+                <HelpCircle className="w-3.5 h-3.5" aria-hidden="true" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent
+              align="end"
+              aria-label={available ? 'Return calculation details' : 'Return unavailable'}
+              className="w-80 max-w-[calc(100vw-2rem)] max-h-80 overflow-y-auto space-y-2 text-xs font-normal text-muted-foreground leading-relaxed"
+            >
+              <p className="font-semibold text-foreground">{available ? 'Return details' : 'Return unavailable'}</p>
+              {(!available || metric?.note) && <p>{available ? metric?.note : unavailableReason}</p>}
+              {(metric?.basis_label || metric?.basis) && <p>Basis: {metric.basis_label || metric.basis?.replaceAll('_', ' ')}</p>}
+              {metric?.source && <p>Source: {metric.source}</p>}
+              {metric?.coverage_note && <p>{metric.coverage_note}</p>}
+            </PopoverContent>
+          </Popover>
+        )}
+      </div>
+      {metric?.start_date && metric?.end_date && (
+        <span className="block mt-1 text-xs font-normal text-slate-500">
+          {metric.start_date} to {metric.end_date}
+        </span>
+      )}
+    </div>
+  );
+}
+
 function formatExtremeCell(extreme: MarketPerformanceRow['best_month']): { value: string; month: string } {
   if (!extreme || !isFiniteNumber(extreme.value)) {
     return { value: 'N/A - data unavailable', month: '' };
@@ -45,7 +89,7 @@ function fallbackMarketPerformanceRows(): MarketPerformanceBlock['rows'] {
 }
 
 function isSecurityTotalReturnRow(row: TotalReturnRow): boolean {
-  return Boolean(row.ytd_total_return || row.one_year_total_return);
+  return Boolean(row.ytd_total_return || row.one_year_total_return || row.period_returns);
 }
 
 function formatHistoryWindow(row: MarketPerformanceRow): string | null {
@@ -131,13 +175,23 @@ function peerName(row: PeerReturnRow): string {
 }
 
 export function PerformanceContext() {
-  const { meta, labels, theme, series, peer_analysis: peerAnalysis } = useReport();
-  const isSasseurReit = meta.market === 'XSES' && meta.ticker?.toUpperCase() === 'CRPU';
-  const totalReturnRows = isSasseurReit
-    ? (series.total_returns?.rows ?? [])
-    : [];
+  const report = useReport();
+  const { labels, theme, series, peer_analysis: peerAnalysis } = report;
+  const isScopedTotalReturn = isScopedReturnsReport(report);
+  const returnPresentation = resolveTotalReturns(report);
+  const totalReturns = isScopedTotalReturn ? returnPresentation.block : null;
+  const hasDetailedTotalReturns = returnPresentation.mode === 'quarterly';
+  const totalReturnRows = totalReturns?.rows ?? [];
   const securityTotalReturnRows = totalReturnRows.filter(isSecurityTotalReturnRow);
   const legacyTotalReturnRows = totalReturnRows.filter((row) => !isSecurityTotalReturnRow(row));
+  const totalReturnPeriods = hasDetailedTotalReturns
+    ? (totalReturns?.periods ?? [])
+      .filter((period) => /^\d{4}-Q[1-4]$/.test(period.key))
+      .sort((a, b) => b.key.localeCompare(a.key))
+    : [];
+  const [activeTotalReturnPeriod, setActiveTotalReturnPeriod] = useState(totalReturns?.default_period ?? 'summary');
+  const selectedTotalReturnPeriod = totalReturnPeriods.find((period) => period.key === activeTotalReturnPeriod);
+  const totalReturnSelection = selectedTotalReturnPeriod?.key ?? 'summary';
   const marketPerformanceRows = series.market_performance?.rows?.length
     ? series.market_performance.rows
     : fallbackMarketPerformanceRows();
@@ -180,47 +234,111 @@ export function PerformanceContext() {
         </span>
       </div>
 
-      {isSasseurReit && securityTotalReturnRows.length > 0 && (
+      {isScopedTotalReturn && securityTotalReturnRows.length > 0 && (
         <div className="mt-5 bg-slate-900/30 rounded-xl border border-slate-700/50 overflow-hidden">
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-700/50">
-            <Table2 className="w-4 h-4 text-emerald-400" />
-            <h4 className="text-sm font-semibold text-slate-200">Total Returns</h4>
+          <div className="flex flex-col gap-3 px-4 py-3 border-b border-slate-700/50 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2">
+              <Table2 className="w-4 h-4 text-emerald-400" />
+              <h4 className="text-sm font-semibold text-slate-200">{hasDetailedTotalReturns ? totalReturns?.title || 'Returns' : 'Total Returns'}</h4>
+            </div>
+            {totalReturnPeriods.length > 0 && (
+              <label className="flex items-center gap-2 text-xs text-slate-400">
+                Period
+                <select
+                  aria-label="Returns period"
+                  value={totalReturnSelection}
+                  onChange={(event) => setActiveTotalReturnPeriod(event.target.value)}
+                  className="rounded-lg border border-slate-700/50 bg-slate-950 px-3 py-2 text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                >
+                  <option value="summary">Summary — YTD / 1Y / Since IPO</option>
+                  {totalReturnPeriods.map((period) => (
+                    <option key={period.key} value={period.key}>{period.label}</option>
+                  ))}
+                </select>
+              </label>
+            )}
           </div>
+          {selectedTotalReturnPeriod && (
+            <p className="px-4 py-2 text-xs text-slate-400 border-b border-slate-800/70">
+              {selectedTotalReturnPeriod.label}: {selectedTotalReturnPeriod.start_date} to {selectedTotalReturnPeriod.end_date}.
+              {' '}Actual coverage is shown for each value.
+            </p>
+          )}
           <div className="overflow-x-auto">
             <table className="w-full min-w-[720px] text-sm">
               <thead>
                 <tr className="bg-slate-950/50 text-xs uppercase tracking-wide text-slate-400">
                   <th className="px-4 py-3 text-left font-semibold">Name</th>
                   <th className="px-4 py-3 text-left font-semibold">Stock code</th>
-                  <th className="px-4 py-3 text-right font-semibold">YTD Total Return</th>
-                  <th className="px-4 py-3 text-right font-semibold">1 Year Total Return</th>
+                  {selectedTotalReturnPeriod ? (
+                    <th className="px-4 py-3 text-right font-semibold">{selectedTotalReturnPeriod.label}</th>
+                  ) : (
+                    <>
+                      <th className="px-4 py-3 text-right font-semibold">{hasDetailedTotalReturns ? 'YTD' : 'YTD Total Return'}</th>
+                      <th className="px-4 py-3 text-right font-semibold">{hasDetailedTotalReturns ? '1Y' : '1 Year Total Return'}</th>
+                      {hasDetailedTotalReturns && <th className="px-4 py-3 text-right font-semibold">Since IPO</th>}
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody>
                 {securityTotalReturnRows.map((row) => (
                   <tr key={row.key} className={`border-t border-slate-800/70 ${row.is_target ? 'bg-emerald-500/10' : ''}`}>
-                    <td className="px-4 py-3 text-slate-300">{row.name || row.label || 'N/A - data unavailable'}</td>
+                    <td className="px-4 py-3 text-slate-300">
+                      {row.name || row.label || 'N/A - data unavailable'}
+                      {hasDetailedTotalReturns && (row.basis_label || row.basis) && (
+                        <span className="block mt-1 text-xs text-slate-400">{row.basis_label || row.basis?.replaceAll('_', ' ')}</span>
+                      )}
+                    </td>
                     <td className="px-4 py-3 text-slate-300">{row.stock_code || 'N/A'}</td>
-                    <td className="px-4 py-3 text-right font-medium text-slate-100">
-                      {formatReturnMetricCell(row.ytd_total_return)}
-                    </td>
-                    <td className="px-4 py-3 text-right font-medium text-slate-100">
-                      {formatReturnMetricCell(row.one_year_total_return)}
-                    </td>
+                    {selectedTotalReturnPeriod ? (
+                      <td className="px-4 py-3 text-right font-medium text-slate-100">
+                        <TotalReturnMetricCell metric={row.period_returns?.[selectedTotalReturnPeriod.key]} />
+                      </td>
+                    ) : (
+                      <>
+                        <td className="px-4 py-3 text-right font-medium text-slate-100">
+                          {hasDetailedTotalReturns ? <TotalReturnMetricCell metric={row.ytd_total_return} /> : formatReturnMetricCell(row.ytd_total_return)}
+                        </td>
+                        <td className="px-4 py-3 text-right font-medium text-slate-100">
+                          {hasDetailedTotalReturns ? <TotalReturnMetricCell metric={row.one_year_total_return} /> : formatReturnMetricCell(row.one_year_total_return)}
+                        </td>
+                        {hasDetailedTotalReturns && (
+                          <td className="px-4 py-3 text-right font-medium text-slate-100">
+                            <TotalReturnMetricCell metric={row.since_listing_total_return} />
+                          </td>
+                        )}
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          {series.total_returns?.basis && (
+          {hasDetailedTotalReturns ? (
+            <details className="px-4 py-3 border-t border-slate-800/70 text-xs text-slate-400">
+              <summary className="cursor-pointer hover:text-slate-200">Methodology and coverage</summary>
+              {totalReturns?.basis && <p className="mt-2">Basis: {totalReturns.basis.replaceAll('_', ' ')}</p>}
+              {totalReturns?.source && <p className="mt-2">Source: {totalReturns.source}</p>}
+              {totalReturns?.coverage_note && <p className="mt-2">{totalReturns.coverage_note}</p>}
+              {securityTotalReturnRows.filter((row) => row.basis || row.source || row.coverage_note).map((row) => (
+                <div key={row.key} className="mt-3">
+                  <p className="font-medium text-slate-300">{row.name || row.label || row.stock_code}</p>
+                  {row.basis && <p>Basis: {row.basis.replaceAll('_', ' ')}</p>}
+                  {row.source && <p>Source: {row.source}</p>}
+                  {row.coverage_note && <p>{row.coverage_note}</p>}
+                </div>
+              ))}
+            </details>
+          ) : totalReturns?.basis && (
             <p className="px-4 py-3 border-t border-slate-800/70 text-xs text-slate-500">
-              Basis: {series.total_returns.basis.replaceAll('_', ' ')}
+              Basis: {totalReturns.basis.replaceAll('_', ' ')}
             </p>
           )}
         </div>
       )}
 
-      {isSasseurReit && legacyTotalReturnRows.length > 0 && (
+      {isScopedTotalReturn && legacyTotalReturnRows.length > 0 && (
         <div className="mt-5 bg-slate-900/30 rounded-xl border border-slate-700/50 overflow-hidden">
           <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-700/50">
             <Table2 className="w-4 h-4 text-emerald-400" />

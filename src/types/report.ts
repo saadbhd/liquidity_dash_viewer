@@ -182,6 +182,11 @@ export interface TotalReturnRow {
   ytd_total_return?: TotalReturnMetric | null;
   one_year_total_return?: TotalReturnMetric | null;
   since_listing_total_return?: TotalReturnMetric | null;
+  period_returns?: Record<string, TotalReturnMetric | null>;
+  basis_label?: string | null;
+  basis?: string | null;
+  source?: string | null;
+  coverage_note?: string | null;
 }
 
 export interface TotalReturnMetric {
@@ -191,9 +196,25 @@ export interface TotalReturnMetric {
   note?: string | null;
   start_date?: string | null;
   end_date?: string | null;
+  basis_label?: string | null;
+  basis?: string | null;
+  source?: string | null;
+  coverage_note?: string | null;
+}
+
+export interface TotalReturnPeriod {
+  key: string;
+  label: string;
+  start_date: string | null;
+  end_date: string | null;
 }
 
 export interface TotalReturnsBlock {
+  schema_version?: number;
+  source?: string | null;
+  coverage_note?: string | null;
+  default_period?: string;
+  periods?: TotalReturnPeriod[];
   scope?: string | null;
   title?: string | null;
   basis?: string | null;

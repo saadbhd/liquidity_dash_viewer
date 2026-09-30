@@ -1,4 +1,5 @@
-import type { ReportData } from '@/types/report';
+import type { ReportData, TotalReturnMetric } from '@/types/report';
+import { isScopedReturnsReport, resolveTotalReturns } from '@/utils/totalReturnPresentation';
 
 type CellValue = string | number | boolean | null | undefined;
 type Row = CellValue[];
@@ -301,23 +302,66 @@ function buildLiquiditySheet(report: ReportData): Row[] {
 
 function buildPerformanceReturnsSheet(report: ReportData): Row[] {
   const rows: Row[] = [];
-  const totalReturns = report.series.total_returns ?? report.q01?.total_returns;
+  const returnPresentation = resolveTotalReturns(report);
+  const totalReturns = isScopedReturnsReport(report)
+    ? returnPresentation.block
+    : report.series.total_returns ?? report.q01?.total_returns;
   const q01Periods = asRecord(report.q01?.periods);
 
   if (totalReturns?.rows?.length) {
     pushSection(rows, totalReturns.title || 'Total Returns');
-    rows.push(['Name', 'Stock code', 'YTD total return', '1Y total return', 'Metric return', 'Note', 'Target']);
-    totalReturns.rows.forEach((row) => {
-      rows.push([
-        row.name ?? row.label ?? row.key,
-        row.stock_code ?? '',
-        row.ytd_total_return?.value ?? '',
-        row.one_year_total_return?.value ?? '',
-        row.value ?? '',
-        row.note ?? '',
-        row.is_target ?? false,
-      ]);
-    });
+    const hasDetailedTotalReturns = returnPresentation.mode === 'quarterly';
+    if (hasDetailedTotalReturns) {
+      rows.push(['Basis', totalReturns.basis ?? '']);
+      rows.push(['Source', totalReturns.source ?? '']);
+      rows.push(['Coverage', totalReturns.coverage_note ?? '']);
+      rows.push(['Name', 'Stock code', 'Period', 'Return', 'Available', 'Actual start', 'Actual end', 'Observations', 'Note', 'Basis', 'Source', 'Coverage', 'Target', 'Requested start', 'Requested end', 'Return basis']);
+      totalReturns.rows.forEach((row) => {
+        const metrics: Array<{ key: string; label: string; metric?: TotalReturnMetric | null; start_date?: string | null; end_date?: string | null }> = [
+          { key: 'ytd', label: 'YTD', metric: row.ytd_total_return },
+          { key: 'one_year', label: '1Y', metric: row.one_year_total_return },
+          { key: 'since_ipo', label: 'Since IPO', metric: row.since_listing_total_return },
+          ...(totalReturns.periods ?? [])
+            .filter((period) => /^\d{4}-Q[1-4]$/.test(period.key))
+            .map((period) => ({ ...period, metric: row.period_returns?.[period.key] })),
+        ];
+        metrics.forEach(({ key, label, metric, start_date, end_date }) => {
+          const period = totalReturns.periods?.find((item) => item.key === key);
+          const available = metric?.available !== false && isFiniteNumber(metric?.value);
+          rows.push([
+            row.name ?? row.label ?? row.key,
+            row.stock_code ?? '',
+            label,
+            available ? metric?.value : '',
+            available,
+            metric?.start_date ?? '',
+            metric?.end_date ?? '',
+            metric?.n_obs ?? '',
+            metric?.note ?? (available ? '' : 'Data unavailable for this period.'),
+            metric?.basis ?? row.basis ?? totalReturns.basis ?? '',
+            metric?.source ?? row.source ?? totalReturns.source ?? '',
+            metric?.coverage_note ?? row.coverage_note ?? totalReturns.coverage_note ?? '',
+            row.is_target ?? false,
+            start_date ?? period?.start_date ?? '',
+            end_date ?? period?.end_date ?? '',
+            metric?.basis_label ?? row.basis_label ?? '',
+          ]);
+        });
+      });
+    } else {
+      rows.push(['Name', 'Stock code', 'YTD total return', '1Y total return', 'Metric return', 'Note', 'Target']);
+      totalReturns.rows.forEach((row) => {
+        rows.push([
+          row.name ?? row.label ?? row.key,
+          row.stock_code ?? '',
+          row.ytd_total_return?.value ?? '',
+          row.one_year_total_return?.value ?? '',
+          row.value ?? '',
+          row.note ?? '',
+          row.is_target ?? false,
+        ]);
+      });
+    }
   }
 
   if (Object.keys(q01Periods).length) {

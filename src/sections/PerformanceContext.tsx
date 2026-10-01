@@ -315,22 +315,7 @@ export function PerformanceContext() {
               </tbody>
             </table>
           </div>
-          {hasDetailedTotalReturns ? (
-            <details className="px-4 py-3 border-t border-slate-800/70 text-xs text-slate-400">
-              <summary className="cursor-pointer hover:text-slate-200">Methodology and coverage</summary>
-              {totalReturns?.basis && <p className="mt-2">Basis: {totalReturns.basis.replaceAll('_', ' ')}</p>}
-              {totalReturns?.source && <p className="mt-2">Source: {totalReturns.source}</p>}
-              {totalReturns?.coverage_note && <p className="mt-2">{totalReturns.coverage_note}</p>}
-              {securityTotalReturnRows.filter((row) => row.basis || row.source || row.coverage_note).map((row) => (
-                <div key={row.key} className="mt-3">
-                  <p className="font-medium text-slate-300">{row.name || row.label || row.stock_code}</p>
-                  {row.basis && <p>Basis: {row.basis.replaceAll('_', ' ')}</p>}
-                  {row.source && <p>Source: {row.source}</p>}
-                  {row.coverage_note && <p>{row.coverage_note}</p>}
-                </div>
-              ))}
-            </details>
-          ) : totalReturns?.basis && (
+          {!hasDetailedTotalReturns && totalReturns?.basis && (
             <p className="px-4 py-3 border-t border-slate-800/70 text-xs text-slate-500">
               Basis: {totalReturns.basis.replaceAll('_', ' ')}
             </p>

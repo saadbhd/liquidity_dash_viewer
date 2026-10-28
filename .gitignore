@@ -9,3 +9,8 @@ etf_cursor/
 HK_etf/
 *.parquet
 .DS_Store
+
+# Generated local report payloads and preview backups
+/src/data/.news-preview-backup/
+/src/data/reportsMetadata.json
+/src/data/????_*_????-??-??*.ts

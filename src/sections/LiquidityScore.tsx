@@ -231,7 +231,7 @@ function buildLegacyQ01(report: ReportData): Q01PeriodData {
   const effectiveTargetIdx =
     targetIdx >= 0 ? targetIdx : seriesPeerTickers.findIndex((t) => t === meta.ticker);
 
-  const targetScore = effectiveTargetIdx >= 0 ? series.peers_liquidity.scores[effectiveTargetIdx] : 0;
+  const targetScore = effectiveTargetIdx >= 0 ? series.peers_liquidity.scores[effectiveTargetIdx] : null;
   const targetAdv = effectiveTargetIdx >= 0 ? series.peers_liquidity.adv[effectiveTargetIdx] : series.market_comparison.company.adv;
   const oneMonthReturn = series.returns?.find((r) => r.horizon === '1M') ?? series.returns?.[0];
 
@@ -243,10 +243,10 @@ function buildLegacyQ01(report: ReportData): Q01PeriodData {
       metric_window_days: 30,
       score_pca: targetScore,
       score_pca_percentile: targetScore,
-      rank_pca: 0,
+      rank_pca: null,
       total: series.peers_liquidity.total,
-      adv_notional_sgd: targetAdv ?? 0,
-      adv_volume_shares: 0,
+      adv_notional_sgd: targetAdv ?? null,
+      adv_volume_shares: null,
       free_float_shares: null,
       turnover_ratio: series.market_comparison.company.turnover_ratio ?? null,
       votes: null,
@@ -279,9 +279,9 @@ function buildLegacyQ01(report: ReportData): Q01PeriodData {
       return {
         ticker,
         label,
-        score_pca: series.peers_liquidity.scores[idx] ?? 0,
-        rank_pca: idx + 1,
-        adv: series.peers_liquidity.adv[idx] ?? 0,
+        score_pca: series.peers_liquidity.scores[idx] ?? null,
+        rank_pca: series.peers_liquidity.scores[idx] == null ? null : idx + 1,
+        adv: series.peers_liquidity.adv[idx] ?? null,
         trades: null,
         volatility: null,
         spread_pct: null,
@@ -403,12 +403,12 @@ export function LiquidityScore() {
     vs_peers: null,
   };
 
-  const scorePca = Number.isFinite(period.liquidity?.score_pca) ? period.liquidity.score_pca : 0;
+  const scorePca = Number.isFinite(period.liquidity?.score_pca) ? period.liquidity.score_pca : null;
   const scorePcaPercentile = Number.isFinite(period.liquidity?.score_pca_percentile)
     ? period.liquidity.score_pca_percentile
-    : 0;
-  const rankPca = Number.isFinite(period.liquidity?.rank_pca) ? period.liquidity.rank_pca : 0;
-  const totalPca = Number.isFinite(period.liquidity?.total) ? period.liquidity.total : 0;
+    : null;
+  const rankPca = Number.isFinite(period.liquidity?.rank_pca) ? period.liquidity.rank_pca : null;
+  const totalPca = Number.isFinite(period.liquidity?.total) ? period.liquidity.total : null;
   const liquidityTitle = String(report.labels.liq_title || '').trim() || 'Liquidity Health & Peer Comparison';
   const liquiditySubtitle = String(report.labels.liq_subtitle || '').trim();
   const selectedWindowLabel = `Window: ${period.window_days}D`;
@@ -428,13 +428,13 @@ export function LiquidityScore() {
 
   const peerRows = period.peer_liquidity ?? [];
   const targetPeer = peerRows.find((row) => row.is_target) ?? peerRows.find((row) => row.ticker === report.meta.ticker);
-  const peerChartData = peerRows.map((row) => {
+  const peerChartData = peerRows.filter((row) => Number.isFinite(row.score_pca)).map((row) => {
     const fallbackLabel = formatPeerLabel(row.ticker, row.company_name || peerNameByTicker.get(row.ticker));
     const label = String(row.label || fallbackLabel || '').trim();
     return {
       ticker: row.ticker,
       label: label || row.ticker,
-      score: row.score_pca,
+      score: row.score_pca as number,
       adv: row.adv,
       isTarget: row.is_target || row.ticker === report.meta.ticker,
     };
@@ -838,7 +838,7 @@ export function LiquidityScore() {
         </div>
         <div className="px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
           <span className="text-xs font-medium text-emerald-400">
-            Liquidity Score: {scorePca.toFixed(1)}
+            Liquidity Score: {formatNumber(scorePca, 1)}
           </span>
         </div>
       </motion.div>
@@ -866,9 +866,9 @@ export function LiquidityScore() {
       <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
         <div className="glass-panel rounded-xl p-4">
           <p className="text-xs text-slate-500 mb-1 flex items-center gap-1">Score (Percentile) <MethodologyTooltip methodKey="liquidity_score" /></p>
-          <p className="text-2xl font-bold text-foreground">{scorePcaPercentile.toFixed(1)}</p>
+          <p className="text-2xl font-bold text-foreground">{formatNumber(scorePcaPercentile, 1)}</p>
           <p className="text-xs text-slate-500 mt-1">
-            Rank {rankPca}/{totalPca}
+            {rankPca !== null && totalPca !== null ? `Rank ${rankPca}/${totalPca}` : 'Rank N/A'}
           </p>
         </div>
         <div className="glass-panel rounded-xl p-4">
@@ -956,7 +956,9 @@ export function LiquidityScore() {
                     );
                   }}
                 />
-                <ReferenceLine x={targetPeer?.score_pca ?? period.liquidity.score_pca} stroke="#10b981" strokeDasharray="3 3" />
+                {Number.isFinite(targetPeer?.score_pca ?? period.liquidity.score_pca) ? (
+                  <ReferenceLine x={(targetPeer?.score_pca ?? period.liquidity.score_pca) as number} stroke="#10b981" strokeDasharray="3 3" />
+                ) : null}
                 <Bar dataKey="score" radius={[0, 4, 4, 0]} maxBarSize={24}>
                   {peerChartData.map((entry, idx) => (
                     <Cell key={`peer-${entry.ticker}-${entry.label}-${idx}`} fill={entry.isTarget ? '#0ea5e9' : '#475569'} />

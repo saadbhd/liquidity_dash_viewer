@@ -14,6 +14,7 @@ import {
     X,
     Target,
     ArrowLeft,
+    RefreshCw,
     Users,
     PieChart,
     BarChart3,
@@ -24,9 +25,10 @@ import {
     Gift,
     DollarSign,
     LineChart,
-    Download
+    Download,
+    Newspaper
 } from 'lucide-react';
-import { loadReportData } from '@/data/reportsIndex';
+import { loadReportData, REPORTS_INDEX } from '@/data/reportsIndex';
 import { ReportProvider } from '@/context/ReportContext';
 import { HelpProvider } from '@/context/HelpContext';
 import { FloatingHelp } from '@/components/FloatingHelp';
@@ -42,6 +44,8 @@ import { PeerTraderComposition } from '@/sections/PeerTraderComposition';
 import { PriceMovingTrades } from '@/sections/PriceMovingTrades';
 import { IntradayPanel } from '@/sections/IntradayPanel';
 import { ShortSellingAndLending } from '@/sections/ShortSellingAndLending';
+import { NarrativesPanel } from '@/sections/NarrativesPanel';
+import { NewsEventStudy } from '@/sections/NewsEventStudy';
 import {
     EtfLiquidityProfile,
     EtfMacroRegimePlaybook,
@@ -175,7 +179,7 @@ function buildTabs(report: ReportData): TabDef[] {
                 { id: 'intraday', label: 'Trading Times', icon: Clock },
             ],
         },
-        { id: 'sentiment', label: 'Sentiment', icon: Gauge },
+        { id: 'sentiment', label: report.news?.status === 'ready' ? 'News & Events' : 'News', icon: report.news?.status === 'ready' ? Newspaper : Gauge },
         { id: 'narratives', label: 'Narratives', icon: BookOpen },
     ];
 }
@@ -219,6 +223,7 @@ export function ReportViewer() {
                 setReportData(peers ? { ...data, peer_methodology: peers } : data);
                 setPeerMethodology(peers);
             } catch (err) {
+                console.error('Unable to load report', id, err);
                 setError(err instanceof Error ? err.message : 'Failed to load report');
             } finally {
                 setLoading(false);
@@ -311,14 +316,29 @@ export function ReportViewer() {
     }
 
     if (error || !reportData) {
+        const reportExists = REPORTS_INDEX.some(report => report.id === id);
         return (
             <div className="min-h-screen bg-background flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                         <X className="w-8 h-8 text-red-500" />
                     </div>
-                    <h2 className="text-xl font-semibold text-foreground mb-2">Report Not Found</h2>
-                    <p className="text-slate-400 mb-6">{error || 'The requested report could not be loaded'}</p>
+                    <h2 className="text-xl font-semibold text-foreground mb-2">{reportExists ? 'Unable to Load Report' : 'Report Not Found'}</h2>
+                    <p className="text-slate-400 mb-6">
+                        {reportExists
+                            ? 'The report is available, but its data could not be loaded. Reload the page to try again.'
+                            : 'This report is not in the current report list.'}
+                    </p>
+                    {reportExists && (
+                        <button
+                            type="button"
+                            onClick={() => window.location.reload()}
+                            className="inline-flex items-center gap-2 px-4 py-2 mr-3 mb-3 bg-sky-500 hover:bg-sky-600 text-white rounded-lg transition-colors"
+                        >
+                            <RefreshCw className="w-4 h-4" />
+                            Reload Report
+                        </button>
+                    )}
                     <Link
                         to="/"
                         className="inline-flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg transition-colors"
@@ -350,7 +370,7 @@ export function ReportViewer() {
                                 </div>
                                 <div className="hidden sm:block">
                                     <h1 className="text-sm font-semibold text-foreground leading-tight">{reportData.meta.company}</h1>
-                                    <p className="text-xs text-muted-foreground">{reportData.meta.asof_date} · {reportData.meta.market} · {reportData.meta.sector}</p>
+                                    <p className="text-xs text-muted-foreground">Report date: {reportData.meta.asof_date} · {reportData.meta.market} · {reportData.meta.sector}</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
@@ -364,8 +384,8 @@ export function ReportViewer() {
                                     <span className="hidden sm:inline">Export Excel</span>
                                 </button>
                                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                    <span className="hidden sm:inline">Live Data</span>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-slate-400" aria-hidden="true" />
+                                    <span className="hidden sm:inline">Report snapshot</span>
                                 </div>
                             </div>
                         </div>
@@ -526,32 +546,30 @@ export function ReportViewer() {
                                 <EtfProductNav />
                             )}
 
-                            {activeTab === 'sentiment' && (
+                            {activeTab === 'sentiment' && reportData.news?.status === 'ready' && (
+                                <section id="sentiment">
+                                    <NewsEventStudy />
+                                </section>
+                            )}
+
+                            {activeTab === 'sentiment' && reportData.news?.status !== 'ready' && (
                                 <section id="sentiment">
                                     <div className="rounded-2xl border border-border/60 bg-card/80 p-8 lg:p-12 text-center">
                                         <div className="mx-auto w-16 h-16 rounded-2xl bg-sky-500/10 flex items-center justify-center mb-6">
                                             <Gauge className="w-8 h-8 text-sky-500" />
                                         </div>
-                                        <h2 className="text-2xl font-semibold text-foreground mb-3">Sentiment Analysis</h2>
+                                        <h2 className="text-2xl font-semibold text-foreground mb-3">News & events</h2>
                                         <p className="text-muted-foreground max-w-md mx-auto">
-                                            Market sentiment data and analysis will be displayed here.
+                                            {reportData.news?.reason
+                                                ? `News section unavailable for this report (${reportData.news.reason}).`
+                                                : 'Re-run this report to add the annual chart of publications (stars with level, market response and history).'}
                                         </p>
                                     </div>
                                 </section>
                             )}
 
                             {activeTab === 'narratives' && (
-                                <section id="narratives">
-                                    <div className="rounded-2xl border border-border/60 bg-card/80 p-8 lg:p-12 text-center">
-                                        <div className="mx-auto w-16 h-16 rounded-2xl bg-sky-500/10 flex items-center justify-center mb-6">
-                                            <BookOpen className="w-8 h-8 text-sky-500" />
-                                        </div>
-                                        <h2 className="text-2xl font-semibold text-foreground mb-3">Narratives</h2>
-                                        <p className="text-muted-foreground max-w-md mx-auto">
-                                            Key narratives and thematic analysis will be displayed here.
-                                        </p>
-                                    </div>
-                                </section>
+                                <NarrativesPanel report={reportData} />
                             )}
                         </motion.div>
                     </main>

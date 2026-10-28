@@ -10,7 +10,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "reports:metadata": "node scripts/generateReportMetadata.mjs",
+    "predev": "node scripts/generateReportMetadata.mjs",
+    "prebuild": "node scripts/generateReportMetadata.mjs",
+    "test:reports-index": "node tests/test_reports_index.cjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

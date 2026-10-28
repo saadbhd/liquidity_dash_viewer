@@ -154,10 +154,10 @@ export interface IndexTableRow {
 export interface PeersLiquidity {
   labels: string[];
   tickers?: string[];
-  scores: number[];
+  scores: Array<number | null>;
   is_target: boolean[];
-  adv: number[];
-  total: number;
+  adv: Array<number | null>;
+  total: number | null;
 }
 
 export interface ReturnData {
@@ -921,12 +921,12 @@ export type Q01PeriodKey = '1d' | '1w' | '2w' | '30d' | '3m' | '6m' | 'max' | st
 export interface Q01Liquidity {
   metric_aggregation: string;
   metric_window_days: number;
-  score_pca: number;
-  score_pca_percentile: number;
-  rank_pca: number;
-  total: number;
-  adv_notional_sgd: number;
-  adv_volume_shares: number;
+  score_pca: number | null;
+  score_pca_percentile: number | null;
+  rank_pca: number | null;
+  total: number | null;
+  adv_notional_sgd: number | null;
+  adv_volume_shares: number | null;
   free_float_shares: number | null;
   turnover_ratio: number | null;
   votes: number | null;
@@ -966,9 +966,9 @@ export interface Q01PeerLiquidityRow {
   ticker: string;
   company_name?: string;
   label?: string;
-  score_pca: number;
-  rank_pca: number;
-  adv: number;
+  score_pca: number | null;
+  rank_pca: number | null;
+  adv: number | null;
   trades: number | null;
   volatility: number | null;
   spread_pct: number | null;
@@ -1768,6 +1768,479 @@ export interface PeerMethodology {
   }[];
 }
 
+// ----------------------------------------------------------------------------
+// Reports-only source publications, factual summaries and observed market response.
+// Source categories and our topic/subject classifications are computed separately.
+// ----------------------------------------------------------------------------
+
+export interface NewsBar {
+  date: string;
+  open: number | null;
+  high: number | null;
+  low: number | null;
+  close: number;
+  volume: number;
+  /** Session stored without any trade: close carried forward from the previous session, volume 0. */
+  carried_forward?: boolean;
+}
+
+export interface NewsIndexPoint {
+  date: string;
+  close: number | null;
+}
+
+export interface NewsImpactSession {
+  date: string | null;
+  status?: string;
+  close?: number | null;
+  volume?: number | null;
+  return?: number | null;
+  index_return?: number | null;
+  excess_return?: number | null;
+  return_z?: number | null;
+  volume_ratio?: number | null;
+  gap_open?: number | null;
+  range?: number | null;
+  price_reaction?: 'none' | 'notable' | 'strong' | 'not_evaluable';
+  volume_reaction?: 'none' | 'notable' | 'strong' | 'not_evaluable';
+  carried_forward?: boolean;
+  /** news-daily-impact.v2: share of the issuer's own history at least as large (0.03 = top 3 %). */
+  abs_return_rank?: number | null;
+  volume_ratio_rank?: number | null;
+}
+
+export interface NewsPreAnnouncement {
+  sessions: string[];
+  cumulative_return: number | null;
+  cumulative_excess_return: number | null;
+  mean_volume_ratio: number | null;
+  cumulative_move_rank?: number | null;
+  mean_volume_ratio_rank?: number | null;
+  status?: 'evaluated' | 'not_evaluable';
+  base_rate_in_history?: number | null;
+  sessions_with_unusual_activity: string[];
+  unusual_activity: boolean;
+  /** news-daily-impact.v2: window in the issuer's top 10 % without reaching the alert threshold (unusual_activity implies notable). */
+  notable?: boolean;
+  wording: string;
+}
+
+export type NewsResponseHorizon = 'J0' | 'J+1' | 'J+3' | 'J+5';
+
+export interface NewsPostResponse {
+  status: 'complete' | 'partial' | 'unavailable';
+  reason?: string | null;
+  expected_sessions: number;
+  observed_sessions: number;
+  dates: string[];
+  start_date?: string | null;
+  end_date?: string | null;
+  cumulative_return: number | null;
+  cumulative_index_return?: number | null;
+  cumulative_excess_return: number | null;
+  mean_volume_ratio: number | null;
+  index_sessions?: number;
+  volume_ratio_sessions?: number;
+  carried_forward_sessions?: number;
+}
+
+export interface NewsClassification {
+  sgx_category?: string | null;
+  sgx_title?: string | null;
+  topic_id?: string | null;
+  topic_label?: string | null;
+  subject_id?: string | null;
+  subject_label?: string | null;
+  classification_method?: string | null;
+  subject_basis?: string[] | string | null;
+}
+
+export interface NewsMacroStats {
+  samples: number;
+  price_samples: number;
+  volume_samples: number;
+  median_abs_return: number | null;
+  median_signed_return: number | null;
+  max_abs_return: number | null;
+  median_volume_ratio: number | null;
+  /** Interquartile range (75th − 25th percentile); absent in older reports. */
+  return_iqr?: number | null;
+  volume_ratio_iqr?: number | null;
+  price_rank: number | null;
+  volume_rank: number | null;
+  rank_eligible: boolean;
+}
+
+export interface NewsMacroGroup {
+  key: string;
+  label: string;
+  document_ids: string[];
+  publication_count: number;
+  event_count: number;
+  distinct_sessions: number;
+  horizons: Record<NewsResponseHorizon, {
+    expected_sessions: number;
+    complete_windows: number;
+    partial_windows: number;
+    unavailable_windows: number;
+    overlap_windows: number;
+    all: NewsMacroStats;
+    clean: NewsMacroStats;
+  }>;
+}
+
+export interface NewsMacroComparison {
+  schema_version: string;
+  status: string;
+  window: { start: string; end: string };
+  horizons: NewsResponseHorizon[];
+  minimum_sessions: number;
+  groups: { official_categories: NewsMacroGroup[]; topics: NewsMacroGroup[]; subjects: NewsMacroGroup[] };
+  counts?: Record<string, number>;
+  policy?: Record<string, unknown>;
+  limitations?: string[];
+}
+
+export interface NewsEventImpact {
+  status: string;
+  session_j0: string | null;
+  timing?: string | null;
+  sessions: Record<string, NewsImpactSession>;
+  pre_announcement?: NewsPreAnnouncement | null;
+  post_announcement?: {
+    horizons: Record<NewsResponseHorizon, NewsPostResponse>;
+    return_basis?: string;
+    index_adjustment?: string;
+    volume_baseline?: string;
+  };
+}
+
+export interface NewsEventFact {
+  metric: string;
+  value: string | number;
+  unit?: string | null;
+  currency?: string | null;
+  /** news-analysis.v3: the day the fact refers to, as written in the publication. */
+  date?: string | null;
+}
+
+/** The issuer's own session on a day a reading cites (market_daily.session_metrics), computed by code. */
+export interface NewsDaySession {
+  status: 'evaluated' | 'not_a_session' | 'after_data' | 'invalid_day' | 'unavailable' | string;
+  day?: string | null;
+  session?: string | null;
+  close?: number | null;
+  return?: number | null;
+  excess_return?: number | null;
+  volume?: number | null;
+  volume_ratio?: number | null;
+  abs_return_rank?: number | null;
+  volume_ratio_rank?: number | null;
+  price_reaction?: string | null;
+  volume_reaction?: string | null;
+  reason?: string | null;
+}
+
+/** news-analysis.v3: the model's reading of whether the announcement could move the price (not a forecast). */
+export interface NewsPriceRelevance {
+  label: 'likely' | 'possible' | 'unlikely' | 'none';
+  horizon: 'same_session' | 'next_sessions' | 'longer_term' | 'none';
+  rationale: string;
+}
+
+export interface NewsInsiderTransaction {
+  person: string;
+  role?: string | null;
+  action: 'sale' | 'purchase' | 'award' | 'exercise' | 'transfer' | 'other';
+  transaction_date?: string | null;
+  shares?: string | null;
+  price_per_share?: string | null;
+  consideration?: string | null;
+  holding_before?: string | null;
+  holding_after?: string | null;
+  holding_before_percent?: string | null;
+  holding_after_percent?: string | null;
+  market?: NewsDaySession | null;
+}
+
+export interface NewsDatedFact {
+  text: string;
+  date: string;
+  kind: string;
+  figures?: Array<{ label: string; value: string; unit?: string | null; currency?: string | null }>;
+  market?: NewsDaySession | null;
+}
+
+export interface NewsRelativeSizeMeasure {
+  metric?: string;
+  kind: string;
+  ratio: string;
+  threshold?: string;
+  above_threshold: boolean;
+}
+
+export interface NewsHistoryComparison {
+  category: string;
+  other_events: number;
+  median_abs_j0_move: number | null;
+  median_j0_volume_ratio: number | null;
+  basis: string;
+}
+
+/** news-event-study.v1: one window of trading minutes around the publication (SGX continuous clock, lunch and night skipped). */
+export interface NewsEventStudyWindow {
+  status: 'complete' | 'partial' | 'unavailable';
+  reason?: string;
+  minutes?: number;
+  /** Actual observed minutes, distinct from the trading-clock extent. */
+  minutes_with_trades?: number;
+  minutes_with_book?: number;
+  sessions?: string[];
+  trades?: number;
+  volume?: number;
+  notional?: number;
+  vwap?: number | null;
+  signed_volume_imbalance?: number | null;
+  unknown_side_share?: number | null;
+  mid_return_bps?: number | null;
+  tw_spread_bps?: number | null;
+  mean_bid_depth?: number | null;
+  mean_ask_depth?: number | null;
+  bid_depth_change_shares?: number | null;
+  ask_depth_change_shares?: number | null;
+  /** Percent units: 100 means twice the pre-event mean, not a decimal ratio. */
+  bid_depth_change_pct?: number | null;
+  ask_depth_change_pct?: number | null;
+  book_coverage_seconds?: number;
+  book_coverage_pct?: number | null;
+  book_coverage_status?: string;
+  trade_data_status?: string;
+  book_data_status?: string;
+  requested_minutes?: number;
+  observed_session_minutes?: number;
+  missing_sessions?: string[];
+}
+
+export interface NewsEventStudyPoint {
+  session: string;
+  time: string;
+  offset: number;
+  trades: number | null;
+  volume: number | null;
+  buy: number | null;
+  sell: number | null;
+  vwap: number | null;
+  mid: number | null;
+  spread_bps: number | null;
+  bid_depth: number | null;
+  ask_depth: number | null;
+  data_available?: boolean;
+}
+
+/** Intraday study of a star from the trades and depth-100 rows already stored for its session (never fetched, never for the model). */
+export interface NewsEventStudyData {
+  version: string;
+  status: 'ready' | 'unavailable';
+  reason?: string;
+  session?: string;
+  errors?: string[];
+  mic?: string;
+  published_at?: string;
+  anchor?: { session: string; minute: string; timing: 'before_phase' | 'during_session' | 'after_close_next_session'; mid?: number | null; clock?: string };
+  depth_baseline?: {
+    window: string; eligible: boolean; status: string; requested_minutes: number;
+    minutes_with_book: number; coverage_seconds: number; coverage_pct: number | null;
+    mean_bid_depth: number | null; mean_ask_depth: number | null;
+    comparison_basis?: string; basis?: string; depth_unit?: string; percent_change_formula?: string;
+  };
+  windows?: Record<string, NewsEventStudyWindow>;
+  series?: NewsEventStudyPoint[];
+  coverage?: { sessions: string[]; trades_rows: number; book_states: number; trade_minutes: number; book_minutes: number };
+  parameters?: { depth_levels: number; windows_minutes: Record<string, number>; mid_return_basis?: string; book_state_policy?: string };
+  limitations?: string[];
+  not_for_model_context?: boolean;
+}
+
+export interface NewsSummaryProvenance {
+  summary_status?: string | null;
+  summary_available?: boolean;
+  summary_method?: string | null;
+  summary_origin?: string | null;
+  summary_created_at?: string | null;
+  summary_source_hash?: string | null;
+  source_hash?: string | null;
+  raw_record_sha256?: string | null;
+}
+
+export interface NewsChartEvent extends NewsSummaryProvenance, NewsClassification {
+  document_id: string;
+  published_at: string;
+  level?: 0 | 1 | 2 | 3;
+  label?: string | null;
+  color?: string | null;
+  direction?: 'positive' | 'negative' | 'mixed' | 'neutral' | 'indeterminate' | null;
+  star?: boolean;
+  category?: string;
+  subtype?: string | null;
+  short_title: string;
+  url?: string | null;
+  thread_id?: string | null;
+  thread_position?: number | null;
+  thread_size?: number | null;
+  status?: string | null;
+  reading_status?: 'validated' | 'unread';
+  level_basis?: string;
+  level_adjustments?: Array<{ input: string; delta: number; reason: string }>;
+  relative_size?: { status: string; measures: NewsRelativeSizeMeasure[] } | null;
+  /** news-analysis.v2 reading: the direction an existing shareholder reads from the nature of the event (never a forecast). */
+  implication?: { label: 'favourable' | 'unfavourable' | 'mixed' | 'administrative' | 'indeterminate'; basis: string[]; confidence?: 'low' | 'medium' | 'high' | null; rationale?: string | null } | null;
+  holding_change?: number | null;
+  /** news-analysis.v3 reading (news-annual-chart.v3): what the model wrote, and the cited days' own sessions by code. */
+  headline?: string | null;
+  category_label?: string | null;
+  price_relevance?: NewsPriceRelevance | null;
+  insider_transaction?: NewsInsiderTransaction | null;
+  dated_facts?: NewsDatedFact[];
+  summary?: string | null;
+  /** Complete archived reading for the expanded popup; summary remains the compact card text. */
+  full_summary?: string | null;
+  facts?: NewsEventFact[];
+  impact: NewsEventImpact;
+  history_comparison?: NewsHistoryComparison | null;
+  kind?: 'source_publication_event' | 'source_filing_series';
+  marker_filled?: boolean;
+  summary_from?: string | null;
+  /** news-annual-chart.v2: one marker per event. The publications merged into this event (same session, same category). */
+  publications?: NewsEventPublication[];
+  publication_count?: number;
+  /** Reading borrowed from a merged publication (its document_id) when the primary one was unread. */
+  reading_from?: string | null;
+  thread_role?: 'single' | 'origin' | 'follow_up';
+  thread_origin?: { document_id: string; short_title: string; session_j0: string | null; level?: number } | null;
+  thread_events?: NewsThreadFollowUp[];
+  history?: NewsSummaryHistoryEntry[];
+  /** news-report-section.v2: intraday event study when the session's rows are in the base. */
+  event_study?: NewsEventStudyData | null;
+  event_study_ref?: string | null;
+}
+
+export interface NewsEventPublication extends NewsSummaryProvenance, NewsClassification {
+  event_study?: NewsEventStudyData | null;
+  event_study_ref?: string | null;
+  impact?: NewsEventImpact | null;
+  summary?: string | null;
+  full_summary?: string | null;
+  document_id: string;
+  title?: string;
+  short_title: string;
+  category?: string;
+  routine?: boolean;
+  url?: string | null;
+  published_at: string;
+  level?: number;
+  label?: string | null;
+  reading_status?: 'validated' | 'unread';
+  thread_id?: string | null;
+  thread_position?: number | null;
+  thread_size?: number | null;
+  subtype?: string | null;
+  status?: string | null;
+  rule_id?: string | null;
+}
+
+/** Complete source-publication history supplied by the Reports news reader. */
+export interface NewsSummaryHistoryEntry extends NewsEventPublication {
+  event_study?: NewsEventStudyData | null;
+  event_study_ref?: string | null;
+  impact?: NewsEventImpact | null;
+}
+
+export interface NewsThreadFollowUp {
+  document_id: string;
+  short_title: string;
+  session_j0: string | null;
+  level?: number;
+  star?: boolean;
+  j0_return?: number | null;
+  j0_volume_ratio?: number | null;
+  summary?: string | null;
+  summary_method?: string | null;
+  url?: string | null;
+}
+
+export interface NewsAnnualChart {
+  schema_version: string;
+  status?: 'ready' | 'unavailable';
+  ticker: string;
+  mic: string;
+  entity_id?: string | null;
+  as_of: string;
+  window: { start: string; end: string; days: number };
+  index_ticker: string | null;
+  bars: NewsBar[];
+  session_calendar?: string[];
+  index: NewsIndexPoint[] | null;
+  events: NewsChartEvent[];
+  dots: NewsChartEvent[];
+  summary_history?: NewsSummaryHistoryEntry[];
+  macro_comparison?: NewsMacroComparison | null;
+  intraday_studies?: Record<string, NewsEventStudyData>;
+  category_history: Record<string, { events: number; median_abs_j0_move: number | null; median_j0_volume_ratio: number | null }>;
+  counts: {
+    bars: number; history_bars?: number; bars_carried_forward?: number; stars: number; dots: number; routine_in_window: number;
+    unread_events: number; events_with_response: number;
+    publications_starred?: number; publications_dotted?: number; merged_publications?: number; thread_follow_ups?: number;
+    /** Unique documents are separate from marker references (computed series may reuse individual filings). */
+    publications_unique_in_window?: number; publications_displayed_unique?: number; publications_not_displayed?: number;
+    publication_marker_references?: number; publication_marker_overlap?: number;
+    thread_follow_up_dots?: number; insider_bursts?: number; events_with_event_study?: number;
+    history_publications?: number; publications_with_summary?: number;
+  };
+  intraday_coverage?: { status: 'ready' | 'unavailable'; reason?: string; version?: string; requested: string[]; covered?: string[]; errors?: string[];
+    max_rows_per_session?: number; counts?: Record<string, Record<string, number>>; events_studied?: number } | null;
+  policy: Record<string, unknown>;
+  versions: Record<string, string>;
+  limitations: string[];
+}
+
+export type NewsReadingStatus = 'complete' | 'incomplete' | 'blocked' | 'disabled' | 'invalid' | 'not_requested';
+
+/** Coverage of the complete source publication window, including routine forms and merged event members. */
+export interface NewsReadingCoverage {
+  version?: string;
+  status?: NewsReadingStatus;
+  reason?: string | null;
+  total_publications?: number | null;
+  validated_publications?: number | null;
+  remaining_unread?: number | null;
+  coverage_unknown?: boolean;
+  reused?: number;
+  analysed?: number;
+  attempted?: number;
+  live_model_calls?: number;
+  provider_calls?: number;
+  max_calls?: number;
+  repair_calls?: number;
+  repaired?: number;
+  receipt_path?: string;
+  market_data_sent_to_model?: boolean;
+  errors?: Array<string | { reason?: string; document_id?: string; error_type?: string; remaining?: number; controls?: string[] }>;
+  failed_readings?: Array<{ document_id?: string; status?: string; validation_errors?: string[] }>;
+}
+
+export interface NewsBlock {
+  version: string;
+  /** Service presentation profile; absent on complete local reports. */
+  delivery?: { profile: string; publication_history_included: boolean };
+  reading_status?: NewsReadingStatus;
+  reading_coverage?: NewsReadingCoverage | null;
+  status: 'ready' | 'unavailable';
+  reason?: string | null;
+  annual_chart: NewsAnnualChart | null;
+  bars_source?: string;
+  summary?: { stars: number; dots: number; routine: number; unread: number; with_response: number; window: { start: string; end: string; days: number } };
+}
+
 export interface ReportData {
   report_kind?: 'equity' | 'etf';
   meta: Meta;
@@ -1786,4 +2259,5 @@ export interface ReportData {
   q01?: Q01;
   q02?: Q02;
   etf?: Record<string, unknown>;
+  news?: NewsBlock | null;
 }

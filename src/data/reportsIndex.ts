@@ -1,9 +1,6 @@
-// ============================================================================
-// Reports Index - Auto-discovery using Vite glob imports
-// Just add a new report file following the naming pattern and it appears!
-// ============================================================================
-
-import type { ReportData } from '@/types/report';
+// The catalog is small; each report payload is imported only when its route opens.
+import type { PeerMethodology, ReportData } from '@/types/report';
+import reportMetadata from './reportsMetadata.json';
 
 export interface ReportMeta {
     id: string;
@@ -15,64 +12,54 @@ export interface ReportMeta {
     market_cap_category: string;
 }
 
-// Auto-discover all report modules using Vite's glob import
-// Files must match pattern: {market}_{ticker}_{date}.ts (e.g., xhkg_1828_2026-01-20.ts)
-const reportModules = import.meta.glob<{
-    REPORT_DATA: ReportData;
-    PEER_METHODOLOGY?: any;
-}>('./*_*_*.ts', { eager: true });
-
-// Build the reports index automatically from discovered files
-function buildReportsIndex(): ReportMeta[] {
-    const reports: ReportMeta[] = [];
-
-    for (const path of Object.keys(reportModules)) {
-        // Skip this file and non-report files
-        if (path.includes('reportsIndex') || path.includes('glossary')) continue;
-
-        const module = reportModules[path];
-        if (!module?.REPORT_DATA?.meta) continue;
-
-        const meta = module.REPORT_DATA.meta;
-
-        // Convert filename to URL slug format
-        // e.g., ./xhkg_1828_2026-01-20.ts -> xhkg-1828_2026-01-20
-        const filename = path.replace('./', '').replace('.ts', '');
-        const id = filename.replace(/_/, '-'); // First underscore becomes dash
-
-        reports.push({
-            id,
-            market: meta.market,
-            ticker: meta.ticker,
-            company: meta.company,
-            asof_date: meta.asof_date,
-            sector: meta.sector || meta.industry,
-            market_cap_category: meta.market_cap_category,
-        });
-    }
-
-    // Sort by date (newest first)
-    reports.sort((a, b) => b.asof_date.localeCompare(a.asof_date));
-
-    return reports;
+interface ReportModule {
+    REPORT_DATA?: ReportData;
+    default?: ReportData;
+    PEER_METHODOLOGY?: PeerMethodology;
 }
 
-export const REPORTS_INDEX: ReportMeta[] = buildReportsIndex();
+const reportModules = import.meta.glob<ReportModule>('./*_*_*.ts');
+const metadata: Record<string, Partial<ReportMeta>> = reportMetadata;
+const catalogPaths = new Map<string, string>();
 
-// Dynamic loader that matches the auto-discovered files
-export async function loadReportData(id: string) {
-    // Convert URL slug back to filename format
-    // e.g., xhkg-1828_2026-01-20 -> xhkg_1828_2026-01-20
-    const filename = id.replace(/-/, '_');
-    const path = `./${filename}.ts`;
-
-    const module = reportModules[path];
-    if (!module) {
-        throw new Error(`Report not found: ${id}`);
-    }
-
+function describeReport(path: string): ReportMeta | null {
+    const match = /^\.\/([a-z0-9]{4})_(.+)_(\d{4}-\d{2}-\d{2})(?:_([a-z0-9][a-z0-9._-]*))?\.ts$/i.exec(path);
+    if (!match) return null;
+    const [, market, ticker, date] = match;
+    // Preserve the full filename, including variants such as _v2.
+    const id = path.slice(2, -3).replace('_', '-');
+    const saved = metadata[path];
+    catalogPaths.set(id, path);
     return {
-        reportData: module.REPORT_DATA,
+        id,
+        market: saved?.market || market.toUpperCase(),
+        ticker: saved?.ticker || ticker.toUpperCase(),
+        company: saved?.company || ticker.toUpperCase(),
+        asof_date: saved?.asof_date || date,
+        sector: saved?.sector || '—',
+        market_cap_category: saved?.market_cap_category || '—',
+    };
+}
+
+// The glob, rather than a stale metadata file, decides which reports exist.
+// A newly added report remains accessible before the next metadata refresh.
+export const REPORTS_INDEX: ReportMeta[] = Object.keys(reportModules)
+    .map(describeReport)
+    .filter((report): report is ReportMeta => report !== null)
+    .sort((a, b) => b.asof_date.localeCompare(a.asof_date) || a.id.localeCompare(b.id));
+
+export async function loadReportData(id: string) {
+    const path = catalogPaths.get(id);
+    const load = path ? reportModules[path] : undefined;
+    if (!load) throw new Error(`Report not found: ${id}`);
+
+    const module = await load();
+    const reportData = module.REPORT_DATA ?? module.default;
+    if (!reportData?.meta || !reportData.series) {
+        throw new Error(`Invalid report data: ${id}`);
+    }
+    return {
+        reportData,
         peerMethodology: module.PEER_METHODOLOGY,
     };
 }

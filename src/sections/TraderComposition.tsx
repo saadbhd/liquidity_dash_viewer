@@ -202,6 +202,7 @@ export function TraderComposition({ selectedPeriod: controlledSelectedPeriod, on
   }, [primaryPeriod, periodKeys, selectedPeriod, setSelectedPeriod]);
 
   const activeSnapshot = (selectedPeriod && periodSnapshots[selectedPeriod]) || traderComposition || {};
+  const usesCompactBuckets = activeSnapshot?.method?.key === 'compact_bucket_size';
 
   const hasVolume = React.useMemo(() => {
     const snaps = [activeSnapshot, ...Object.values(periodSnapshots)];
@@ -363,7 +364,9 @@ export function TraderComposition({ selectedPeriod: controlledSelectedPeriod, on
             </div>
             <div className="text-2xl font-semibold text-foreground">{fmtCount(activeSnapshot?.n_trades)} trades</div>
             <p className="mt-2 text-sm text-muted-foreground">
-              {fmtCount(activeSnapshot?.n_runs)} grouped trades across {fmtCount(activeSnapshot?.n_trade_days)} trading day{Number(activeSnapshot?.n_trade_days || 0) === 1 ? '' : 's'}
+              {usesCompactBuckets
+                ? `${fmtCount(activeSnapshot?.n_trade_days)} trading day${Number(activeSnapshot?.n_trade_days || 0) === 1 ? '' : 's'} • trade-run reconstruction unavailable from compact buckets`
+                : `${fmtCount(activeSnapshot?.n_runs)} grouped trades across ${fmtCount(activeSnapshot?.n_trade_days)} trading day${Number(activeSnapshot?.n_trade_days || 0) === 1 ? '' : 's'}`}
             </p>
           </div>
           <div className="rounded-xl border border-border/60 bg-card/40 p-4">

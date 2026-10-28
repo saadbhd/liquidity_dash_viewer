@@ -4,6 +4,7 @@
 
 import { createContext, useContext, type ReactNode } from 'react';
 import type { ReportData } from '@/types/report';
+import { decodeNewsTransport } from '@/lib/newsTransport';
 
 const ReportContext = createContext<ReportData | null>(null);
 
@@ -110,7 +111,7 @@ interface ReportProviderProps {
 }
 
 export function ReportProvider({ report, children }: ReportProviderProps) {
-    const safeReport = ensureReportShape(normalizeReportForRender(report));
+    const safeReport = ensureReportShape(normalizeReportForRender(decodeNewsTransport(report)));
 
     return (
         <ReportContext.Provider value={safeReport}>

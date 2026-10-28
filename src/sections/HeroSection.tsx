@@ -73,7 +73,12 @@ export function HeroSection() {
   const liquidityMetric =
     metrics.find((m) => displayTitleForMetric(m.title) === liquidityScoreLabel) ?? metrics[0] ?? null;
   const rankMatch = liquidityMetric?.subtext?.match(/Rank\s+(\d+)\s*\/\s*(\d+)/i);
-  const universeRank = rankMatch ? `#${rankMatch[1]}/${rankMatch[2]}` : `—/${meta.universe_total}`;
+  const universeTotal = Number(meta.universe_total);
+  const universeRank = rankMatch
+    ? `#${rankMatch[1]}/${rankMatch[2]}`
+    : Number.isFinite(universeTotal) && universeTotal > 0
+      ? `—/${universeTotal}`
+      : 'N/A';
 
   const dailyTradesTile = liqTiles.find((t) => t.title.toLowerCase().includes('daily trades'));
   const dailyTrades =
